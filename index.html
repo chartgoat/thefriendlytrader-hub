@@ -1,0 +1,254 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+    <meta name="color-scheme" content="dark" />
+    <meta name="theme-color" content="#0a0a0a" />
+    <title>The Friendly Trader</title>
+    <meta name="description" content="A hub for The Friendly Trader's market tools: SWJ Intelligence, Friendly Screener, SituTrader, and Goat Scalper." />
+    <link rel="icon" type="image/jpeg" href="/SWJ_Favicon.jpg" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;600;700&display=swap" rel="stylesheet" />
+    <style>
+      :root {
+        --bg: #0a0a0a;
+        --bg-card: rgba(255, 255, 255, 0.025);
+        --bg-card-hover: rgba(255, 255, 255, 0.05);
+        --border: rgba(255, 255, 255, 0.08);
+        --border-hover: rgba(212, 175, 55, 0.4);
+        --text: rgba(255, 255, 255, 0.94);
+        --text-muted: rgba(255, 255, 255, 0.55);
+        --text-faint: rgba(255, 255, 255, 0.35);
+        --gold: #d4af37;
+        --gold-bright: #f0c651;
+        --accent-blue: #5b8def;
+      }
+
+      * { box-sizing: border-box; }
+      html, body { margin: 0; padding: 0; }
+
+      body {
+        background: var(--bg);
+        color: var(--text);
+        font-family: "JetBrains Mono", ui-monospace, SFMono-Regular, Menlo, monospace;
+        font-size: 15px;
+        line-height: 1.55;
+        min-height: 100vh;
+        -webkit-font-smoothing: antialiased;
+        -moz-osx-font-smoothing: grayscale;
+        background-image:
+          radial-gradient(800px 400px at 20% -10%, rgba(212, 175, 55, 0.06), transparent 60%),
+          radial-gradient(700px 350px at 100% 110%, rgba(91, 141, 239, 0.05), transparent 60%);
+      }
+
+      .wrap {
+        max-width: 1080px;
+        margin: 0 auto;
+        padding: 56px 24px 80px;
+      }
+
+      header {
+        text-align: center;
+        margin-bottom: 56px;
+      }
+
+      .logo {
+        width: 64px;
+        height: 64px;
+        border-radius: 12px;
+        margin: 0 auto 20px;
+        display: block;
+        box-shadow: 0 8px 32px rgba(212, 175, 55, 0.2);
+      }
+
+      .brand {
+        font-size: 13px;
+        letter-spacing: 0.18em;
+        text-transform: uppercase;
+        color: var(--gold);
+        margin: 0 0 12px;
+        font-weight: 600;
+      }
+
+      h1 {
+        font-size: clamp(28px, 5vw, 40px);
+        font-weight: 600;
+        margin: 0 0 14px;
+        letter-spacing: -0.01em;
+        line-height: 1.15;
+      }
+
+      .tagline {
+        color: var(--text-muted);
+        font-size: 14px;
+        margin: 0;
+        max-width: 540px;
+        margin-left: auto;
+        margin-right: auto;
+      }
+
+      .grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+        gap: 16px;
+      }
+
+      .card {
+        background: var(--bg-card);
+        border: 1px solid var(--border);
+        border-radius: 12px;
+        padding: 24px;
+        display: flex;
+        flex-direction: column;
+        gap: 14px;
+        text-decoration: none;
+        color: inherit;
+        transition: background 180ms ease, border-color 180ms ease, transform 180ms ease;
+        position: relative;
+        overflow: hidden;
+      }
+
+      .card::after {
+        content: "";
+        position: absolute;
+        top: 0;
+        right: 0;
+        width: 80px;
+        height: 80px;
+        background: radial-gradient(circle at top right, rgba(212, 175, 55, 0.08), transparent 70%);
+        opacity: 0;
+        transition: opacity 180ms ease;
+      }
+
+      .card:hover {
+        background: var(--bg-card-hover);
+        border-color: var(--border-hover);
+        transform: translateY(-2px);
+      }
+
+      .card:hover::after { opacity: 1; }
+
+      .card:focus-visible {
+        outline: 2px solid var(--gold);
+        outline-offset: 2px;
+      }
+
+      .card-header {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        gap: 12px;
+      }
+
+      .card-title {
+        font-size: 17px;
+        font-weight: 600;
+        margin: 0;
+        color: var(--text);
+        letter-spacing: -0.005em;
+      }
+
+      .arrow {
+        width: 18px;
+        height: 18px;
+        flex-shrink: 0;
+        color: var(--text-faint);
+        transition: color 180ms ease, transform 180ms ease;
+      }
+
+      .card:hover .arrow {
+        color: var(--gold-bright);
+        transform: translate(2px, -2px);
+      }
+
+      .card-desc {
+        color: var(--text-muted);
+        font-size: 13.5px;
+        margin: 0;
+        line-height: 1.55;
+      }
+
+      .card-host {
+        font-size: 11px;
+        color: var(--text-faint);
+        letter-spacing: 0.04em;
+        margin-top: 4px;
+        text-transform: lowercase;
+      }
+
+      footer {
+        margin-top: 64px;
+        text-align: center;
+        color: var(--text-faint);
+        font-size: 11.5px;
+        letter-spacing: 0.04em;
+      }
+
+      footer .dot {
+        display: inline-block;
+        margin: 0 8px;
+        opacity: 0.6;
+      }
+
+      @media (max-width: 520px) {
+        .wrap { padding: 40px 18px 60px; }
+        header { margin-bottom: 40px; }
+        .card { padding: 20px; }
+      }
+    </style>
+  </head>
+  <body>
+    <div class="wrap">
+      <header>
+        <img src="/SWJ_Favicon.jpg" alt="The Friendly Trader" class="logo" />
+        <p class="brand">The Friendly Trader</p>
+        <h1>Your trading toolkit.</h1>
+        <p class="tagline">Four tools, one home. Pick where you want to start.</p>
+      </header>
+
+      <main class="grid">
+        <a class="card" href="https://friendly-trader.com" rel="noopener">
+          <div class="card-header">
+            <h2 class="card-title">SWJ Intelligence</h2>
+            <svg class="arrow" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M7 17 17 7" /><path d="M7 7h10v10" /></svg>
+          </div>
+          <p class="card-desc">Market breadth, internals, and the Fear &amp; Greed gauge in one dashboard.</p>
+          <p class="card-host">friendly-trader.com</p>
+        </a>
+
+        <a class="card" href="https://friendlyscreener.com" rel="noopener">
+          <div class="card-header">
+            <h2 class="card-title">Friendly Screener</h2>
+            <svg class="arrow" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M7 17 17 7" /><path d="M7 7h10v10" /></svg>
+          </div>
+          <p class="card-desc">Daily stock screening built around the SWJ playbook.</p>
+          <p class="card-host">friendlyscreener.com</p>
+        </a>
+
+        <a class="card" href="https://situtrader-production.up.railway.app/best-setup-sectors" rel="noopener">
+          <div class="card-header">
+            <h2 class="card-title">SituTrader</h2>
+            <svg class="arrow" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M7 17 17 7" /><path d="M7 7h10v10" /></svg>
+          </div>
+          <p class="card-desc">Best-setup sectors, ranked. See where the strength is right now.</p>
+          <p class="card-host">situtrader.up.railway.app</p>
+        </a>
+
+        <a class="card" href="https://goatdiscordscalper-production.up.railway.app/" rel="noopener">
+          <div class="card-header">
+            <h2 class="card-title">Goat Scalper</h2>
+            <svg class="arrow" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M7 17 17 7" /><path d="M7 7h10v10" /></svg>
+          </div>
+          <p class="card-desc">Discord-powered scalping signals and trade tracking.</p>
+          <p class="card-host">goatdiscordscalper.up.railway.app</p>
+        </a>
+      </main>
+
+      <footer>
+        Stocks With Josh<span class="dot">&middot;</span>The Friendly Trader<span class="dot">&middot;</span>2026
+      </footer>
+    </div>
+  </body>
+</html>
