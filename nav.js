@@ -1,0 +1,170 @@
+// The Friendly Trader — cross-app navigator
+// Drop into any app with: <script defer src="https://thefriendlytrader.com/nav.js"></script>
+// Renders a floating chip top-right that expands into a 4-app switcher.
+// Self-contained, shadow DOM isolated, no dependencies.
+
+(function () {
+  if (window.__friendlyTraderNavLoaded) return;
+  window.__friendlyTraderNavLoaded = true;
+
+  var TOOLS = [
+    {
+      key: "swj-intelligence",
+      name: "SWJ Intelligence",
+      desc: "Breadth, internals, Fear & Greed",
+      url: "https://friendly-trader.com",
+      match: ["friendly-trader.com"],
+    },
+    {
+      key: "friendly-screener",
+      name: "Friendly Screener",
+      desc: "Daily stock screening",
+      url: "https://friendlyscreener.com",
+      match: ["friendlyscreener.com"],
+    },
+    {
+      key: "situtrader",
+      name: "SituTrader",
+      desc: "Best-setup sectors",
+      url: "https://situtrader-production.up.railway.app/best-setup-sectors",
+      match: ["situtrader-production.up.railway.app", "situtrader.up.railway.app"],
+    },
+    {
+      key: "goat-scalper",
+      name: "Goat Scalper",
+      desc: "Discord scalping signals",
+      url: "https://goatdiscordscalper-production.up.railway.app/",
+      match: ["goatdiscordscalper-production.up.railway.app", "goatdiscordscalper.up.railway.app"],
+    },
+  ];
+
+  var HUB_URL = "https://thefriendlytrader.com/";
+  var HOST = (location && location.host) || "";
+
+  function currentTool() {
+    for (var i = 0; i < TOOLS.length; i++) {
+      for (var j = 0; j < TOOLS[i].match.length; j++) {
+        if (HOST.indexOf(TOOLS[i].match[j]) !== -1) return TOOLS[i].key;
+      }
+    }
+    return null;
+  }
+
+  function mount() {
+    if (window.self !== window.top) return; // hide inside iframes (e.g., Replit Preview)
+
+    var host = document.createElement("div");
+    host.setAttribute("data-ft-nav", "");
+    host.style.cssText =
+      "position:fixed;top:16px;right:16px;z-index:2147483647;font-family:ui-monospace,SFMono-Regular,Menlo,monospace;";
+    var root = host.attachShadow ? host.attachShadow({ mode: "open" }) : host;
+
+    var style = document.createElement("style");
+    style.textContent =
+      ":host,*{box-sizing:border-box}" +
+      ".chip{display:inline-flex;align-items:center;gap:8px;padding:8px 12px;background:rgba(10,10,10,0.92);color:#f0c651;border:1px solid rgba(212,175,55,0.35);border-radius:999px;font-size:12px;font-weight:600;letter-spacing:0.04em;cursor:pointer;backdrop-filter:blur(8px);-webkit-backdrop-filter:blur(8px);box-shadow:0 4px 16px rgba(0,0,0,0.4);user-select:none;transition:border-color 180ms ease,background 180ms ease}" +
+      ".chip:hover{background:rgba(20,20,20,0.95);border-color:rgba(212,175,55,0.6)}" +
+      ".chip svg{width:12px;height:12px}" +
+      ".panel{position:absolute;top:44px;right:0;min-width:280px;background:rgba(10,10,10,0.96);border:1px solid rgba(255,255,255,0.08);border-radius:12px;padding:8px;box-shadow:0 8px 32px rgba(0,0,0,0.5);backdrop-filter:blur(12px);-webkit-backdrop-filter:blur(12px);opacity:0;transform:translateY(-4px);pointer-events:none;transition:opacity 160ms ease,transform 160ms ease}" +
+      ".panel.open{opacity:1;transform:translateY(0);pointer-events:auto}" +
+      ".panel-head{padding:8px 10px 10px;border-bottom:1px solid rgba(255,255,255,0.06);margin-bottom:6px}" +
+      ".panel-title{font-size:10px;font-weight:600;letter-spacing:0.18em;text-transform:uppercase;color:#d4af37;margin:0 0 2px}" +
+      ".panel-sub{font-size:11px;color:rgba(255,255,255,0.5);margin:0}" +
+      ".item{display:flex;flex-direction:column;gap:2px;padding:10px;border-radius:8px;text-decoration:none;color:rgba(255,255,255,0.94);font-size:12px;transition:background 140ms ease}" +
+      ".item:hover{background:rgba(255,255,255,0.05)}" +
+      ".item.current{background:rgba(212,175,55,0.10)}" +
+      ".item-name{font-size:13px;font-weight:600;display:flex;align-items:center;gap:6px}" +
+      ".item-desc{font-size:11px;color:rgba(255,255,255,0.5)}" +
+      ".item .dot{display:inline-block;width:6px;height:6px;border-radius:50%;background:#d4af37}" +
+      ".item.current .item-name::after{content:'current';margin-left:auto;font-size:9px;letter-spacing:0.1em;text-transform:uppercase;color:rgba(212,175,55,0.7);font-weight:500}" +
+      ".item-name{display:flex;justify-content:space-between;align-items:center}" +
+      ".divider{height:1px;background:rgba(255,255,255,0.06);margin:6px 4px}" +
+      ".home{display:flex;align-items:center;gap:8px;padding:10px;border-radius:8px;text-decoration:none;color:#f0c651;font-size:12px;font-weight:600;letter-spacing:0.04em;transition:background 140ms ease}" +
+      ".home:hover{background:rgba(212,175,55,0.10)}" +
+      ".home svg{width:13px;height:13px}" +
+      "@media (max-width:480px){.panel{min-width:260px;right:-8px}}";
+    root.appendChild(style);
+
+    var chip = document.createElement("button");
+    chip.className = "chip";
+    chip.setAttribute("aria-haspopup", "true");
+    chip.setAttribute("aria-expanded", "false");
+    chip.type = "button";
+    chip.innerHTML =
+      '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><path d="M12 8v8M8 12h8"/></svg>' +
+      "<span>The Friendly Trader</span>";
+    root.appendChild(chip);
+
+    var panel = document.createElement("div");
+    panel.className = "panel";
+    panel.setAttribute("role", "menu");
+
+    var head = document.createElement("div");
+    head.className = "panel-head";
+    head.innerHTML =
+      '<p class="panel-title">The Friendly Trader</p>' +
+      '<p class="panel-sub">Jump between your tools.</p>';
+    panel.appendChild(head);
+
+    var here = currentTool();
+    TOOLS.forEach(function (t) {
+      var a = document.createElement("a");
+      a.className = "item" + (t.key === here ? " current" : "");
+      a.href = t.url;
+      a.setAttribute("role", "menuitem");
+      a.innerHTML =
+        '<span class="item-name"><span><span class="dot"></span> ' +
+        t.name +
+        "</span></span>" +
+        '<span class="item-desc">' +
+        t.desc +
+        "</span>";
+      panel.appendChild(a);
+    });
+
+    var div = document.createElement("div");
+    div.className = "divider";
+    panel.appendChild(div);
+
+    var home = document.createElement("a");
+    home.className = "home";
+    home.href = HUB_URL;
+    home.innerHTML =
+      '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="m3 12 9-9 9 9"/><path d="M5 10v10h14V10"/></svg>' +
+      "<span>Hub Home</span>";
+    panel.appendChild(home);
+
+    root.appendChild(panel);
+
+    function setOpen(open) {
+      if (open) {
+        panel.classList.add("open");
+        chip.setAttribute("aria-expanded", "true");
+      } else {
+        panel.classList.remove("open");
+        chip.setAttribute("aria-expanded", "false");
+      }
+    }
+
+    chip.addEventListener("click", function (e) {
+      e.stopPropagation();
+      setOpen(!panel.classList.contains("open"));
+    });
+
+    document.addEventListener("click", function (e) {
+      if (!host.contains(e.target)) setOpen(false);
+    });
+
+    document.addEventListener("keydown", function (e) {
+      if (e.key === "Escape") setOpen(false);
+    });
+
+    document.documentElement.appendChild(host);
+  }
+
+  if (document.readyState === "loading") {
+    document.addEventListener("DOMContentLoaded", mount);
+  } else {
+    mount();
+  }
+})();
