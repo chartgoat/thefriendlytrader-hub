@@ -12,3 +12,4 @@ Deployed via GitHub Pages at https://thefriendlytrader.com.
 ## Editing
 
 Edit `index.html` and push to `main` — GitHub Pages redeploys automatically.
+
