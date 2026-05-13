@@ -41,6 +41,13 @@
   var HUB_URL = "https://thefriendlytrader.com/";
   var HOST = (location && location.host) || "";
 
+  // Only these emails (case-insensitive) see the chip.
+  // Non-admin Whop members on the screener / SWJ Intelligence get nothing.
+  var ALLOWED_EMAILS = [
+    "stockcryptobots@gmail.com",
+    "clancywbond@gmail.com",
+  ];
+
   function currentTool() {
     for (var i = 0; i < TOOLS.length; i++) {
       for (var j = 0; j < TOOLS[i].match.length; j++) {
@@ -50,8 +57,38 @@
     return null;
   }
 
-  function mount() {
+  // Returns true if the current viewer is one of the admin emails.
+  // Strategy:
+  //  1. Admin-override flag set by the Chrome extension (window or localStorage) — fast-path for apps without auth.
+  //  2. /api/me on the current origin — works for SWJ Intelligence and Friendly Screener (Whop OAuth backends).
+  //  3. Otherwise fail-closed: no chip.
+  async function isAdmin() {
+    // 1. Browser-extension override
+    try {
+      if (window.__friendlyTraderAdmin === true) return true;
+      if (typeof localStorage !== "undefined" && localStorage.getItem("ft-admin") === "1") return true;
+    } catch (e) {}
+
+    // 2. /api/me on same origin
+    try {
+      var res = await fetch("/api/me", { credentials: "include", cache: "no-store" });
+      if (!res.ok) return false;
+      var me = await res.json();
+      var email = (me && (me.email || (me.user && me.user.email))) || null;
+      if (!email) return false;
+      email = String(email).toLowerCase().trim();
+      return ALLOWED_EMAILS.indexOf(email) !== -1;
+    } catch (e) {
+      return false;
+    }
+  }
+
+  async function mount() {
     if (window.self !== window.top) return; // hide inside iframes (e.g., Replit Preview)
+
+    // Email gate — only the 2 admin emails see the chip
+    var allowed = await isAdmin();
+    if (!allowed) return;
 
     var host = document.createElement("div");
     host.setAttribute("data-ft-nav", "");
