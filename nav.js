@@ -19,8 +19,8 @@
       key: "friendly-screener",
       name: "Friendly Screener",
       desc: "Daily stock screening",
-      url: "https://friendlyscreener.com",
-      match: ["friendlyscreener.com"],
+      url: "https://stock-screener-elite.replit.app",
+      match: ["friendlyscreener.com", "stock-screener-elite.replit.app"],
     },
     {
       key: "situtrader",
