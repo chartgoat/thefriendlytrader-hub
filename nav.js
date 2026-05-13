@@ -57,19 +57,31 @@
     return null;
   }
 
-  // Returns true if the current viewer is one of the admin emails.
+  // Returns true if the current viewer is an admin.
   // The ONLY trusted source is /api/me on the current origin (server-validated session
-  // from the Whop OAuth backend). No localStorage / window-flag bypass — that would let
-  // any visitor toggle the chip from the dev console.
+  // from the Whop OAuth backend). Two accepted shapes:
+  //   1. SWJ Intelligence-style: { email: "..." } or { user: { email: "..." } } — match against ALLOWED_EMAILS.
+  //   2. Friendly Screener-style: { loggedIn: true, role: "admin", ... } — match by role.
+  // No localStorage / window-flag bypass — that would let any visitor toggle the chip from the console.
   async function isAdmin() {
     try {
       var res = await fetch("/api/me", { credentials: "include", cache: "no-store" });
       if (!res.ok) return false;
       var me = await res.json();
-      var email = (me && (me.email || (me.user && me.user.email))) || null;
-      if (!email) return false;
-      email = String(email).toLowerCase().trim();
-      return ALLOWED_EMAILS.indexOf(email) !== -1;
+      if (!me || me.loggedIn === false) return false;
+
+      // Shape 1: email allowlist
+      var email = (me.email || (me.user && me.user.email)) || null;
+      if (email) {
+        email = String(email).toLowerCase().trim();
+        if (ALLOWED_EMAILS.indexOf(email) !== -1) return true;
+      }
+
+      // Shape 2: role-based (Screener returns role: "admin" for super admins)
+      var role = (me.role || (me.user && me.user.role)) || null;
+      if (role && String(role).toLowerCase() === "admin") return true;
+
+      return false;
     } catch (e) {
       return false;
     }
