@@ -48,6 +48,24 @@
     "clancywbond@gmail.com",
   ];
 
+  // Hosts where the chip renders unconditionally (no /api/me gate).
+  // These apps are internal-only — they have no auth and no public Whop members,
+  // so server-side gating would just hide the chip forever. Per product decision,
+  // they're allowed to show the cross-app navigator without a credential check.
+  var UNGATED_HOSTS = [
+    "situtrader-production.up.railway.app",
+    "situtrader.up.railway.app",
+    "goatdiscordscalper-production.up.railway.app",
+    "goatdiscordscalper.up.railway.app",
+  ];
+
+  function isUngatedHost() {
+    for (var i = 0; i < UNGATED_HOSTS.length; i++) {
+      if (HOST.indexOf(UNGATED_HOSTS[i]) !== -1) return true;
+    }
+    return false;
+  }
+
   function currentTool() {
     for (var i = 0; i < TOOLS.length; i++) {
       for (var j = 0; j < TOOLS[i].match.length; j++) {
@@ -58,12 +76,15 @@
   }
 
   // Returns true if the current viewer is an admin.
-  // The ONLY trusted source is /api/me on the current origin (server-validated session
-  // from the Whop OAuth backend). Two accepted shapes:
+  // For UNGATED_HOSTS (Railway apps, no auth available), always true.
+  // Otherwise the ONLY trusted source is /api/me on the current origin (server-validated
+  // session from the Whop OAuth backend). Two accepted shapes:
   //   1. SWJ Intelligence-style: { email: "..." } or { user: { email: "..." } } — match against ALLOWED_EMAILS.
   //   2. Friendly Screener-style: { loggedIn: true, role: "admin", ... } — match by role.
   // No localStorage / window-flag bypass — that would let any visitor toggle the chip from the console.
   async function isAdmin() {
+    if (isUngatedHost()) return true;
+
     try {
       var res = await fetch("/api/me", { credentials: "include", cache: "no-store" });
       if (!res.ok) return false;
