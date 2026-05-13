@@ -58,18 +58,10 @@
   }
 
   // Returns true if the current viewer is one of the admin emails.
-  // Strategy:
-  //  1. Admin-override flag set by the Chrome extension (window or localStorage) — fast-path for apps without auth.
-  //  2. /api/me on the current origin — works for SWJ Intelligence and Friendly Screener (Whop OAuth backends).
-  //  3. Otherwise fail-closed: no chip.
+  // The ONLY trusted source is /api/me on the current origin (server-validated session
+  // from the Whop OAuth backend). No localStorage / window-flag bypass — that would let
+  // any visitor toggle the chip from the dev console.
   async function isAdmin() {
-    // 1. Browser-extension override
-    try {
-      if (window.__friendlyTraderAdmin === true) return true;
-      if (typeof localStorage !== "undefined" && localStorage.getItem("ft-admin") === "1") return true;
-    } catch (e) {}
-
-    // 2. /api/me on same origin
     try {
       var res = await fetch("/api/me", { credentials: "include", cache: "no-store" });
       if (!res.ok) return false;
