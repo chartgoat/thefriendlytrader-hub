@@ -5,25 +5,36 @@
     <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
     <meta name="color-scheme" content="dark" />
     <meta name="theme-color" content="#0a0a0a" />
-    <title>The Friendly Trader</title>
-    <meta name="description" content="A hub for The Friendly Trader's market tools: SWJ Intelligence, Friendly Screener, SituTrader, and Goat Scalper." />
+    <title>Friendly Trader — Tools for traders who want clarity over noise</title>
+    <meta name="description" content="Friendly Trader is a growing suite of professional trading tools — screening, market intelligence, BTC signals, and options analysis — built for traders who prefer clarity over noise." />
+    <meta property="og:title" content="Friendly Trader — Trading tools, made friendly" />
+    <meta property="og:description" content="A growing suite of professional trading tools — screening, market intelligence, BTC signals, and options analysis." />
+    <meta property="og:type" content="website" />
+    <meta property="og:url" content="https://thefriendlytrader.com/" />
+    <meta property="og:image" content="https://thefriendlytrader.com/SWJ_Favicon.jpg" />
+    <meta name="twitter:card" content="summary" />
     <link rel="icon" type="image/jpeg" href="/SWJ_Favicon.jpg" />
+    <link rel="apple-touch-icon" href="/SWJ_Favicon.jpg" />
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-    <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;600;700&display=swap" rel="stylesheet" />
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@500;600&display=swap" rel="stylesheet" />
     <style>
       :root {
-        --bg: #0a0a0a;
+        --bg: #08080a;
+        --bg-2: #0d0d10;
         --bg-card: rgba(255, 255, 255, 0.025);
         --bg-card-hover: rgba(255, 255, 255, 0.05);
         --border: rgba(255, 255, 255, 0.08);
-        --border-hover: rgba(212, 175, 55, 0.4);
-        --text: rgba(255, 255, 255, 0.94);
-        --text-muted: rgba(255, 255, 255, 0.55);
-        --text-faint: rgba(255, 255, 255, 0.35);
+        --border-strong: rgba(255, 255, 255, 0.14);
+        --border-gold: rgba(212, 175, 55, 0.4);
+        --text: rgba(255, 255, 255, 0.95);
+        --text-muted: rgba(255, 255, 255, 0.58);
+        --text-faint: rgba(255, 255, 255, 0.38);
         --gold: #d4af37;
         --gold-bright: #f0c651;
-        --accent-blue: #5b8def;
+        --gold-soft: rgba(212, 175, 55, 0.12);
+        --green: #4ade80;
+        --green-soft: rgba(74, 222, 128, 0.14);
       }
 
       * { box-sizing: border-box; }
@@ -32,232 +43,706 @@
       body {
         background: var(--bg);
         color: var(--text);
-        font-family: "JetBrains Mono", ui-monospace, SFMono-Regular, Menlo, monospace;
-        font-size: 15px;
+        font-family: "Inter", -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+        font-size: 16px;
         line-height: 1.55;
         min-height: 100vh;
         -webkit-font-smoothing: antialiased;
         -moz-osx-font-smoothing: grayscale;
         background-image:
-          radial-gradient(800px 400px at 20% -10%, rgba(212, 175, 55, 0.06), transparent 60%),
-          radial-gradient(700px 350px at 100% 110%, rgba(91, 141, 239, 0.05), transparent 60%);
+          radial-gradient(1000px 600px at 12% -10%, rgba(212, 175, 55, 0.10), transparent 60%),
+          radial-gradient(900px 500px at 100% 5%, rgba(91, 141, 239, 0.06), transparent 60%),
+          radial-gradient(800px 500px at 50% 110%, rgba(212, 175, 55, 0.05), transparent 60%);
       }
 
-      .wrap {
-        max-width: 1080px;
-        margin: 0 auto;
-        padding: 56px 24px 80px;
+      .mono {
+        font-family: "JetBrains Mono", ui-monospace, SFMono-Regular, Menlo, monospace;
       }
 
-      header {
-        text-align: center;
-        margin-bottom: 56px;
-      }
-
-      .logo {
-        width: 64px;
-        height: 64px;
-        border-radius: 12px;
-        margin: 0 auto 20px;
-        display: block;
-        box-shadow: 0 8px 32px rgba(212, 175, 55, 0.2);
-      }
-
-      .brand {
-        font-size: 13px;
-        letter-spacing: 0.18em;
-        text-transform: uppercase;
-        color: var(--gold);
-        margin: 0 0 12px;
-        font-weight: 600;
-      }
-
-      h1 {
-        font-size: clamp(28px, 5vw, 40px);
-        font-weight: 600;
-        margin: 0 0 14px;
-        letter-spacing: -0.01em;
-        line-height: 1.15;
-      }
-
-      .tagline {
-        color: var(--text-muted);
-        font-size: 14px;
-        margin: 0;
-        max-width: 540px;
-        margin-left: auto;
-        margin-right: auto;
-      }
-
-      .grid {
-        display: grid;
-        grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-        gap: 16px;
-      }
-
-      .card {
-        background: var(--bg-card);
-        border: 1px solid var(--border);
-        border-radius: 12px;
-        padding: 24px;
-        display: flex;
-        flex-direction: column;
-        gap: 14px;
-        text-decoration: none;
-        color: inherit;
-        transition: background 180ms ease, border-color 180ms ease, transform 180ms ease;
-        position: relative;
-        overflow: hidden;
-      }
-
-      .card::after {
-        content: "";
-        position: absolute;
+      /* === Nav === */
+      .topnav {
+        position: sticky;
         top: 0;
-        right: 0;
-        width: 80px;
-        height: 80px;
-        background: radial-gradient(circle at top right, rgba(212, 175, 55, 0.08), transparent 70%);
-        opacity: 0;
-        transition: opacity 180ms ease;
+        z-index: 50;
+        backdrop-filter: blur(14px);
+        -webkit-backdrop-filter: blur(14px);
+        background: rgba(8, 8, 10, 0.72);
+        border-bottom: 1px solid var(--border);
       }
-
-      .card:hover {
-        background: var(--bg-card-hover);
-        border-color: var(--border-hover);
-        transform: translateY(-2px);
-      }
-
-      .card:hover::after { opacity: 1; }
-
-      .card:focus-visible {
-        outline: 2px solid var(--gold);
-        outline-offset: 2px;
-      }
-
-      .card-header {
+      .topnav-inner {
+        max-width: 1180px;
+        margin: 0 auto;
+        padding: 14px 24px;
         display: flex;
         align-items: center;
         justify-content: space-between;
-        gap: 12px;
       }
-
-      .card-title {
-        font-size: 17px;
-        font-weight: 600;
-        margin: 0;
+      .brand {
+        display: flex;
+        align-items: center;
+        gap: 10px;
         color: var(--text);
-        letter-spacing: -0.005em;
+        text-decoration: none;
+        font-weight: 600;
+        font-size: 15px;
+        letter-spacing: -0.01em;
       }
-
-      .arrow {
-        width: 18px;
-        height: 18px;
-        flex-shrink: 0;
-        color: var(--text-faint);
-        transition: color 180ms ease, transform 180ms ease;
+      .brand-mark {
+        width: 28px;
+        height: 28px;
+        border-radius: 7px;
+        background: linear-gradient(135deg, #1a1a1d 0%, #0d0d10 100%);
+        border: 1px solid var(--border-gold);
+        display: grid;
+        place-items: center;
+        box-shadow: 0 4px 16px rgba(212, 175, 55, 0.18);
       }
-
-      .card:hover .arrow {
-        color: var(--gold-bright);
-        transform: translate(2px, -2px);
+      .brand-mark svg { width: 16px; height: 16px; color: var(--gold-bright); }
+      .topnav a.cta {
+        font-size: 13px;
+        padding: 8px 14px;
+        border-radius: 8px;
+        background: var(--gold);
+        color: #0a0a0a;
+        font-weight: 600;
+        text-decoration: none;
+        transition: background 160ms ease;
       }
+      .topnav a.cta:hover { background: var(--gold-bright); }
 
-      .card-desc {
+      /* === Hero === */
+      .wrap { max-width: 1180px; margin: 0 auto; padding: 0 24px; }
+
+      .hero {
+        padding: 84px 0 64px;
+        text-align: center;
+        position: relative;
+      }
+      .eyebrow {
+        display: inline-flex;
+        align-items: center;
+        gap: 8px;
+        font-size: 11px;
+        font-weight: 600;
+        letter-spacing: 0.16em;
+        text-transform: uppercase;
+        color: var(--gold);
+        padding: 6px 12px;
+        border-radius: 999px;
+        background: var(--gold-soft);
+        border: 1px solid var(--border-gold);
+        margin-bottom: 28px;
+      }
+      .eyebrow .dot {
+        width: 6px;
+        height: 6px;
+        border-radius: 50%;
+        background: var(--gold-bright);
+        box-shadow: 0 0 8px var(--gold);
+      }
+      h1 {
+        font-size: clamp(36px, 6.5vw, 64px);
+        font-weight: 700;
+        letter-spacing: -0.025em;
+        line-height: 1.04;
+        margin: 0 0 22px;
+        max-width: 880px;
+        margin-left: auto;
+        margin-right: auto;
+      }
+      h1 .accent {
+        background: linear-gradient(180deg, var(--gold-bright) 0%, var(--gold) 100%);
+        -webkit-background-clip: text;
+        background-clip: text;
+        -webkit-text-fill-color: transparent;
+      }
+      .hero-sub {
+        font-size: clamp(15px, 2vw, 18px);
         color: var(--text-muted);
-        font-size: 13.5px;
-        margin: 0;
-        line-height: 1.55;
+        max-width: 620px;
+        margin: 0 auto 36px;
+        line-height: 1.6;
       }
+      .hero-ctas {
+        display: flex;
+        gap: 12px;
+        justify-content: center;
+        flex-wrap: wrap;
+      }
+      .btn {
+        display: inline-flex;
+        align-items: center;
+        gap: 8px;
+        padding: 12px 20px;
+        border-radius: 10px;
+        font-size: 14px;
+        font-weight: 600;
+        text-decoration: none;
+        transition: transform 140ms ease, background 160ms ease, border-color 160ms ease;
+      }
+      .btn:hover { transform: translateY(-1px); }
+      .btn-primary {
+        background: var(--gold);
+        color: #0a0a0a;
+      }
+      .btn-primary:hover { background: var(--gold-bright); }
+      .btn-ghost {
+        background: transparent;
+        color: var(--text);
+        border: 1px solid var(--border-strong);
+      }
+      .btn-ghost:hover { background: var(--bg-card-hover); border-color: var(--border-gold); }
+      .btn svg { width: 14px; height: 14px; }
 
-      .card-host {
+      /* === Stats strip === */
+      .stats {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
+        gap: 0;
+        margin: 56px 0 0;
+        padding: 24px 0;
+        border-top: 1px solid var(--border);
+        border-bottom: 1px solid var(--border);
+      }
+      .stat {
+        padding: 4px 12px;
+        text-align: center;
+        position: relative;
+      }
+      .stat + .stat { border-left: 1px solid var(--border); }
+      .stat-num {
+        font-size: 26px;
+        font-weight: 700;
+        color: var(--text);
+        letter-spacing: -0.02em;
+      }
+      .stat-num .gold { color: var(--gold-bright); }
+      .stat-label {
         font-size: 11px;
         color: var(--text-faint);
-        letter-spacing: 0.04em;
+        letter-spacing: 0.12em;
+        text-transform: uppercase;
         margin-top: 4px;
-        text-transform: lowercase;
+      }
+      @media (max-width: 600px) {
+        .stat + .stat { border-left: none; border-top: 1px solid var(--border); }
+        .stat { padding: 16px 0; }
       }
 
-      footer {
-        margin-top: 64px;
+      /* === Section header === */
+      .section { padding: 84px 0; }
+      .section-head {
         text-align: center;
+        margin-bottom: 48px;
+      }
+      .section-eyebrow {
+        font-family: "JetBrains Mono", ui-monospace, monospace;
+        font-size: 11px;
+        font-weight: 600;
+        letter-spacing: 0.18em;
+        text-transform: uppercase;
+        color: var(--gold);
+        margin-bottom: 12px;
+      }
+      h2 {
+        font-size: clamp(28px, 4vw, 38px);
+        font-weight: 700;
+        letter-spacing: -0.02em;
+        line-height: 1.15;
+        margin: 0 0 12px;
+      }
+      .section-sub {
+        color: var(--text-muted);
+        font-size: 15px;
+        max-width: 580px;
+        margin: 0 auto;
+      }
+
+      /* === Product grid === */
+      .grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(290px, 1fr));
+        gap: 18px;
+      }
+
+      .product {
+        position: relative;
+        background: var(--bg-card);
+        border: 1px solid var(--border);
+        border-radius: 16px;
+        padding: 28px;
+        display: flex;
+        flex-direction: column;
+        text-decoration: none;
+        color: inherit;
+        transition: background 200ms ease, border-color 200ms ease, transform 200ms ease;
+        overflow: hidden;
+      }
+      .product::before {
+        content: "";
+        position: absolute;
+        inset: -1px;
+        border-radius: 16px;
+        padding: 1px;
+        background: linear-gradient(135deg, rgba(212, 175, 55, 0.0) 0%, rgba(212, 175, 55, 0.3) 100%);
+        -webkit-mask: linear-gradient(#000 0 0) content-box, linear-gradient(#000 0 0);
+        -webkit-mask-composite: xor;
+                mask-composite: exclude;
+        opacity: 0;
+        transition: opacity 200ms ease;
+        pointer-events: none;
+      }
+      .product:hover {
+        background: var(--bg-card-hover);
+        border-color: var(--border-gold);
+        transform: translateY(-3px);
+      }
+      .product:hover::before { opacity: 1; }
+
+      .product-icon {
+        width: 44px;
+        height: 44px;
+        border-radius: 10px;
+        background: linear-gradient(135deg, rgba(212, 175, 55, 0.16) 0%, rgba(212, 175, 55, 0.04) 100%);
+        border: 1px solid var(--border-gold);
+        display: grid;
+        place-items: center;
+        margin-bottom: 18px;
+      }
+      .product-icon svg { width: 20px; height: 20px; color: var(--gold-bright); }
+
+      .product-badge {
+        position: absolute;
+        top: 16px;
+        right: 16px;
+        font-size: 10px;
+        font-weight: 600;
+        letter-spacing: 0.1em;
+        text-transform: uppercase;
+        padding: 4px 8px;
+        border-radius: 999px;
+        background: var(--green-soft);
+        color: var(--green);
+        border: 1px solid rgba(74, 222, 128, 0.3);
+      }
+      .product-badge.soon {
+        background: rgba(255, 255, 255, 0.04);
+        color: var(--text-muted);
+        border-color: var(--border-strong);
+      }
+      .product-badge svg { width: 9px; height: 9px; vertical-align: -1px; margin-right: 3px; }
+
+      .product-name {
+        font-size: 20px;
+        font-weight: 700;
+        letter-spacing: -0.01em;
+        margin: 0 0 8px;
+        color: var(--text);
+      }
+      .product-tag {
+        font-family: "JetBrains Mono", ui-monospace, monospace;
+        font-size: 10px;
+        font-weight: 500;
+        letter-spacing: 0.1em;
+        text-transform: uppercase;
+        color: var(--gold);
+        margin-bottom: 14px;
+      }
+      .product-desc {
+        font-size: 14px;
+        color: var(--text-muted);
+        line-height: 1.6;
+        margin: 0 0 22px;
+        flex: 1;
+      }
+      .product-features {
+        list-style: none;
+        margin: 0 0 22px;
+        padding: 0;
+        display: flex;
+        flex-direction: column;
+        gap: 8px;
+      }
+      .product-features li {
+        font-size: 13px;
+        color: var(--text-muted);
+        display: flex;
+        align-items: flex-start;
+        gap: 8px;
+      }
+      .product-features li::before {
+        content: "";
+        width: 4px;
+        height: 4px;
+        border-radius: 50%;
+        background: var(--gold);
+        margin-top: 8px;
+        flex-shrink: 0;
+      }
+      .product-cta {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        margin-top: auto;
+        padding-top: 16px;
+        border-top: 1px solid var(--border);
+      }
+      .product-cta-text {
+        font-size: 13px;
+        font-weight: 600;
+        color: var(--gold-bright);
+        display: flex;
+        align-items: center;
+        gap: 6px;
+        transition: gap 160ms ease;
+      }
+      .product:hover .product-cta-text { gap: 9px; }
+      .product-cta-text.soon { color: var(--text-faint); }
+      .product-cta-text svg { width: 14px; height: 14px; }
+      .product-host {
+        font-family: "JetBrains Mono", ui-monospace, monospace;
+        font-size: 10px;
         color: var(--text-faint);
-        font-size: 11.5px;
-        letter-spacing: 0.04em;
       }
 
-      footer .dot {
-        display: inline-block;
-        margin: 0 8px;
-        opacity: 0.6;
+      /* When product is "coming soon" — visually mute */
+      .product.coming-soon { cursor: default; }
+      .product.coming-soon:hover { transform: none; border-color: var(--border); background: var(--bg-card); }
+      .product.coming-soon:hover::before { opacity: 0; }
+
+      /* === Why section === */
+      .why {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+        gap: 20px;
+        margin-top: 12px;
+      }
+      .why-card {
+        padding: 28px 24px;
+        border-radius: 14px;
+        background: var(--bg-card);
+        border: 1px solid var(--border);
+      }
+      .why-card-icon {
+        width: 36px;
+        height: 36px;
+        border-radius: 9px;
+        background: var(--gold-soft);
+        display: grid;
+        place-items: center;
+        margin-bottom: 16px;
+      }
+      .why-card-icon svg { width: 18px; height: 18px; color: var(--gold-bright); }
+      .why-card h3 {
+        font-size: 16px;
+        font-weight: 600;
+        margin: 0 0 8px;
+        color: var(--text);
+      }
+      .why-card p {
+        font-size: 13.5px;
+        color: var(--text-muted);
+        line-height: 1.6;
+        margin: 0;
       }
 
-      @media (max-width: 520px) {
-        .wrap { padding: 40px 18px 60px; }
-        header { margin-bottom: 40px; }
-        .card { padding: 20px; }
+      /* === Final CTA === */
+      .final-cta {
+        text-align: center;
+        padding: 80px 32px;
+        background: var(--bg-card);
+        border-radius: 20px;
+        border: 1px solid var(--border-strong);
+        margin: 40px 0 80px;
+        position: relative;
+        overflow: hidden;
+      }
+      .final-cta::before {
+        content: "";
+        position: absolute;
+        inset: 0;
+        background:
+          radial-gradient(600px 200px at 50% -50%, rgba(212, 175, 55, 0.15), transparent 70%),
+          radial-gradient(800px 300px at 50% 150%, rgba(212, 175, 55, 0.08), transparent 70%);
+        pointer-events: none;
+      }
+      .final-cta > * { position: relative; }
+      .final-cta h2 { margin-bottom: 14px; }
+      .final-cta p {
+        color: var(--text-muted);
+        max-width: 480px;
+        margin: 0 auto 28px;
+      }
+
+      /* === Footer === */
+      footer {
+        padding: 40px 24px 60px;
+        border-top: 1px solid var(--border);
+      }
+      .footer-inner {
+        max-width: 1180px;
+        margin: 0 auto;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        flex-wrap: wrap;
+        gap: 16px;
+      }
+      .footer-brand {
+        font-size: 13px;
+        color: var(--text-muted);
+        display: flex;
+        align-items: center;
+        gap: 10px;
+      }
+      .footer-meta {
+        font-size: 11px;
+        color: var(--text-faint);
+        letter-spacing: 0.08em;
+        text-transform: uppercase;
+      }
+
+      /* === Responsive === */
+      @media (max-width: 720px) {
+        .section { padding: 56px 0; }
+        .hero { padding: 56px 0 40px; }
+        .product { padding: 24px; }
       }
     </style>
   </head>
   <body>
-    <div class="wrap">
-      <header>
-        <img src="/SWJ_Favicon.jpg" alt="The Friendly Trader" class="logo" />
-        <p class="brand">The Friendly Trader</p>
-        <h1>Your trading toolkit.</h1>
-        <p class="tagline">Four tools, one home. Pick where you want to start.</p>
-      </header>
-
-      <main class="grid">
-        <a class="card" href="https://friendly-trader.com" rel="noopener">
-          <div class="card-header">
-            <h2 class="card-title">SWJ Intelligence</h2>
-            <svg class="arrow" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M7 17 17 7" /><path d="M7 7h10v10" /></svg>
-          </div>
-          <p class="card-desc">Market breadth, internals, and the Fear &amp; Greed gauge in one dashboard.</p>
-          <p class="card-host">friendly-trader.com</p>
+    <nav class="topnav">
+      <div class="topnav-inner">
+        <a class="brand" href="/">
+          <span class="brand-mark">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M3 12h3l3-9 6 18 3-9h3" /></svg>
+          </span>
+          <span>Friendly Trader</span>
         </a>
+        <a class="cta" href="#products">Explore Tools</a>
+      </div>
+    </nav>
 
-        <a class="card" href="https://friendlyscreener.com" rel="noopener">
-          <div class="card-header">
-            <h2 class="card-title">Friendly Screener</h2>
-            <svg class="arrow" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M7 17 17 7" /><path d="M7 7h10v10" /></svg>
+    <header class="hero">
+      <div class="wrap">
+        <p class="eyebrow"><span class="dot"></span> The Friendly Trader Product Line</p>
+        <h1>Trading tools, <span class="accent">made friendly.</span></h1>
+        <p class="hero-sub">
+          A growing suite of professional trading tools — screening, market intelligence, BTC signals, and options analysis. Built for traders who prefer clarity over noise.
+        </p>
+        <div class="hero-ctas">
+          <a class="btn btn-primary" href="#products">
+            See the tools
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg>
+          </a>
+          <a class="btn btn-ghost" href="#why">Why Friendly Trader</a>
+        </div>
+
+        <div class="stats">
+          <div class="stat">
+            <div class="stat-num"><span class="gold">4</span></div>
+            <div class="stat-label">Tools in the suite</div>
           </div>
-          <p class="card-desc">Daily stock screening built around the SWJ playbook.</p>
-          <p class="card-host">friendlyscreener.com</p>
-        </a>
-
-        <a class="card" href="https://situtrader-production.up.railway.app/best-setup-sectors" rel="noopener">
-          <div class="card-header">
-            <h2 class="card-title">SituTrader</h2>
-            <svg class="arrow" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M7 17 17 7" /><path d="M7 7h10v10" /></svg>
+          <div class="stat">
+            <div class="stat-num"><span class="gold">SWJ</span></div>
+            <div class="stat-label">Built by the team</div>
           </div>
-          <p class="card-desc">Best-setup sectors, ranked. See where the strength is right now.</p>
-          <p class="card-host">situtrader.up.railway.app</p>
-        </a>
-
-        <a class="card" href="https://goatdiscordscalper-production.up.railway.app/" rel="noopener">
-          <div class="card-header">
-            <h2 class="card-title">Goat Scalper</h2>
-            <svg class="arrow" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M7 17 17 7" /><path d="M7 7h10v10" /></svg>
+          <div class="stat">
+            <div class="stat-num"><span class="gold">∞</span></div>
+            <div class="stat-label">Tickers covered</div>
           </div>
-          <p class="card-desc">Discord-powered scalping signals and trade tracking.</p>
-          <p class="card-host">goatdiscordscalper.up.railway.app</p>
-        </a>
-
-        <a class="card" href="https://systemized-tradealert-system-production.up.railway.app/signals" rel="noopener">
-          <div class="card-header">
-            <h2 class="card-title">TradeSync</h2>
-            <svg class="arrow" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M7 17 17 7" /><path d="M7 7h10v10" /></svg>
+          <div class="stat">
+            <div class="stat-num">Live</div>
+            <div class="stat-label">Market data</div>
           </div>
-          <p class="card-desc">Signals, watchlists, and price alerts across your trading apps.</p>
-          <p class="card-host">systemized-tradealert-system.up.railway.app</p>
-        </a>
-      </main>
+        </div>
+      </div>
+    </header>
 
-      <footer>
-        Stocks With Josh<span class="dot">&middot;</span>The Friendly Trader<span class="dot">&middot;</span>2026
-      </footer>
-    </div>
+    <section class="section" id="products">
+      <div class="wrap">
+        <div class="section-head">
+          <p class="section-eyebrow">The tools</p>
+          <h2>Everything you need, in one place.</h2>
+          <p class="section-sub">Each tool is purpose-built around a specific job — screening, intelligence, BTC, and options. Use one, or use them together.</p>
+        </div>
+
+        <div class="grid">
+          <!-- Friendly Screener -->
+          <a class="product" href="https://friendlyscreener.com" rel="noopener">
+            <span class="product-badge">
+              <svg viewBox="0 0 24 24" fill="currentColor"><circle cx="12" cy="12" r="5"/></svg>
+              Live
+            </span>
+            <div class="product-icon">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.3-4.3"/></svg>
+            </div>
+            <p class="product-tag">Friendly Trader · Screener</p>
+            <h3 class="product-name">The Screener</h3>
+            <p class="product-desc">
+              Daily stock screening built around the SWJ playbook. Find setups across breadth, momentum, structure, and trend in seconds.
+            </p>
+            <ul class="product-features">
+              <li>Live preset packs across every market phase</li>
+              <li>A/B/C/D grading with explainable scoring</li>
+              <li>Reverse analyzer for single-ticker deep-dives</li>
+            </ul>
+            <div class="product-cta">
+              <span class="product-cta-text">
+                Open the Screener
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M7 17 17 7" /><path d="M7 7h10v10" /></svg>
+              </span>
+              <span class="product-host">friendlyscreener.com</span>
+            </div>
+          </a>
+
+          <!-- Friendly Trader Intelligence -->
+          <a class="product" href="https://friendly-trader.com" rel="noopener">
+            <span class="product-badge">
+              <svg viewBox="0 0 24 24" fill="currentColor"><circle cx="12" cy="12" r="5"/></svg>
+              Live
+            </span>
+            <div class="product-icon">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 12h3l3-9 6 18 3-9h3"/></svg>
+            </div>
+            <p class="product-tag">Friendly Trader · Intelligence</p>
+            <h3 class="product-name">Intelligence</h3>
+            <p class="product-desc">
+              Market breadth, internals, and the Fear &amp; Greed gauge in one cockpit. See how broad the move is — and whether sentiment is with you or against you.
+            </p>
+            <ul class="product-features">
+              <li>Nasdaq 100 &amp; S&amp;P 500 breadth across 20/50/200 timeframes</li>
+              <li>Live Fear &amp; Greed with historical comparison</li>
+              <li>Macro &amp; internals dashboard for daily prep</li>
+            </ul>
+            <div class="product-cta">
+              <span class="product-cta-text">
+                Open Intelligence
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M7 17 17 7" /><path d="M7 7h10v10" /></svg>
+              </span>
+              <span class="product-host">friendly-trader.com</span>
+            </div>
+          </a>
+
+          <!-- BTC Edge -->
+          <div class="product coming-soon">
+            <span class="product-badge soon">Coming soon</span>
+            <div class="product-icon">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M11.5 11.5h3a2 2 0 0 0 0-4h-3v4Z"/><path d="M11.5 15.5h3.5a2 2 0 0 0 0-4h-3.5v4Z"/><path d="M11.5 7.5V5"/><path d="M11.5 19v-3"/><path d="M9 7.5v8"/><circle cx="12" cy="12" r="10"/></svg>
+            </div>
+            <p class="product-tag">Friendly Trader · BTC</p>
+            <h3 class="product-name">BTC Edge</h3>
+            <p class="product-desc">
+              Regime-aware Bitcoin directional intelligence delivered daily. Five-dimension regime scoring, trigger readiness, and signal quality — distilled into one calibrated brief.
+            </p>
+            <ul class="product-features">
+              <li>Five weighted regime dimensions, scored daily</li>
+              <li>Conflict detection between conviction and price</li>
+              <li>Accuracy-tracked, calibrated daily brief</li>
+            </ul>
+            <div class="product-cta">
+              <span class="product-cta-text soon">
+                Launching soon
+              </span>
+              <span class="product-host">btc.friendlytrader.com</span>
+            </div>
+          </div>
+
+          <!-- OptionLens -->
+          <div class="product coming-soon">
+            <span class="product-badge soon">Coming soon</span>
+            <div class="product-icon">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="6"/><path d="m21 21-3.5-3.5"/><path d="M11 8v6"/><path d="M8 11h6"/></svg>
+            </div>
+            <p class="product-tag">Friendly Trader · Options</p>
+            <h3 class="product-name">OptionLens</h3>
+            <p class="product-desc">
+              An options trading analysis platform with unusual activity detection, institutional sentiment, and Black-Scholes Greeks — all asked in plain English.
+            </p>
+            <ul class="product-features">
+              <li>Unusual options flow &amp; whale-trade detection</li>
+              <li>Delta-weighted institutional sentiment</li>
+              <li>Black-Scholes price estimates with theta decay</li>
+            </ul>
+            <div class="product-cta">
+              <span class="product-cta-text soon">
+                Launching soon
+              </span>
+              <span class="product-host">options.friendlytrader.com</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="section" id="why">
+      <div class="wrap">
+        <div class="section-head">
+          <p class="section-eyebrow">Why Friendly Trader</p>
+          <h2>Clarity over noise. Always.</h2>
+          <p class="section-sub">Trading is hard enough without your tools getting in the way. We build the tools we wanted — opinionated, fast, and honest.</p>
+        </div>
+        <div class="why">
+          <div class="why-card">
+            <div class="why-card-icon">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 12h-4l-3 9L9 3l-3 9H2"/></svg>
+            </div>
+            <h3>Built for the actual playbook</h3>
+            <p>Every tool is shaped around how a real trader works through their day — not a generic feature list. Presets, grades, and intelligence are the same ones the team uses.</p>
+          </div>
+          <div class="why-card">
+            <div class="why-card-icon">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"/></svg>
+            </div>
+            <h3>Fast where it matters</h3>
+            <p>Background workers, in-memory caches, and dashboards that load instantly. We measure latency the way you measure entries — every millisecond counts.</p>
+          </div>
+          <div class="why-card">
+            <div class="why-card-icon">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><path d="M12 8v4"/><path d="M12 16h.01"/></svg>
+            </div>
+            <h3>Honest about uncertainty</h3>
+            <p>Signals are calibrated and tracked. Where data is thin, the tools say so. We'd rather show "approximately" than a number you can't trust.</p>
+          </div>
+          <div class="why-card">
+            <div class="why-card-icon">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 4h16v16H4z"/><path d="M9 9h6v6H9z"/></svg>
+            </div>
+            <h3>One brand, one suite</h3>
+            <p>Switch between tools without switching mental models. Same design language, same data philosophy, same shortcuts — across every product.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="wrap">
+      <div class="final-cta">
+        <p class="section-eyebrow">Start here</p>
+        <h2>Pick a tool. Get to work.</h2>
+        <p>Two tools are live today, two more landing soon. Try the suite that fits your style.</p>
+        <div class="hero-ctas">
+          <a class="btn btn-primary" href="https://friendlyscreener.com" rel="noopener">
+            Open the Screener
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M7 17 17 7" /><path d="M7 7h10v10" /></svg>
+          </a>
+          <a class="btn btn-ghost" href="https://friendly-trader.com" rel="noopener">
+            Open Intelligence
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M7 17 17 7" /><path d="M7 7h10v10" /></svg>
+          </a>
+        </div>
+      </div>
+    </section>
+
+    <footer>
+      <div class="footer-inner">
+        <div class="footer-brand">
+          <span class="brand-mark">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M3 12h3l3-9 6 18 3-9h3" /></svg>
+          </span>
+          <span>Friendly Trader &middot; A growing suite of trading tools</span>
+        </div>
+        <div class="footer-meta">© 2026 · Stocks With Josh</div>
+      </div>
+    </footer>
   </body>
 </html>

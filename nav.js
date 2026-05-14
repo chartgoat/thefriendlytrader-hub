@@ -45,7 +45,7 @@
     },
   ];
 
-  var HUB_URL = "https://thefriendlytrader.com/";
+  var HUB_URL = "https://thefriendlytrader.com/hub/";
   var HOST = (location && location.host) || "";
 
   // Only these emails (case-insensitive) see the chip.
