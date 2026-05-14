@@ -36,6 +36,13 @@
       url: "https://goatdiscordscalper-production.up.railway.app/",
       match: ["goatdiscordscalper-production.up.railway.app", "goatdiscordscalper.up.railway.app"],
     },
+    {
+      key: "tradesync",
+      name: "TradeSync",
+      desc: "Signals, watchlists, and price alerts",
+      url: "https://systemized-tradealert-system-production.up.railway.app/signals",
+      match: ["systemized-tradealert-system-production.up.railway.app", "systemized-tradealert-system.up.railway.app"],
+    },
   ];
 
   var HUB_URL = "https://thefriendlytrader.com/";
@@ -57,6 +64,8 @@
     "situtrader.up.railway.app",
     "goatdiscordscalper-production.up.railway.app",
     "goatdiscordscalper.up.railway.app",
+    "systemized-tradealert-system-production.up.railway.app",
+    "systemized-tradealert-system.up.railway.app",
   ];
 
   function isUngatedHost() {
