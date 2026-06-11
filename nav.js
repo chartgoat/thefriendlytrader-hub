@@ -26,8 +26,8 @@
       key: "friendly-options",
       name: "Friendly Options",
       desc: "Pick contracts, analyze trades, and read the flow",
-      url: "https://options.stockswithjosh.com",
-      match: ["options.stockswithjosh.com"],
+      url: "https://thefriendlytrader.com/options",
+      match: ["options.stockswithjosh.com", "thefriendlytrader.com/options"],
     },
     {
       key: "situtrader",
