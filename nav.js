@@ -23,6 +23,13 @@
       match: ["friendlyscreener.com", "stock-screener-elite.replit.app", "screener.stockswithjosh.com", "app.stockswithjosh.com"],
     },
     {
+      key: "friendly-options",
+      name: "Friendly Options",
+      desc: "Pick contracts, analyze trades, and read the flow",
+      url: "https://options.stockswithjosh.com",
+      match: ["options.stockswithjosh.com"],
+    },
+    {
       key: "situtrader",
       name: "SituTrader",
       desc: "Best-setup sectors",
