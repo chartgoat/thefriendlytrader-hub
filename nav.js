@@ -50,6 +50,20 @@
       url: "https://systemized-tradealert-system-production.up.railway.app/signals",
       match: ["systemized-tradealert-system-production.up.railway.app", "systemized-tradealert-system.up.railway.app"],
     },
+    {
+      key: "swj-portfolio",
+      name: "SWJ Portfolio",
+      desc: "Portfolio Challenge positions",
+      url: "https://swj-portfolio-production.up.railway.app",
+      match: ["swj-portfolio-production.up.railway.app", "swj-portfolio.up.railway.app"],
+    },
+    {
+      key: "leaderboard",
+      name: "Leaderboard",
+      desc: "Crowned Trader rankings and signals",
+      url: "https://leaderboard.stockswithjosh.com",
+      match: ["leaderboard.stockswithjosh.com"],
+    },
   ];
 
   var HUB_URL = "https://thefriendlytrader.com/hub/";
