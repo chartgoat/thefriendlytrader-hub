@@ -5,9 +5,9 @@
     <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
     <meta name="color-scheme" content="dark" />
     <meta name="theme-color" content="#000000" />
-    <title>Friendly Trader: The market, in plain English.</title>
+    <title>Friendly Trader: Clarity over noise</title>
     <meta name="description" content="Four friendly trading tools that turn noisy charts and confusing options into decisions you can actually make. A daily stock screener, market intelligence, and plain-English options flow." />
-    <meta property="og:title" content="Friendly Trader: The market, in plain English." />
+    <meta property="og:title" content="Friendly Trader: Clarity over noise" />
     <meta property="og:description" content="Four friendly tools that turn noisy charts and confusing options into decisions you can actually make." />
     <meta property="og:type" content="website" />
     <meta property="og:url" content="https://thefriendlytrader.com/" />
@@ -16,7 +16,7 @@
     <meta property="og:image:height" content="630" />
     <meta property="og:site_name" content="Friendly Trader" />
     <meta name="twitter:card" content="summary_large_image" />
-    <meta name="twitter:title" content="Friendly Trader: The market, in plain English." />
+    <meta name="twitter:title" content="Friendly Trader: Clarity over noise" />
     <meta name="twitter:description" content="Four friendly tools that turn noisy charts and confusing options into decisions you can actually make." />
     <meta name="twitter:image" content="https://thefriendlytrader.com/assets/og.png" />
     <link rel="canonical" href="https://thefriendlytrader.com/" />
@@ -411,7 +411,7 @@
         <div class="hero-inner">
           <div class="glass" id="heroGlass">
             <p class="eyebrow">A friendlier way to read the market</p>
-            <h1 id="h1" aria-label="The market, in plain English.">The market, in plain English.</h1>
+            <h1 id="h1" aria-label="Clarity over noise">Clarity over noise</h1>
             <p class="subhead">Four friendly tools that turn noisy charts and confusing options into decisions you can actually make. No jargon, no pressure. Pick one and dive in.</p>
           </div>
 
@@ -632,8 +632,8 @@
       // ───── hero headline split ─────
       (function splitHead(){
         var h1=document.getElementById("h1"); if(!h1) return;
-        var words="The market, in plain English.".split(" ");
-        h1.innerHTML = words.map(function(w,i){ var g=(i>=words.length-2)?' gold':''; return '<span class="w'+g+'" style="--d:'+(i*70)+'ms">'+w+(i<words.length-1?'&nbsp;':'')+'</span>'; }).join("");
+        var words="Clarity over noise".split(" ");
+        h1.innerHTML = words.map(function(w,i){ var g=(i===0)?' gold':''; return '<span class="w'+g+'" style="--d:'+(i*70)+'ms">'+w+(i<words.length-1?'&nbsp;':'')+'</span>'; }).join("");
         if(!STATIC){ h1.parentNode.classList.add("reveal-words"); }
       })();
 
