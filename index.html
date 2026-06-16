@@ -141,8 +141,8 @@
       #bg { position: absolute; inset: 0; width: 100%; height: 100%; z-index: 0; display: block; }
       .scrim { position: absolute; inset: 0; z-index: 1; pointer-events: none;
         background:
-          radial-gradient(120% 90% at 50% 45%, rgba(0,0,0,0.12) 0%, rgba(0,0,0,0.42) 60%, rgba(0,0,0,0.72) 100%),
-          linear-gradient(180deg, rgba(0,0,0,0.32) 0%, transparent 18%, transparent 76%, rgba(0,0,0,0.46) 100%);
+          radial-gradient(72% 50% at 50% 34%, rgba(0,0,0,0.62) 0%, rgba(0,0,0,0.34) 46%, transparent 72%),
+          linear-gradient(180deg, rgba(0,0,0,0.45) 0%, transparent 24%, transparent 70%, rgba(0,0,0,0.5) 100%);
       }
       .hero-aurora { position: absolute; inset: 0; z-index: 0; pointer-events: none;
         background:
@@ -153,24 +153,22 @@
       @keyframes aurora { 0%,100% { opacity: 0.55; transform: translateY(0); } 50% { opacity: 1; transform: translateY(12px); } }
       .hero-inner { position: relative; z-index: 2; max-width: 1140px; margin: 0 auto; }
       .glass {
-        max-width: 780px; margin: 24px auto 48px; text-align: center;
-        padding: 36px 32px 38px; border-radius: var(--radius-xl);
-        background: var(--glass); border: 1px solid var(--border-soft);
-        backdrop-filter: blur(18px) saturate(1.1); -webkit-backdrop-filter: blur(18px) saturate(1.1);
-        box-shadow: 0 28px 90px rgba(0,0,0,0.55), inset 0 1px 0 rgba(255,255,255,0.05);
+        max-width: 880px; margin: 40px auto 54px; text-align: center;
+        padding: 0 14px;
         will-change: transform, opacity;
       }
-      .eyebrow { font-size: 12px; font-weight: 700; letter-spacing: 0.16em; text-transform: uppercase; color: var(--gold); margin: 0 0 16px; }
+      .eyebrow { font-size: 12px; font-weight: 700; letter-spacing: 0.16em; text-transform: uppercase; color: var(--gold); margin: 0 0 16px; text-shadow: 0 1px 16px rgba(0,0,0,0.55); }
       h1 {
         font-family: var(--font-display); font-weight: 800;
-        font-size: clamp(38px, 7vw, 74px); line-height: 1.06; letter-spacing: -0.035em;
-        margin: 0 0 18px; color: var(--text);
+        font-size: clamp(40px, 7.4vw, 80px); line-height: 1.06; letter-spacing: -0.035em;
+        margin: 0 0 20px; color: var(--text);
+        text-shadow: 0 2px 30px rgba(0,0,0,0.6);
       }
       h1 .w { display: inline-block; will-change: transform, filter; }
       h1 .w.gold { background: var(--gold-gradient); -webkit-background-clip: text; background-clip: text; -webkit-text-fill-color: transparent; text-shadow: 0 0 42px var(--gold-glow); padding-bottom: 0.14em; margin-bottom: -0.1em; }
       .reveal-words h1 .w { opacity: 0; transform: translateY(0.5em); filter: blur(8px); animation: word-rise 0.7s var(--ease-out-expo) both; animation-delay: var(--d, 0ms); }
       @keyframes word-rise { from { opacity: 0; transform: translateY(0.5em); filter: blur(8px); } to { opacity: 1; transform: translateY(0); filter: blur(0); } }
-      .subhead { font-size: clamp(15px, 1.6vw, 18px); color: var(--body); max-width: 56ch; margin: 0 auto; }
+      .subhead { font-size: clamp(15px, 1.6vw, 18px); color: rgba(255,255,255,0.82); max-width: 54ch; margin: 0 auto; text-shadow: 0 1px 18px rgba(0,0,0,0.78); }
 
       /* ───── Bento grid ───── */
       .bento {
@@ -327,8 +325,11 @@
       }
       .cta-btn:hover { filter: brightness(1.07); box-shadow: inset 0 3px 0 0 rgba(255,255,255,0.34), 0 14px 48px rgba(212,168,83,0.5); }
       .cta-btn:active { transform: scale(0.97); }
-      .cta-btn svg { width: 17px; height: 17px; transition: transform var(--dur-fast) var(--ease); }
-      .cta-btn:hover svg { transform: translateX(3px); }
+      .cta-btn svg { width: 18px; height: 18px; }
+      /* Lock that starts closed and springs open on hover / focus / press */
+      .lock-ico .shackle { transform-box: fill-box; transform-origin: 18% 100%; transition: transform 0.42s var(--spring); }
+      .pill:hover .lock-ico .shackle, .pill:focus-visible .lock-ico .shackle, .pill:active .lock-ico .shackle,
+      .cta-btn:hover .lock-ico .shackle, .cta-btn:focus-visible .lock-ico .shackle, .cta-btn:active .lock-ico .shackle { transform: rotate(-30deg) translateY(-1px); }
       .cta-sub { margin: 20px 0 0; font-size: 13px; color: var(--muted); }
 
       /* ───── Footer ───── */
@@ -343,6 +344,10 @@
       /* ───── Scroll reveal base (spring) ───── */
       .reveal { opacity: 0; transform: translateY(28px) scale(0.985); filter: blur(6px); transition: opacity var(--dur-reveal) var(--ios), transform var(--dur-reveal) var(--spring), filter var(--dur-reveal) var(--ios); }
       .reveal.in { opacity: 1; transform: none; filter: none; }
+      /* Bento card scroll-in (gated on .js so no-JS keeps the tool cards visible) */
+      .js .bento .card { opacity: 0; }
+      .js .bento .card.in { animation: card-pop 0.62s var(--spring) both; animation-delay: var(--cd, 0ms); }
+      @keyframes card-pop { from { opacity: 0; transform: translateY(22px) scale(0.99); } to { opacity: 1; transform: none; } }
 
       /* ───── Responsive: tablet / mobile ───── */
       @media (max-width: 1024px) {
@@ -351,8 +356,8 @@
         .card.flagship .demo { min-height: 170px; }
       }
       @media (max-width: 700px) {
-        .hero { min-height: auto; padding: 36px 16px 48px; }
-        .glass { padding: 26px 20px 28px; margin: 14px auto 30px; backdrop-filter: none; -webkit-backdrop-filter: none; background: var(--glass-solid); }
+        .hero { min-height: auto; padding: 44px 16px 48px; }
+        .glass { padding: 0 6px; margin: 16px auto 34px; }
         .bar { padding: 12px 16px; padding-top: calc(12px + env(safe-area-inset-top)); backdrop-filter: none; -webkit-backdrop-filter: none; }
         .bento { grid-template-columns: 1fr; gap: 12px; }
         .card.flagship .demo { min-height: 180px; }
@@ -376,6 +381,7 @@
         *, *::before, *::after { animation: none !important; transition: none !important; }
         .reveal-words h1 .w { opacity: 1; transform: none; filter: none; }
         .reveal, .step { opacity: 1; transform: none; filter: none; }
+        .js .bento .card { opacity: 1 !important; transform: none !important; }
         .h2-rule { transform: scaleX(1); }
         .ticker-track { transform: none; }
         .glass { transform: none !important; opacity: 1 !important; }
@@ -390,7 +396,7 @@
           <span class="wordmark"><span class="g">Friendly</span> Trader</span>
         </a>
         <a class="pill" href="https://whop.com/checkout/plan_aYHjuBwYl3Ceb" rel="noopener">
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="5" y="11" width="14" height="9" rx="2"/><path d="M8 11V8a4 4 0 0 1 7.5-2"/></svg>
+          <svg class="lock-ico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="5" y="11" width="14" height="9" rx="2"/><path class="shackle" d="M8 11V7a4 4 0 0 1 8 0v4"/></svg>
           Unlock Tools
         </a>
       </header>
@@ -574,8 +580,8 @@
           <p class="line">Unlock the full toolkit.</p>
           <span class="magnet-wrap">
             <a class="cta-btn" id="ctaBtn" href="https://whop.com/checkout/plan_aYHjuBwYl3Ceb" rel="noopener">
+              <svg class="lock-ico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="5" y="11" width="14" height="9" rx="2"/><path class="shackle" d="M8 11V7a4 4 0 0 1 8 0v4"/></svg>
               <span>Unlock Tools</span>
-              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
             </a>
           </span>
           <p class="cta-sub">One membership unlocks every tool in the suite.</p>
@@ -601,10 +607,14 @@
     <script>
     (function () {
       "use strict";
+      document.documentElement.classList.add("js");
       var RM = matchMedia("(prefers-reduced-motion: reduce)");
       var coarse = matchMedia("(pointer: coarse)").matches;
       var saveData = (navigator.connection && navigator.connection.saveData) || false;
-      var STATIC = RM.matches || saveData || (coarse && innerWidth < 720);
+      // Only reduced-motion / save-data force a fully static page. Phones DO animate
+      // (the candle backdrop, ticker, reveals and demos), guarded by 30fps throttle,
+      // off-screen + tab-hide pause, DPR cap and long-frame-degrade.
+      var STATIC = RM.matches || saveData;
       var fine = matchMedia("(pointer: fine)").matches;
 
       // ───── seeded PRNG + shared market series ─────
@@ -854,10 +864,13 @@
       if(!STATIC && "IntersectionObserver" in window){
         var ro=new IntersectionObserver(function(es){ es.forEach(function(e){ if(e.isIntersecting){ e.target.classList.add("in"); ro.unobserve(e.target);} }); },{threshold:0.2});
         document.querySelectorAll(".reveal").forEach(function(el){ ro.observe(el); });
+        var cardEls=document.querySelectorAll(".bento .card");
+        var cro=new IntersectionObserver(function(es){ es.forEach(function(e){ if(e.isIntersecting){ var idx=[].indexOf.call(cardEls,e.target); e.target.style.setProperty("--cd",(Math.max(0,idx)*80)+"ms"); e.target.classList.add("in"); cro.unobserve(e.target);} }); },{threshold:0.12});
+        cardEls.forEach(function(el){ cro.observe(el); });
         var so=new IntersectionObserver(function(es){ es.forEach(function(e){ if(e.isIntersecting){ var ex=e.target.closest(".explainer"); if(ex)ex.classList.add("in"); var s=e.target.querySelectorAll(".step"); s.forEach(function(st,i){ st.style.setProperty("--d",(i*110)+"ms"); st.classList.add("in"); }); so.disconnect(); } }); },{threshold:0.3});
         var stepsEl=document.querySelector(".steps"); if(stepsEl) so.observe(stepsEl);
       } else {
-        document.querySelectorAll(".reveal,.step").forEach(function(el){ el.classList.add("in"); });
+        document.querySelectorAll(".reveal,.step,.bento .card").forEach(function(el){ el.classList.add("in"); });
         var ex2=document.querySelector(".explainer"); if(ex2) ex2.classList.add("in");
       }
 
