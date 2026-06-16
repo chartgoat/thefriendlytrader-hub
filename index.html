@@ -254,23 +254,6 @@
       .btc { position: absolute; inset: 0; display: grid; place-items: center; }
       .btc .lock { position: absolute; top: 10px; right: 10px; width: 16px; height: 16px; color: var(--muted); }
 
-      /* ───── Trust strip (iOS frosted capsules) ───── */
-      .trust { max-width: 980px; margin: 0 auto; padding: 64px 24px 8px; text-align: center; }
-      .trust-row { display: flex; flex-wrap: wrap; align-items: stretch; justify-content: center; gap: 12px; }
-      .trust-stat {
-        display: flex; flex-direction: column; align-items: center; gap: 5px;
-        padding: 20px 30px; min-width: 156px;
-        background: rgba(255,255,255,0.025); border: 1px solid var(--border);
-        border-radius: var(--radius-lg);
-        backdrop-filter: blur(10px); -webkit-backdrop-filter: blur(10px);
-        transition: transform var(--dur-fast) var(--ios), border-color var(--dur-fast) var(--ease);
-      }
-      .trust-stat:hover { border-color: var(--border-gold); transform: translateY(-2px); }
-      .trust-num { font-size: 34px; font-weight: 800; line-height: 1; letter-spacing: -0.025em; }
-      .trust-num .g { background: var(--gold-gradient); -webkit-background-clip: text; background-clip: text; -webkit-text-fill-color: transparent; }
-      .trust-cap { font-size: 12px; color: var(--muted); letter-spacing: 0.02em; }
-      .trust-line { margin: 28px auto 0; font-size: 14.5px; color: var(--body); max-width: 52ch; }
-
       /* ───── Explainer (iOS step cards) ───── */
       .explainer { background: var(--surface-1); border-top: 1px solid var(--border); border-bottom: 1px solid var(--border); margin-top: 60px; padding: 80px 24px; }
       .explainer-inner { max-width: 1040px; margin: 0 auto; text-align: center; }
@@ -363,13 +346,10 @@
         .explainer { padding: 60px 18px; }
         .cta { padding: 64px 16px; }
         .cta-card { padding: 38px 22px 34px; }
-        .trust { padding: 52px 18px 8px; }
       }
       @media (max-width: 430px) {
         .pill { padding: 0 14px; font-size: 12.5px; }
         .ticker-track { animation-duration: 30s; }
-        .trust-stat { min-width: 0; flex: 1 1 40%; padding: 16px 12px; }
-        .trust-num { font-size: 28px; }
         .cta-icons span { width: 38px; height: 38px; }
       }
 
@@ -537,16 +517,6 @@
             </article>
           </div>
         </div>
-      </section>
-
-      <!-- Trust strip -->
-      <section class="trust reveal">
-        <div class="trust-row">
-          <div class="trust-stat"><span class="trust-num"><span class="g" data-count="3">3</span></span><span class="trust-cap">tools live today</span></div>
-          <div class="trust-stat"><span class="trust-num"><span class="g">A–D</span></span><span class="trust-cap">grades, fully explained</span></div>
-          <div class="trust-stat"><span class="trust-num"><span class="g">1</span></span><span class="trust-cap">calm home for all of it</span></div>
-        </div>
-        <p class="trust-line">Built by traders, written for humans. No hot tips, no hype, no guarantees.</p>
       </section>
 
       <!-- Explainer -->
@@ -941,19 +911,6 @@
           });
         },{passive:true});
       }
-
-      // ───── count-up ─────
-      function countUp(el){
-        var target=parseFloat(el.getAttribute("data-count"))||0;
-        if(STATIC){ el.textContent=target; return; }
-        var start=null, dur=1300;
-        function tick(t){ if(!start)start=t; var p=Math.min(1,(t-start)/dur); var e=1-Math.pow(2,-10*p); el.textContent=Math.round(e*target); if(p<1)requestAnimationFrame(tick); else el.textContent=target; }
-        requestAnimationFrame(tick);
-      }
-      if("IntersectionObserver" in window){
-        var co=new IntersectionObserver(function(es){ es.forEach(function(e){ if(e.isIntersecting){ countUp(e.target); co.unobserve(e.target);} }); },{threshold:0.6});
-        document.querySelectorAll("[data-count]").forEach(function(el){ co.observe(el); });
-      } else { document.querySelectorAll("[data-count]").forEach(function(el){ el.textContent=el.getAttribute("data-count"); }); }
 
       // ───── magnetic CTA ─────
       (function magnet(){
