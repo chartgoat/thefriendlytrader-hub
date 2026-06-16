@@ -4,288 +4,250 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
     <meta name="color-scheme" content="dark" />
-    <meta name="theme-color" content="#0a0a0a" />
-    <title>The Friendly Trader</title>
+    <meta name="theme-color" content="#000000" />
     <meta name="robots" content="noindex,follow" />
-    <meta name="description" content="A hub for The Friendly Trader's market tools: SWJ Intelligence, Friendly Screener, SituTrader, and Goat Scalper." />
-    <link rel="icon" type="image/jpeg" href="/SWJ_Favicon.jpg" />
+    <title>The Friendly Trader — Hub</title>
+    <meta name="description" content="Your trading toolkit. Eight tools, one home." />
+    <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='8' fill='%23050505'/%3E%3Cpath d='M6 22 L13 15 L18 19 L26 9' fill='none' stroke='%23ccb167' stroke-width='2.4' stroke-linecap='round' stroke-linejoin='round'/%3E%3Ccircle cx='26' cy='9' r='2.6' fill='%23ffff8a'/%3E%3C/svg%3E" />
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-    <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;600;700&display=swap" rel="stylesheet" />
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet" />
     <style>
       :root {
-        --bg: #0a0a0a;
-        --bg-card: rgba(255, 255, 255, 0.025);
-        --bg-card-hover: rgba(255, 255, 255, 0.05);
-        --border: rgba(255, 255, 255, 0.08);
-        --border-hover: rgba(212, 175, 55, 0.4);
-        --text: rgba(255, 255, 255, 0.94);
-        --text-muted: rgba(255, 255, 255, 0.55);
-        --text-faint: rgba(255, 255, 255, 0.35);
-        --gold: #d4af37;
-        --gold-bright: #f0c651;
-        --accent-blue: #5b8def;
+        --bg: rgb(0,0,0); --surface-1: rgb(5,5,5); --surface-2: rgb(18,19,28);
+        --border: rgb(30,35,51); --border-gold: rgba(204,177,103,0.5);
+        --gold: rgb(204,177,103); --gold-hi: rgb(255,255,138);
+        --gold-gradient: linear-gradient(65deg, rgb(207,181,104) 27.49%, rgb(255,255,138) 72.54%);
+        --gold-glow: rgba(212,168,83,0.30);
+        --text: rgb(255,255,255); --body: rgb(180,180,180); --muted: rgb(130,130,130);
+        --radius: 16px; --radius-sm: 10px;
+        --font-ui: "Inter", system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+        --ease: cubic-bezier(0.2,0.8,0.2,1); --ease-reveal: cubic-bezier(0.22,1,0.36,1);
+        --dur-fast: 180ms; --dur-mid: 250ms; --dur-reveal: 600ms;
       }
-
       * { box-sizing: border-box; }
       html, body { margin: 0; padding: 0; }
+      body { background: var(--bg); color: var(--text); font-family: var(--font-ui); font-size: 16px; line-height: 1.55; -webkit-font-smoothing: antialiased; overflow-x: hidden; }
+      a { color: inherit; text-decoration: none; }
 
-      body {
-        background: var(--bg);
-        color: var(--text);
-        font-family: "JetBrains Mono", ui-monospace, SFMono-Regular, Menlo, monospace;
-        font-size: 15px;
-        line-height: 1.55;
-        min-height: 100vh;
-        -webkit-font-smoothing: antialiased;
-        -moz-osx-font-smoothing: grayscale;
-        background-image:
-          radial-gradient(800px 400px at 20% -10%, rgba(212, 175, 55, 0.06), transparent 60%),
-          radial-gradient(700px 350px at 100% 110%, rgba(91, 141, 239, 0.05), transparent 60%);
-      }
+      .bar-wrap { position: sticky; top: 0; z-index: 50; border-bottom: 1px solid var(--border); background: rgba(0,0,0,0.55); backdrop-filter: blur(6px); -webkit-backdrop-filter: blur(6px); }
+      .bar { display: flex; align-items: center; justify-content: space-between; gap: 16px; max-width: 1180px; margin: 0 auto; padding: 14px 24px; }
+      .brand { display: flex; align-items: center; gap: 10px; }
+      .mark { width: 30px; height: 30px; display: block; flex-shrink: 0; }
+      .mark .tick { stroke-dasharray: 60; stroke-dashoffset: 60; animation: draw-on 0.7s var(--ease) 0.2s forwards; }
+      @keyframes draw-on { to { stroke-dashoffset: 0; } }
+      .wordmark { font-weight: 600; font-size: 18px; letter-spacing: -0.01em; }
+      .wordmark .g { background: var(--gold-gradient); -webkit-background-clip: text; background-clip: text; -webkit-text-fill-color: transparent; }
+      .tag { font-size: 11px; font-weight: 600; letter-spacing: 0.16em; text-transform: uppercase; color: var(--muted); border: 1px solid var(--border); border-radius: 999px; padding: 5px 12px; }
 
-      .wrap {
-        max-width: 1080px;
-        margin: 0 auto;
-        padding: 56px 24px 80px;
-      }
+      .hero { position: relative; padding: 72px 24px 32px; overflow: hidden; isolation: isolate; }
+      #bg { position: absolute; inset: 0; width: 100%; height: 100%; z-index: 0; display: block; }
+      .aurora { position: absolute; inset: 0; z-index: 0; pointer-events: none; background: radial-gradient(55% 50% at 50% 0%, rgba(212,168,83,0.14), transparent 70%); animation: aurora 9s ease-in-out infinite; }
+      @keyframes aurora { 0%,100% { opacity: 0.55; } 50% { opacity: 1; } }
+      .scrim { position: absolute; inset: 0; z-index: 1; pointer-events: none; background: radial-gradient(120% 90% at 50% 30%, rgba(0,0,0,0.3) 0%, rgba(0,0,0,0.62) 70%, rgba(0,0,0,0.82) 100%); }
+      .hero-inner { position: relative; z-index: 2; max-width: 1180px; margin: 0 auto; text-align: center; }
+      .eyebrow { font-size: 12px; font-weight: 600; letter-spacing: 0.14em; text-transform: uppercase; color: var(--gold); margin: 0 0 14px; }
+      h1 { font-weight: 800; font-size: clamp(32px, 5.5vw, 56px); line-height: 1.0; letter-spacing: -0.035em; margin: 0 0 14px; }
+      h1 .g { background: var(--gold-gradient); -webkit-background-clip: text; background-clip: text; -webkit-text-fill-color: transparent; text-shadow: 0 0 40px var(--gold-glow); }
+      .sub { font-size: clamp(14px, 1.5vw, 17px); color: var(--body); max-width: 52ch; margin: 0 auto; }
 
-      header {
-        text-align: center;
-        margin-bottom: 56px;
-      }
+      .grid-wrap { max-width: 1180px; margin: 0 auto; padding: 16px 24px 80px; position: relative; z-index: 2; }
+      .grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 16px; }
+      .card { position: relative; display: flex; flex-direction: column; gap: 12px; background: var(--surface-2); border: 1px solid var(--border); border-radius: var(--radius); padding: 22px; overflow: hidden; transform-style: preserve-3d; transition: transform var(--dur-mid) var(--ease-reveal), border-color var(--dur-mid) var(--ease), box-shadow var(--dur-mid) var(--ease); opacity: 0; }
+      .card.in { opacity: 1; }
+      .card::before { content: ""; position: absolute; inset: 0; z-index: 0; pointer-events: none; opacity: 0; background: radial-gradient(200px circle at var(--mx,50%) var(--my,0%), var(--gold-glow), transparent 60%); transition: opacity var(--dur-mid) var(--ease); }
+      .card:hover, .card:focus-within { border-color: var(--border-gold); box-shadow: 0 16px 44px rgba(0,0,0,0.5); }
+      .card:hover::before, .card:focus-within::before { opacity: 1; }
+      .card-link { position: absolute; inset: 0; z-index: 3; border-radius: var(--radius); }
+      .card-link:focus-visible { outline: 2px solid var(--gold); outline-offset: 2px; }
+      .card .inner { position: relative; z-index: 2; display: flex; flex-direction: column; gap: 10px; height: 100%; pointer-events: none; }
+      .glyph { width: 38px; height: 38px; border-radius: 10px; background: rgba(193,155,63,0.14); display: grid; place-items: center; color: var(--gold); }
+      .glyph svg { width: 20px; height: 20px; }
+      .card-head { display: flex; align-items: flex-start; justify-content: space-between; gap: 10px; }
+      .arrow { width: 16px; height: 16px; color: var(--muted); transition: color var(--dur-fast) var(--ease), transform var(--dur-fast) var(--ease); margin-top: 4px; }
+      .card:hover .arrow, .card:focus-within .arrow { color: var(--gold-hi); transform: translate(2px,-2px); }
+      .card-title { font-size: 17px; font-weight: 600; margin: 4px 0 0; letter-spacing: -0.01em; }
+      .card-desc { font-size: 13px; color: var(--body); margin: 0; line-height: 1.5; flex: 1; }
+      .card-host { font-size: 10.5px; color: var(--muted); letter-spacing: 0.02em; }
 
-      .logo {
-        width: 64px;
-        height: 64px;
-        border-radius: 12px;
-        margin: 0 auto 20px;
-        display: block;
-        box-shadow: 0 8px 32px rgba(212, 175, 55, 0.2);
-      }
+      footer { border-top: 1px solid var(--border); padding: 32px 24px; text-align: center; color: var(--muted); font-size: 12px; letter-spacing: 0.03em; }
+      footer .sep { margin: 0 8px; opacity: 0.5; }
 
-      .brand {
-        font-size: 13px;
-        letter-spacing: 0.18em;
-        text-transform: uppercase;
-        color: var(--gold);
-        margin: 0 0 12px;
-        font-weight: 600;
-      }
+      @media (max-width: 1000px) { .grid { grid-template-columns: repeat(2, 1fr); } }
+      @media (max-width: 560px) { .grid { grid-template-columns: 1fr; } .hero { padding: 48px 16px 24px; } .grid-wrap { padding: 12px 16px 56px; } }
 
-      h1 {
-        font-size: clamp(28px, 5vw, 40px);
-        font-weight: 600;
-        margin: 0 0 14px;
-        letter-spacing: -0.01em;
-        line-height: 1.15;
-      }
-
-      .tagline {
-        color: var(--text-muted);
-        font-size: 14px;
-        margin: 0;
-        max-width: 540px;
-        margin-left: auto;
-        margin-right: auto;
-      }
-
-      .grid {
-        display: grid;
-        grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-        gap: 16px;
-      }
-
-      .card {
-        background: var(--bg-card);
-        border: 1px solid var(--border);
-        border-radius: 12px;
-        padding: 24px;
-        display: flex;
-        flex-direction: column;
-        gap: 14px;
-        text-decoration: none;
-        color: inherit;
-        transition: background 180ms ease, border-color 180ms ease, transform 180ms ease;
-        position: relative;
-        overflow: hidden;
-      }
-
-      .card::after {
-        content: "";
-        position: absolute;
-        top: 0;
-        right: 0;
-        width: 80px;
-        height: 80px;
-        background: radial-gradient(circle at top right, rgba(212, 175, 55, 0.08), transparent 70%);
-        opacity: 0;
-        transition: opacity 180ms ease;
-      }
-
-      .card:hover {
-        background: var(--bg-card-hover);
-        border-color: var(--border-hover);
-        transform: translateY(-2px);
-      }
-
-      .card:hover::after { opacity: 1; }
-
-      .card:focus-visible {
-        outline: 2px solid var(--gold);
-        outline-offset: 2px;
-      }
-
-      .card-header {
-        display: flex;
-        align-items: center;
-        justify-content: space-between;
-        gap: 12px;
-      }
-
-      .card-title {
-        font-size: 17px;
-        font-weight: 600;
-        margin: 0;
-        color: var(--text);
-        letter-spacing: -0.005em;
-      }
-
-      .arrow {
-        width: 18px;
-        height: 18px;
-        flex-shrink: 0;
-        color: var(--text-faint);
-        transition: color 180ms ease, transform 180ms ease;
-      }
-
-      .card:hover .arrow {
-        color: var(--gold-bright);
-        transform: translate(2px, -2px);
-      }
-
-      .card-desc {
-        color: var(--text-muted);
-        font-size: 13.5px;
-        margin: 0;
-        line-height: 1.55;
-      }
-
-      .card-host {
-        font-size: 11px;
-        color: var(--text-faint);
-        letter-spacing: 0.04em;
-        margin-top: 4px;
-        text-transform: lowercase;
-      }
-
-      footer {
-        margin-top: 64px;
-        text-align: center;
-        color: var(--text-faint);
-        font-size: 11.5px;
-        letter-spacing: 0.04em;
-      }
-
-      footer .dot {
-        display: inline-block;
-        margin: 0 8px;
-        opacity: 0.6;
-      }
-
-      @media (max-width: 520px) {
-        .wrap { padding: 40px 18px 60px; }
-        header { margin-bottom: 40px; }
-        .card { padding: 20px; }
+      @media (prefers-reduced-motion: reduce) {
+        *, *::before, *::after { animation: none !important; transition: none !important; }
+        .card { opacity: 1; }
       }
     </style>
   </head>
   <body>
-    <div class="wrap">
-      <header>
-        <img src="/SWJ_Favicon.jpg" alt="The Friendly Trader" class="logo" />
-        <p class="brand">The Friendly Trader</p>
-        <h1>Your trading toolkit.</h1>
-        <p class="tagline">Eight tools, one home. Pick where you want to start.</p>
+    <div class="bar-wrap">
+      <header class="bar">
+        <a class="brand" href="/" aria-label="Friendly Trader home">
+          <svg class="mark" viewBox="0 0 32 32" aria-hidden="true"><rect width="32" height="32" rx="8" fill="#050505"/><path class="tick" d="M6 22 L13 15 L18 19 L26 9" fill="none" stroke="#ccb167" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/><circle cx="26" cy="9" r="2.6" fill="#ffff8a"/></svg>
+          <span class="wordmark"><span class="g">Friendly</span> Trader</span>
+        </a>
+        <span class="tag">Hub</span>
       </header>
+    </div>
 
-      <main class="grid">
-        <a class="card" href="https://friendly-trader.com" rel="noopener">
-          <div class="card-header">
+    <section class="hero" id="hero">
+      <canvas id="bg" aria-hidden="true"></canvas>
+      <div class="aurora" aria-hidden="true"></div>
+      <div class="scrim"></div>
+      <div class="hero-inner">
+        <p class="eyebrow">The Friendly Trader</p>
+        <h1>Your <span class="g">trading toolkit.</span></h1>
+        <p class="sub">Eight tools, one home. Pick where you want to start.</p>
+      </div>
+    </section>
+
+    <div class="grid-wrap">
+      <main class="grid" id="grid">
+        <a class="card" data-mood href="https://friendly-trader.com" rel="noopener">
+          <div class="inner">
+            <div class="card-head"><div class="glyph"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 20v-6M6 20v-3M18 20v-9"/><circle cx="12" cy="6" r="2"/></svg></div><svg class="arrow" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M7 17 17 7"/><path d="M7 7h10v10"/></svg></div>
             <h2 class="card-title">SWJ Intelligence</h2>
-            <svg class="arrow" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M7 17 17 7" /><path d="M7 7h10v10" /></svg>
+            <p class="card-desc">Market breadth, internals, and the Fear &amp; Greed gauge in one dashboard.</p>
+            <p class="card-host">friendly-trader.com</p>
           </div>
-          <p class="card-desc">Market breadth, internals, and the Fear &amp; Greed gauge in one dashboard.</p>
-          <p class="card-host">friendly-trader.com</p>
         </a>
-
-        <a class="card" href="https://friendlyscreener.com" rel="noopener">
-          <div class="card-header">
+        <a class="card" data-mood href="https://friendlyscreener.com" rel="noopener">
+          <div class="inner">
+            <div class="card-head"><div class="glyph"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 3v18h18"/><path d="M7 14l3-3 3 2 5-6"/></svg></div><svg class="arrow" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M7 17 17 7"/><path d="M7 7h10v10"/></svg></div>
             <h2 class="card-title">Friendly Screener</h2>
-            <svg class="arrow" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M7 17 17 7" /><path d="M7 7h10v10" /></svg>
+            <p class="card-desc">Daily stock screening with explainable A to D grading.</p>
+            <p class="card-host">friendlyscreener.com</p>
           </div>
-          <p class="card-desc">Daily stock screening built around the SWJ playbook.</p>
-          <p class="card-host">friendlyscreener.com</p>
         </a>
-
-        <a class="card" href="https://thefriendlytrader.com/options" rel="noopener">
-          <div class="card-header">
+        <a class="card" data-mood href="https://thefriendlytrader.com/options" rel="noopener">
+          <div class="inner">
+            <div class="card-head"><div class="glyph"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 18l5-5 4 3 7-8"/><path d="M21 7v5h-5"/></svg></div><svg class="arrow" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M7 17 17 7"/><path d="M7 7h10v10"/></svg></div>
             <h2 class="card-title">Friendly Options</h2>
-            <svg class="arrow" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M7 17 17 7" /><path d="M7 7h10v10" /></svg>
+            <p class="card-desc">Pick cleaner contracts, analyze the trade, and read the options flow in plain English.</p>
+            <p class="card-host">thefriendlytrader.com/options</p>
           </div>
-          <p class="card-desc">Pick cleaner contracts, analyze your trade, and read the unusual options flow.</p>
-          <p class="card-host">thefriendlytrader.com/options</p>
         </a>
-
-        <a class="card" href="https://situtrader-production.up.railway.app/best-setup-sectors" rel="noopener">
-          <div class="card-header">
+        <a class="card" data-mood href="https://situtrader-production.up.railway.app/best-setup-sectors" rel="noopener">
+          <div class="inner">
+            <div class="card-head"><div class="glyph"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="12" width="4" height="8"/><rect x="10" y="7" width="4" height="13"/><rect x="17" y="3" width="4" height="17"/></svg></div><svg class="arrow" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M7 17 17 7"/><path d="M7 7h10v10"/></svg></div>
             <h2 class="card-title">SituTrader</h2>
-            <svg class="arrow" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M7 17 17 7" /><path d="M7 7h10v10" /></svg>
+            <p class="card-desc">Best-setup sectors, ranked. See where the strength is right now.</p>
+            <p class="card-host">situtrader.up.railway.app</p>
           </div>
-          <p class="card-desc">Best-setup sectors, ranked. See where the strength is right now.</p>
-          <p class="card-host">situtrader.up.railway.app</p>
         </a>
-
-        <a class="card" href="https://goatdiscordscalper-production.up.railway.app/" rel="noopener">
-          <div class="card-header">
+        <a class="card" data-mood href="https://goatdiscordscalper-production.up.railway.app/" rel="noopener">
+          <div class="inner">
+            <div class="card-head"><div class="glyph"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M13 2L3 14h7l-1 8 10-12h-7z"/></svg></div><svg class="arrow" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M7 17 17 7"/><path d="M7 7h10v10"/></svg></div>
             <h2 class="card-title">Goat Scalper</h2>
-            <svg class="arrow" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M7 17 17 7" /><path d="M7 7h10v10" /></svg>
+            <p class="card-desc">Discord-powered scalping signals and trade tracking.</p>
+            <p class="card-host">goatdiscordscalper.up.railway.app</p>
           </div>
-          <p class="card-desc">Discord-powered scalping signals and trade tracking.</p>
-          <p class="card-host">goatdiscordscalper.up.railway.app</p>
         </a>
-
-        <a class="card" href="https://systemized-tradealert-system-production.up.railway.app/signals" rel="noopener">
-          <div class="card-header">
+        <a class="card" data-mood href="https://systemized-tradealert-system-production.up.railway.app/signals" rel="noopener">
+          <div class="inner">
+            <div class="card-head"><div class="glyph"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M18 8a6 6 0 0 0-12 0c0 7-3 9-3 9h18s-3-2-3-9"/><path d="M13.7 21a2 2 0 0 1-3.4 0"/></svg></div><svg class="arrow" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M7 17 17 7"/><path d="M7 7h10v10"/></svg></div>
             <h2 class="card-title">TradeSync</h2>
-            <svg class="arrow" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M7 17 17 7" /><path d="M7 7h10v10" /></svg>
+            <p class="card-desc">Signals, watchlists, and price alerts across your trading apps.</p>
+            <p class="card-host">systemized-tradealert-system.up.railway.app</p>
           </div>
-          <p class="card-desc">Signals, watchlists, and price alerts across your trading apps.</p>
-          <p class="card-host">systemized-tradealert-system.up.railway.app</p>
         </a>
-
-        <a class="card" href="https://swj-portfolio-production.up.railway.app" rel="noopener">
-          <div class="card-header">
+        <a class="card" data-mood href="https://swj-portfolio-production.up.railway.app" rel="noopener">
+          <div class="inner">
+            <div class="card-head"><div class="glyph"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="7" width="18" height="13" rx="2"/><path d="M8 7V5a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"/></svg></div><svg class="arrow" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M7 17 17 7"/><path d="M7 7h10v10"/></svg></div>
             <h2 class="card-title">SWJ Portfolio</h2>
-            <svg class="arrow" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M7 17 17 7" /><path d="M7 7h10v10" /></svg>
+            <p class="card-desc">Portfolio Challenge positions and action history.</p>
+            <p class="card-host">swj-portfolio.up.railway.app</p>
           </div>
-          <p class="card-desc">Portfolio Challenge positions and action history.</p>
-          <p class="card-host">swj-portfolio.up.railway.app</p>
         </a>
-
-        <a class="card" href="https://leaderboard.stockswithjosh.com" rel="noopener">
-          <div class="card-header">
+        <a class="card" data-mood href="https://leaderboard.stockswithjosh.com" rel="noopener">
+          <div class="inner">
+            <div class="card-head"><div class="glyph"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M8 21h8M12 17v4M7 4h10v5a5 5 0 0 1-10 0z"/><path d="M5 4H3v2a3 3 0 0 0 3 3M19 4h2v2a3 3 0 0 1-3 3"/></svg></div><svg class="arrow" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M7 17 17 7"/><path d="M7 7h10v10"/></svg></div>
             <h2 class="card-title">Leaderboard</h2>
-            <svg class="arrow" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M7 17 17 7" /><path d="M7 7h10v10" /></svg>
+            <p class="card-desc">Crowned Trader rankings, signals, and live trade tracking.</p>
+            <p class="card-host">leaderboard.stockswithjosh.com</p>
           </div>
-          <p class="card-desc">Crowned Trader rankings, signals, and live trade tracking.</p>
-          <p class="card-host">leaderboard.stockswithjosh.com</p>
         </a>
       </main>
-
-      <footer>
-        Stocks With Josh<span class="dot">&middot;</span>The Friendly Trader<span class="dot">&middot;</span>2026
-      </footer>
     </div>
+
+    <footer>The Friendly Trader<span class="sep">·</span>Internal hub<span class="sep">·</span>2026</footer>
+
+    <script>
+    (function () {
+      "use strict";
+      var RM = matchMedia("(prefers-reduced-motion: reduce)");
+      var coarse = matchMedia("(pointer: coarse)").matches;
+      var saveData = (navigator.connection && navigator.connection.saveData) || false;
+      var STATIC = RM.matches || saveData || (coarse && innerWidth < 720);
+      var fine = matchMedia("(pointer: fine)").matches;
+
+      function mulberry32(a){return function(){a|=0;a=a+0x6D2B79F5|0;var t=Math.imul(a^a>>>15,1|a);t=t+Math.imul(t^t>>>7,61|t)^t;return((t^t>>>14)>>>0)/4294967296;};}
+      var rnd = mulberry32(20260616);
+      var MEAN=0.5,VOL=0.085,K=0.045,LO=0.12,HI=0.88, series=[];
+      function step(p){var n=p+(rnd()-0.5)*VOL-K*(p-MEAN);return n<LO?LO:(n>HI?HI:n);}
+      (function(){var v=0.5;for(var i=0;i<260;i++){v=step(v);series.push(v);}})();
+      function tail(n){return series.slice(series.length-n);}
+      function pushPoint(){series.push(step(series[series.length-1]));if(series.length>2000)series.shift();}
+      var mood=0; // 0..1 brighten on hover
+
+      (function backdrop(){
+        var canvas=document.getElementById("bg"); if(!canvas) return;
+        var ctx=canvas.getContext("2d"), hero=document.getElementById("hero");
+        var dpr=Math.min(devicePixelRatio||1,1.75), W=0,H=0, N=coarse?18:44, BW=0, reveal=0, scrollX=0, lastTick=0, TICK=900;
+        var rafId=null, running=false, lastT=0, slow=0;
+        var grid=document.createElement("canvas"), gctx=grid.getContext("2d");
+        function resize(){ var r=hero.getBoundingClientRect(); W=r.width; H=r.height; canvas.width=W*dpr; canvas.height=H*dpr; canvas.style.width=W+"px"; canvas.style.height=H+"px"; ctx.setTransform(dpr,0,0,dpr,0,0); BW=W/(N-2); grid.width=W*dpr; grid.height=H*dpr; gctx.setTransform(dpr,0,0,dpr,0,0); drawGrid(); }
+        function drawGrid(){ gctx.clearRect(0,0,W,H); gctx.fillStyle="rgba(30,35,51,0.5)"; for(var y=30;y<H;y+=34){ for(var x=0;x<W+34;x+=34){ gctx.beginPath(); gctx.arc(x,y,1,0,6.283); gctx.fill(); } } }
+        function yOf(v){ return H - (v*0.56 + 0.22)*H; }
+        function frame(t){ if(!running)return; if(!lastT)lastT=t; var dt=t-lastT; if(dt<32){rafId=requestAnimationFrame(frame);return;} if(dt>90){slow++; if(slow>30){running=false; render(t,true); return;}} else if(slow>0)slow--; lastT=t; if(!lastTick)lastTick=t; if(t-lastTick>=TICK){lastTick+=TICK; pushPoint(); scrollX=0;} else scrollX=(t-lastTick)/TICK; if(reveal<1)reveal=Math.min(1,reveal+dt/1200); render(t,false); rafId=requestAnimationFrame(frame); }
+        function render(t,frozen){
+          ctx.clearRect(0,0,W,H);
+          var ox=-scrollX*BW; ctx.drawImage(grid, ox*0.4,0,W,H);
+          var pts=tail(N+1), visible=Math.max(2,Math.floor(pts.length*reveal));
+          var bright=0.10+0.10*mood;
+          for(var i=0;i<visible;i++){ var idx=pts.length-visible+i, v=pts[idx], pv=pts[idx-1]!=null?pts[idx-1]:v, x=i*BW+ox, up=v>=pv, oY=yOf(pv), cY=yOf(v);
+            var col=up?"rgba(204,177,103,"+(bright+0.14*((v-LO)/(HI-LO)))+")":"rgba(150,120,60,0.22)"; ctx.fillStyle=col; ctx.fillRect(x-BW*0.28,Math.min(oY,cY),BW*0.56,Math.max(2,Math.abs(cY-oY))); ctx.strokeStyle=col; ctx.lineWidth=1; ctx.beginPath(); ctx.moveTo(x,Math.min(oY,cY)-BW*0.5); ctx.lineTo(x,Math.max(oY,cY)+BW*0.5); ctx.stroke(); }
+          ctx.beginPath(); for(var j=0;j<visible;j++){ var xx=j*BW+ox, yy=yOf(pts[pts.length-visible+j]); if(j===0)ctx.moveTo(xx,yy); else ctx.lineTo(xx,yy);}
+          ctx.save(); ctx.strokeStyle="rgba("+(216+ (255-216)*mood|0)+",188,"+(110+(138-110)*mood|0)+",1)"; ctx.lineWidth=1.8; ctx.lineJoin="round"; ctx.shadowColor="rgba(204,177,103,"+(0.4+0.3*mood)+")"; ctx.shadowBlur=14; ctx.stroke(); ctx.restore();
+          var lastX=(visible-1)*BW+ox, lastY=yOf(pts[pts.length-1]); ctx.lineTo(lastX,H); ctx.lineTo(ox,H); ctx.closePath(); var g=ctx.createLinearGradient(0,0,0,H); g.addColorStop(0,"rgba(204,177,103,0.07)"); g.addColorStop(1,"rgba(204,177,103,0)"); ctx.fillStyle=g; ctx.fill();
+          if(!frozen){ var pr=3.2+Math.sin(t/300)*1.2; ctx.beginPath(); ctx.arc(lastX,lastY,pr+8,0,6.283); ctx.fillStyle="rgba(255,255,138,0.1)"; ctx.fill(); }
+          ctx.beginPath(); ctx.arc(lastX,lastY,3,0,6.283); ctx.fillStyle="#ffff8a"; ctx.fill();
+        }
+        function start(){ if(running||STATIC)return; running=true; lastT=0; lastTick=0; rafId=requestAnimationFrame(frame); }
+        function stop(){ running=false; if(rafId){cancelAnimationFrame(rafId); rafId=null;} }
+        resize();
+        if(STATIC){ reveal=1; render(0,true); }
+        else { render(0,true); if("IntersectionObserver" in window){ var io=new IntersectionObserver(function(es){es.forEach(function(e){ if(e.isIntersecting&&!document.hidden)start(); else stop(); });},{threshold:0.05}); io.observe(hero); } else { start(); } document.addEventListener("visibilitychange",function(){ if(document.hidden)stop(); else { var r=hero.getBoundingClientRect(); if(r.bottom>0&&r.top<innerHeight)start(); } }); var rt; addEventListener("resize",function(){clearTimeout(rt); rt=setTimeout(function(){dpr=Math.min(devicePixelRatio||1,1.75); resize();},180);}); var onRM=function(){ if(RM.matches){ STATIC=true; stop(); reveal=1; render(0,true); } }; if(RM.addEventListener) RM.addEventListener("change",onRM); else if(RM.addListener) RM.addListener(onRM); }
+        var moodRaf=null;
+        window.__hubMood=function(on){ // eased via single cancellable loop
+          var target=on?1:0; if(moodRaf)cancelAnimationFrame(moodRaf);
+          (function ease(){ mood+=(target-mood)*0.12; if(Math.abs(target-mood)>0.01){ if(!running) render(0,true); moodRaf=requestAnimationFrame(ease);} else { mood=target; moodRaf=null; if(!running) render(0,true);} })();
+        };
+      })();
+
+      // card hover -> brighten backdrop + glow/tilt
+      document.querySelectorAll(".card").forEach(function(card){
+        card.addEventListener("mouseenter",function(){ if(window.__hubMood)window.__hubMood(true); });
+        card.addEventListener("mouseleave",function(){ if(window.__hubMood)window.__hubMood(false); });
+        card.addEventListener("focusin",function(){ if(window.__hubMood)window.__hubMood(true); });
+        card.addEventListener("focusout",function(){ if(window.__hubMood)window.__hubMood(false); });
+      });
+      if(fine && !STATIC){
+        var pending=null;
+        document.querySelectorAll(".card").forEach(function(card){
+          card.addEventListener("pointermove",function(e){ var r=card.getBoundingClientRect(), px=(e.clientX-r.left)/r.width, py=(e.clientY-r.top)/r.height; if(pending)cancelAnimationFrame(pending); pending=requestAnimationFrame(function(){ card.style.setProperty("--mx",(px*100)+"%"); card.style.setProperty("--my",(py*100)+"%"); card.style.transform="perspective(900px) rotateX("+((py-0.5)*-6)+"deg) rotateY("+((px-0.5)*6)+"deg) translateY(-3px)"; }); });
+          card.addEventListener("pointerleave",function(){ card.style.transform=""; });
+        });
+      }
+      // staggered reveal
+      if(!STATIC && "IntersectionObserver" in window){
+        var ro=new IntersectionObserver(function(es){ es.forEach(function(e){ if(e.isIntersecting){ var cards=[].slice.call(document.querySelectorAll(".card")); cards.forEach(function(c,i){ setTimeout(function(){ c.style.transition="opacity 0.5s var(--ease-reveal), transform 0.25s var(--ease)"; c.classList.add("in"); }, i*60); }); ro.disconnect(); } }); },{threshold:0.05});
+        ro.observe(document.getElementById("grid"));
+      } else { document.querySelectorAll(".card").forEach(function(c){ c.classList.add("in"); }); }
+    })();
+    </script>
   </body>
 </html>

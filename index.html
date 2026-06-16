@@ -4,325 +4,833 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
     <meta name="color-scheme" content="dark" />
-    <meta name="theme-color" content="#0a0a0a" />
-    <title>Friendly Trader: Stock Screener, Options & Market Tools</title>
-    <meta name="description" content="Friendly Trader is a suite of plain-English trading tools: a daily stock screener with explainable grading, market intelligence, and options flow analysis." />
-    <meta property="og:title" content="Friendly Trader: Trading tools, made friendly" />
-    <meta property="og:description" content="A suite of plain-English trading tools: stock screening, market intelligence, and options flow analysis." />
+    <meta name="theme-color" content="#000000" />
+    <title>Friendly Trader: The market, in plain English.</title>
+    <meta name="description" content="Four friendly trading tools that turn noisy charts and confusing options into decisions you can actually make. A daily stock screener, market intelligence, and plain-English options flow." />
+    <meta property="og:title" content="Friendly Trader: The market, in plain English." />
+    <meta property="og:description" content="Four friendly tools that turn noisy charts and confusing options into decisions you can actually make." />
     <meta property="og:type" content="website" />
     <meta property="og:url" content="https://thefriendlytrader.com/" />
-    <meta property="og:image" content="https://thefriendlytrader.com/SWJ_Favicon.jpg" />
-    <meta name="twitter:card" content="summary" />
+    <meta property="og:image" content="https://thefriendlytrader.com/assets/og.png" />
+    <meta property="og:image:width" content="1200" />
+    <meta property="og:image:height" content="630" />
+    <meta property="og:site_name" content="Friendly Trader" />
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content="Friendly Trader: The market, in plain English." />
+    <meta name="twitter:description" content="Four friendly tools that turn noisy charts and confusing options into decisions you can actually make." />
+    <meta name="twitter:image" content="https://thefriendlytrader.com/assets/og.png" />
     <link rel="canonical" href="https://thefriendlytrader.com/" />
-    <link rel="icon" type="image/jpeg" href="/SWJ_Favicon.jpg" />
-    <link rel="apple-touch-icon" href="/SWJ_Favicon.jpg" />
+    <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='8' fill='%23050505'/%3E%3Cpath d='M6 22 L13 15 L18 19 L26 9' fill='none' stroke='%23ccb167' stroke-width='2.4' stroke-linecap='round' stroke-linejoin='round'/%3E%3Ccircle cx='26' cy='9' r='2.6' fill='%23ffff8a'/%3E%3C/svg%3E" />
+    <link rel="apple-touch-icon" href="assets/apple-touch-icon.png" />
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet" />
-    <style>
-      :root {
-        --bg: #08080a;
-        --bg-card: rgba(255, 255, 255, 0.025);
-        --bg-card-hover: rgba(255, 255, 255, 0.05);
-        --border: rgba(255, 255, 255, 0.08);
-        --border-gold: rgba(212, 175, 55, 0.4);
-        --text: rgba(255, 255, 255, 0.95);
-        --text-muted: rgba(255, 255, 255, 0.55);
-        --text-faint: rgba(255, 255, 255, 0.35);
-        --gold: #d4af37;
-        --gold-bright: #f0c651;
-      }
-
-      * { box-sizing: border-box; }
-      html, body { margin: 0; padding: 0; }
-
-      body {
-        background: var(--bg);
-        color: var(--text);
-        font-family: "Inter", -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
-        font-size: 16px;
-        line-height: 1.55;
-        min-height: 100vh;
-        -webkit-font-smoothing: antialiased;
-        -moz-osx-font-smoothing: grayscale;
-        background-image:
-          radial-gradient(800px 400px at 20% -10%, rgba(212, 175, 55, 0.08), transparent 60%),
-          radial-gradient(700px 350px at 100% 110%, rgba(91, 141, 239, 0.05), transparent 60%);
-      }
-
-      .wrap {
-        max-width: 980px;
-        margin: 0 auto;
-        padding: 72px 24px 80px;
-        min-height: 100vh;
-        display: flex;
-        flex-direction: column;
-      }
-
-      header {
-        text-align: center;
-        margin-bottom: 48px;
-      }
-
-      .logo {
-        width: 64px;
-        height: 64px;
-        border-radius: 14px;
-        margin: 0 auto 20px;
-        display: block;
-        box-shadow: 0 8px 32px rgba(212, 175, 55, 0.2);
-      }
-
-      .brand {
-        font-size: 12px;
-        letter-spacing: 0.18em;
-        text-transform: uppercase;
-        color: var(--gold);
-        margin: 0 0 12px;
-        font-weight: 600;
-      }
-
-      h1 {
-        font-size: clamp(30px, 5.5vw, 44px);
-        font-weight: 700;
-        letter-spacing: -0.02em;
-        line-height: 1.1;
-        margin: 0 0 14px;
-      }
-
-      h1 .accent {
-        background: linear-gradient(180deg, var(--gold-bright) 0%, var(--gold) 100%);
-        -webkit-background-clip: text;
-        background-clip: text;
-        -webkit-text-fill-color: transparent;
-      }
-
-      .tagline {
-        color: var(--text-muted);
-        font-size: 15px;
-        margin: 0 auto;
-        max-width: 460px;
-      }
-
-      .grid {
-        display: grid;
-        grid-template-columns: repeat(auto-fit, minmax(270px, 1fr));
-        gap: 16px;
-      }
-
-      .card {
-        background: var(--bg-card);
-        border: 1px solid var(--border);
-        border-radius: 14px;
-        padding: 26px;
-        display: flex;
-        flex-direction: column;
-        gap: 10px;
-        text-decoration: none;
-        color: inherit;
-        transition: background 180ms ease, border-color 180ms ease, transform 180ms ease;
-      }
-
-      .card:hover {
-        background: var(--bg-card-hover);
-        border-color: var(--border-gold);
-        transform: translateY(-2px);
-      }
-
-      .card:focus-visible {
-        outline: 2px solid var(--gold);
-        outline-offset: 2px;
-      }
-
-      .card-header {
-        display: flex;
-        align-items: center;
-        justify-content: space-between;
-        gap: 12px;
-      }
-
-      .card-title {
-        font-size: 18px;
-        font-weight: 600;
-        margin: 0;
-        letter-spacing: -0.005em;
-      }
-
-      .arrow {
-        width: 18px;
-        height: 18px;
-        flex-shrink: 0;
-        color: var(--text-faint);
-        transition: color 180ms ease, transform 180ms ease;
-      }
-
-      .card:hover .arrow {
-        color: var(--gold-bright);
-        transform: translate(2px, -2px);
-      }
-
-      .card-desc {
-        color: var(--text-muted);
-        font-size: 14px;
-        margin: 0;
-        line-height: 1.55;
-        flex: 1;
-      }
-
-      .card-host {
-        font-size: 11px;
-        color: var(--text-faint);
-        letter-spacing: 0.04em;
-        margin-top: 6px;
-      }
-
-      .card.soon {
-        cursor: default;
-        opacity: 0.65;
-      }
-      .card.soon:hover {
-        background: var(--bg-card);
-        border-color: var(--border);
-        transform: none;
-      }
-      .badge {
-        font-size: 10px;
-        font-weight: 600;
-        letter-spacing: 0.1em;
-        text-transform: uppercase;
-        padding: 4px 9px;
-        border-radius: 999px;
-        background: rgba(255, 255, 255, 0.05);
-        color: var(--text-muted);
-        border: 1px solid var(--border);
-        flex-shrink: 0;
-      }
-
-      footer {
-        margin-top: auto;
-        padding-top: 56px;
-        text-align: center;
-        color: var(--text-faint);
-        font-size: 11.5px;
-        letter-spacing: 0.04em;
-      }
-
-      @media (max-width: 520px) {
-        .wrap { padding: 48px 18px 56px; }
-        header { margin-bottom: 36px; }
-        .card { padding: 22px; }
-      }
-    </style>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet" />
     <script type="application/ld+json">
     {
       "@context": "https://schema.org",
       "@graph": [
-        {
-          "@type": "Organization",
-          "@id": "https://thefriendlytrader.com/#org",
-          "name": "Friendly Trader",
-          "url": "https://thefriendlytrader.com/",
-          "logo": "https://thefriendlytrader.com/SWJ_Favicon.jpg",
-          "description": "A suite of plain-English trading tools: a daily stock screener with explainable grading, market intelligence, and options flow analysis.",
-          "parentOrganization": {
-            "@type": "Organization",
-            "name": "Stocks With Josh",
-            "url": "https://stockswithjosh.com",
-            "sameAs": [
-              "https://whop.com/stocks-with-josh/",
-              "https://x.com/stockswithjosh",
-              "https://www.youtube.com/@stockswithjosh"
-            ]
-          }
-        },
-        {
-          "@type": "WebSite",
-          "@id": "https://thefriendlytrader.com/#website",
-          "name": "Friendly Trader",
-          "alternateName": "The Friendly Trader",
-          "url": "https://thefriendlytrader.com/",
-          "publisher": { "@id": "https://thefriendlytrader.com/#org" }
-        },
-        {
-          "@type": "ItemList",
-          "@id": "https://thefriendlytrader.com/#tools",
-          "name": "Friendly Trader tools",
-          "itemListElement": [
-            {
-              "@type": "ListItem",
-              "position": 1,
-              "name": "The Screener",
-              "url": "https://friendlyscreener.com",
-              "description": "Daily stock screening with explainable A to D grading."
-            },
-            {
-              "@type": "ListItem",
-              "position": 2,
-              "name": "Intelligence",
-              "url": "https://friendly-trader.com",
-              "description": "Market breadth, internals, and the Fear and Greed gauge in one dashboard."
-            },
-            {
-              "@type": "ListItem",
-              "position": 3,
-              "name": "Friendly Options",
-              "url": "https://thefriendlytrader.com/options",
-              "description": "Pick cleaner contracts, analyze the trade, and read the options flow in plain English."
-            }
-          ]
-        }
+        { "@type": "Organization", "@id": "https://thefriendlytrader.com/#org", "name": "Friendly Trader", "url": "https://thefriendlytrader.com/", "description": "A suite of plain-English trading tools: a daily stock screener with explainable grading, market intelligence, and options flow analysis." },
+        { "@type": "WebSite", "@id": "https://thefriendlytrader.com/#website", "name": "Friendly Trader", "alternateName": "The Friendly Trader", "url": "https://thefriendlytrader.com/", "publisher": { "@id": "https://thefriendlytrader.com/#org" } },
+        { "@type": "ItemList", "@id": "https://thefriendlytrader.com/#tools", "name": "Friendly Trader tools", "itemListElement": [
+          { "@type": "ListItem", "position": 1, "name": "The Screener", "url": "https://friendlyscreener.com", "description": "Daily stock screening with explainable A to D grading." },
+          { "@type": "ListItem", "position": 2, "name": "Intelligence", "url": "https://friendly-trader.com", "description": "Market breadth, internals, and the Fear and Greed gauge in one dashboard." },
+          { "@type": "ListItem", "position": 3, "name": "Friendly Options", "url": "https://thefriendlytrader.com/options", "description": "Pick cleaner contracts, analyze the trade, and read the options flow in plain English." }
+        ] }
       ]
     }
     </script>
+    <style>
+      :root {
+        --bg: rgb(0,0,0);
+        --surface-1: rgb(5,5,5);
+        --surface-2: rgb(18,19,28);
+        --border: rgb(30,35,51);
+        --border-gold: rgba(204,177,103,0.5);
+        --gold: rgb(204,177,103);
+        --gold-hi: rgb(255,255,138);
+        --gold-gradient: linear-gradient(65deg, rgb(207,181,104) 27.49%, rgb(255,255,138) 72.54%);
+        --gold-glow: rgba(212,168,83,0.30);
+        --green: rgb(61,220,139);
+        --green-soft: rgb(127,233,180);
+        --down: rgb(229,72,77);
+        --down-ink: rgb(150,120,60);
+        --amber-soon: rgb(255,196,140);
+        --text: rgb(255,255,255);
+        --body: rgb(180,180,180);
+        --muted: rgb(130,130,130);
+        --glass: rgba(5,5,5,0.55);
+        --glass-solid: rgba(5,5,5,0.85);
+        --radius: 16px;
+        --radius-sm: 10px;
+        --font-display: "Inter", system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+        --font-ui: "Inter", system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+        --ease: cubic-bezier(0.2,0.8,0.2,1);
+        --ease-out-expo: cubic-bezier(0.16,1,0.3,1);
+        --ease-overshoot: cubic-bezier(0.34,1.56,0.64,1);
+        --ease-reveal: cubic-bezier(0.22,1,0.36,1);
+        --dur-fast: 180ms;
+        --dur-mid: 250ms;
+        --dur-reveal: 600ms;
+        --ticker-gap: 3rem;
+      }
+
+      * { box-sizing: border-box; }
+      html, body { margin: 0; padding: 0; }
+      html { scroll-behavior: smooth; }
+      body {
+        background: var(--bg);
+        color: var(--text);
+        font-family: var(--font-ui);
+        font-size: 16px;
+        line-height: 1.55;
+        -webkit-font-smoothing: antialiased;
+        -moz-osx-font-smoothing: grayscale;
+        overflow-x: hidden;
+      }
+      a { color: inherit; text-decoration: none; }
+      ::selection { background: rgba(204,177,103,0.28); }
+
+      /* ───── Sticky bar ───── */
+      .bar {
+        position: sticky; top: 0; z-index: 50;
+        display: flex; align-items: center; justify-content: space-between;
+        gap: 16px; max-width: 1100px; margin: 0 auto;
+        padding: 14px 24px;
+        backdrop-filter: blur(6px); -webkit-backdrop-filter: blur(6px);
+      }
+      .bar-wrap { position: sticky; top: 0; z-index: 50; border-bottom: 1px solid var(--border); background: rgba(0,0,0,0.55); }
+      .brand { display: flex; align-items: center; gap: 10px; }
+      .mark { width: 30px; height: 30px; display: block; flex-shrink: 0; }
+      .mark path.tick { stroke-dasharray: 60; stroke-dashoffset: 60; animation: draw-on 0.7s var(--ease-out-expo) 0.2s forwards; }
+      @keyframes draw-on { to { stroke-dashoffset: 0; } }
+      .wordmark { font-weight: 600; font-size: 18px; letter-spacing: -0.01em; }
+      .wordmark .g { background: var(--gold-gradient); -webkit-background-clip: text; background-clip: text; -webkit-text-fill-color: transparent; }
+      .pill {
+        display: inline-flex; align-items: center; gap: 6px;
+        padding: 8px 16px; min-height: 44px; border-radius: 999px;
+        border: 1px solid var(--border-gold); color: var(--gold);
+        font-size: 13px; font-weight: 600;
+        transition: background var(--dur-fast) var(--ease), border-color var(--dur-fast) var(--ease), color var(--dur-fast) var(--ease);
+      }
+      .pill:hover { background: rgba(204,177,103,0.10); border-color: var(--gold); color: var(--gold-hi); }
+
+      /* ───── Ticker tape ───── */
+      .ticker { overflow: hidden; border-bottom: 1px solid var(--border); background: rgba(5,5,5,0.4); }
+      .ticker-mask { display: flex; width: max-content; }
+      .ticker-track { display: flex; gap: var(--ticker-gap); padding: 8px 0; white-space: nowrap; animation: ticker 42s linear infinite; }
+      .ticker-wrap:hover .ticker-track { animation-play-state: paused; }
+      .ticker-track .sep { color: var(--muted); padding-left: var(--ticker-gap); }
+      .ticker-chip { font-size: 11.5px; font-weight: 500; letter-spacing: 0.02em; color: var(--muted); font-variant-numeric: tabular-nums; }
+      .ticker-chip b { font-weight: 600; color: var(--text); margin-right: 6px; }
+      .ticker-chip.up { color: var(--green-soft); }
+      .ticker-chip.down { color: var(--down); }
+      @keyframes ticker { from { transform: translateX(0); } to { transform: translateX(calc(-100% - var(--ticker-gap))); } }
+      .ticker-static .ticker-track { animation: none; transform: none; }
+
+      /* ───── Hero ───── */
+      .hero { position: relative; min-height: 92vh; padding: 64px 24px 80px; overflow: hidden; isolation: isolate; }
+      #bg { position: absolute; inset: 0; width: 100%; height: 100%; z-index: 0; display: block; }
+      .scrim { position: absolute; inset: 0; z-index: 1; pointer-events: none;
+        background:
+          radial-gradient(120% 90% at 50% 45%, rgba(0,0,0,0.12) 0%, rgba(0,0,0,0.42) 60%, rgba(0,0,0,0.72) 100%),
+          linear-gradient(180deg, rgba(0,0,0,0.32) 0%, transparent 18%, transparent 76%, rgba(0,0,0,0.46) 100%);
+      }
+      .hero-aurora { position: absolute; inset: 0; z-index: 0; pointer-events: none;
+        background:
+          radial-gradient(55% 45% at 50% 6%, rgba(212,168,83,0.16), transparent 70%),
+          radial-gradient(40% 40% at 82% 30%, rgba(91,141,239,0.05), transparent 70%);
+        animation: aurora 9s ease-in-out infinite;
+      }
+      @keyframes aurora { 0%,100% { opacity: 0.55; transform: translateY(0); } 50% { opacity: 1; transform: translateY(12px); } }
+      .hero-inner { position: relative; z-index: 2; max-width: 1100px; margin: 0 auto; }
+      .glass {
+        max-width: 760px; margin: 24px auto 44px; text-align: center;
+        padding: 30px 28px; border-radius: var(--radius);
+        background: var(--glass); border: 1px solid rgba(255,255,255,0.06);
+        backdrop-filter: blur(8px); -webkit-backdrop-filter: blur(8px);
+        box-shadow: 0 24px 80px rgba(0,0,0,0.5);
+      }
+      .eyebrow { font-size: 12px; font-weight: 600; letter-spacing: 0.14em; text-transform: uppercase; color: var(--gold); margin: 0 0 14px; }
+      h1 {
+        font-family: var(--font-display); font-weight: 800;
+        font-size: clamp(40px, 7.4vw, 78px); line-height: 0.98; letter-spacing: -0.04em;
+        margin: 0 0 18px; color: var(--text);
+      }
+      h1 .w { display: inline-block; will-change: transform, filter; }
+      h1 .w.gold { background: var(--gold-gradient); -webkit-background-clip: text; background-clip: text; -webkit-text-fill-color: transparent; text-shadow: 0 0 40px var(--gold-glow); }
+      .reveal-words h1 .w { opacity: 0; transform: translateY(0.5em); filter: blur(8px); animation: word-rise 0.7s var(--ease-out-expo) both; animation-delay: var(--d, 0ms); }
+      @keyframes word-rise { from { opacity: 0; transform: translateY(0.5em); filter: blur(8px); } to { opacity: 1; transform: translateY(0); filter: blur(0); } }
+      .subhead { font-size: clamp(15px, 1.6vw, 18px); color: var(--body); max-width: 56ch; margin: 0 auto; }
+
+      /* ───── Bento grid ───── */
+      .bento {
+        display: grid; gap: 16px;
+        grid-template-columns: repeat(3, 1fr);
+        grid-auto-rows: 1fr;
+      }
+      .card {
+        position: relative; display: flex; flex-direction: column;
+        background: var(--surface-2); border: 1px solid var(--border);
+        border-radius: var(--radius); padding: 20px; overflow: hidden;
+        transform-style: preserve-3d;
+        transition: transform var(--dur-mid) var(--ease-reveal), border-color var(--dur-mid) var(--ease), box-shadow var(--dur-mid) var(--ease);
+      }
+      .card::before {
+        content: ""; position: absolute; inset: 0; z-index: 0; pointer-events: none; opacity: 0;
+        background: radial-gradient(220px circle at var(--mx, 50%) var(--my, 0%), var(--gold-glow), transparent 60%);
+        transition: opacity var(--dur-mid) var(--ease);
+      }
+      .card:hover, .card:focus-within { border-color: var(--border-gold); box-shadow: 0 18px 50px rgba(0,0,0,0.5); }
+      .card:hover::before, .card:focus-within::before { opacity: 1; }
+      .card.flagship { grid-row: span 2; }
+      .card.flagship::after {
+        content: ""; position: absolute; inset: 0; border-radius: var(--radius); padding: 1px; pointer-events: none;
+        background: var(--gold-gradient); opacity: 0.55;
+        -webkit-mask: linear-gradient(#000 0 0) content-box, linear-gradient(#000 0 0);
+        -webkit-mask-composite: xor; mask: linear-gradient(#000 0 0) content-box, linear-gradient(#000 0 0); mask-composite: exclude;
+      }
+      .card-link { position: absolute; inset: 0; z-index: 3; border-radius: var(--radius); }
+      .card-link:focus-visible { outline: 2px solid var(--gold); outline-offset: 2px; }
+      .pill:focus-visible, .cta-btn:focus-visible, .card.soon:focus-visible, .brand:focus-visible, footer a:focus-visible { outline: 2px solid var(--gold); outline-offset: 3px; border-radius: 6px; }
+      .card > .inner { position: relative; z-index: 2; display: flex; flex-direction: column; height: 100%; gap: 14px; pointer-events: none; }
+      .demo { position: relative; flex: 1; min-height: 120px; border-radius: var(--radius-sm); background: rgba(0,0,0,0.5); border: 1px solid rgba(255,255,255,0.05); overflow: hidden; }
+      .card.flagship .demo { min-height: 220px; }
+      .card-glyph { width: 22px; height: 22px; color: var(--gold); }
+      .card-head { display: flex; align-items: center; gap: 9px; }
+      .card-title { font-size: 19px; font-weight: 600; margin: 0; letter-spacing: -0.01em; }
+      .card-blurb { font-size: 13.5px; color: var(--body); margin: 0; line-height: 1.5; }
+      .card-foot { display: flex; align-items: center; justify-content: space-between; gap: 10px; margin-top: auto; }
+      .card-cta { font-size: 13px; font-weight: 600; color: var(--gold); display: inline-flex; align-items: center; gap: 5px; transition: gap var(--dur-fast) var(--ease), color var(--dur-fast) var(--ease); }
+      .card:hover .card-cta, .card:focus-within .card-cta { gap: 9px; color: var(--gold-hi); }
+      .card-host { font-size: 10.5px; color: var(--muted); letter-spacing: 0.02em; }
+      .chip-soon { font-size: 10px; font-weight: 600; letter-spacing: 0.1em; text-transform: uppercase; color: var(--amber-soon); border: 1px solid rgba(255,196,140,0.35); background: rgba(255,196,140,0.08); padding: 4px 9px; border-radius: 999px; }
+      .card.soon { opacity: 0.82; }
+      .card.soon .demo { filter: grayscale(0.3); }
+
+      /* ── Screener demo: grade pills + rows ── */
+      .scr { position: absolute; inset: 0; padding: 12px; display: flex; flex-direction: column; gap: 7px; }
+      .scr-row { display: flex; align-items: center; gap: 10px; transition: transform 0.5s var(--ease-reveal); }
+      .scr-tk { font-size: 11px; font-weight: 600; color: var(--text); width: 42px; font-variant-numeric: tabular-nums; }
+      .scr-bar { flex: 1; height: 6px; border-radius: 3px; background: rgba(255,255,255,0.06); overflow: hidden; }
+      .scr-bar i { display: block; height: 100%; border-radius: 3px; background: var(--gold-gradient); transition: width 0.6s var(--ease-reveal); }
+      .grade { width: 22px; height: 22px; border-radius: 6px; display: grid; place-items: center; font-size: 12px; font-weight: 700; font-family: var(--font-ui); }
+      .grade.A { background: rgba(61,220,139,0.16); color: var(--green-soft); }
+      .grade.B { background: rgba(204,177,103,0.18); color: var(--gold-hi); }
+      .grade.C { background: rgba(204,177,103,0.10); color: var(--gold); }
+      .grade.D { background: rgba(229,72,77,0.14); color: rgb(240,150,150); }
+      .card[data-demo="screener"] .demo::after { content: ""; position: absolute; left: 0; right: 0; top: 0; height: 44px; pointer-events: none; opacity: 0;
+        background: linear-gradient(180deg, rgba(255,255,138,0.14), rgba(255,255,138,0.02) 60%, transparent); }
+      .card[data-demo="screener"]:hover .demo::after, .card[data-demo="screener"]:focus-within .demo::after { animation: scan 1.6s var(--ease); }
+      @keyframes scan { 0% { opacity: 0; transform: translateY(-44px); } 15% { opacity: 1; } 100% { opacity: 0; transform: translateY(240px); } }
+
+      /* ── Intelligence demo: gauge needle + breadth ── */
+      .intel { position: absolute; inset: 0; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 10px; padding: 12px; }
+      .gauge { width: 150px; height: 84px; }
+      .gauge .needle { transform-box: fill-box; transform-origin: 50% 100%; transition: transform 1.1s var(--ease-overshoot); }
+      .breadth { width: 86%; }
+      .breadth-l { display: flex; justify-content: space-between; font-size: 9.5px; color: var(--muted); margin-bottom: 4px; letter-spacing: 0.04em; text-transform: uppercase; }
+      .breadth-bar { height: 7px; border-radius: 4px; background: rgba(255,255,255,0.06); overflow: hidden; }
+      .breadth-bar i { display: block; height: 100%; background: linear-gradient(90deg, var(--down) 0%, var(--gold) 50%, var(--green) 100%); width: 50%; transition: width 1s var(--ease-reveal); }
+
+      /* ── Options demo: flow chips + sentiment ── */
+      .flow { position: absolute; inset: 0; padding: 12px; display: flex; flex-direction: column; gap: 8px; justify-content: center; }
+      .flow-chip { font-size: 11.5px; color: var(--body); background: rgba(255,255,255,0.04); border: 1px solid rgba(255,255,255,0.06); border-radius: 8px; padding: 7px 10px; opacity: 0; transform: translateY(8px); }
+      .flow-chip b { color: var(--text); font-weight: 600; }
+      .flow-chip.bull b { color: var(--green-soft); }
+      .flow-chip.bear b { color: var(--down); }
+      .flow-chip.show { animation: chip-in 0.5s var(--ease-reveal) forwards; }
+      @keyframes chip-in { to { opacity: 1; transform: translateY(0); } }
+      .sent { display: flex; align-items: center; gap: 8px; margin-top: 2px; }
+      .sent-bar { flex: 1; height: 6px; border-radius: 3px; background: rgba(255,255,255,0.06); overflow: hidden; }
+      .sent-bar i { display: block; height: 100%; width: 50%; background: linear-gradient(90deg, var(--down), var(--gold), var(--green)); transition: width 0.9s var(--ease-reveal); }
+      .sent-l { font-size: 10px; color: var(--green-soft); font-weight: 600; }
+
+      /* ── BTC demo: locked dial ── */
+      .btc { position: absolute; inset: 0; display: grid; place-items: center; }
+      .btc .lock { position: absolute; top: 10px; right: 10px; width: 16px; height: 16px; color: var(--muted); }
+
+      /* ───── Trust strip ───── */
+      .trust { max-width: 920px; margin: 0 auto; padding: 56px 24px 8px; text-align: center; }
+      .trust-row { display: flex; flex-wrap: wrap; align-items: center; justify-content: center; gap: 14px 30px; }
+      .trust-stat { display: flex; flex-direction: column; gap: 2px; }
+      .trust-num { font-size: 30px; font-weight: 700; line-height: 1; }
+      .trust-num .g { background: var(--gold-gradient); -webkit-background-clip: text; background-clip: text; -webkit-text-fill-color: transparent; }
+      .trust-cap { font-size: 12px; color: var(--muted); letter-spacing: 0.03em; }
+      .trust-dot { width: 4px; height: 4px; border-radius: 50%; background: var(--gold); opacity: 0.5; }
+      .trust-line { margin: 22px auto 0; font-size: 14px; color: var(--body); max-width: 52ch; }
+
+      /* ───── Explainer ───── */
+      .explainer { background: var(--surface-1); border-top: 1px solid var(--border); border-bottom: 1px solid var(--border); margin-top: 56px; padding: 72px 24px; }
+      .explainer-inner { max-width: 1000px; margin: 0 auto; text-align: center; }
+      .explainer h2 { font-family: var(--font-display); font-weight: 800; font-size: clamp(30px, 4.6vw, 48px); margin: 8px 0 40px; letter-spacing: -0.03em; }
+      .steps { display: grid; grid-template-columns: repeat(3, 1fr); gap: 18px; }
+      .step { background: var(--surface-2); border: 1px solid var(--border); border-radius: var(--radius); padding: 26px 22px; text-align: left;
+        opacity: 0; transform: translateY(24px) scaleY(0.92); transform-origin: bottom; filter: blur(6px); }
+      .step.in { animation: candle-rise var(--dur-reveal) var(--ease-reveal) both; animation-delay: var(--d, 0ms); }
+      @keyframes candle-rise { to { opacity: 1; transform: translateY(0) scaleY(1); filter: blur(0); } }
+      .step-n { width: 32px; height: 32px; border-radius: 8px; background: rgba(193,155,63,0.15); color: var(--gold); display: grid; place-items: center; margin-bottom: 14px; }
+      .step h3 { font-size: 17px; font-weight: 600; margin: 0 0 7px; }
+      .step p { font-size: 13.5px; color: var(--body); margin: 0; line-height: 1.55; }
+      .explainer-foot { margin: 36px auto 0; font-size: 14px; color: var(--muted); max-width: 54ch; }
+
+      /* ───── CTA band ───── */
+      .cta { padding: 84px 24px; text-align: center; }
+      .cta .line { font-family: var(--font-display); font-weight: 800; font-size: clamp(28px, 4.6vw, 46px); margin: 8px 0 28px; letter-spacing: -0.03em; }
+      .magnet-wrap { display: inline-block; }
+      .cta-btn {
+        position: relative; display: inline-flex; align-items: center; gap: 10px;
+        padding: 0 26px; height: 54px; border-radius: 119px; border: none; cursor: pointer;
+        background: var(--gold-gradient); color: rgb(10,10,10);
+        font-family: var(--font-ui); font-weight: 700; font-size: 16px; letter-spacing: -0.2px;
+        box-shadow: inset 0 3px 0 0 rgba(255,255,255,0.32), 0 8px 30px rgba(212,168,83,0.32);
+        transition: filter var(--dur-fast) var(--ease), box-shadow var(--dur-fast) var(--ease);
+        will-change: transform;
+      }
+      .cta-btn:hover { filter: brightness(1.06); box-shadow: inset 0 3px 0 0 rgba(255,255,255,0.32), 0 12px 44px rgba(212,168,83,0.45); }
+      .cta-btn .beacon { width: 24px; height: 24px; border-radius: 7px; display: grid; place-items: center; font-size: 13px; font-weight: 800; background: rgba(0,0,0,0.16); color: rgb(10,10,10); }
+      .cta-sub { margin: 18px 0 0; font-size: 13px; color: var(--muted); }
+
+      /* ───── Footer ───── */
+      footer { border-top: 1px solid var(--border); padding: 40px 24px; text-align: center; color: var(--muted); font-size: 12.5px; }
+      footer a { color: var(--body); }
+      footer a:hover { color: var(--gold); }
+      footer .sep { margin: 0 10px; opacity: 0.5; }
+
+      /* ───── Scroll reveal base ───── */
+      .reveal { opacity: 0; transform: translateY(24px); filter: blur(6px); transition: opacity var(--dur-reveal) var(--ease-reveal), transform var(--dur-reveal) var(--ease-reveal), filter var(--dur-reveal) var(--ease-reveal); }
+      .reveal.in { opacity: 1; transform: none; filter: none; }
+
+      /* ───── Responsive ───── */
+      @media (max-width: 860px) {
+        .bento { grid-template-columns: 1fr; }
+        .card.flagship { grid-row: auto; }
+        .card.flagship .demo { min-height: 180px; }
+        .steps { grid-template-columns: 1fr; }
+        .glass { backdrop-filter: none; -webkit-backdrop-filter: none; background: var(--glass-solid); }
+        .bar { backdrop-filter: none; -webkit-backdrop-filter: none; }
+      }
+      @media (max-width: 520px) {
+        .hero { min-height: auto; padding: 36px 16px 48px; }
+        .glass { padding: 22px 16px; margin: 12px auto 28px; }
+        .bar { padding: 12px 16px; }
+        .pill { padding: 7px 13px; font-size: 12px; }
+        .ticker-track { animation-duration: 30s; }
+        .bento { gap: 12px; }
+        .trust-num { font-size: 26px; }
+        .trust-row { gap: 10px 22px; }
+        .explainer { padding: 56px 18px; }
+        .cta { padding: 64px 18px; }
+      }
+
+      /* ───── Reduced motion: fully static, fully legible ───── */
+      @media (prefers-reduced-motion: reduce) {
+        html { scroll-behavior: auto; }
+        *, *::before, *::after { animation: none !important; transition: none !important; }
+        .reveal-words h1 .w { opacity: 1; transform: none; filter: none; }
+        .reveal, .step { opacity: 1; transform: none; filter: none; }
+        .ticker-track { transform: none; }
+      }
+    </style>
   </head>
   <body>
-    <div class="wrap">
-      <header>
-        <img src="/SWJ_Favicon.jpg" alt="Friendly Trader" class="logo" />
-        <p class="brand">Friendly Trader</p>
-        <h1>Trading tools, <span class="accent">made friendly.</span></h1>
-        <p class="tagline">Pick a tool and get to work.</p>
+    <div class="bar-wrap">
+      <header class="bar">
+        <a class="brand" href="/" aria-label="Friendly Trader home">
+          <svg class="mark" viewBox="0 0 32 32" aria-hidden="true"><rect width="32" height="32" rx="8" fill="#050505"/><path class="tick" d="M6 22 L13 15 L18 19 L26 9" fill="none" stroke="#ccb167" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/><circle cx="26" cy="9" r="2.6" fill="#ffff8a"/></svg>
+          <span class="wordmark"><span class="g">Friendly</span> Trader</span>
+        </a>
+        <a class="pill" href="https://whop.com/stocks-with-josh/" rel="noopener">Join the community →</a>
       </header>
-
-      <main class="grid">
-        <a class="card" href="https://friendlyscreener.com" rel="noopener">
-          <div class="card-header">
-            <h2 class="card-title">The Screener</h2>
-            <svg class="arrow" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M7 17 17 7" /><path d="M7 7h10v10" /></svg>
-          </div>
-          <p class="card-desc">Daily stock screening with explainable A–D grading. Find setups in seconds.</p>
-          <p class="card-host">friendlyscreener.com</p>
-        </a>
-
-        <a class="card" href="https://friendly-trader.com" rel="noopener">
-          <div class="card-header">
-            <h2 class="card-title">Intelligence</h2>
-            <svg class="arrow" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M7 17 17 7" /><path d="M7 7h10v10" /></svg>
-          </div>
-          <p class="card-desc">Market breadth, internals, and the Fear &amp; Greed gauge in one dashboard.</p>
-          <p class="card-host">friendly-trader.com</p>
-        </a>
-
-        <a class="card" href="https://thefriendlytrader.com/options" rel="noopener">
-          <div class="card-header">
-            <h2 class="card-title">Friendly Options</h2>
-            <svg class="arrow" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M7 17 17 7" /><path d="M7 7h10v10" /></svg>
-          </div>
-          <p class="card-desc">Pick cleaner contracts, analyze the trade, and read the options flow in plain English.</p>
-          <p class="card-host">thefriendlytrader.com/options</p>
-        </a>
-
-        <div class="card soon">
-          <div class="card-header">
-            <h2 class="card-title">BTC Edge</h2>
-            <span class="badge">Coming soon</span>
-          </div>
-          <p class="card-desc">Regime-aware Bitcoin directional intelligence, delivered as one calibrated daily brief.</p>
-          <p class="card-host">btc.friendlytrader.com</p>
-        </div>
-      </main>
-
-      <footer>© 2026 · Friendly Trader</footer>
     </div>
+
+    <div class="ticker ticker-wrap" aria-hidden="true">
+      <div class="ticker-mask">
+        <div class="ticker-track" id="tk1"></div>
+        <div class="ticker-track" aria-hidden="true" id="tk2"></div>
+      </div>
+    </div>
+
+    <main>
+      <section class="hero" id="hero">
+        <canvas id="bg" aria-hidden="true"></canvas>
+        <div class="hero-aurora" aria-hidden="true"></div>
+        <div class="scrim"></div>
+        <div class="hero-inner">
+          <div class="glass">
+            <p class="eyebrow">A friendlier way to read the market</p>
+            <h1 id="h1" aria-label="The market, in plain English.">The market, in plain English.</h1>
+            <p class="subhead">Four friendly tools that turn noisy charts and confusing options into decisions you can actually make. No jargon, no pressure. Pick one and dive in.</p>
+          </div>
+
+          <div class="bento">
+            <!-- Flagship: The Screener -->
+            <article class="card flagship" data-mood="screener" data-demo="screener">
+              <a class="card-link" href="https://friendlyscreener.com" rel="noopener" aria-label="Open The Screener"></a>
+              <div class="inner">
+                <div class="demo">
+                  <div class="scr" id="scrDemo"></div>
+                </div>
+                <div>
+                  <div class="card-head">
+                    <svg class="card-glyph" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 3v18h18"/><path d="M7 14l3-3 3 2 5-6"/></svg>
+                    <h2 class="card-title">The Screener</h2>
+                  </div>
+                  <p class="card-blurb">Daily setups, graded A to D so you know what is worth a look in seconds.</p>
+                </div>
+                <div class="card-foot">
+                  <span class="card-cta">Open the Screener →</span>
+                  <span class="card-host">friendlyscreener.com</span>
+                </div>
+              </div>
+            </article>
+
+            <!-- Intelligence -->
+            <article class="card" data-mood="intelligence" data-demo="intelligence">
+              <a class="card-link" href="https://friendly-trader.com" rel="noopener" aria-label="Open Intelligence"></a>
+              <div class="inner">
+                <div class="demo">
+                  <div class="intel">
+                    <svg class="gauge" viewBox="0 0 150 84" aria-hidden="true">
+                      <path d="M12 80 A63 63 0 0 1 138 80" fill="none" stroke="rgba(255,255,255,0.08)" stroke-width="9" stroke-linecap="round"/>
+                      <path d="M12 80 A63 63 0 0 1 138 80" fill="none" stroke="url(#gg)" stroke-width="9" stroke-linecap="round" stroke-dasharray="198" stroke-dashoffset="0" opacity="0.55"/>
+                      <defs><linearGradient id="gg" x1="0" y1="0" x2="1" y2="0"><stop offset="0" stop-color="#e5484d"/><stop offset="0.5" stop-color="#ccb167"/><stop offset="1" stop-color="#3ddc8b"/></linearGradient></defs>
+                      <g class="needle" id="needle"><line x1="75" y1="80" x2="75" y2="28" stroke="#fff" stroke-width="2.5" stroke-linecap="round"/><circle cx="75" cy="80" r="5" fill="#ccb167"/></g>
+                    </svg>
+                    <div class="breadth">
+                      <div class="breadth-l"><span>Bears</span><span id="fgLabel">Neutral</span><span>Bulls</span></div>
+                      <div class="breadth-bar"><i id="breadthFill"></i></div>
+                    </div>
+                  </div>
+                </div>
+                <div>
+                  <div class="card-head">
+                    <svg class="card-glyph" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 20v-6M6 20v-3M18 20v-9"/><circle cx="12" cy="6" r="2"/></svg>
+                    <h2 class="card-title">Intelligence</h2>
+                  </div>
+                  <p class="card-blurb">Market breadth, internals, and a Fear and Greed read in one calm dashboard.</p>
+                </div>
+                <div class="card-foot">
+                  <span class="card-cta">View market internals →</span>
+                  <span class="card-host">friendly-trader.com</span>
+                </div>
+              </div>
+            </article>
+
+            <!-- Friendly Options -->
+            <article class="card" data-mood="options" data-demo="options">
+              <a class="card-link" href="https://thefriendlytrader.com/options" rel="noopener" aria-label="Open Friendly Options"></a>
+              <div class="inner">
+                <div class="demo">
+                  <div class="flow" id="flowDemo">
+                    <div class="flow-chip bull">Someone bought <b>400 calls</b> — leaning bullish</div>
+                    <div class="flow-chip">Sweep on <b>NVDA</b>, just above the ask</div>
+                    <div class="sent"><span class="sent-l" id="sentL">Bullish</span><div class="sent-bar"><i id="sentFill"></i></div></div>
+                  </div>
+                </div>
+                <div>
+                  <div class="card-head">
+                    <svg class="card-glyph" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 18l5-5 4 3 7-8"/><path d="M21 7v5h-5"/></svg>
+                    <h2 class="card-title">Friendly Options</h2>
+                  </div>
+                  <p class="card-blurb">Pick cleaner contracts, analyze the trade, and read the options flow in plain English.</p>
+                </div>
+                <div class="card-foot">
+                  <span class="card-cta">Analyze an options trade →</span>
+                  <span class="card-host">thefriendlytrader.com/options</span>
+                </div>
+              </div>
+            </article>
+
+            <!-- BTC Edge (coming soon) -->
+            <article class="card soon" data-mood="btc" tabindex="0" aria-label="BTC Edge, coming soon">
+              <div class="inner">
+                <div class="demo">
+                  <div class="btc">
+                    <svg class="lock" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><rect x="5" y="11" width="14" height="9" rx="2"/><path d="M8 11V8a4 4 0 0 1 8 0v3"/></svg>
+                    <svg width="120" height="74" viewBox="0 0 150 84" aria-hidden="true">
+                      <path d="M12 80 A63 63 0 0 1 138 80" fill="none" stroke="rgba(255,255,255,0.10)" stroke-width="9" stroke-linecap="round"/>
+                      <g transform="rotate(0 75 80)"><line x1="75" y1="80" x2="75" y2="30" stroke="#888" stroke-width="2.5" stroke-linecap="round"/><circle cx="75" cy="80" r="5" fill="#888"/></g>
+                      <text x="75" y="58" text-anchor="middle" fill="#888" font-size="11" font-family="Inter, sans-serif" font-weight="600">Neutral</text>
+                    </svg>
+                  </div>
+                </div>
+                <div>
+                  <div class="card-head">
+                    <svg class="card-glyph" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M9.5 9.5h4a2 2 0 0 1 0 4h-4m0-4v6m0-6V8m2 8v1.5"/></svg>
+                    <h2 class="card-title">BTC Edge</h2>
+                  </div>
+                  <p class="card-blurb">One calibrated daily brief that reads the Bitcoin regime for you.</p>
+                </div>
+                <div class="card-foot">
+                  <span class="chip-soon">Coming soon</span>
+                  <span class="card-host">btc.friendlytrader.com</span>
+                </div>
+              </div>
+            </article>
+          </div>
+        </div>
+      </section>
+
+      <!-- Trust strip -->
+      <section class="trust reveal">
+        <div class="trust-row">
+          <div class="trust-stat"><span class="trust-num"><span class="g" data-count="3">3</span></span><span class="trust-cap">tools live today</span></div>
+          <span class="trust-dot"></span>
+          <div class="trust-stat"><span class="trust-num"><span class="g">A–D</span></span><span class="trust-cap">grades, fully explained</span></div>
+          <span class="trust-dot"></span>
+          <div class="trust-stat"><span class="trust-num"><span class="g">1</span></span><span class="trust-cap">calm home for all of it</span></div>
+        </div>
+        <p class="trust-line">Built by traders, written for humans. No hot tips, no hype, no guarantees.</p>
+      </section>
+
+      <!-- Explainer -->
+      <section class="explainer">
+        <div class="explainer-inner">
+          <p class="eyebrow">The toolkit</p>
+          <h2>Three steps, start to smarter.</h2>
+          <div class="steps">
+            <div class="step" data-step="0">
+              <div class="step-n">1</div>
+              <h3>Screen</h3>
+              <p>Find graded setups in seconds with The Screener. A to D, so you know what is worth a look.</p>
+            </div>
+            <div class="step" data-step="1">
+              <div class="step-n">2</div>
+              <h3>Understand</h3>
+              <p>Read breadth, internals, and a Fear and Greed gauge in Intelligence. See the whole market at a glance.</p>
+            </div>
+            <div class="step" data-step="2">
+              <div class="step-n">3</div>
+              <h3>Trade smarter</h3>
+              <p>Pick cleaner contracts and read the flow in plain English with Friendly Options.</p>
+            </div>
+          </div>
+          <p class="explainer-foot">We built this because we got tired of tools that talk down to you. These don't.</p>
+        </div>
+      </section>
+
+      <!-- CTA band -->
+      <section class="cta reveal">
+        <p class="eyebrow">Start in one click</p>
+        <p class="line">New here? Join the suite.</p>
+        <span class="magnet-wrap">
+          <a class="cta-btn" id="ctaBtn" href="https://whop.com/stocks-with-josh/" rel="noopener">
+            <span>Join the community →</span>
+            <span class="beacon" id="beacon">·</span>
+          </a>
+        </span>
+        <p class="cta-sub">It is free to look around. No card to peek.</p>
+      </section>
+    </main>
+
+    <footer>
+      Educational, not financial advice.
+      <span class="sep">·</span><a href="https://whop.com/stocks-with-josh/" rel="noopener">Community</a>
+      <span class="sep">·</span>© 2026 Friendly Trader
+      <span class="sep">·</span>Markets, made friendly.
+    </footer>
+
+    <script>
+    (function () {
+      "use strict";
+      var RM = matchMedia("(prefers-reduced-motion: reduce)");
+      var coarse = matchMedia("(pointer: coarse)").matches;
+      var saveData = (navigator.connection && navigator.connection.saveData) || false;
+      var STATIC = RM.matches || saveData || (coarse && innerWidth < 720);
+      var fine = matchMedia("(pointer: fine)").matches;
+
+      // ───── seeded PRNG + shared market series ─────
+      function mulberry32(a){return function(){a|=0;a=a+0x6D2B79F5|0;var t=Math.imul(a^a>>>15,1|a);t=t+Math.imul(t^t>>>7,61|t)^t;return((t^t>>>14)>>>0)/4294967296;};}
+      var rnd = mulberry32(20260616);
+      var MEAN = 0.5, VOL = 0.085, K = 0.045, LO = 0.12, HI = 0.88;
+      var series = [];
+      function step(prev){ var n = prev + (rnd()-0.5)*VOL - K*(prev-MEAN); if(n<LO)n=LO; if(n>HI)n=HI; return n; }
+      (function seed(){ var v = 0.5; for(var i=0;i<260;i++){ v = step(v); series.push(v); } })();
+      function tail(n){ return series.slice(series.length-n); }
+      function pushPoint(){ series.push(step(series[series.length-1])); if(series.length>2000) series.shift(); }
+
+      var FT = window.FT = { series: series, mood: "default", setMood: function(m){ FT._target = m || "default"; } };
+      FT._target = "default"; FT._lerp = 0; FT._cur = "default";
+
+      // ───── ticker tape ─────
+      (function buildTicker(){
+        var data = [["AAPL",1.2],["BTC",-0.4],["NVDA",0.8],["SPY",0.3],["TSLA",-1.1],["QQQ",0.5],["ETH",2.4],["AMD",-0.6]];
+        function row(){ return data.map(function(d){ var up=d[1]>=0; return '<span class="ticker-chip '+(up?'up':'down')+'"><b>'+d[0]+'</b>'+(up?'+':'')+d[1].toFixed(1)+'%</span>'; }).join('<span class="sep">·</span>'); }
+        var t1=document.getElementById("tk1"), t2=document.getElementById("tk2");
+        if(t1) t1.innerHTML=row(); if(t2) t2.innerHTML=row();
+        if(STATIC){ var tw=document.querySelector(".ticker"); if(tw) tw.classList.add("ticker-static"); if(t2) t2.style.display="none"; }
+      })();
+
+      // ───── hero headline split ─────
+      (function splitHead(){
+        var h1=document.getElementById("h1"); if(!h1) return;
+        var words="The market, in plain English.".split(" ");
+        h1.innerHTML = words.map(function(w,i){ var g=(i>=words.length-2)?' gold':''; return '<span class="w'+g+'" style="--d:'+(i*70)+'ms">'+w+(i<words.length-1?'&nbsp;':'')+'</span>'; }).join("");
+        if(!STATIC){ h1.parentNode.classList.add("reveal-words"); }
+      })();
+
+      // ───── canvas backdrop ─────
+      (function backdrop(){
+        var canvas=document.getElementById("bg"); if(!canvas) return;
+        var ctx=canvas.getContext("2d"), hero=document.getElementById("hero");
+        var dpr=Math.min(devicePixelRatio||1,1.75), W=0,H=0;
+        var grid=document.createElement("canvas"), gctx=grid.getContext("2d");
+        var N = coarse?18:46;             // candles visible
+        var BW=0;                         // candle width
+        var reveal=0;                     // entrance ramp 0..1
+        var scrollX=0;                    // glide between ticks
+        var lastTick=0, TICK=900;
+        var rafId=null, running=false, lastT=0, slow=0;
+
+        function resize(){
+          var r=hero.getBoundingClientRect();
+          W=r.width; H=r.height;
+          canvas.width=W*dpr; canvas.height=H*dpr; canvas.style.width=W+"px"; canvas.style.height=H+"px";
+          ctx.setTransform(dpr,0,0,dpr,0,0);
+          BW = W/(N-2);
+          grid.width=W*dpr; grid.height=H*dpr; gctx.setTransform(dpr,0,0,dpr,0,0);
+          drawGrid();
+        }
+        function drawGrid(){
+          gctx.clearRect(0,0,W,H);
+          gctx.fillStyle="rgba(30,35,51,0.55)";
+          var gap=34;
+          for(var y=gap;y<H;y+=gap){ for(var x=0;x<W+gap;x+=gap){ gctx.beginPath(); gctx.arc(x,y,1,0,6.283); gctx.fill(); } }
+        }
+        function yOf(v){ return H - (v*0.56 + 0.25)*H; }
+
+        function frame(t){
+          if(!running) return;
+          if(!lastT) lastT=t;
+          var dt=t-lastT;
+          if(dt<32){ rafId=requestAnimationFrame(frame); return; }
+          // long-frame degrade
+          if(dt>90){ slow++; if(slow>30){ running=false; render(t,true); return; } } else if(slow>0){ slow--; }
+          lastT=t;
+          if(!lastTick) lastTick=t;
+          if(t-lastTick>=TICK){ lastTick+=TICK; pushPoint(); scrollX=0; }
+          else { scrollX = (t-lastTick)/TICK; }
+          if(reveal<1) reveal=Math.min(1, reveal+dt/1200);
+          // mood lerp
+          if(FT._cur!==FT._target){ FT._lerp += (1-FT._lerp)*0.10; if(FT._lerp>0.98){FT._lerp=1;FT._cur=FT._target;} }
+          else { FT._lerp += (1-FT._lerp)*0.10; }
+          render(t,false);
+          rafId=requestAnimationFrame(frame);
+        }
+
+        function render(t, frozen){
+          ctx.clearRect(0,0,W,H);
+          var ox = -scrollX*BW;
+          // grid parallax
+          ctx.drawImage(grid, ox*0.4, 0, W, H);
+          var pts=tail(N+1);
+          var visible=Math.max(2, Math.floor(pts.length*reveal));
+          var mood=FT._target, ml=FT._lerp;
+
+          // options mood: vertical strike lines
+          if(mood==="options"){ ctx.strokeStyle="rgba(204,177,103,"+(0.10*ml)+")"; ctx.lineWidth=1; for(var sx=W*0.2; sx<W; sx+=W*0.16){ ctx.beginPath(); ctx.moveTo(sx,0); ctx.lineTo(sx,H); ctx.stroke(); } }
+
+          // candles
+          for(var i=0;i<visible;i++){
+            var idx=pts.length-visible+i;
+            var v=pts[idx], pv=pts[idx-1]!=null?pts[idx-1]:v;
+            var x=i*BW+ox;
+            var up=v>=pv;
+            var oY=yOf(pv), cY=yOf(v);
+            var hi=Math.min(oY,cY)-BW*0.5, lo=Math.max(oY,cY)+BW*0.5;
+            var col;
+            if(mood==="screener"){ // A-D banding by value
+              var band = v>0.66? "rgba(61,220,139,":(v>0.5?"rgba(255,255,138,":(v>0.34?"rgba(204,177,103,":"rgba(229,72,77,"));
+              col = band+(0.30*ml + (up?0.16:0.10)*(1-ml))+")";
+            } else if(mood==="btc"){
+              col = up? "rgba(150,140,110,"+(0.16)+")" : "rgba(110,100,80,"+(0.14)+")";
+            } else {
+              col = up? "rgba(204,177,103,"+ (0.16+0.16*((v-LO)/(HI-LO))) +")" : "rgba(150,120,60,0.22)";
+            }
+            ctx.fillStyle=col;
+            var bx=x-BW*0.28, bw=BW*0.56;
+            ctx.fillRect(bx, Math.min(oY,cY), bw, Math.max(2,Math.abs(cY-oY)));
+            ctx.strokeStyle=col; ctx.lineWidth=1; ctx.beginPath(); ctx.moveTo(x,hi); ctx.lineTo(x,lo); ctx.stroke();
+          }
+
+          // gold line + area
+          ctx.beginPath();
+          for(var j=0;j<visible;j++){ var xx=j*BW+ox, yy=yOf(pts[pts.length-visible+j]); if(j===0)ctx.moveTo(xx,yy); else ctx.lineTo(xx,yy); }
+          var lineCol = mood==="btc"? "rgba(170,160,120,0.95)" : "rgba(216,188,110,1)";
+          ctx.save(); ctx.strokeStyle=lineCol; ctx.lineWidth=1.8; ctx.lineJoin="round"; ctx.shadowColor="rgba(204,177,103,0.55)"; ctx.shadowBlur=14; ctx.stroke(); ctx.restore();
+          // area fill
+          var lastX=(visible-1)*BW+ox, lastY=yOf(pts[pts.length-1]);
+          ctx.lineTo(lastX,H); ctx.lineTo(ox,H); ctx.closePath();
+          var grad=ctx.createLinearGradient(0,0,0,H); grad.addColorStop(0,"rgba(204,177,103,0.07)"); grad.addColorStop(1,"rgba(204,177,103,0)");
+          ctx.fillStyle=grad; ctx.fill();
+
+          // intelligence mood: smoothed breadth line
+          if(mood==="intelligence" && ml>0.02){
+            ctx.beginPath();
+            for(var k=2;k<visible;k++){ var a=(pts[pts.length-visible+k]+pts[pts.length-visible+k-1]+pts[pts.length-visible+k-2])/3; var xk=k*BW+ox, yk=yOf(a); if(k===2)ctx.moveTo(xk,yk); else ctx.lineTo(xk,yk); }
+            ctx.strokeStyle="rgba(61,220,139,"+(0.5*ml)+")"; ctx.lineWidth=1.4; ctx.stroke();
+          }
+
+          // leading dot pulse
+          if(!frozen){
+            var pr=3.4+Math.sin(t/300)*1.4;
+            ctx.beginPath(); ctx.arc(lastX,lastY,pr+9,0,6.283); ctx.fillStyle="rgba(255,255,138,0.10)"; ctx.fill();
+            ctx.beginPath(); ctx.arc(lastX,lastY,pr+4,0,6.283); ctx.fillStyle="rgba(255,255,138,0.18)"; ctx.fill();
+            ctx.beginPath(); ctx.arc(lastX,lastY,3.2,0,6.283); ctx.fillStyle="#ffff8a"; ctx.fill();
+          } else {
+            ctx.beginPath(); ctx.arc(lastX,lastY,3,0,6.283); ctx.fillStyle="#ffff8a"; ctx.fill();
+          }
+        }
+
+        function start(){ if(running||STATIC) return; running=true; lastT=0; lastTick=0; rafId=requestAnimationFrame(frame); }
+        function stop(){ running=false; if(rafId){cancelAnimationFrame(rafId); rafId=null;} }
+
+        resize();
+        if(STATIC){ reveal=1; render(0,true); }
+        else {
+          render(0,true);
+          if("IntersectionObserver" in window){ var io=new IntersectionObserver(function(es){ es.forEach(function(e){ if(e.isIntersecting && !document.hidden) start(); else stop(); }); },{threshold:0.08}); io.observe(hero); } else { start(); }
+          document.addEventListener("visibilitychange",function(){ if(document.hidden) stop(); else { var r=hero.getBoundingClientRect(); if(r.bottom>0&&r.top<innerHeight) start(); } });
+          var rt; addEventListener("resize",function(){ clearTimeout(rt); rt=setTimeout(function(){ dpr=Math.min(devicePixelRatio||1,1.75); resize(); },180); });
+          var onRM=function(){ if(RM.matches){ STATIC=true; stop(); reveal=1; render(0,true);} };
+          if(RM.addEventListener) RM.addEventListener("change",onRM); else if(RM.addListener) RM.addListener(onRM);
+        }
+      })();
+
+      // ───── tile demos + backdrop mood wiring ─────
+      var grades=["A","B","C","D"];
+      function buildScreener(){
+        var host=document.getElementById("scrDemo"); if(!host) return;
+        var tks=["NVDA","AAPL","MSFT","AMD","META","TSLA"];
+        var t=tail(6).slice();
+        // rank-grade so there is always a clean A->D spread (relative strength on the shared series)
+        var order=t.map(function(v,i){return {i:i,v:v};}).sort(function(a,b){return b.v-a.v;});
+        var rankGrade=["A","A","B","B","C","D"], gradeFor=[];
+        order.forEach(function(o,rank){ gradeFor[o.i]=rankGrade[rank]||"C"; });
+        host.innerHTML="";
+        tks.forEach(function(tk,i){
+          var v=t[i]!=null?t[i]:0.5, g=gradeFor[i]||"C";
+          var row=document.createElement("div"); row.className="scr-row";
+          row.innerHTML='<span class="scr-tk">'+tk+'</span><span class="scr-bar"><i style="width:'+Math.round(28+v*70)+'%"></i></span><span class="grade '+g+'">'+g+'</span>';
+          host.appendChild(row);
+        });
+      }
+      function cycleScreener(){
+        var host=document.getElementById("scrDemo"); if(!host||STATIC||host._scrIv) return;
+        var gs=host.querySelectorAll(".grade"); var step=0;
+        host._scrIv=setInterval(function(){ gs.forEach(function(el,i){ var g=grades[(i+step)%4]; el.className="grade "+g; el.textContent=g; }); step++; if(step>3){clearInterval(host._scrIv); host._scrIv=null; buildScreener();} },380);
+      }
+      function setIntel(){
+        var t=tail(20); var ups=0; for(var i=1;i<t.length;i++){ if(t[i]>=t[i-1])ups++; }
+        var ratio=ups/(t.length-1); // 0..1
+        var deg=(ratio-0.5)*150; // -75..75
+        var needle=document.getElementById("needle"); if(needle) needle.style.transform="rotate("+deg+"deg)";
+        var fill=document.getElementById("breadthFill"); if(fill) fill.style.width=Math.round(ratio*100)+"%";
+        var lab=document.getElementById("fgLabel"); if(lab) lab.textContent = ratio>0.62?"Greed":(ratio<0.4?"Fear":"Neutral");
+      }
+      function sweepIntel(){
+        var needle=document.getElementById("needle"); if(!needle){ setIntel(); return; }
+        if(STATIC){ setIntel(); return; }
+        needle.style.transition="none"; needle.style.transform="rotate(-80deg)";
+        requestAnimationFrame(function(){ requestAnimationFrame(function(){ needle.style.transition=""; setIntel(); }); });
+      }
+      var flowPool=[
+        {t:'Someone bought <b>400 calls</b> &mdash; leaning bullish', c:'bull', s:72},
+        {t:'Sweep on <b>NVDA</b>, just above the ask', c:'', s:64},
+        {t:'Puts sold on <b>SPY</b> &mdash; fading the dip', c:'bull', s:67},
+        {t:'Big <b>put</b> buyer in <b>TSLA</b> &mdash; cautious', c:'bear', s:33},
+        {t:'Call spread on <b>AMD</b> &mdash; measured upside', c:'', s:58},
+        {t:'Unusual <b>QQQ</b> volume &mdash; eyes on tech', c:'', s:61}
+      ];
+      var flowIdx=0;
+      function playOptions(){
+        var host=document.getElementById("flowDemo"); if(!host) return;
+        var chips=host.querySelectorAll(".flow-chip"); var fill=document.getElementById("sentFill"), lab=document.getElementById("sentL");
+        var a=flowPool[flowIdx%flowPool.length], b=flowPool[(flowIdx+1)%flowPool.length]; flowIdx+=2;
+        var picks=[a,b], s=Math.round((a.s+b.s)/2);
+        chips.forEach(function(c,i){ var p=picks[i]; if(p){ c.className="flow-chip "+(p.c||""); c.innerHTML=p.t; } });
+        if(lab){ lab.textContent=s>58?"Bullish":(s<45?"Bearish":"Mixed"); lab.style.color=s>58?"var(--green-soft)":(s<45?"var(--down)":"var(--gold)"); }
+        if(STATIC){ chips.forEach(function(c){c.classList.add("show");}); if(fill)fill.style.width=s+"%"; return; }
+        chips.forEach(function(c){c.classList.remove("show");});
+        chips.forEach(function(c,i){ setTimeout(function(){ c.classList.add("show"); },i*200); });
+        if(fill){ fill.style.width="50%"; setTimeout(function(){ fill.style.width=s+"%"; },600); }
+      }
+
+      buildScreener(); setIntel(); setTimeout(playOptions, 450);
+
+      // hover/focus → backdrop mood + demo play
+      document.querySelectorAll(".card").forEach(function(card){
+        var mood=card.getAttribute("data-mood"), demo=card.getAttribute("data-demo");
+        function on(){ FT.setMood(mood); if(demo==="screener")cycleScreener(); else if(demo==="options")playOptions(); else if(demo==="intelligence")sweepIntel(); }
+        function off(){ FT.setMood(null); }
+        card.addEventListener("mouseenter",on); card.addEventListener("mouseleave",off);
+        card.addEventListener("focusin",on); card.addEventListener("focusout",off);
+      });
+
+      // coarse-pointer: autoplay each demo once when scrolled into view
+      if(coarse && "IntersectionObserver" in window){
+        document.querySelectorAll(".card").forEach(function(card){
+          var demo=card.getAttribute("data-demo");
+          var io=new IntersectionObserver(function(es){ es.forEach(function(e){ if(e.isIntersecting){ if(demo==="options")playOptions(); else if(demo==="screener")cycleScreener(); else if(demo==="intelligence")sweepIntel(); io.disconnect(); } }); },{threshold:0.5});
+          io.observe(card);
+        });
+      }
+
+      // ───── cursor glow + tilt (pointer:fine) ─────
+      if(fine && !STATIC){
+        var pending=null;
+        document.querySelectorAll(".card").forEach(function(card){
+          card.addEventListener("pointermove",function(e){
+            var r=card.getBoundingClientRect();
+            var px=(e.clientX-r.left)/r.width, py=(e.clientY-r.top)/r.height;
+            if(pending)cancelAnimationFrame(pending);
+            pending=requestAnimationFrame(function(){
+              card.style.setProperty("--mx",(px*100)+"%"); card.style.setProperty("--my",(py*100)+"%");
+              var rx=(py-0.5)*-8, ry=(px-0.5)*8;
+              card.style.transform="perspective(900px) rotateX("+rx+"deg) rotateY("+ry+"deg) translateY(-3px)";
+            });
+          });
+          card.addEventListener("pointerleave",function(){ card.style.transform=""; });
+        });
+      }
+
+      // ───── scroll reveals ─────
+      if(!STATIC && "IntersectionObserver" in window){
+        var ro=new IntersectionObserver(function(es){ es.forEach(function(e){ if(e.isIntersecting){ e.target.classList.add("in"); ro.unobserve(e.target);} }); },{threshold:0.25});
+        document.querySelectorAll(".reveal").forEach(function(el){ ro.observe(el); });
+        var so=new IntersectionObserver(function(es){ es.forEach(function(e){ if(e.isIntersecting){ var s=e.target.querySelectorAll(".step"); s.forEach(function(st,i){ st.style.setProperty("--d",(i*120)+"ms"); st.classList.add("in"); }); so.disconnect(); } }); },{threshold:0.3});
+        var stepsEl=document.querySelector(".steps"); if(stepsEl) so.observe(stepsEl);
+      } else {
+        document.querySelectorAll(".reveal,.step").forEach(function(el){ el.classList.add("in"); });
+      }
+
+      // ───── count-up ─────
+      function countUp(el){
+        var target=parseFloat(el.getAttribute("data-count"))||0;
+        if(STATIC){ el.textContent=target; return; }
+        var start=null, dur=1300;
+        function tick(t){ if(!start)start=t; var p=Math.min(1,(t-start)/dur); var e=1-Math.pow(2,-10*p); el.textContent=Math.round(e*target); if(p<1)requestAnimationFrame(tick); else el.textContent=target; }
+        requestAnimationFrame(tick);
+      }
+      if("IntersectionObserver" in window){
+        var co=new IntersectionObserver(function(es){ es.forEach(function(e){ if(e.isIntersecting){ countUp(e.target); co.unobserve(e.target);} }); },{threshold:0.6});
+        document.querySelectorAll("[data-count]").forEach(function(el){ co.observe(el); });
+      } else { document.querySelectorAll("[data-count]").forEach(function(el){ el.textContent=el.getAttribute("data-count"); }); }
+
+      // ───── magnetic CTA + grade beacon ─────
+      (function magnet(){
+        var btn=document.getElementById("ctaBtn"), beacon=document.getElementById("beacon"); if(!btn)return;
+        function settle(){ if(beacon){ beacon.textContent="A"; } }
+        function reset(){ if(beacon){ beacon.textContent="·"; } }
+        btn.addEventListener("mouseenter",settle); btn.addEventListener("focus",settle);
+        btn.addEventListener("mouseleave",reset); btn.addEventListener("blur",reset);
+        if(STATIC||!fine){ return; }
+        var cx=0,cy=0,tx=0,ty=0,raf=null,active=false;
+        btn.addEventListener("pointermove",function(e){ var r=btn.getBoundingClientRect(); tx=Math.max(-12,Math.min(12,(e.clientX-(r.left+r.width/2))*0.25)); ty=Math.max(-10,Math.min(10,(e.clientY-(r.top+r.height/2))*0.35)); if(!active){active=true;loop();} });
+        btn.addEventListener("pointerleave",function(){ tx=0;ty=0; if(!active){active=true;loop();} });
+        function loop(){ cx+=(tx-cx)*0.15; cy+=(ty-cy)*0.15; btn.style.transform="translate("+cx+"px,"+cy+"px)"; if(Math.abs(cx-tx)>0.2||Math.abs(cy-ty)>0.2){ raf=requestAnimationFrame(loop); } else { btn.style.transform="translate("+tx+"px,"+ty+"px)"; active=false; } }
+      })();
+    })();
+    </script>
   </body>
 </html>
