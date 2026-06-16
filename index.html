@@ -145,6 +145,9 @@
           radial-gradient(72% 50% at 50% 34%, rgba(0,0,0,0.62) 0%, rgba(0,0,0,0.34) 46%, transparent 72%),
           linear-gradient(180deg, rgba(0,0,0,0.45) 0%, transparent 24%, transparent 70%, rgba(0,0,0,0.5) 100%);
       }
+      /* Cursor-reactive light lens — the market warms where you look. Below the text (z1), compositor-only. */
+      .lens { position: absolute; inset: 0; z-index: 1; pointer-events: none; mix-blend-mode: screen;
+        background: radial-gradient(440px circle at var(--lx,50%) var(--ly,40%), rgba(204,177,103,0.12), transparent 60%); }
       .hero-inner { position: relative; z-index: 2; max-width: 1140px; margin: 0 auto; }
       .glass {
         max-width: 880px; margin: 40px auto 54px; text-align: center;
@@ -419,6 +422,7 @@
       <section class="hero" id="hero">
         <canvas id="bg" aria-hidden="true"></canvas>
         <div class="scrim"></div>
+        <div class="lens" aria-hidden="true"></div>
         <div class="hero-inner">
           <div class="glass" id="heroGlass">
             <p class="eyebrow">A friendlier way to read the market</p>
@@ -676,7 +680,7 @@
         var scrollX=0;                    // glide between ticks
         var lastTick=0, TICK=900;
         var rafId=null, running=false, lastT=0, slow=0;
-        var areaGrad=null;
+        var areaGrad=null, glow=null, trail=[];
 
         function resize(){
           var r=hero.getBoundingClientRect();
@@ -686,13 +690,24 @@
           BW = W/(N-2);
           grid.width=W*dpr; grid.height=H*dpr; gctx.setTransform(dpr,0,0,dpr,0,0);
           areaGrad=ctx.createLinearGradient(0,0,0,H); areaGrad.addColorStop(0,"rgba(204,177,103,0.07)"); areaGrad.addColorStop(1,"rgba(204,177,103,0)");
+          // bake the comet-head glow once (additive sprite — gives bloom with no per-frame shadowBlur, even on phones)
+          var SP=Math.max(8,Math.round(44*dpr)); glow=document.createElement("canvas"); glow.width=glow.height=SP; var g2=glow.getContext("2d");
+          var rg=g2.createRadialGradient(SP/2,SP/2,0,SP/2,SP/2,SP/2); rg.addColorStop(0,"rgba(255,255,170,0.85)"); rg.addColorStop(0.4,"rgba(216,188,110,0.35)"); rg.addColorStop(1,"rgba(216,188,110,0)"); g2.fillStyle=rg; g2.fillRect(0,0,SP,SP);
           drawGrid();
         }
         function drawGrid(){
           gctx.clearRect(0,0,W,H);
-          gctx.fillStyle="rgba(30,35,51,0.55)";
-          var gap=34;
-          for(var y=gap;y<H;y+=gap){ for(var x=0;x<W+gap;x+=gap){ gctx.beginPath(); gctx.arc(x,y,1,0,6.283); gctx.fill(); } }
+          var horizon=H*0.42;
+          // back haze settling into the lower half = depth into the dark
+          var hz=gctx.createLinearGradient(0,H*0.5,0,H); hz.addColorStop(0,"rgba(20,24,38,0)"); hz.addColorStop(1,"rgba(20,24,38,0.5)");
+          gctx.fillStyle=hz; gctx.fillRect(0,H*0.5,W,H*0.5);
+          // horizon-compressed perspective dot rows (a floor receding toward the viewer)
+          var rows=22;
+          for(var r=0;r<rows;r++){
+            var f=r/rows, y=horizon+(H-horizon)*Math.pow(f,1.8), sz=0.7+1.0*f, al=0.15+0.40*f, gap2=18+34*f;
+            gctx.fillStyle="rgba(30,35,51,"+al+")";
+            for(var x=0;x<W+gap2;x+=gap2){ gctx.beginPath(); gctx.arc(x,y,sz,0,6.283); gctx.fill(); }
+          }
         }
         function yOf(v){ return H - (v*0.56 + 0.25)*H; }
 
@@ -715,18 +730,22 @@
 
         function render(t, frozen){
           ctx.clearRect(0,0,W,H);
+          if(coarse && !frozen){ hero.style.setProperty("--lx",(50+8*Math.sin(t/4200))+"%"); hero.style.setProperty("--ly",(42+6*Math.sin(t/5300))+"%"); }
           var ox = -scrollX*BW;
-          ctx.drawImage(grid, ox*0.4, 0, W, H);
+          ctx.drawImage(grid, ox*0.18, 0, W, H);                                  // far floor (slow)
+          if(!coarse){ ctx.save(); ctx.globalAlpha=0.6; ctx.drawImage(grid, ox*0.45, 0, W, H); ctx.restore(); }  // near floor (faster) — two-speed depth
           var pts=tail(N+1);
           var visible=Math.max(2, Math.floor(pts.length*reveal));
           var mood=FT._target, ml=FT._lerp;
+          // right-anchor the data so the live edge prints in the clear right margin (comet visible; open "future" space ahead)
+          var baseR=(W - Math.max(58, Math.min(W*0.06,84))) + ox, lead=visible-1;
 
           if(mood==="options"){ ctx.strokeStyle="rgba(204,177,103,"+(0.10*ml)+")"; ctx.lineWidth=1; for(var sx=W*0.2; sx<W; sx+=W*0.16){ ctx.beginPath(); ctx.moveTo(sx,0); ctx.lineTo(sx,H); ctx.stroke(); } }
 
           for(var i=0;i<visible;i++){
             var idx=pts.length-visible+i;
             var v=pts[idx], pv=pts[idx-1]!=null?pts[idx-1]:v;
-            var x=i*BW+ox;
+            var x=baseR-(lead-i)*BW;
             var up=v>=pv;
             var oY=yOf(pv), cY=yOf(v);
             var hi=Math.min(oY,cY)-BW*0.5, lo=Math.max(oY,cY)+BW*0.5;
@@ -739,35 +758,40 @@
             } else {
               col = up? "rgba(204,177,103,"+ (0.16+0.16*((v-LO)/(HI-LO))) +")" : "rgba(150,120,60,0.22)";
             }
-            ctx.fillStyle=col;
-            var bx=x-BW*0.28, bw=BW*0.56;
-            ctx.fillRect(bx, Math.min(oY,cY), bw, Math.max(2,Math.abs(cY-oY)));
+            var bx=x-BW*0.28, bw=BW*0.56, bh=Math.max(2,Math.abs(cY-oY)), bt=Math.min(oY,cY);
+            ctx.fillStyle="rgba(10,14,26,0.10)"; ctx.fillRect(bx+1, bt+3, bw, bh);    // far-shadow: candles sit on the floor
+            ctx.fillStyle=col; ctx.fillRect(bx, bt, bw, bh);
             ctx.strokeStyle=col; ctx.lineWidth=1; ctx.beginPath(); ctx.moveTo(x,hi); ctx.lineTo(x,lo); ctx.stroke();
           }
 
-          ctx.beginPath();
-          for(var j=0;j<visible;j++){ var xx=j*BW+ox, yy=yOf(pts[pts.length-visible+j]); if(j===0)ctx.moveTo(xx,yy); else ctx.lineTo(xx,yy); }
+          var px=[], py=[];
+          for(var j=0;j<visible;j++){ px.push(baseR-(lead-j)*BW); py.push(yOf(pts[pts.length-visible+j])); }
           var lineCol = mood==="btc"? "rgba(170,160,120,0.95)" : "rgba(216,188,110,1)";
-          if(slow===0 && !coarse){ ctx.save(); ctx.strokeStyle=lineCol; ctx.lineWidth=1.8; ctx.lineJoin="round"; ctx.shadowColor="rgba(204,177,103,0.55)"; ctx.shadowBlur=14; ctx.stroke(); ctx.restore(); }
-          else { ctx.strokeStyle=lineCol; ctx.lineWidth=1.8; ctx.lineJoin="round"; ctx.stroke(); }
-          var lastX=(visible-1)*BW+ox, lastY=yOf(pts[pts.length-1]);
-          ctx.lineTo(lastX,H); ctx.lineTo(ox,H); ctx.closePath();
-          ctx.fillStyle=areaGrad; ctx.fill();
+          ctx.beginPath(); ctx.moveTo(px[0],py[0]);
+          for(var q=1;q<px.length-1;q++){ var mqx=(px[q]+px[q+1])/2, mqy=(py[q]+py[q+1])/2; ctx.quadraticCurveTo(px[q],py[q],mqx,mqy); }
+          ctx.lineTo(px[px.length-1],py[px.length-1]);
+          ctx.lineCap="round"; ctx.lineJoin="round";
+          ctx.strokeStyle="rgba(204,177,103,0.06)"; ctx.lineWidth=6; ctx.stroke();   // soft halo (replaces the costly shadowBlur)
+          ctx.strokeStyle=lineCol; ctx.lineWidth=1.8; ctx.stroke();                  // crisp price line
+          var lastX=px[px.length-1], lastY=py[py.length-1];
+          ctx.lineTo(lastX,H); ctx.lineTo(px[0],H); ctx.closePath(); ctx.fillStyle=areaGrad; ctx.fill();
 
           if(mood==="intelligence" && ml>0.02){
-            ctx.beginPath();
-            for(var k=2;k<visible;k++){ var a=(pts[pts.length-visible+k]+pts[pts.length-visible+k-1]+pts[pts.length-visible+k-2])/3; var xk=k*BW+ox, yk=yOf(a); if(k===2)ctx.moveTo(xk,yk); else ctx.lineTo(xk,yk); }
-            ctx.strokeStyle="rgba(61,220,139,"+(0.5*ml)+")"; ctx.lineWidth=1.4; ctx.stroke();
+            var bxp=[], byp=[];
+            for(var k=2;k<visible;k++){ var a=(pts[pts.length-visible+k]+pts[pts.length-visible+k-1]+pts[pts.length-visible+k-2])/3; bxp.push(baseR-(lead-k)*BW); byp.push(yOf(a)); }
+            if(bxp.length>1){ ctx.beginPath(); ctx.moveTo(bxp[0],byp[0]); for(var b2=1;b2<bxp.length-1;b2++){ ctx.quadraticCurveTo(bxp[b2],byp[b2],(bxp[b2]+bxp[b2+1])/2,(byp[b2]+byp[b2+1])/2); } ctx.lineTo(bxp[bxp.length-1],byp[byp.length-1]); ctx.strokeStyle="rgba(61,220,139,"+(0.5*ml)+")"; ctx.lineWidth=1.4; ctx.stroke(); }
           }
 
-          if(!frozen){
-            var pr=3.4+Math.sin(t/300)*1.4;
-            ctx.beginPath(); ctx.arc(lastX,lastY,pr+9,0,6.283); ctx.fillStyle="rgba(255,255,138,0.10)"; ctx.fill();
-            ctx.beginPath(); ctx.arc(lastX,lastY,pr+4,0,6.283); ctx.fillStyle="rgba(255,255,138,0.18)"; ctx.fill();
-            ctx.beginPath(); ctx.arc(lastX,lastY,3.2,0,6.283); ctx.fillStyle="#ffff8a"; ctx.fill();
-          } else {
-            ctx.beginPath(); ctx.arc(lastX,lastY,3,0,6.283); ctx.fillStyle="#ffff8a"; ctx.fill();
+          // ── Cinematic comet live edge: the price prints with a decaying data-space trail + an additive bloom head ──
+          if(!frozen && slow===0){
+            trail.push({x:lastX,y:lastY}); if(trail.length>14)trail.shift();
+            ctx.save(); ctx.lineCap="round";
+            for(var ti=1;ti<trail.length;ti++){ var rr=ti/trail.length, ta=rr*rr*0.5; ctx.strokeStyle="rgba(216,188,110,"+ta+")"; ctx.lineWidth=0.6+rr*1.6; ctx.beginPath(); ctx.moveTo(trail[ti-1].x,trail[ti-1].y); ctx.lineTo(trail[ti].x,trail[ti].y); ctx.stroke(); }
+            ctx.restore();
           }
+          if(glow && slow===0){ ctx.save(); ctx.globalCompositeOperation="lighter"; ctx.drawImage(glow,lastX-22,lastY-22,44,44); ctx.restore(); }
+          ctx.beginPath(); ctx.arc(lastX,lastY,2.6,0,6.283); ctx.fillStyle="#ffff8a"; ctx.fill();
+          if(frozen) trail.length=0;
 
         }
 
@@ -788,6 +812,18 @@
             else { var r=hero.getBoundingClientRect(); if(r.bottom>0 && r.top<innerHeight && !document.hidden) start(); }
           };
           if(RM.addEventListener) RM.addEventListener("change",onRM); else if(RM.addListener) RM.addListener(onRM);
+
+          // cursor-reactive lens (fine pointers): rAF-throttled, cached rect (no per-move layout read)
+          if(fine){
+            var lpRaf=null, llx=50, lly=40, lrect=hero.getBoundingClientRect();
+            var lupd=function(){ lrect=hero.getBoundingClientRect(); };
+            addEventListener("scroll",lupd,{passive:true}); addEventListener("resize",lupd);
+            addEventListener("pointermove",function(e){
+              llx=((e.clientX-lrect.left)/lrect.width)*100; lly=((e.clientY-lrect.top)/lrect.height)*100;
+              if(lpRaf) return;
+              lpRaf=requestAnimationFrame(function(){ lpRaf=null; hero.style.setProperty("--lx",llx+"%"); hero.style.setProperty("--ly",lly+"%"); });
+            },{passive:true});
+          }
         }
       })();
 
