@@ -5,14 +5,15 @@
     <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
     <meta name="color-scheme" content="dark" />
     <meta name="theme-color" content="#0a0a0a" />
-    <title>Friendly Trader — Pick your tool</title>
-    <meta name="description" content="Friendly Trader is a suite of professional trading tools — screening, market intelligence, and options analysis. Pick a tool and get to work." />
-    <meta property="og:title" content="Friendly Trader — Trading tools, made friendly" />
-    <meta property="og:description" content="A suite of professional trading tools — screening, market intelligence, and options analysis." />
+    <title>Friendly Trader: Stock Screener, Options & Market Tools</title>
+    <meta name="description" content="Friendly Trader is a suite of plain-English trading tools: a daily stock screener with explainable grading, market intelligence, and options flow analysis." />
+    <meta property="og:title" content="Friendly Trader: Trading tools, made friendly" />
+    <meta property="og:description" content="A suite of plain-English trading tools: stock screening, market intelligence, and options flow analysis." />
     <meta property="og:type" content="website" />
     <meta property="og:url" content="https://thefriendlytrader.com/" />
     <meta property="og:image" content="https://thefriendlytrader.com/SWJ_Favicon.jpg" />
     <meta name="twitter:card" content="summary" />
+    <link rel="canonical" href="https://thefriendlytrader.com/" />
     <link rel="icon" type="image/jpeg" href="/SWJ_Favicon.jpg" />
     <link rel="apple-touch-icon" href="/SWJ_Favicon.jpg" />
     <link rel="preconnect" href="https://fonts.googleapis.com" />
@@ -212,6 +213,67 @@
         .card { padding: 22px; }
       }
     </style>
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@graph": [
+        {
+          "@type": "Organization",
+          "@id": "https://thefriendlytrader.com/#org",
+          "name": "Friendly Trader",
+          "url": "https://thefriendlytrader.com/",
+          "logo": "https://thefriendlytrader.com/SWJ_Favicon.jpg",
+          "description": "A suite of plain-English trading tools: a daily stock screener with explainable grading, market intelligence, and options flow analysis.",
+          "parentOrganization": {
+            "@type": "Organization",
+            "name": "Stocks With Josh",
+            "url": "https://stockswithjosh.com",
+            "sameAs": [
+              "https://whop.com/stocks-with-josh/",
+              "https://x.com/stockswithjosh",
+              "https://www.youtube.com/@stockswithjosh"
+            ]
+          }
+        },
+        {
+          "@type": "WebSite",
+          "@id": "https://thefriendlytrader.com/#website",
+          "name": "Friendly Trader",
+          "alternateName": "The Friendly Trader",
+          "url": "https://thefriendlytrader.com/",
+          "publisher": { "@id": "https://thefriendlytrader.com/#org" }
+        },
+        {
+          "@type": "ItemList",
+          "@id": "https://thefriendlytrader.com/#tools",
+          "name": "Friendly Trader tools",
+          "itemListElement": [
+            {
+              "@type": "ListItem",
+              "position": 1,
+              "name": "The Screener",
+              "url": "https://friendlyscreener.com",
+              "description": "Daily stock screening with explainable A to D grading."
+            },
+            {
+              "@type": "ListItem",
+              "position": 2,
+              "name": "Intelligence",
+              "url": "https://friendly-trader.com",
+              "description": "Market breadth, internals, and the Fear and Greed gauge in one dashboard."
+            },
+            {
+              "@type": "ListItem",
+              "position": 3,
+              "name": "Friendly Options",
+              "url": "https://thefriendlytrader.com/options",
+              "description": "Pick cleaner contracts, analyze the trade, and read the options flow in plain English."
+            }
+          ]
+        }
+      ]
+    }
+    </script>
   </head>
   <body>
     <div class="wrap">
@@ -246,7 +308,7 @@
             <h2 class="card-title">Friendly Options</h2>
             <svg class="arrow" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M7 17 17 7" /><path d="M7 7h10v10" /></svg>
           </div>
-          <p class="card-desc">Pick cleaner contracts, analyze the trade, and read the options flow — in plain English.</p>
+          <p class="card-desc">Pick cleaner contracts, analyze the trade, and read the options flow in plain English.</p>
           <p class="card-host">thefriendlytrader.com/options</p>
         </a>
 
