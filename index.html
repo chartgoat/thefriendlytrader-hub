@@ -260,20 +260,14 @@
       .explainer h2 { font-family: var(--font-display); font-weight: 800; font-size: clamp(30px, 4.6vw, 48px); margin: 8px 0 18px; letter-spacing: -0.03em; }
       .h2-rule { width: 60px; height: 3px; border-radius: 3px; margin: 0 auto 44px; background: var(--gold-gradient); transform: scaleX(0); transform-origin: center; transition: transform 0.8s var(--ease-reveal) 0.1s; }
       .explainer.in .h2-rule { transform: scaleX(1); }
-      .steps { display: grid; grid-template-columns: repeat(3, 1fr); gap: 18px; }
-      .step {
-        position: relative; background: linear-gradient(180deg, var(--surface-3), var(--surface-2));
-        border: 1px solid var(--border); border-radius: var(--radius-lg); padding: 28px 24px; text-align: left;
-        opacity: 0; transform: translateY(26px) scale(0.94); transform-origin: center bottom; filter: blur(6px);
-        transition: border-color var(--dur-fast) var(--ease), transform var(--dur-fast) var(--ios), box-shadow var(--dur-fast) var(--ease);
-      }
-      .step.in { animation: step-pop var(--dur-reveal) var(--spring) both; animation-delay: var(--d, 0ms); }
-      @keyframes step-pop { to { opacity: 1; transform: translateY(0) scale(1); filter: blur(0); } }
-      .step:hover { border-color: var(--border-gold); box-shadow: 0 16px 40px rgba(0,0,0,0.4); }
-      .step:active { transform: scale(0.985); }
-      .step-n { width: 38px; height: 38px; border-radius: 12px; background: var(--gold-gradient); color: rgb(12,12,14); display: grid; place-items: center; margin-bottom: 16px; font-weight: 800; font-size: 17px; box-shadow: 0 6px 18px rgba(212,168,83,0.28); }
-      .step h3 { font-size: 18px; font-weight: 700; margin: 0 0 7px; letter-spacing: -0.01em; }
-      .step p { font-size: 13.5px; color: var(--body); margin: 0; line-height: 1.55; }
+      .proof-row { display: flex; flex-wrap: wrap; justify-content: center; align-items: flex-start; gap: 24px 64px; margin: 6px auto 0; }
+      .js .proof-stat { opacity: 0; transform: translateY(18px); }
+      .js .proof-stat.in { opacity: 1; transform: none; transition: opacity var(--dur-reveal) var(--ios), transform var(--dur-reveal) var(--spring); transition-delay: var(--d, 0ms); }
+      .proof-stat { display: flex; flex-direction: column; align-items: center; gap: 8px; }
+      .proof-num { font-size: clamp(42px, 6.2vw, 66px); font-weight: 800; line-height: 1; letter-spacing: -0.035em; }
+      .proof-num .g { background: var(--gold-gradient); -webkit-background-clip: text; background-clip: text; -webkit-text-fill-color: transparent; }
+      .proof-num .star { color: var(--gold-hi); }
+      .proof-cap { font-size: 13px; color: var(--muted); letter-spacing: 0.03em; }
       .explainer-foot { margin: 40px auto 0; font-size: 14.5px; color: var(--muted); max-width: 54ch; }
 
       /* ───── CTA band (iOS unlock card) ───── */
@@ -342,7 +336,7 @@
         .bar { padding: 12px 16px; padding-top: calc(12px + env(safe-area-inset-top)); backdrop-filter: none; -webkit-backdrop-filter: none; }
         .bento { grid-template-columns: 1fr; gap: 12px; }
         .card.flagship .demo { min-height: 180px; }
-        .steps { grid-template-columns: 1fr; }
+        .proof-row { gap: 22px 40px; }
         .explainer { padding: 60px 18px; }
         .cta { padding: 64px 16px; }
         .cta-card { padding: 38px 22px 34px; }
@@ -358,8 +352,8 @@
       @media (prefers-reduced-motion: reduce) {
         html { scroll-behavior: auto; }
         *, *::before, *::after { animation: none !important; transition: none !important; }
-        .reveal-words h1 .w, .reveal, .step { opacity: 1; transform: none; filter: none; }
-        .js .bento .card { opacity: 1 !important; transform: none !important; }
+        .reveal-words h1 .w, .reveal { opacity: 1; transform: none; filter: none; }
+        .js .bento .card, .js .proof-stat { opacity: 1 !important; transform: none !important; }
         .flow-chip { opacity: 1 !important; transform: none !important; }
         .h2-rule { transform: scaleX(1); }
         .ticker-track { transform: none; }
@@ -368,8 +362,8 @@
       }
       html.static *, html.static *::before, html.static *::after { animation: none !important; transition: none !important; }
       html.static { scroll-behavior: auto; }
-      html.static .reveal-words h1 .w, html.static .reveal, html.static .step { opacity: 1; transform: none; filter: none; }
-      html.static .js .bento .card { opacity: 1 !important; transform: none !important; }
+      html.static .reveal-words h1 .w, html.static .reveal { opacity: 1; transform: none; filter: none; }
+      html.static .js .bento .card, html.static .js .proof-stat { opacity: 1 !important; transform: none !important; }
       html.static .flow-chip { opacity: 1 !important; transform: none !important; }
       html.static .h2-rule { transform: scaleX(1); }
       html.static .ticker-track { transform: none; }
@@ -519,30 +513,18 @@
         </div>
       </section>
 
-      <!-- Explainer -->
-      <section class="explainer">
+      <!-- Proof -->
+      <section class="explainer" id="proof">
         <div class="explainer-inner">
-          <p class="eyebrow">The toolkit</p>
-          <h2>Three steps, start to smarter.</h2>
+          <p class="eyebrow">Trusted by traders</p>
+          <h2>You're in good company.</h2>
           <div class="h2-rule" aria-hidden="true"></div>
-          <div class="steps">
-            <div class="step" data-step="0">
-              <div class="step-n">1</div>
-              <h3>Screen</h3>
-              <p>Find graded setups in seconds with The Screener. A to D, so you know what is worth a look.</p>
-            </div>
-            <div class="step" data-step="1">
-              <div class="step-n">2</div>
-              <h3>Understand</h3>
-              <p>Read breadth, internals, and a Fear and Greed gauge in Intelligence. See the whole market at a glance.</p>
-            </div>
-            <div class="step" data-step="2">
-              <div class="step-n">3</div>
-              <h3>Trade smarter</h3>
-              <p>Pick cleaner contracts and read the flow in plain English with Friendly Options.</p>
-            </div>
+          <div class="proof-row">
+            <div class="proof-stat"><span class="proof-num"><span class="g">190K</span></span><span class="proof-cap">on YouTube</span></div>
+            <div class="proof-stat"><span class="proof-num"><span class="g">7,599</span></span><span class="proof-cap">members</span></div>
+            <div class="proof-stat"><span class="proof-num"><span class="star">★</span> <span class="g">4.6</span></span><span class="proof-cap">from 717 reviews</span></div>
           </div>
-          <p class="explainer-foot">We built this because we got tired of tools that talk down to you. These don't.</p>
+          <p class="explainer-foot">Built and used by a real trading community.</p>
         </div>
       </section>
 
@@ -889,10 +871,10 @@
         var cardEls=document.querySelectorAll(".bento .card");
         var cro=new IntersectionObserver(function(es){ es.forEach(function(e){ if(e.isIntersecting){ var idx=[].indexOf.call(cardEls,e.target); e.target.style.setProperty("--cd",(Math.max(0,idx)*80)+"ms"); e.target.classList.add("in"); cro.unobserve(e.target);} }); },{threshold:0.12});
         cardEls.forEach(function(el){ cro.observe(el); });
-        var so=new IntersectionObserver(function(es){ es.forEach(function(e){ if(e.isIntersecting){ var ex=e.target.closest(".explainer"); if(ex)ex.classList.add("in"); var s=e.target.querySelectorAll(".step"); s.forEach(function(st,i){ st.style.setProperty("--d",(i*110)+"ms"); st.classList.add("in"); }); so.disconnect(); } }); },{threshold:0.3});
-        var stepsEl=document.querySelector(".steps"); if(stepsEl) so.observe(stepsEl);
+        var so=new IntersectionObserver(function(es){ es.forEach(function(e){ if(e.isIntersecting){ var ex=e.target.closest(".explainer"); if(ex)ex.classList.add("in"); var s=e.target.querySelectorAll(".proof-stat"); s.forEach(function(st,i){ st.style.setProperty("--d",(i*100)+"ms"); st.classList.add("in"); }); so.disconnect(); } }); },{threshold:0.3});
+        var proofEl=document.querySelector(".proof-row"); if(proofEl) so.observe(proofEl);
       } else {
-        document.querySelectorAll(".reveal,.step,.bento .card").forEach(function(el){ el.classList.add("in"); });
+        document.querySelectorAll(".reveal,.proof-stat,.bento .card").forEach(function(el){ el.classList.add("in"); });
         var ex2=document.querySelector(".explainer"); if(ex2) ex2.classList.add("in");
       }
 
