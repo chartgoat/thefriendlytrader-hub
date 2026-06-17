@@ -270,23 +270,24 @@
       .proof-cap { font-size: 13px; color: var(--muted); letter-spacing: 0.03em; }
       .explainer-foot { margin: 40px auto 0; font-size: 14.5px; color: var(--muted); max-width: 54ch; }
 
-      /* ───── CTA band (iOS unlock card) ───── */
-      .cta { padding: 92px 24px; }
-      .cta-card {
-        position: relative; max-width: 660px; margin: 0 auto; text-align: center;
-        padding: 52px 36px 46px; border-radius: var(--radius-xl); overflow: hidden;
-        background: radial-gradient(130% 110% at 50% -10%, rgba(204,177,103,0.12), transparent 55%), linear-gradient(180deg, var(--surface-3), var(--surface-2));
-        border: 1px solid var(--border-gold);
-        box-shadow: 0 34px 100px rgba(0,0,0,0.55), 0 0 60px rgba(204,177,103,0.06), inset 0 1px 0 rgba(255,255,255,0.05);
-      }
-      .cta-card::before { content: ""; position: absolute; top: 0; left: -65%; width: 45%; height: 100%; pointer-events: none;
-        background: linear-gradient(105deg, transparent, rgba(255,255,255,0.08), transparent); transform: skewX(-12deg); }
-      .cta.in .cta-card::before { animation: cta-sheen 1.5s var(--ease) 0.25s 1 both; }
-      @keyframes cta-sheen { from { left: -65%; } to { left: 125%; } }
-      .cta-icons { display: flex; justify-content: center; gap: 10px; margin: 0 0 24px; }
-      .cta-icons span { width: 42px; height: 42px; border-radius: 13px; background: rgba(193,155,63,0.12); border: 1px solid var(--border); display: grid; place-items: center; color: var(--gold); }
-      .cta-icons svg { width: 21px; height: 21px; }
-      .cta .line { position: relative; font-family: var(--font-display); font-weight: 800; font-size: clamp(28px, 4.6vw, 44px); margin: 8px 0 26px; letter-spacing: -0.03em; }
+      /* ───── Offer (one membership · one price) ───── */
+      .offer { padding: 96px 24px 104px; text-align: center; }
+      .offer-inner { max-width: 640px; margin: 0 auto; }
+      .offer h2 { font-family: var(--font-display); font-weight: 800; font-size: clamp(30px, 4.6vw, 48px); margin: 8px 0 18px; letter-spacing: -0.03em; }
+      .offer h2 .g { background: var(--gold-gradient); -webkit-background-clip: text; background-clip: text; -webkit-text-fill-color: transparent; }
+      .offer.in .h2-rule { transform: scaleX(1); }
+
+      .price { display: inline-flex; align-items: flex-start; justify-content: center; gap: 3px; line-height: 1; margin: 4px 0 0; }
+      .price-cur { margin-top: 0.52em; font-size: clamp(24px, 3vw, 32px); font-weight: 700; color: var(--text); }
+      .price-num { font-size: clamp(74px, 12vw, 110px); font-weight: 800; letter-spacing: -0.045em; padding-bottom: 0.06em; background: var(--gold-gradient); -webkit-background-clip: text; background-clip: text; -webkit-text-fill-color: transparent; }
+      .price-per { align-self: flex-end; margin-bottom: 0.85em; font-size: 15px; font-weight: 600; color: var(--muted); }
+      .price-note { margin: 14px auto 0; max-width: 44ch; font-size: 14.5px; color: var(--body); }
+
+      .incl { list-style: none; margin: 28px auto 34px; padding: 0; max-width: 540px; display: flex; flex-wrap: wrap; justify-content: center; gap: 11px 22px; }
+      .incl li { display: inline-flex; align-items: center; gap: 8px; font-size: 14.5px; font-weight: 500; color: var(--text); }
+      .incl li svg { flex: none; width: 17px; height: 17px; color: var(--gold); }
+      .soon-tag { font-size: 9.5px; font-weight: 800; letter-spacing: 0.09em; text-transform: uppercase; color: var(--amber-soon); border: 1px solid rgba(255,196,140,0.4); border-radius: 999px; padding: 1.5px 7px; margin-left: 4px; }
+
       .magnet-wrap { display: inline-block; }
       .cta-btn {
         position: relative; display: inline-flex; align-items: center; gap: 9px;
@@ -303,7 +304,16 @@
       .lock-ico .shackle { transform-box: fill-box; transform-origin: 18% 100%; transition: transform 0.42s var(--spring); }
       .pill:hover .lock-ico .shackle, .pill:focus-visible .lock-ico .shackle, .pill:active .lock-ico .shackle,
       .cta-btn:hover .lock-ico .shackle, .cta-btn:focus-visible .lock-ico .shackle, .cta-btn:active .lock-ico .shackle { transform: rotate(-30deg) translateY(-1px); }
-      .cta-sub { margin: 20px 0 0; font-size: 13px; color: var(--muted); }
+      /* Trader-tier carrot — locked Portfolio */
+      .upsell { position: relative; max-width: 540px; margin: 54px auto 0; text-align: left; display: flex; align-items: center; gap: 16px; padding: 18px 20px; border-radius: var(--radius-lg); background: linear-gradient(180deg, var(--surface-3), var(--surface-2)); border: 1px solid var(--border); }
+      .upsell::after { content: ""; position: absolute; inset: 0; border-radius: inherit; pointer-events: none; box-shadow: inset 0 0 0 1px rgba(204,177,103,0.12), inset 0 1px 0 rgba(255,255,255,0.04); }
+      .upsell-lock { flex: none; width: 46px; height: 46px; border-radius: 14px; display: grid; place-items: center; background: rgba(193,155,63,0.10); border: 1px solid var(--border-gold); color: var(--gold); }
+      .upsell-lock svg { width: 22px; height: 22px; }
+      .upsell-body { flex: 1; min-width: 0; }
+      .upsell-kicker { font-size: 11px; font-weight: 800; letter-spacing: 0.14em; text-transform: uppercase; color: var(--gold); margin: 0 0 3px; }
+      .upsell-title { font-size: 17px; font-weight: 800; letter-spacing: -0.01em; margin: 0; color: var(--text); }
+      .upsell-desc { font-size: 13px; color: var(--body); margin: 4px 0 0; line-height: 1.45; }
+      .upsell-foot { margin: 16px auto 0; max-width: 540px; font-size: 12.5px; color: var(--muted); }
 
       /* ───── Footer ───── */
       footer { border-top: 1px solid var(--border); background: var(--surface-1); padding: 48px 24px calc(48px + env(safe-area-inset-bottom)); text-align: center; color: var(--muted); font-size: 12.5px; }
@@ -338,13 +348,13 @@
         .card.flagship .demo { min-height: 180px; }
         .proof-row { gap: 22px 40px; }
         .explainer { padding: 60px 18px; }
-        .cta { padding: 64px 16px; }
-        .cta-card { padding: 38px 22px 34px; }
+        .offer { padding: 68px 18px 78px; }
+        .incl { gap: 10px 18px; }
+        .upsell { gap: 13px; padding: 16px 16px; }
       }
       @media (max-width: 430px) {
         .pill { padding: 0 14px; font-size: 12.5px; }
         .ticker-track { animation-duration: 30s; }
-        .cta-icons span { width: 38px; height: 38px; }
       }
 
       /* ───── Fully static, fully legible. Media query = always/no-JS fallback for reduced-motion;
@@ -528,24 +538,45 @@
         </div>
       </section>
 
-      <!-- CTA band -->
-      <section class="cta reveal">
-        <div class="cta-card">
-          <div class="cta-icons" aria-hidden="true">
-            <span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 3v18h18"/><path d="M7 14l3-3 3 2 5-6"/></svg></span>
-            <span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 20v-6M6 20v-3M18 20v-9"/><circle cx="12" cy="6" r="2"/></svg></span>
-            <span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 18l5-5 4 3 7-8"/><path d="M21 7v5h-5"/></svg></span>
-            <span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><path d="M9.5 9.5h4a2 2 0 0 1 0 4h-4m0-4v6m0-6V8m2 8v1.5"/></svg></span>
+      <!-- Offer -->
+      <section class="offer reveal" id="join">
+        <div class="offer-inner">
+          <p class="eyebrow">One membership</p>
+          <h2>Every tool you need, <span class="g">one price.</span></h2>
+          <div class="h2-rule" aria-hidden="true"></div>
+
+          <div class="price">
+            <span class="price-cur">$</span><span class="price-num">79</span><span class="price-per">/ month</span>
           </div>
-          <p class="eyebrow">Everything, one membership</p>
-          <p class="line">Unlock the full toolkit.</p>
+          <p class="price-note">Cancel anytime. The full toolkit unlocks the moment you join.</p>
+
+          <ul class="incl">
+            <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12.5l4.2 4.2L19 7"/></svg>The Screener</li>
+            <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12.5l4.2 4.2L19 7"/></svg>Intelligence</li>
+            <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12.5l4.2 4.2L19 7"/></svg>Friendly Options</li>
+            <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12.5l4.2 4.2L19 7"/></svg>BTC Edge<span class="soon-tag">soon</span></li>
+            <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12.5l4.2 4.2L19 7"/></svg>Community access</li>
+          </ul>
+
           <span class="magnet-wrap">
             <a class="cta-btn" id="ctaBtn" href="https://whop.com/checkout/plan_aYHjuBwYl3Ceb" rel="noopener">
               <svg class="lock-ico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="5" y="11" width="14" height="9" rx="2"/><path class="shackle" d="M8 11V7a4 4 0 0 1 8 0v4"/></svg>
               <span>Unlock Tools</span>
             </a>
           </span>
-          <p class="cta-sub">One membership unlocks every tool in the suite.</p>
+
+          <!-- Trader-tier carrot: Josh's live portfolio, held one tier up -->
+          <div class="upsell" aria-label="Trader tier: Josh's Portfolio (locked)">
+            <div class="upsell-lock" aria-hidden="true">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="5" y="11" width="14" height="9" rx="2"/><path d="M8 11V7a4 4 0 0 1 8 0v4"/></svg>
+            </div>
+            <div class="upsell-body">
+              <p class="upsell-kicker">Trader tier</p>
+              <p class="upsell-title">Josh's Portfolio</p>
+              <p class="upsell-desc">His personal portfolio, traded live — every position, in real time. Unlocks one tier up.</p>
+            </div>
+          </div>
+          <p class="upsell-foot">After three months, roll what you've paid toward a yearly upgrade<span class="soon-tag">soon</span></p>
         </div>
       </section>
     </main>
