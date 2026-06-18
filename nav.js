@@ -1,4 +1,4 @@
-// The Friendly Trader — cross-app navigator
+// The Friendly Trader - cross-app navigator
 // Drop into any app with: <script defer src="https://thefriendlytrader.com/nav.js"></script>
 // Renders a floating chip top-right that expands into a 4-app switcher.
 // Self-contained, shadow DOM isolated, no dependencies.
@@ -77,7 +77,7 @@
   ];
 
   // Hosts where the chip renders unconditionally (no /api/me gate).
-  // These apps are internal-only — they have no auth and no public Whop members,
+  // These apps are internal-only - they have no auth and no public Whop members,
   // so server-side gating would just hide the chip forever. Per product decision,
   // they're allowed to show the cross-app navigator without a credential check.
   var UNGATED_HOSTS = [
@@ -109,9 +109,9 @@
   // For UNGATED_HOSTS (Railway apps, no auth available), always true.
   // Otherwise the ONLY trusted source is /api/me on the current origin (server-validated
   // session from the Whop OAuth backend). Two accepted shapes:
-  //   1. SWJ Intelligence-style: { email: "..." } or { user: { email: "..." } } — match against ALLOWED_EMAILS.
-  //   2. Friendly Screener-style: { loggedIn: true, role: "admin", ... } — match by role.
-  // No localStorage / window-flag bypass — that would let any visitor toggle the chip from the console.
+  //   1. SWJ Intelligence-style: { email: "..." } or { user: { email: "..." } } - match against ALLOWED_EMAILS.
+  //   2. Friendly Screener-style: { loggedIn: true, role: "admin", ... } - match by role.
+  // No localStorage / window-flag bypass - that would let any visitor toggle the chip from the console.
   async function isAdmin() {
     if (isUngatedHost()) return true;
 
@@ -141,7 +141,7 @@
   async function mount() {
     if (window.self !== window.top) return; // hide inside iframes (e.g., Replit Preview)
 
-    // Email gate — only the 2 admin emails see the chip
+    // Email gate - only the 2 admin emails see the chip
     var allowed = await isAdmin();
     if (!allowed) return;
 
