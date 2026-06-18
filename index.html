@@ -6,7 +6,7 @@
     <meta name="color-scheme" content="dark" />
     <meta name="theme-color" content="#000000" />
     <title>Friendly Trader: Clarity over noise</title>
-    <meta name="description" content="Four friendly trading tools that turn noisy charts and confusing options into decisions you can actually make. A daily stock screener, market intelligence, and plain-English options flow." />
+    <meta name="description" content="Friendly trading tools that turn noisy charts and confusing options into decisions you can actually make. A daily stock screener, plain-English options flow, and a live Discord trade tracker." />
     <meta property="og:title" content="Friendly Trader: Clarity over noise" />
     <meta property="og:description" content="Four friendly tools that turn noisy charts and confusing options into decisions you can actually make." />
     <meta property="og:type" content="website" />
@@ -33,8 +33,8 @@
         { "@type": "WebSite", "@id": "https://thefriendlytrader.com/#website", "name": "Friendly Trader", "alternateName": "The Friendly Trader", "url": "https://thefriendlytrader.com/", "publisher": { "@id": "https://thefriendlytrader.com/#org" } },
         { "@type": "ItemList", "@id": "https://thefriendlytrader.com/#tools", "name": "Friendly Trader tools", "itemListElement": [
           { "@type": "ListItem", "position": 1, "name": "The Screener", "url": "https://friendlyscreener.com", "description": "Daily stock screening with explainable A to D grading." },
-          { "@type": "ListItem", "position": 2, "name": "Intelligence", "url": "https://friendly-trader.com", "description": "Market breadth, internals, and the Fear and Greed gauge in one dashboard." },
-          { "@type": "ListItem", "position": 3, "name": "Friendly Options", "url": "https://thefriendlytrader.com/options", "description": "Pick cleaner contracts, analyze the trade, and read the options flow in plain English." }
+          { "@type": "ListItem", "position": 2, "name": "Friendly Options", "url": "https://thefriendlytrader.com/options", "description": "Pick cleaner contracts, analyze the trade, and read the options flow in plain English." },
+          { "@type": "ListItem", "position": 3, "name": "Friendly Intelligence", "url": "https://friendly-trader.com", "description": "Market breadth, internals, and the Fear and Greed gauge in one dashboard. Coming soon." }
         ] }
       ]
     }
@@ -252,7 +252,16 @@
 
       /* ── BTC demo: locked dial ── */
       .btc { position: absolute; inset: 0; display: grid; place-items: center; }
-      .btc .lock { position: absolute; top: 10px; right: 10px; width: 16px; height: 16px; color: var(--muted); }
+      .demo .lock { position: absolute; top: 10px; right: 10px; width: 16px; height: 16px; color: var(--muted); z-index: 5; }
+
+      /* ── Discord Trade Tracker demo: live alert feed ── */
+      .track { position: absolute; inset: 0; padding: 12px; display: flex; flex-direction: column; gap: 8px; justify-content: center; }
+      .track-row { display: flex; align-items: center; gap: 8px; font-size: 12px; color: var(--text); background: rgba(255,255,255,0.04); border: 1px solid rgba(255,255,255,0.06); border-radius: 8px; padding: 7px 10px; }
+      .track-row b { font-weight: 700; letter-spacing: -0.01em; }
+      .track-tag { margin-left: auto; font-size: 9.5px; font-weight: 700; letter-spacing: 0.06em; text-transform: uppercase; color: var(--gold); border: 1px solid var(--border-gold); border-radius: 999px; padding: 2px 8px; }
+      .track-tag.muted { color: var(--muted); border-color: var(--border); }
+      .track-live { flex: none; width: 7px; height: 7px; border-radius: 999px; background: var(--green); box-shadow: 0 0 0 0 rgba(61,220,139,0.5); animation: track-pulse 2.2s var(--ease) infinite; }
+      @keyframes track-pulse { 0% { box-shadow: 0 0 0 0 rgba(61,220,139,0.45); } 70% { box-shadow: 0 0 0 7px rgba(61,220,139,0); } 100% { box-shadow: 0 0 0 0 rgba(61,220,139,0); } }
 
       /* ───── Explainer (iOS step cards) ───── */
       .explainer { background: var(--surface-1); border-top: 1px solid var(--border); border-bottom: 1px solid var(--border); margin-top: 60px; padding: 80px 24px; }
@@ -333,8 +342,8 @@
       @keyframes card-pop { from { opacity: 0; transform: translateY(22px) scale(0.99); } to { opacity: 1; transform: none; } }
 
       /* ───── Responsive: tablet / mobile ───── */
-      /* Desktop 3-col: the flagship spans 2 rows, so let BTC fill the bottom-right pair (no ragged empty cell). */
-      @media (min-width: 1025px) { .card.soon { grid-column: span 2; } }
+      /* Desktop 3-col: flagship spans 2 rows (col 1); the other four tiles fill the 2x2 on the right. */
+      @media (max-width: 1024px) and (min-width: 701px) { .bento .card:last-child:nth-child(odd) { grid-column: span 2; } }
       @media (max-width: 1024px) {
         .bento { grid-template-columns: 1fr 1fr; }
         .card.flagship { grid-row: auto; }
@@ -436,38 +445,6 @@
               </div>
             </article>
 
-            <!-- Intelligence -->
-            <article class="card" data-mood="intelligence" data-demo="intelligence">
-              <a class="card-link" href="https://friendly-trader.com" rel="noopener" aria-label="Open Intelligence"></a>
-              <div class="inner">
-                <div class="demo">
-                  <div class="intel">
-                    <svg class="gauge" viewBox="0 0 150 84" aria-hidden="true">
-                      <path d="M12 80 A63 63 0 0 1 138 80" fill="none" stroke="rgba(255,255,255,0.08)" stroke-width="9" stroke-linecap="round"/>
-                      <path d="M12 80 A63 63 0 0 1 138 80" fill="none" stroke="url(#gg)" stroke-width="9" stroke-linecap="round" stroke-dasharray="198" stroke-dashoffset="0" opacity="0.55"/>
-                      <defs><linearGradient id="gg" x1="0" y1="0" x2="1" y2="0"><stop offset="0" stop-color="#e5484d"/><stop offset="0.5" stop-color="#ccb167"/><stop offset="1" stop-color="#3ddc8b"/></linearGradient></defs>
-                      <g class="needle" id="needle"><line x1="75" y1="80" x2="75" y2="28" stroke="#fff" stroke-width="2.5" stroke-linecap="round"/><circle cx="75" cy="80" r="5" fill="#ccb167"/></g>
-                    </svg>
-                    <div class="breadth">
-                      <div class="breadth-l"><span>Bears</span><span id="fgLabel">Neutral</span><span>Bulls</span></div>
-                      <div class="breadth-bar"><i id="breadthFill"></i></div>
-                    </div>
-                  </div>
-                </div>
-                <div>
-                  <div class="card-head">
-                    <svg class="card-glyph" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 20v-6M6 20v-3M18 20v-9"/><circle cx="12" cy="6" r="2"/></svg>
-                    <h2 class="card-title">Intelligence</h2>
-                  </div>
-                  <p class="card-blurb">Market breadth, internals, and a Fear and Greed read in one calm dashboard.</p>
-                </div>
-                <div class="card-foot">
-                  <span class="card-cta">View market internals →</span>
-                  <span class="card-host">friendly-trader.com</span>
-                </div>
-              </div>
-            </article>
-
             <!-- Friendly Options -->
             <article class="card" data-mood="options" data-demo="options">
               <a class="card-link" href="https://thefriendlytrader.com/options" rel="noopener" aria-label="Open Friendly Options"></a>
@@ -489,6 +466,62 @@
                 <div class="card-foot">
                   <span class="card-cta">Analyze an options trade →</span>
                   <span class="card-host">thefriendlytrader.com/options</span>
+                </div>
+              </div>
+            </article>
+
+            <!-- Discord Trade Tracker -->
+            <article class="card" data-mood="default">
+              <a class="card-link" href="https://leaderboard.stockswithjosh.com" rel="noopener" aria-label="Open the Discord Trade Tracker"></a>
+              <div class="inner">
+                <div class="demo">
+                  <div class="track">
+                    <div class="track-row"><span class="track-live" aria-hidden="true"></span><b>NVDA</b><span class="track-tag">Entry</span></div>
+                    <div class="track-row"><b>SPY</b><span class="track-tag">Scaled</span></div>
+                    <div class="track-row"><b>AAPL</b><span class="track-tag muted">Closed</span></div>
+                  </div>
+                </div>
+                <div>
+                  <div class="card-head">
+                    <svg class="card-glyph" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 12h4l2-7 4 14 2-7h6"/></svg>
+                    <h2 class="card-title">Discord Trade Tracker</h2>
+                  </div>
+                  <p class="card-blurb">Track every entry, scale-in, and exit as the alerts post live.</p>
+                </div>
+                <div class="card-foot">
+                  <span class="card-cta">Open the tracker →</span>
+                </div>
+              </div>
+            </article>
+
+            <!-- Friendly Intelligence (coming soon) -->
+            <article class="card soon" data-mood="intelligence" tabindex="0" aria-label="Friendly Intelligence, coming soon">
+              <div class="inner">
+                <div class="demo">
+                  <div class="intel">
+                    <svg class="lock" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><rect x="5" y="11" width="14" height="9" rx="2"/><path d="M8 11V8a4 4 0 0 1 8 0v3"/></svg>
+                    <svg class="gauge" viewBox="0 0 150 84" aria-hidden="true">
+                      <path d="M12 80 A63 63 0 0 1 138 80" fill="none" stroke="rgba(255,255,255,0.08)" stroke-width="9" stroke-linecap="round"/>
+                      <path d="M12 80 A63 63 0 0 1 138 80" fill="none" stroke="url(#gg)" stroke-width="9" stroke-linecap="round" opacity="0.4"/>
+                      <defs><linearGradient id="gg" x1="0" y1="0" x2="1" y2="0"><stop offset="0" stop-color="#e5484d"/><stop offset="0.5" stop-color="#ccb167"/><stop offset="1" stop-color="#3ddc8b"/></linearGradient></defs>
+                      <g><line x1="75" y1="80" x2="75" y2="30" stroke="#888" stroke-width="2.5" stroke-linecap="round"/><circle cx="75" cy="80" r="5" fill="#888"/></g>
+                    </svg>
+                    <div class="breadth">
+                      <div class="breadth-l"><span>Bears</span><span>Neutral</span><span>Bulls</span></div>
+                      <div class="breadth-bar"><i style="width:50%"></i></div>
+                    </div>
+                  </div>
+                </div>
+                <div>
+                  <div class="card-head">
+                    <svg class="card-glyph" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 20v-6M6 20v-3M18 20v-9"/><circle cx="12" cy="6" r="2"/></svg>
+                    <h2 class="card-title">Friendly Intelligence</h2>
+                  </div>
+                  <p class="card-blurb">Market breadth, internals, and a Fear and Greed read in one calm dashboard.</p>
+                </div>
+                <div class="card-foot">
+                  <span class="chip-soon">Coming soon</span>
+                  <span class="card-host">friendly-trader.com</span>
                 </div>
               </div>
             </article>
@@ -552,8 +585,9 @@
 
           <ul class="incl">
             <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12.5l4.2 4.2L19 7"/></svg>The Screener</li>
-            <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12.5l4.2 4.2L19 7"/></svg>Intelligence</li>
             <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12.5l4.2 4.2L19 7"/></svg>Friendly Options</li>
+            <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12.5l4.2 4.2L19 7"/></svg>Discord Trade Tracker</li>
+            <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12.5l4.2 4.2L19 7"/></svg>Friendly Intelligence<span class="soon-tag">soon</span></li>
             <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12.5l4.2 4.2L19 7"/></svg>BTC Edge<span class="soon-tag">soon</span></li>
             <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12.5l4.2 4.2L19 7"/></svg>Community access</li>
           </ul>
