@@ -1,5 +1,5 @@
 # https://thefriendlytrader.com/robots.txt
-# Friendly Trader hub — allow full crawl; index control is per-page via meta robots.
+# Friendly Trader hub. Allow full crawl; index control is per-page via meta robots.
 User-agent: *
 Allow: /
 
