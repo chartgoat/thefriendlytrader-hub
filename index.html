@@ -140,7 +140,10 @@
       .hero { position: relative; min-height: 92vh; padding: 64px 24px 80px; overflow: hidden; isolation: isolate;
         background: #000; }
       #bg { position: absolute; inset: 0; width: 100%; height: 100%; z-index: 0; display: block; }
-      #fx { position: absolute; inset: 0; width: 100%; height: 100%; z-index: 0; display: block; pointer-events: none; }
+      #fx { position: absolute; inset: 0; width: 100%; height: 100%; z-index: 0; display: block; pointer-events: none;
+        /* reading notch: dim candles only behind the subhead + trust line (~22-31% of the hero) so that small text stays crisp on near-black */
+        -webkit-mask-image: linear-gradient(to bottom, #000 0%, #000 19%, rgba(0,0,0,0.10) 24%, rgba(0,0,0,0.10) 33%, #000 38%, #000 100%);
+                mask-image: linear-gradient(to bottom, #000 0%, #000 19%, rgba(0,0,0,0.10) 24%, rgba(0,0,0,0.10) 33%, #000 38%, #000 100%); }
       .scrim { position: absolute; inset: 0; z-index: 1; pointer-events: none;
         background:
           radial-gradient(72% 50% at 50% 34%, rgba(0,0,0,0.62) 0%, rgba(0,0,0,0.34) 46%, transparent 72%),
@@ -917,7 +920,7 @@ function bakeSprites(){
 }
 
 /* ---------- live candlestick chart (forms in real time, scrolls left) ---------- */
-var chart = { c:[], price:0.5, acc:0, PERIOD:1500, sx:0, slot:26, bw:14, N:24, bandTop:0, bandH:0 };
+var chart = { c:[], price:0.5, target:0.5, acc:0, PERIOD:1500, sx:0, slot:26, bw:14, N:24, bandTop:0, bandH:0 };
 function ampV(v){ v = 0.5 + (v-0.5)*1.55; return v<0.03?0.03:(v>0.97?0.97:v); }  // stretch deviations so candles have body
 function chartResize(){
   chart.bandTop = CH*0.12; chart.bandH = CH*0.26;   // behind the headline (scrim keeps text legible); bento covers below ~38%
@@ -932,22 +935,26 @@ function chartResize(){
       chart.c.push({o:o,h:hi,l:lo,c:cc}); p=cc;
     }
     chart.price=p;
+    chart.target = chart.price + (rnd()-0.5)*0.12;
+    if(chart.target<0.08)chart.target=0.08; if(chart.target>0.92)chart.target=0.92;
   }
 }
 function chartAdvance(dt){
   if(dt>100) dt=100;   // ignore huge frame gaps (tab switch / resize) so the scroll can't lurch
-  // random-walk the live price; the newest candle is "forming" (body + wick update live)
-  chart.price += (rnd()-0.5)*0.05 + (0.5-chart.price)*0.012;
+  // CALM forming candle: ease the price gently toward this candle's target (less jittery / slower feel)
+  chart.price += (chart.target - chart.price)*0.045 + (rnd()-0.5)*0.0022;
   if(chart.price<0.06)chart.price=0.06; if(chart.price>0.94)chart.price=0.94;
   var last=chart.c[chart.c.length-1];
   last.c=chart.price; if(chart.price>last.h)last.h=chart.price; if(chart.price<last.l)last.l=chart.price;
   chart.acc+=dt;
-  while(chart.acc>=chart.PERIOD){                      // close finished candle(s), open a new one at the right edge
+  while(chart.acc>=chart.PERIOD){                      // close finished candle(s), open a new one + pick its target
     chart.acc-=chart.PERIOD;
     chart.c.push({o:chart.price,h:chart.price,l:chart.price,c:chart.price});
+    chart.target = chart.price + (rnd()-0.5)*0.14;
+    if(chart.target<0.08)chart.target=0.08; if(chart.target>0.92)chart.target=0.92;
     while(chart.c.length>chart.N+2) chart.c.shift();
   }
-  chart.sx=chart.acc/chart.PERIOD;                    // 0..1 smooth scroll progress within the current candle
+  chart.sx=chart.acc/chart.PERIOD;                    // 0..1 smooth scroll progress (scroll speed unchanged)
 }
 function yOfV(v){ return chart.bandTop + (1-ampV(v))*chart.bandH; }
 function rrect(x,y,w,h,r){ if(r>h/2)r=h/2; if(r>w/2)r=w/2; if(r<0)r=0;
