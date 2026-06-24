@@ -343,8 +343,14 @@
       .pill:hover .lock-ico .shackle, .pill:focus-visible .lock-ico .shackle, .pill:active .lock-ico .shackle,
       .cta-btn:hover .lock-ico .shackle, .cta-btn:focus-visible .lock-ico .shackle, .cta-btn:active .lock-ico .shackle { transform: rotate(-30deg) translateY(-1px); }
       /* Trader-tier carrot - locked Portfolio */
-      .upsell { position: relative; max-width: 540px; margin: 54px auto 0; text-align: left; display: flex; align-items: center; gap: 16px; padding: 18px 20px; border-radius: var(--radius-lg); background: linear-gradient(180deg, var(--surface-3), var(--surface-2)); border: 1px solid var(--border); }
+      .upsell { position: relative; max-width: 540px; margin: 54px auto 0; text-align: left; display: flex; align-items: center; gap: 16px; padding: 18px 20px; border-radius: var(--radius-lg); background: linear-gradient(180deg, var(--surface-3), var(--surface-2)); border: 1px solid var(--border); text-decoration: none; color: inherit; cursor: pointer; transition: border-color 180ms var(--ease), transform 180ms var(--ease), box-shadow 180ms var(--ease); }
+      .upsell:hover { border-color: var(--border-gold); transform: translateY(-2px); box-shadow: 0 14px 40px rgba(0,0,0,0.45); }
+      .upsell:focus-visible { outline: 2px solid var(--gold); outline-offset: 3px; }
       .upsell::after { content: ""; position: absolute; inset: 0; border-radius: inherit; pointer-events: none; box-shadow: inset 0 0 0 1px rgba(204,177,103,0.12), inset 0 1px 0 rgba(255,255,255,0.04); }
+      .upsell-cta { flex: none; display: inline-flex; align-items: center; gap: 5px; font-size: 12.5px; font-weight: 700; letter-spacing: 0.02em; color: var(--gold-bright); }
+      .upsell-cta svg { width: 15px; height: 15px; transition: transform 180ms var(--ease); }
+      .upsell:hover .upsell-cta svg { transform: translateX(3px); }
+      .upsell:hover .upsell-lock { background: rgba(193,155,63,0.18); }
       .upsell-lock { flex: none; width: 46px; height: 46px; border-radius: 14px; display: grid; place-items: center; background: rgba(193,155,63,0.10); border: 1px solid var(--border-gold); color: var(--gold); }
       .upsell-lock svg { width: 22px; height: 22px; }
       .upsell-body { flex: 1; min-width: 0; }
@@ -668,7 +674,7 @@
           </span>
 
           <!-- Trader-tier carrot: Josh's live portfolio, held one tier up -->
-          <div class="upsell" aria-label="Trader tier: Josh's Portfolio (locked)">
+          <a class="upsell" href="https://whop.com/checkout/plan_55iRHuZ72Vhl9" rel="noopener" aria-label="Upgrade to the Trader Tier to unlock Josh's Portfolio">
             <div class="upsell-lock" aria-hidden="true">
               <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="5" y="11" width="14" height="9" rx="2"/><path d="M8 11V7a4 4 0 0 1 8 0v4"/></svg>
             </div>
@@ -677,7 +683,8 @@
               <p class="upsell-title">Josh's Portfolio</p>
               <p class="upsell-desc">StockswithJosh's personal portfolio, traded live. Every long term position, in real time.</p>
             </div>
-          </div>
+            <span class="upsell-cta" aria-hidden="true">Unlock<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg></span>
+          </a>
           <p class="upsell-foot">After three months, roll what you've paid toward a yearly Trader Tier upgrade.</p>
         </div>
       </section>
