@@ -141,9 +141,9 @@
         background: #000; }
       #bg { position: absolute; inset: 0; width: 100%; height: 100%; z-index: 0; display: block; }
       #fx { position: absolute; inset: 0; width: 100%; height: 100%; z-index: 0; display: block; pointer-events: none;
-        /* reading notch: dim candles only behind the subhead + trust line (~22-31% of the hero) so that small text stays crisp on near-black */
-        -webkit-mask-image: linear-gradient(to bottom, #000 0%, #000 19%, rgba(0,0,0,0.10) 24%, rgba(0,0,0,0.10) 33%, #000 38%, #000 100%);
-                mask-image: linear-gradient(to bottom, #000 0%, #000 19%, rgba(0,0,0,0.10) 24%, rgba(0,0,0,0.10) 33%, #000 38%, #000 100%); }
+        /* gentle central spotlight-dim: candles dim VERY slightly behind the middle of the subhead/trust, fading back to full brightness by the text edges and out to the page edges */
+        -webkit-mask-image: radial-gradient(ellipse 19% 9% at 50% 26.5%, rgba(0,0,0,0.66) 0%, rgba(0,0,0,0.86) 52%, #000 100%);
+                mask-image: radial-gradient(ellipse 19% 9% at 50% 26.5%, rgba(0,0,0,0.66) 0%, rgba(0,0,0,0.86) 52%, #000 100%); }
       .scrim { position: absolute; inset: 0; z-index: 1; pointer-events: none;
         background:
           radial-gradient(72% 50% at 50% 34%, rgba(0,0,0,0.62) 0%, rgba(0,0,0,0.34) 46%, transparent 72%),
@@ -592,18 +592,21 @@
       <section class="offer reveal" id="join">
         <div class="offer-inner">
           <p class="eyebrow">One membership</p>
-          <h2>Every tool you need, <span class="g">one price.</span></h2>
           <div class="h2-rule" aria-hidden="true"></div>
 
           <div class="price">
             <span class="price-cur">$</span><span class="price-num">79</span><span class="price-per">/ month</span>
           </div>
-          <p class="price-note">Cancel anytime. The full toolkit unlocks the moment you join.</p>
+          <p class="price-note">The full toolkit unlocks the moment you join.</p>
 
           <ul class="incl">
             <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12.5l4.2 4.2L19 7"/></svg>The Screener</li>
             <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12.5l4.2 4.2L19 7"/></svg>Friendly Options</li>
             <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12.5l4.2 4.2L19 7"/></svg>Discord Trade Tracker</li>
+            <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12.5l4.2 4.2L19 7"/></svg>Profit Windows</li>
+            <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12.5l4.2 4.2L19 7"/></svg>GOAT Scalp Levels</li>
+            <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12.5l4.2 4.2L19 7"/></svg>GOAT Scalp Alpha</li>
+            <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12.5l4.2 4.2L19 7"/></svg>A+ Dashboard</li>
             <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12.5l4.2 4.2L19 7"/></svg>Community access</li>
             <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12.5l4.2 4.2L19 7"/></svg>BTC Edge<span class="soon-tag">soon</span></li>
             <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12.5l4.2 4.2L19 7"/></svg>Friendly Intelligence<span class="soon-tag">soon</span></li>
@@ -624,7 +627,7 @@
             <div class="upsell-body">
               <p class="upsell-kicker">Trader tier</p>
               <p class="upsell-title">Josh's Portfolio</p>
-              <p class="upsell-desc">His personal portfolio, traded live. Every position, in real time.</p>
+              <p class="upsell-desc">StockswithJosh's personal portfolio, traded live. Every long term position, in real time.</p>
             </div>
           </div>
           <p class="upsell-foot">After three months, roll what you've paid toward a yearly Trader Tier upgrade.</p>
