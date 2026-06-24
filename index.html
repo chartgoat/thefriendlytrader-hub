@@ -142,8 +142,8 @@
       #bg { position: absolute; inset: 0; width: 100%; height: 100%; z-index: 0; display: block; }
       #fx { position: absolute; inset: 0; width: 100%; height: 100%; z-index: 0; display: block; pointer-events: none;
         /* gentle central spotlight-dim: candles dim VERY slightly behind the middle of the subhead/trust, fading back to full brightness by the text edges and out to the page edges */
-        -webkit-mask-image: radial-gradient(ellipse 23% 10% at 50% 26.5%, rgba(0,0,0,0.5) 0%, rgba(0,0,0,0.6) 60%, #000 100%);
-                mask-image: radial-gradient(ellipse 23% 10% at 50% 26.5%, rgba(0,0,0,0.5) 0%, rgba(0,0,0,0.6) 60%, #000 100%); }
+        -webkit-mask-image: radial-gradient(ellipse 21% 10% at 50% 26.5%, rgba(0,0,0,0.42) 0%, rgba(0,0,0,0.46) 60%, #000 100%);
+                mask-image: radial-gradient(ellipse 21% 10% at 50% 26.5%, rgba(0,0,0,0.42) 0%, rgba(0,0,0,0.46) 60%, #000 100%); }
       .scrim { position: absolute; inset: 0; z-index: 1; pointer-events: none;
         background:
           radial-gradient(72% 50% at 50% 34%, rgba(0,0,0,0.62) 0%, rgba(0,0,0,0.34) 46%, transparent 72%),
@@ -226,6 +226,21 @@
       .chip-soon { font-size: 10px; font-weight: 600; letter-spacing: 0.1em; text-transform: uppercase; color: var(--amber-soon); border: 1px solid rgba(255,196,140,0.35); background: rgba(255,196,140,0.08); padding: 4px 9px; border-radius: 999px; }
       .card.soon { opacity: 0.82; }
       .card.soon .demo { filter: grayscale(0.3); }
+
+      /* ── TradingView Indicators (full-width suite banner, row 3 of the bento) ── */
+      .card.suite { grid-column: 1 / -1; }
+      .card.suite > .inner { flex-direction: row; align-items: stretch; gap: 22px; }
+      .suite-text { flex: 1 1 45%; display: flex; flex-direction: column; gap: 12px; min-width: 0; }
+      .suite-text .card-blurb { flex: 1; }
+      .suite-demo { flex: 1 1 55%; min-height: 132px; padding: 8px; }
+      .ind-list { list-style: none; margin: 0; padding: 0; display: grid; grid-template-columns: 1fr 1fr; gap: 8px; height: 100%; }
+      .ind-list li { display: flex; flex-direction: column; justify-content: center; gap: 3px; padding: 10px 12px; border-radius: 9px; background: rgba(255,255,255,0.035); border: 1px solid rgba(255,255,255,0.06); }
+      .ind-list b { font-size: 12.5px; font-weight: 600; color: var(--gold-bright); letter-spacing: -0.01em; }
+      .ind-list span { font-size: 11px; color: var(--body); line-height: 1.42; }
+      @media (max-width: 700px) {
+        .card.suite > .inner { flex-direction: column; gap: 14px; }
+        .ind-list { grid-template-columns: 1fr; }
+      }
 
       /* ── Screener demo: grade pills + rows ── */
       .scr { position: absolute; inset: 0; padding: 12px; display: flex; flex-direction: column; gap: 7px; }
@@ -567,6 +582,32 @@
                 <div class="card-foot">
                   <span class="chip-soon">Coming soon</span>
                   <span class="card-host">btc.friendlytrader.com</span>
+                </div>
+              </div>
+            </article>
+
+            <!-- TradingView Indicators (suite of 4) -->
+            <article class="card suite" data-mood="default">
+              <a class="card-link" href="https://whop.com/checkout/plan_aYHjuBwYl3Ceb" rel="noopener" aria-label="Unlock the TradingView indicators"></a>
+              <div class="inner">
+                <div class="suite-text">
+                  <div class="card-head">
+                    <svg class="card-glyph" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 3v18h18"/><path d="M7 14l3-4 2.5 3L18 7"/></svg>
+                    <h2 class="card-title">TradingView Indicators</h2>
+                  </div>
+                  <p class="card-blurb">Four indicators that put the scalp playbook right on your chart: your daily breakout and breakdown levels drawn before the bell, a live A+ score on every setup, and the session mapped into its best windows.</p>
+                  <div class="card-foot">
+                    <span class="card-cta">Unlock the indicators →</span>
+                    <span class="card-host">for TradingView</span>
+                  </div>
+                </div>
+                <div class="demo suite-demo">
+                  <ul class="ind-list">
+                    <li><b>GOAT Scalp Levels</b><span>Daily breakout &amp; breakdown targets, auto-drawn for 25+ tickers.</span></li>
+                    <li><b>A+ Dashboard</b><span>Trend, momentum, structure &amp; volume scored in one table.</span></li>
+                    <li><b>Profit Windows</b><span>The session mapped into high-probability time zones.</span></li>
+                    <li><b>GOAT Scalp Alpha</b><span>All three, fused into one all-in-one overlay.</span></li>
+                  </ul>
                 </div>
               </div>
             </article>
