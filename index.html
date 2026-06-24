@@ -178,7 +178,7 @@
       /* ───── Bento grid ───── */
       .bento {
         display: grid; gap: 16px;
-        grid-template-columns: 1.18fr 1fr 1fr 1.18fr;
+        grid-template-columns: repeat(3, 1fr);
         grid-auto-rows: 1fr;
       }
       .card {
@@ -227,13 +227,20 @@
       .card.soon { opacity: 0.82; }
       .card.soon .demo { filter: grayscale(0.3); }
 
-      /* ── TradingView Indicators: right-side flagship that mirrors The Screener (desktop). Tablet/mobile: normal flagship tile. ── */
-      .card.suite { grid-column: 4; grid-row: 1 / 3; }
-      .suite .demo { padding: 7px; display: flex; }
-      .suite .ind-list { list-style: none; margin: 0; padding: 0; flex: 1; display: flex; flex-direction: column; gap: 7px; }
-      .suite .ind-list li { flex: 1; display: flex; flex-direction: column; justify-content: center; gap: 3px; padding: 9px 12px; border-radius: 8px; background: rgba(255,255,255,0.04); border: 1px solid rgba(255,255,255,0.06); }
-      .suite .ind-list b { font-size: 12.5px; font-weight: 600; color: var(--gold-bright); letter-spacing: -0.01em; }
-      .suite .ind-list span { font-size: 11px; color: var(--body); line-height: 1.4; }
+      /* ── TradingView Indicators (full-width suite banner, row 3 of the bento) ── */
+      .card.suite { grid-column: 1 / -1; }
+      .card.suite > .inner { flex-direction: row; align-items: stretch; gap: 22px; }
+      .suite-text { flex: 1 1 45%; display: flex; flex-direction: column; gap: 12px; min-width: 0; }
+      .suite-text .card-blurb { flex: 1; }
+      .suite-demo { flex: 1 1 55%; min-height: 132px; padding: 8px; }
+      .ind-list { list-style: none; margin: 0; padding: 0; display: grid; grid-template-columns: 1fr 1fr; gap: 8px; height: 100%; }
+      .ind-list li { display: flex; flex-direction: column; justify-content: center; gap: 3px; padding: 10px 12px; border-radius: 9px; background: rgba(255,255,255,0.035); border: 1px solid rgba(255,255,255,0.06); }
+      .ind-list b { font-size: 12.5px; font-weight: 600; color: var(--gold-bright); letter-spacing: -0.01em; }
+      .ind-list span { font-size: 11px; color: var(--body); line-height: 1.42; }
+      @media (max-width: 700px) {
+        .card.suite > .inner { flex-direction: column; gap: 14px; }
+        .ind-list { grid-template-columns: 1fr; }
+      }
 
       /* ── Screener demo: grade pills + rows ── */
       .scr { position: absolute; inset: 0; padding: 12px; display: flex; flex-direction: column; gap: 7px; }
@@ -302,7 +309,7 @@
 
       /* ───── Offer (one membership · one price) ───── */
       .offer { padding: 96px 24px 104px; text-align: center; }
-      .offer-inner { max-width: 640px; margin: 0 auto; }
+      .offer-inner { max-width: 720px; margin: 0 auto; }
       .offer h2 { font-family: var(--font-display); font-weight: 800; font-size: clamp(30px, 4.6vw, 48px); margin: 8px 0 18px; letter-spacing: -0.03em; }
       .offer h2 .g { background: var(--gold-gradient); -webkit-background-clip: text; background-clip: text; -webkit-text-fill-color: transparent; }
       .offer.in .h2-rule { transform: scaleX(1); }
@@ -313,7 +320,8 @@
       .price-per { align-self: flex-end; margin-bottom: 0.85em; font-size: 15px; font-weight: 600; color: var(--muted); }
       .price-note { margin: 14px auto 0; max-width: 44ch; font-size: 14.5px; color: var(--body); }
 
-      .incl { list-style: none; margin: 26px auto 32px; padding: 0; width: fit-content; max-width: 100%; display: flex; flex-direction: column; align-items: flex-start; gap: 11px; }
+      .incl { margin: 26px auto 32px; padding: 0; display: flex; justify-content: center; align-items: flex-start; flex-wrap: wrap; gap: 14px 34px; }
+      .incl > ul { list-style: none; margin: 0; padding: 0; display: flex; flex-direction: column; align-items: flex-start; gap: 11px; }
       .incl li { display: inline-flex; align-items: center; gap: 8px; font-size: 14.5px; font-weight: 500; color: var(--text); }
       .incl li svg { flex: none; width: 17px; height: 17px; color: var(--gold); }
       .soon-tag { font-size: 9.5px; font-weight: 800; letter-spacing: 0.09em; text-transform: uppercase; color: var(--amber-soon); border: 1px solid rgba(255,196,140,0.4); border-radius: 999px; padding: 1.5px 7px; margin-left: 4px; }
@@ -368,7 +376,6 @@
       @media (max-width: 1024px) {
         .bento { grid-template-columns: 1fr 1fr; }
         .card.flagship { grid-row: auto; }
-        .card.suite { grid-column: auto; grid-row: auto; }
         .card.flagship .demo { min-height: 170px; }
       }
       @media (max-width: 700px) {
@@ -380,7 +387,7 @@
         .proof-row { gap: 22px 40px; }
         .explainer { padding: 60px 18px; }
         .offer { padding: 68px 18px 78px; }
-        .incl { gap: 10px 18px; }
+        .incl { flex-direction: column; align-items: flex-start; gap: 14px; }
         .upsell { gap: 13px; padding: 16px 16px; }
       }
       @media (max-width: 430px) {
@@ -580,28 +587,28 @@
               </div>
             </article>
 
-            <!-- TradingView Indicators (right-side flagship, mirrors The Screener) -->
-            <article class="card flagship suite" data-mood="default">
+            <!-- TradingView Indicators (suite of 4) -->
+            <article class="card suite" data-mood="default">
               <a class="card-link" href="https://whop.com/checkout/plan_aYHjuBwYl3Ceb" rel="noopener" aria-label="Unlock the TradingView indicators"></a>
               <div class="inner">
-                <div class="demo">
+                <div class="suite-text">
+                  <div class="card-head">
+                    <svg class="card-glyph" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 3v18h18"/><path d="M7 14l3-4 2.5 3L18 7"/></svg>
+                    <h2 class="card-title">TradingView Indicators</h2>
+                  </div>
+                  <p class="card-blurb">Four indicators that put the scalp playbook right on your chart: your daily breakout and breakdown levels drawn before the bell, a live A+ score on every setup, and the session mapped into its best windows.</p>
+                  <div class="card-foot">
+                    <span class="card-cta">Unlock the indicators →</span>
+                    <span class="card-host">for TradingView</span>
+                  </div>
+                </div>
+                <div class="demo suite-demo">
                   <ul class="ind-list">
                     <li><b>GOAT Scalp Levels</b><span>Daily breakout &amp; breakdown targets, auto-drawn for 25+ tickers.</span></li>
                     <li><b>A+ Dashboard</b><span>Trend, momentum, structure &amp; volume scored in one table.</span></li>
                     <li><b>Profit Windows</b><span>The session mapped into high-probability time zones.</span></li>
                     <li><b>GOAT Scalp Alpha</b><span>All three, fused into one all-in-one overlay.</span></li>
                   </ul>
-                </div>
-                <div>
-                  <div class="card-head">
-                    <svg class="card-glyph" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 3v18h18"/><path d="M7 14l3-4 2.5 3L18 7"/></svg>
-                    <h2 class="card-title">TradingView Indicators</h2>
-                  </div>
-                  <p class="card-blurb">Four scalping indicators that put your daily levels, a live A+ score, and the session's best windows right on your chart.</p>
-                </div>
-                <div class="card-foot">
-                  <span class="card-cta">Unlock the indicators →</span>
-                  <span class="card-host">for TradingView</span>
                 </div>
               </div>
             </article>
@@ -634,18 +641,24 @@
           </div>
           <p class="price-note">The full toolkit unlocks the moment you join.</p>
 
-          <ul class="incl">
-            <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12.5l4.2 4.2L19 7"/></svg>The Screener</li>
-            <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12.5l4.2 4.2L19 7"/></svg>Friendly Options</li>
-            <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12.5l4.2 4.2L19 7"/></svg>Discord Trade Tracker</li>
-            <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12.5l4.2 4.2L19 7"/></svg>Profit Windows</li>
-            <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12.5l4.2 4.2L19 7"/></svg>GOAT Scalp Levels</li>
-            <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12.5l4.2 4.2L19 7"/></svg>GOAT Scalp Alpha</li>
-            <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12.5l4.2 4.2L19 7"/></svg>A+ Dashboard</li>
-            <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12.5l4.2 4.2L19 7"/></svg>Community access</li>
-            <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12.5l4.2 4.2L19 7"/></svg>BTC Edge<span class="soon-tag">soon</span></li>
-            <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12.5l4.2 4.2L19 7"/></svg>Friendly Intelligence<span class="soon-tag">soon</span></li>
-          </ul>
+          <div class="incl">
+            <ul>
+              <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12.5l4.2 4.2L19 7"/></svg>The Screener</li>
+              <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12.5l4.2 4.2L19 7"/></svg>Friendly Options</li>
+              <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12.5l4.2 4.2L19 7"/></svg>Discord Trade Tracker</li>
+            </ul>
+            <ul>
+              <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12.5l4.2 4.2L19 7"/></svg>Community access</li>
+              <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12.5l4.2 4.2L19 7"/></svg>BTC Edge<span class="soon-tag">soon</span></li>
+              <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12.5l4.2 4.2L19 7"/></svg>Friendly Intelligence<span class="soon-tag">soon</span></li>
+            </ul>
+            <ul>
+              <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12.5l4.2 4.2L19 7"/></svg>Profit Windows</li>
+              <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12.5l4.2 4.2L19 7"/></svg>GOAT Scalp Levels</li>
+              <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12.5l4.2 4.2L19 7"/></svg>GOAT Scalp Alpha</li>
+              <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12.5l4.2 4.2L19 7"/></svg>A+ Dashboard</li>
+            </ul>
+          </div>
 
           <span class="magnet-wrap">
             <a class="cta-btn" id="ctaBtn" href="https://whop.com/checkout/plan_aYHjuBwYl3Ceb" rel="noopener">
