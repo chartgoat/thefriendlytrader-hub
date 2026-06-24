@@ -138,8 +138,9 @@
 
       /* ───── Hero ───── */
       .hero { position: relative; min-height: 92vh; padding: 64px 24px 80px; overflow: hidden; isolation: isolate;
-        background: radial-gradient(58% 42% at 50% -2%, rgba(212,168,83,0.10), transparent 72%); }
+        background: #000; }
       #bg { position: absolute; inset: 0; width: 100%; height: 100%; z-index: 0; display: block; }
+      #fx { position: absolute; inset: 0; width: 100%; height: 100%; z-index: 0; display: block; pointer-events: none; }
       .scrim { position: absolute; inset: 0; z-index: 1; pointer-events: none;
         background:
           radial-gradient(72% 50% at 50% 34%, rgba(0,0,0,0.62) 0%, rgba(0,0,0,0.34) 46%, transparent 72%),
@@ -423,13 +424,13 @@
     <main>
       <section class="hero" id="hero">
         <canvas id="bg" aria-hidden="true"></canvas>
+        <canvas id="fx" aria-hidden="true"></canvas>
         <div class="scrim"></div>
-        <div class="lens" aria-hidden="true"></div>
         <div class="hero-inner">
           <div class="glass" id="heroGlass">
             <p class="eyebrow">A friendlier way to read the market</p>
             <h1 id="h1" aria-label="Clarity over noise">Clarity over noise</h1>
-            <p class="subhead">Four friendly tools that turn noisy charts and confusing options into decisions you can actually make. No jargon, no pressure. Pick one and dive in.</p>
+            <p class="subhead">Four friendly tools that turn noisy charts and confusing options into decisions you can actually make.</p>
             <p class="hero-trust">
               <span><b>190K</b> on YouTube</span>
               <span class="hero-trust-sep" aria-hidden="true">·</span>
@@ -699,164 +700,495 @@
         if(!STATIC){ h1.parentNode.classList.add("reveal-words"); }
       })();
 
-      // ───── canvas backdrop ─────
-      (function backdrop(){
-        var canvas=document.getElementById("bg"); if(!canvas) return;
-        var ctx=canvas.getContext("2d"), hero=document.getElementById("hero");
-        var dpr=Math.min(devicePixelRatio||1,1.75), W=0,H=0;
-        var grid=document.createElement("canvas"), gctx=grid.getContext("2d");
-        var N = coarse?18:46;             // candles visible
-        var BW=0;                         // candle width
-        var reveal=0;                     // entrance ramp 0..1
-        var scrollX=0;                    // glide between ticks
-        var lastTick=0, TICK=900;
-        var rafId=null, running=false, lastT=0, slow=0;
-        var areaGrad=null, glow=null, trail=[];
+      // ───── nebula + candles backdrop (WebGL2 shader grid/motes + canvas candlesticks) ─────
+      "use strict";
+(function(){
 
-        function resize(){
-          var r=hero.getBoundingClientRect();
-          W=r.width; H=r.height;
-          canvas.width=W*dpr; canvas.height=H*dpr; canvas.style.width=W+"px"; canvas.style.height=H+"px";
-          ctx.setTransform(dpr,0,0,dpr,0,0);
-          BW = W/(N-2);
-          grid.width=W*dpr; grid.height=H*dpr; gctx.setTransform(dpr,0,0,dpr,0,0);
-          areaGrad=ctx.createLinearGradient(0,0,0,H); areaGrad.addColorStop(0,"rgba(204,177,103,0.07)"); areaGrad.addColorStop(1,"rgba(204,177,103,0)");
-          // bake the comet-head glow once (additive sprite - gives bloom with no per-frame shadowBlur, even on phones)
-          var SP=Math.max(8,Math.round(44*dpr)); glow=document.createElement("canvas"); glow.width=glow.height=SP; var g2=glow.getContext("2d");
-          var rg=g2.createRadialGradient(SP/2,SP/2,0,SP/2,SP/2,SP/2); rg.addColorStop(0,"rgba(255,255,170,0.85)"); rg.addColorStop(0.4,"rgba(216,188,110,0.35)"); rg.addColorStop(1,"rgba(216,188,110,0)"); g2.fillStyle=rg; g2.fillRect(0,0,SP,SP);
-          drawGrid();
-        }
-        function drawGrid(){
-          gctx.clearRect(0,0,W,H);
-          var horizon=H*0.42;
-          // back haze settling into the lower half = depth into the dark
-          var hz=gctx.createLinearGradient(0,H*0.5,0,H); hz.addColorStop(0,"rgba(20,24,38,0)"); hz.addColorStop(1,"rgba(20,24,38,0.5)");
-          gctx.fillStyle=hz; gctx.fillRect(0,H*0.5,W,H*0.5);
-          // horizon-compressed perspective dot rows (a floor receding toward the viewer)
-          var rows=22;
-          for(var r=0;r<rows;r++){
-            var f=r/rows, y=horizon+(H-horizon)*Math.pow(f,1.8), sz=0.7+1.0*f, al=0.15+0.40*f, gap2=18+34*f;
-            gctx.fillStyle="rgba(30,35,51,"+al+")";
-            for(var x=0;x<W+gap2;x+=gap2){ gctx.beginPath(); gctx.arc(x,y,sz,0,6.283); gctx.fill(); }
-          }
-        }
-        function yOf(v){ return H - (v*0.56 + 0.25)*H; }
+/* ---------- seeded PRNG (exact, per contract) ---------- */
+function mulberry32(a){return function(){a|=0;a=a+0x6D2B79F5|0;var t=Math.imul(a^a>>>15,1|a);t=t+Math.imul(t^t>>>7,61|t)^t;return((t^t>>>14)>>>0)/4294967296;};}
+var rnd = mulberry32(20260616);
 
-        function frame(t){
-          if(!running) return;
-          if(!lastT) lastT=t;
-          var dt=t-lastT;
-          if(dt<32){ rafId=requestAnimationFrame(frame); return; }
-          if(dt>90){ slow++; if(slow>30){ running=false; render(t,true); return; } } else if(slow>0){ slow--; }
-          lastT=t;
-          if(!lastTick) lastTick=t;
-          if(t-lastTick>=TICK){ lastTick+=TICK; pushPoint(); scrollX=0; }
-          else { scrollX = (t-lastTick)/TICK; }
-          if(reveal<1) reveal=Math.min(1, reveal+dt/1200);
-          if(FT._cur!==FT._target){ FT._lerp += (1-FT._lerp)*0.10; if(FT._lerp>0.98){FT._lerp=1;FT._cur=FT._target;} }
-          else { FT._lerp += (1-FT._lerp)*0.10; }
-          render(t,false);
-          rafId=requestAnimationFrame(frame);
-        }
+/* ---------- build a gently mean-reverting random walk price series ---------- */
+var SERIES_N = 240;
+var series = (function(){
+  var arr = new Array(SERIES_N), v = 0.5, drift = 0.00035, mean = 0.5;
+  for(var i=0;i<SERIES_N;i++){
+    var shock = (rnd()-0.5)*0.052;
+    v += shock + (mean - v)*0.045 + drift;          // mean-reversion + slight upward drift
+    if(v<0.06)v=0.06; if(v>0.94)v=0.94;
+    arr[i]=v;
+  }
+  // light smoothing so the curve reads clean
+  var out = arr.slice();
+  for(var k=1;k<SERIES_N-1;k++) out[k]=(arr[k-1]+arr[k]*2+arr[k+1])/4;
+  return out;
+})();
+function priceAt(t){ // t in [0,1] -> smooth sampled price [0,1]
+  var x = t*(SERIES_N-1), i = Math.floor(x), f = x-i;
+  var a = series[Math.max(0,Math.min(SERIES_N-1,i))];
+  var b = series[Math.max(0,Math.min(SERIES_N-1,i+1))];
+  var s = f*f*(3-2*f);                               // smoothstep interp
+  return a+(b-a)*s;
+}
 
-        function render(t, frozen){
-          ctx.clearRect(0,0,W,H);
-          if(coarse && !frozen){ hero.style.setProperty("--lx",(50+8*Math.sin(t/4200))+"%"); hero.style.setProperty("--ly",(42+6*Math.sin(t/5300))+"%"); }
-          var ox = -scrollX*BW;
-          ctx.drawImage(grid, ox*0.18, 0, W, H);                                  // far floor (slow)
-          if(!coarse){ ctx.save(); ctx.globalAlpha=0.6; ctx.drawImage(grid, ox*0.45, 0, W, H); ctx.restore(); }  // near floor (faster) - two-speed depth
-          var pts=tail(N+1);
-          var visible=Math.max(2, Math.floor(pts.length*reveal));
-          var mood=FT._target, ml=FT._lerp;
-          // right-anchor the data so the live edge prints in the clear right margin (comet visible; open "future" space ahead)
-          var baseR=(W - Math.max(58, Math.min(W*0.06,84))) + ox, lead=visible-1;
+/* ---------- moods ---------- */
+var MOODS = {
+  default:      { gold:[1.00,0.86,0.40], accent:[1.00,0.93,0.54], flow:1.00, sat:1.00, strikes:0.0, breadth:0.0, hueShift:0.0, name:"default" },
+  screener:     { gold:[0.82,0.92,0.46], accent:[0.41,0.86,0.55], flow:1.06, sat:1.05, strikes:0.0, breadth:0.0, hueShift:0.05, name:"screener" },
+  options:      { gold:[1.00,0.84,0.42], accent:[1.00,0.90,0.55], flow:0.92, sat:1.00, strikes:1.0, breadth:0.0, hueShift:0.0, name:"options" },
+  intelligence: { gold:[1.00,0.88,0.50], accent:[1.00,0.95,0.62], flow:1.02, sat:0.98, strikes:0.0, breadth:1.0, hueShift:0.0, name:"intelligence" },
+  btc:          { gold:[0.80,0.62,0.34], accent:[0.92,0.74,0.42], flow:0.86, sat:0.55, strikes:0.0, breadth:0.0, hueShift:-0.04,name:"btc" }
+};
+var MOOD_ORDER = ["default","screener","options","intelligence","btc"];
+var curMood = clone(MOODS.default);   // animated/lerped state
+var tgtMood = MOODS.default;
+function clone(m){return {gold:m.gold.slice(),accent:m.accent.slice(),flow:m.flow,sat:m.sat,strikes:m.strikes,breadth:m.breadth,hueShift:m.hueShift,name:m.name};}
+function lerp(a,b,t){return a+(b-a)*t;}
+function lerpMood(c,t,k){
+  for(var i=0;i<3;i++){c.gold[i]=lerp(c.gold[i],t.gold[i],k);c.accent[i]=lerp(c.accent[i],t.accent[i],k);}
+  c.flow=lerp(c.flow,t.flow,k); c.sat=lerp(c.sat,t.sat,k);
+  c.strikes=lerp(c.strikes,t.strikes,k); c.breadth=lerp(c.breadth,t.breadth,k);
+  c.hueShift=lerp(c.hueShift,t.hueShift,k);
+}
 
-          if(mood==="options"){ ctx.strokeStyle="rgba(204,177,103,"+(0.10*ml)+")"; ctx.lineWidth=1; for(var sx=W*0.2; sx<W; sx+=W*0.16){ ctx.beginPath(); ctx.moveTo(sx,0); ctx.lineTo(sx,H); ctx.stroke(); } }
+/* ---------- environment ---------- */
+var hero = document.getElementById('hero');
+var glCanvas = document.getElementById('bg');
+var fxCanvas = document.getElementById('fx');
+var moodNameEl = document.getElementById('moodname');
 
-          for(var i=0;i<visible;i++){
-            var idx=pts.length-visible+i;
-            var v=pts[idx], pv=pts[idx-1]!=null?pts[idx-1]:v;
-            var x=baseR-(lead-i)*BW;
-            var up=v>=pv;
-            var oY=yOf(pv), cY=yOf(v);
-            var hi=Math.min(oY,cY)-BW*0.5, lo=Math.max(oY,cY)+BW*0.5;
-            var col;
-            if(mood==="screener"){
-              var band = v>0.66? "rgba(61,220,139,":(v>0.5?"rgba(255,255,138,":(v>0.34?"rgba(204,177,103,":"rgba(229,72,77,"));
-              col = band+(0.30*ml + (up?0.16:0.10)*(1-ml))+")";
-            } else if(mood==="btc"){
-              col = up? "rgba(150,140,110,"+(0.16)+")" : "rgba(110,100,80,"+(0.14)+")";
-            } else {
-              col = up? "rgba(204,177,103,"+ (0.16+0.16*((v-LO)/(HI-LO))) +")" : "rgba(150,120,60,0.22)";
-            }
-            var bx=x-BW*0.28, bw=BW*0.56, bh=Math.max(2,Math.abs(cY-oY)), bt=Math.min(oY,cY);
-            ctx.fillStyle="rgba(10,14,26,0.10)"; ctx.fillRect(bx+1, bt+3, bw, bh);    // far-shadow: candles sit on the floor
-            ctx.fillStyle=col; ctx.fillRect(bx, bt, bw, bh);
-            ctx.strokeStyle=col; ctx.lineWidth=1; ctx.beginPath(); ctx.moveTo(x,hi); ctx.lineTo(x,lo); ctx.stroke();
-          }
+var reduceMotion = (window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches);
+var saveData = !!(navigator.connection && navigator.connection.saveData);
+var STATIC = reduceMotion || saveData;
 
-          var px=[], py=[];
-          for(var j=0;j<visible;j++){ px.push(baseR-(lead-j)*BW); py.push(yOf(pts[pts.length-visible+j])); }
-          var lineCol = mood==="btc"? "rgba(170,160,120,0.95)" : "rgba(216,188,110,1)";
-          ctx.beginPath(); ctx.moveTo(px[0],py[0]);
-          for(var q=1;q<px.length-1;q++){ var mqx=(px[q]+px[q+1])/2, mqy=(py[q]+py[q+1])/2; ctx.quadraticCurveTo(px[q],py[q],mqx,mqy); }
-          ctx.lineTo(px[px.length-1],py[px.length-1]);
-          ctx.lineCap="round"; ctx.lineJoin="round";
-          ctx.strokeStyle="rgba(204,177,103,0.06)"; ctx.lineWidth=6; ctx.stroke();   // soft halo (replaces the costly shadowBlur)
-          ctx.strokeStyle=lineCol; ctx.lineWidth=1.8; ctx.stroke();                  // crisp price line
-          var lastX=px[px.length-1], lastY=py[py.length-1];
-          ctx.lineTo(lastX,H); ctx.lineTo(px[0],H); ctx.closePath(); ctx.fillStyle=areaGrad; ctx.fill();
+var DPR = Math.min(window.devicePixelRatio||1, 1.75);
+var W=0,H=0, CW=0, CH=0;      // CSS px and device px
+var heroRect = hero.getBoundingClientRect();
 
-          if(mood==="intelligence" && ml>0.02){
-            var bxp=[], byp=[];
-            for(var k=2;k<visible;k++){ var a=(pts[pts.length-visible+k]+pts[pts.length-visible+k-1]+pts[pts.length-visible+k-2])/3; bxp.push(baseR-(lead-k)*BW); byp.push(yOf(a)); }
-            if(bxp.length>1){ ctx.beginPath(); ctx.moveTo(bxp[0],byp[0]); for(var b2=1;b2<bxp.length-1;b2++){ ctx.quadraticCurveTo(bxp[b2],byp[b2],(bxp[b2]+bxp[b2+1])/2,(byp[b2]+byp[b2+1])/2); } ctx.lineTo(bxp[bxp.length-1],byp[byp.length-1]); ctx.strokeStyle="rgba(61,220,139,"+(0.5*ml)+")"; ctx.lineWidth=1.4; ctx.stroke(); }
-          }
+/* fixed overhead light source — NO cursor reactivity (god-rays read as ambient light from above) */
+var pointer = { x:0.5, y:0.15, active:0.34 };
 
-          // ── Cinematic comet live edge: the price prints with a decaying data-space trail + an additive bloom head ──
-          if(!frozen && slow===0){
-            trail.push({x:lastX,y:lastY}); if(trail.length>14)trail.shift();
-            ctx.save(); ctx.lineCap="round";
-            for(var ti=1;ti<trail.length;ti++){ var rr=ti/trail.length, ta=rr*rr*0.5; ctx.strokeStyle="rgba(216,188,110,"+ta+")"; ctx.lineWidth=0.6+rr*1.6; ctx.beginPath(); ctx.moveTo(trail[ti-1].x,trail[ti-1].y); ctx.lineTo(trail[ti].x,trail[ti].y); ctx.stroke(); }
-            ctx.restore();
-          }
-          if(glow && slow===0){ ctx.save(); ctx.globalCompositeOperation="lighter"; ctx.drawImage(glow,lastX-22,lastY-22,44,44); ctx.restore(); }
-          ctx.beginPath(); ctx.arc(lastX,lastY,2.6,0,6.283); ctx.fillStyle="#ffff8a"; ctx.fill();
-          if(frozen) trail.length=0;
+/* perf degrade */
+var quality = 1.0;        // 1 -> full, lowered when frames run long
+var longFrames = 0;
 
-        }
+/* ---------- WebGL2 setup ---------- */
+var gl=null, prog=null, vao=null, uni={}, glOK=false;
+function tryWebGL(){
+  try{
+    gl = glCanvas.getContext('webgl2', {antialias:false, alpha:false, premultipliedAlpha:false, powerPreference:'high-performance'});
+  }catch(e){ gl=null; }
+  if(!gl) return false;
 
-        function start(){ if(running||STATIC) return; running=true; lastT=0; lastTick=0; slow=0; rafId=requestAnimationFrame(frame); }
-        function stop(){ running=false; if(rafId){cancelAnimationFrame(rafId); rafId=null;} }
+  var vs = '#version 300 es\nin vec2 p; out vec2 uv; void main(){ uv=p*0.5+0.5; gl_Position=vec4(p,0.0,1.0); }';
 
-        resize();
-        if(STATIC){ reveal=1; render(0,true); }
-        else {
-          render(0,true);
-          if("IntersectionObserver" in window){ var io=new IntersectionObserver(function(es){ es.forEach(function(e){ if(e.isIntersecting && !document.hidden) start(); else stop(); }); },{threshold:0.08}); io.observe(hero); } else { start(); }
-          document.addEventListener("visibilitychange",function(){ if(document.hidden) stop(); else { var r=hero.getBoundingClientRect(); if(r.bottom>0&&r.top<innerHeight) start(); } });
-          var rt; addEventListener("resize",function(){ clearTimeout(rt); rt=setTimeout(function(){ dpr=Math.min(devicePixelRatio||1,1.75); resize(); },180); });
-          var onRM=function(){
-            STATIC = RM.matches || saveData;
-            document.documentElement.classList.toggle("static", STATIC);
-            if(STATIC){ stop(); FT.clearFocus(); FT.setMood("default"); reveal=1; render(0,true); }
-            else { var r=hero.getBoundingClientRect(); if(r.bottom>0 && r.top<innerHeight && !document.hidden) start(); }
-          };
-          if(RM.addEventListener) RM.addEventListener("change",onRM); else if(RM.addListener) RM.addListener(onRM);
+  var fs = '#version 300 es\n' +
+  'precision highp float;\n' +
+  'in vec2 uv; out vec4 frag;\n' +
+  'uniform vec2  uRes;\n' +
+  'uniform float uTime;\n' +
+  'uniform vec2  uLight;\n' +    // pointer in uv space
+  'uniform float uLightA;\n' +   // pointer activity 0..1
+  'uniform vec3  uGold;\n' +
+  'uniform vec3  uAccent;\n' +
+  'uniform float uFlow;\n' +
+  'uniform float uSat;\n' +
+  'uniform float uStrike;\n' +   // options vertical strikes
+  'uniform float uBreadth;\n' +  // intelligence secondary band
+  'uniform float uHue;\n' +
+  // hash / value-noise
+  'float hash(vec2 p){ p=fract(p*vec2(123.34,456.21)); p+=dot(p,p+45.32); return fract(p.x*p.y); }\n' +
+  'float vnoise(vec2 p){ vec2 i=floor(p), f=fract(p); vec2 u=f*f*(3.0-2.0*f);' +
+  '  float a=hash(i), b=hash(i+vec2(1,0)), c=hash(i+vec2(0,1)), d=hash(i+vec2(1,1));' +
+  '  return mix(mix(a,b,u.x),mix(c,d,u.x),u.y); }\n' +
+  'float fbm(vec2 p){ float s=0.0,a=0.5; mat2 m=mat2(1.6,1.2,-1.2,1.6);' +
+  '  for(int i=0;i<6;i++){ s+=a*vnoise(p); p=m*p; a*=0.5; } return s; }\n' +
 
-          // cursor-reactive lens (fine pointers): rAF-throttled, cached rect (no per-move layout read)
-          if(fine){
-            var lpRaf=null, llx=50, lly=40, lrect=hero.getBoundingClientRect();
-            var lupd=function(){ lrect=hero.getBoundingClientRect(); };
-            addEventListener("scroll",lupd,{passive:true}); addEventListener("resize",lupd);
-            addEventListener("pointermove",function(e){
-              llx=((e.clientX-lrect.left)/lrect.width)*100; lly=((e.clientY-lrect.top)/lrect.height)*100;
-              if(lpRaf) return;
-              lpRaf=requestAnimationFrame(function(){ lpRaf=null; hero.style.setProperty("--lx",llx+"%"); hero.style.setProperty("--ly",lly+"%"); });
-            },{passive:true});
-          }
-        }
-      })();
+  'void main(){\n' +
+  '  vec2 res=uRes; float asp=res.x/res.y;\n' +
+  '  vec2 p=uv; vec2 q=p; q.x*=asp;\n' +
+  '  float t=uTime;\n' +
+  // ---- perspective depth coord: horizon a bit below center, ground recedes downward
+  '  float horizon=0.46;\n' +
+  '  float yb = p.y - horizon;\n' +
+  // depth value: large near bottom, →0 near horizon (perspective)
+  '  float depth = 1.0/ max(0.04, (horizon - p.y)* -1.0 );\n' +
+  // we want depth defined only below horizon; clamp
+  '  float below = step(p.y, horizon);\n' +
+  '  depth = clamp(depth,0.0,30.0);\n' +
+
+  // (volumetric haze removed by request — backdrop is the receding grid + floating motes)
+  // vertical falloff band still used by dust / strikes / breadth
+  '  float band = smoothstep(1.0,0.18,abs(p.y-0.5)*1.9);\n' +
+
+  // (god-rays removed by request — pure atmospheric haze, no directional light)
+
+  // (perspective grid removed by request — no sweeping line / no hazy brightening behind candles)
+  // ===== floating dust motes (the "dots" — kept) =====
+  '  float dust=0.0;\n' +
+  '  vec2 dp = q*7.0; dp.y += t*0.05*uFlow; dp.x += sin(t*0.2)*0.2;\n' +
+  '  vec2 dc = floor(dp); vec2 df = fract(dp)-0.5;\n' +
+  '  float dh = hash(dc);\n' +
+  '  float twk = 0.5+0.5*sin(t*1.6 + dh*30.0);\n' +
+  '  float dm = smoothstep(0.10,0.0,length(df+ (vec2(dh,fract(dh*7.0))-0.5)*0.5));\n' +
+  '  dust = dm*twk* step(0.83,dh) * band;\n' +
+
+  // ===== options strikes (faint vertical lines) =====
+  '  float strikes=0.0;\n' +
+  '  if(uStrike>0.001){\n' +
+  '    float sx = abs(fract(p.x*9.0 + 0.0)-0.5);\n' +
+  '    strikes = smoothstep(0.018,0.0,sx) * band * uStrike *0.30;\n' +
+  '  }\n' +
+
+  // ===== intelligence breadth band (secondary horizontal glow line) =====
+  '  float breadth=0.0;\n' +
+  '  if(uBreadth>0.001){\n' +
+  '    float by = 0.40 + 0.06*sin(p.x*6.2831 + t*0.3) + 0.03*fbm(vec2(p.x*4.0,t*0.1));\n' +
+  '    breadth = smoothstep(0.045,0.0,abs(p.y-by)) * uBreadth*0.5;\n' +
+  '  }\n' +
+
+  // ===== compose intensity (no haze, no directional light, no rays) =====
+  '  float energy = dust*1.6 + strikes + breadth;\n' +
+
+  // ===== color: gold-on-black, hot core toward accent =====
+  '  vec3 col = uGold * energy;\n' +
+  '  float hot = smoothstep(0.55,1.3,energy);\n' +
+  '  col = mix(col, uAccent, hot*0.7);\n' +
+  // subtle hue trim per mood
+  '  col.r += uHue; col.b -= uHue*0.5;\n' +
+  // desaturate toward luminance by (1-uSat)
+  '  float lum = dot(col, vec3(0.299,0.587,0.114));\n' +
+  '  col = mix(vec3(lum), col, clamp(uSat,0.0,1.4));\n' +
+
+  // gentle vignette baked (canvas scrim does the heavy lifting)
+  '  float vig = smoothstep(1.25,0.35,length((p-0.5)*vec2(asp,1.0)));\n' +
+  '  col *= 0.55+0.45*vig;\n' +
+
+  // filmic-ish soft clamp + tiny dither to kill banding
+  '  col = col/(col+vec3(0.85));\n' +
+  '  col += (hash(p*res+t)-0.5)/255.0;\n' +
+  '  frag = vec4(max(col,0.0),1.0);\n' +
+  '}\n';
+
+  function sh(type,src){ var s=gl.createShader(type); gl.shaderSource(s,src); gl.compileShader(s);
+    if(!gl.getShaderParameter(s,gl.COMPILE_STATUS)){ console.warn('shader',gl.getShaderInfoLog(s)); return null;} return s; }
+  var v=sh(gl.VERTEX_SHADER,vs), f=sh(gl.FRAGMENT_SHADER,fs);
+  if(!v||!f) return false;
+  prog=gl.createProgram(); gl.attachShader(prog,v); gl.attachShader(prog,f); gl.linkProgram(prog);
+  if(!gl.getProgramParameter(prog,gl.LINK_STATUS)){ console.warn('link',gl.getProgramInfoLog(prog)); return false; }
+  gl.useProgram(prog);
+
+  var quad=new Float32Array([-1,-1, 3,-1, -1,3]);
+  vao=gl.createVertexArray(); gl.bindVertexArray(vao);
+  var buf=gl.createBuffer(); gl.bindBuffer(gl.ARRAY_BUFFER,buf);
+  gl.bufferData(gl.ARRAY_BUFFER,quad,gl.STATIC_DRAW);
+  var loc=gl.getAttribLocation(prog,'p'); gl.enableVertexAttribArray(loc);
+  gl.vertexAttribPointer(loc,2,gl.FLOAT,false,0,0);
+
+  ['uRes','uTime','uLight','uLightA','uGold','uAccent','uFlow','uSat','uStrike','uBreadth','uHue']
+    .forEach(function(n){ uni[n]=gl.getUniformLocation(prog,n); });
+  glOK=true;
+  return true;
+}
+
+/* ---------- Canvas 2D FX layer (price line + comet, composited on top) ---------- */
+var fx = fxCanvas.getContext('2d');
+var cometSprite=null, dotSprite=null;
+function bakeSprites(){
+  // comet bloom sprite
+  var s=128, c=document.createElement('canvas'); c.width=c.height=s;
+  var x=c.getContext('2d');
+  var g=x.createRadialGradient(s/2,s/2,0,s/2,s/2,s/2);
+  g.addColorStop(0,'rgba(255,243,200,0.95)');
+  g.addColorStop(0.25,'rgba(255,222,140,0.55)');
+  g.addColorStop(0.6,'rgba(204,177,103,0.18)');
+  g.addColorStop(1,'rgba(204,177,103,0)');
+  x.fillStyle=g; x.fillRect(0,0,s,s);
+  cometSprite=c;
+  // small dot sprite for markers
+  var s2=48, c2=document.createElement('canvas'); c2.width=c2.height=s2;
+  var x2=c2.getContext('2d');
+  var g2=x2.createRadialGradient(s2/2,s2/2,0,s2/2,s2/2,s2/2);
+  g2.addColorStop(0,'rgba(255,235,170,0.9)');
+  g2.addColorStop(0.5,'rgba(204,177,103,0.30)');
+  g2.addColorStop(1,'rgba(204,177,103,0)');
+  x2.fillStyle=g2; x2.fillRect(0,0,s2,s2);
+  dotSprite=c2;
+}
+
+/* ---------- live candlestick chart (forms in real time, scrolls left) ---------- */
+var chart = { c:[], price:0.5, acc:0, PERIOD:1500, sx:0, slot:26, bw:14, N:24, bandTop:0, bandH:0 };
+function ampV(v){ v = 0.5 + (v-0.5)*1.55; return v<0.03?0.03:(v>0.97?0.97:v); }  // stretch deviations so candles have body
+function chartResize(){
+  chart.bandTop = CH*0.12; chart.bandH = CH*0.26;   // behind the headline (scrim keeps text legible); bento covers below ~38%
+  chart.slot = Math.max(18, Math.min(34, CW/34));
+  chart.bw   = Math.max(5, Math.min(chart.slot*0.6, 18));
+  chart.N    = Math.ceil(CW/chart.slot) + 3;
+  if(chart.c.length===0){                            // seed an opening chart so it never starts empty
+    var p=0.5;
+    for(var i=0;i<chart.N+2;i++){
+      var o=p, hi=p, lo=p, cc=p;
+      for(var ss=0;ss<6;ss++){ cc += (rnd()-0.5)*0.05 + (0.5-cc)*0.02; if(cc<0.06)cc=0.06; if(cc>0.94)cc=0.94; if(cc>hi)hi=cc; if(cc<lo)lo=cc; }
+      chart.c.push({o:o,h:hi,l:lo,c:cc}); p=cc;
+    }
+    chart.price=p;
+  }
+}
+function chartAdvance(dt){
+  if(dt>100) dt=100;   // ignore huge frame gaps (tab switch / resize) so the scroll can't lurch
+  // random-walk the live price; the newest candle is "forming" (body + wick update live)
+  chart.price += (rnd()-0.5)*0.05 + (0.5-chart.price)*0.012;
+  if(chart.price<0.06)chart.price=0.06; if(chart.price>0.94)chart.price=0.94;
+  var last=chart.c[chart.c.length-1];
+  last.c=chart.price; if(chart.price>last.h)last.h=chart.price; if(chart.price<last.l)last.l=chart.price;
+  chart.acc+=dt;
+  while(chart.acc>=chart.PERIOD){                      // close finished candle(s), open a new one at the right edge
+    chart.acc-=chart.PERIOD;
+    chart.c.push({o:chart.price,h:chart.price,l:chart.price,c:chart.price});
+    while(chart.c.length>chart.N+2) chart.c.shift();
+  }
+  chart.sx=chart.acc/chart.PERIOD;                    // 0..1 smooth scroll progress within the current candle
+}
+function yOfV(v){ return chart.bandTop + (1-ampV(v))*chart.bandH; }
+function rrect(x,y,w,h,r){ if(r>h/2)r=h/2; if(r>w/2)r=w/2; if(r<0)r=0;
+  fx.beginPath(); fx.moveTo(x+r,y); fx.arcTo(x+w,y,x+w,y+h,r); fx.arcTo(x+w,y+h,x,y+h,r);
+  fx.arcTo(x,y+h,x,y,r); fx.arcTo(x,y,x+w,y,r); fx.closePath(); }
+
+/* ---------- resize ---------- */
+function resize(){
+  heroRect = hero.getBoundingClientRect();
+  CW = Math.max(1, Math.round(heroRect.width));
+  CH = Math.max(1, Math.round(heroRect.height));
+  W = Math.round(CW*DPR); H = Math.round(CH*DPR);
+
+  glCanvas.width=W; glCanvas.height=H;
+  glCanvas.style.width=CW+'px'; glCanvas.style.height=CH+'px';
+  fxCanvas.width=W; fxCanvas.height=H;
+  fxCanvas.style.width=CW+'px'; fxCanvas.style.height=CH+'px';
+
+  if(glOK){ gl.viewport(0,0,W,H); }
+  fx.setTransform(DPR,0,0,DPR,0,0);                 // draw in CSS px
+  chartResize();
+  bakeSprites();
+  if(STATIC){ renderGL(0.0); drawCandles(0.0); }     // single static frame
+}
+var resizeTimer=null;
+function onResize(){ clearTimeout(resizeTimer); resizeTimer=setTimeout(resize,150); }
+window.addEventListener('resize', onResize);
+
+/* ---------- pointer: trading-chart crosshair (the interesting mouse interaction) ---------- */
+var cursor={mx:-1,my:-1,on:false,_cx:0,_cy:0,_p:false};
+if(fine){
+  hero.addEventListener('pointermove',function(e){
+    cursor._cx=e.clientX; cursor._cy=e.clientY; cursor.on=true;
+    if(!cursor._p){ cursor._p=true; requestAnimationFrame(function(){ cursor._p=false; var r=hero.getBoundingClientRect(); cursor.mx=cursor._cx-r.left; cursor.my=cursor._cy-r.top; if(STATIC) drawCandles(0); }); }
+  },{passive:true});
+  hero.addEventListener('pointerleave',function(){ cursor.on=false; if(STATIC) drawCandles(0); });
+}
+function drawCrosshair(){
+  if(!fine || !cursor.on || cursor.mx<0) return;
+  var mx=cursor.mx, my=cursor.my, slot=chart.slot, rightMargin=slot*1.6, sx=STATIC?0:chart.sx, L=chart.c.length;
+  var k=Math.round((CW-rightMargin-mx)/slot - sx), idx=(L-1)-k;
+  fx.save();
+  // thin dashed crosshair lines
+  fx.globalCompositeOperation='source-over';
+  fx.setLineDash([3,6]); fx.lineWidth=1; fx.strokeStyle='rgba(230,235,255,0.16)';
+  fx.beginPath(); fx.moveTo(mx,0); fx.lineTo(mx,CH); fx.moveTo(0,my); fx.lineTo(CW,my); fx.stroke();
+  fx.setLineDash([]);
+  if(idx>=0 && idx<L){
+    var cc=chart.c[idx], up=cc.c>=cc.o, cx=CW-rightMargin-(k+sx)*slot, bw=chart.bw;
+    var yo=yOfV(cc.o), yc=yOfV(cc.c), yh=yOfV(cc.h), yl=yOfV(cc.l), top=Math.min(yo,yc), bot=Math.max(yo,yc);
+    var col=up?'54,222,140':'233,74,79';
+    // soft column glow over the hovered candle
+    fx.globalCompositeOperation='lighter';
+    var cg=fx.createLinearGradient(0,chart.bandTop,0,chart.bandTop+chart.bandH);
+    cg.addColorStop(0,'rgba('+col+',0)'); cg.addColorStop(0.5,'rgba('+col+',0.12)'); cg.addColorStop(1,'rgba('+col+',0)');
+    fx.fillStyle=cg; fx.fillRect(cx-slot*0.6, chart.bandTop, slot*1.2, chart.bandH);
+    // brighten the hovered candle (wick + body)
+    fx.strokeStyle='rgba('+col+',0.9)'; fx.lineWidth=Math.max(1,bw*0.13);
+    fx.beginPath(); fx.moveTo(cx,yh); fx.lineTo(cx,yl); fx.stroke();
+    fx.fillStyle='rgba('+col+',1)'; fx.fillRect(cx-bw/2, top, bw, Math.max(1.6,bot-top));
+    // ring marker where the crosshair meets the candle column
+    fx.globalCompositeOperation='source-over';
+    fx.beginPath(); fx.arc(cx, my, 3.4, 0, Math.PI*2); fx.strokeStyle='rgba(255,255,255,0.75)'; fx.lineWidth=1.2; fx.stroke();
+  }
+  fx.restore();
+}
+
+/* ---------- mood control ---------- */
+/* mood is driven by the page's FT._target (set by tile hover) — read each frame in frame() */
+
+/* ---------- draw FX (live candlesticks scrolling left, glowing forming edge) ---------- */
+function drawCandles(time){
+  fx.clearRect(0,0,CW,CH);
+  var arr=chart.c, L=arr.length; if(L<2) return;
+  var slot=chart.slot, bw=chart.bw, sx=STATIC?0:chart.sx, rightMargin=slot*1.6;
+  function cu(a){ return 'rgba(54,222,140,'+a+')'; }   // up = green
+  function cd(a){ return 'rgba(233,74,79,'+a+')'; }    // down = red
+  function X(k){ return CW - rightMargin - (k + sx)*slot; }  // k=0 = newest/forming; slides left as sx grows
+  var pulse = STATIC ? 0.6 : (0.55 + 0.45*Math.sin(time*0.0038));
+  var i,k,c,cx,yo,yc,top,bot,h,up;
+
+  // 1) soft additive bloom behind each body
+  fx.globalCompositeOperation='lighter';
+  for(i=0;i<L;i++){ k=(L-1)-i; cx=X(k); if(cx<-slot||cx>CW+slot) continue;
+    c=arr[i]; up=c.c>=c.o; yo=yOfV(c.o); yc=yOfV(c.c); top=Math.min(yo,yc); bot=Math.max(yo,yc); h=Math.max(2,bot-top);
+    fx.fillStyle = up ? cu(0.14) : cd(0.09); fx.fillRect(cx-bw*0.85, top-3, bw*1.7, h+6);
+  }
+  // 2) wicks
+  fx.globalCompositeOperation='source-over';
+  fx.lineWidth=Math.max(1, bw*0.13); fx.lineCap='round';
+  for(i=0;i<L;i++){ k=(L-1)-i; cx=X(k); if(cx<-slot||cx>CW+slot) continue;
+    c=arr[i]; up=c.c>=c.o; fx.strokeStyle = up ? cu(0.5) : cd(0.46);
+    fx.beginPath(); fx.moveTo(cx, yOfV(c.h)); fx.lineTo(cx, yOfV(c.l)); fx.stroke();
+  }
+  // 3) bodies
+  for(i=0;i<L;i++){ k=(L-1)-i; cx=X(k); if(cx<-slot||cx>CW+slot) continue;
+    c=arr[i]; up=c.c>=c.o; yo=yOfV(c.o); yc=yOfV(c.c); top=Math.min(yo,yc); bot=Math.max(yo,yc); h=Math.max(1.6,bot-top);
+    fx.fillStyle = up ? cu(0.92) : cd(0.84); rrect(cx-bw/2, top, bw, h, Math.min(2.2, bw*0.22)); fx.fill();
+  }
+  // 4) glowing forming edge on the newest candle (k=0)
+  c=arr[L-1]; up=c.c>=c.o; cx=X(0); yo=yOfV(c.o); yc=yOfV(c.c);
+  var midY=(Math.min(yo,yc)+Math.max(yo,yc))/2, base = up ? '54,222,140' : '233,74,79', gs=26+10*pulse;
+  fx.globalCompositeOperation='lighter';
+  var lg=fx.createRadialGradient(cx,midY,0,cx,midY,gs);
+  lg.addColorStop(0,'rgba('+base+','+(0.30+0.45*pulse)+')'); lg.addColorStop(1,'rgba('+base+',0)');
+  fx.fillStyle=lg; fx.fillRect(cx-gs,midY-gs,gs*2,gs*2);
+  fx.beginPath(); fx.arc(cx, yOfV(c.c), 2.2, 0, Math.PI*2); fx.fillStyle='rgba(255,255,255,0.92)'; fx.fill();
+  fx.globalCompositeOperation='source-over';
+  drawCrosshair();
+}
+
+/* ---------- render GL ---------- */
+function renderGL(timeSec){
+  if(!glOK) return;
+  gl.useProgram(prog); gl.bindVertexArray(vao);
+  gl.uniform2f(uni.uRes, W, H);
+  gl.uniform1f(uni.uTime, timeSec);
+  gl.uniform2f(uni.uLight, pointer.x, 1.0-pointer.y);   // flip y for uv space
+  gl.uniform1f(uni.uLightA, pointer.active);
+  var m=curMood;
+  gl.uniform3f(uni.uGold, m.gold[0],m.gold[1],m.gold[2]);
+  gl.uniform3f(uni.uAccent, m.accent[0],m.accent[1],m.accent[2]);
+  gl.uniform1f(uni.uFlow, m.flow*quality);
+  gl.uniform1f(uni.uSat, m.sat);
+  gl.uniform1f(uni.uStrike, m.strikes);
+  gl.uniform1f(uni.uBreadth, m.breadth);
+  gl.uniform1f(uni.uHue, m.hueShift);
+  gl.drawArrays(gl.TRIANGLES,0,3);
+}
+
+/* ---------- Canvas-2D fallback nebula (no WebGL2) ---------- */
+var fbCanvas=null, fb=null, fbSprite=null;
+function setupFallback(){
+  fbCanvas=document.createElement('canvas');
+  fbCanvas.style.cssText='position:absolute;inset:0;width:100%;height:100%;display:block;';
+  glCanvas.parentNode.replaceChild(fbCanvas, glCanvas);
+  fb=fbCanvas.getContext('2d');
+  // bake a soft haze blob sprite
+  var s=256,c=document.createElement('canvas');c.width=c.height=s;
+  var x=c.getContext('2d');
+  var g=x.createRadialGradient(s/2,s/2,0,s/2,s/2,s/2);
+  g.addColorStop(0,'rgba(204,177,103,0.5)');
+  g.addColorStop(0.5,'rgba(204,177,103,0.14)');
+  g.addColorStop(1,'rgba(204,177,103,0)');
+  x.fillStyle=g;x.fillRect(0,0,s,s);
+  fbSprite=c;
+}
+var fbBlobs=[];
+function fbBuild(){
+  fbBlobs.length=0;
+  for(var i=0;i<26;i++){
+    fbBlobs.push({x:rnd(),y:0.2+rnd()*0.6,r:0.18+rnd()*0.4,sp:0.2+rnd()*0.8,ph:rnd()*6.28,dz:rnd()});
+  }
+}
+function fbResize(){
+  heroRect=hero.getBoundingClientRect();
+  CW=Math.round(heroRect.width); CH=Math.round(heroRect.height);
+  W=Math.round(CW*DPR);H=Math.round(CH*DPR);
+  fbCanvas.width=W;fbCanvas.height=H;fbCanvas.style.width=CW+'px';fbCanvas.style.height=CH+'px';
+  fb.setTransform(DPR,0,0,DPR,0,0);
+}
+function fbRender(timeSec){
+  var m=curMood;
+  fb.setTransform(DPR,0,0,DPR,0,0);
+  fb.globalCompositeOperation='source-over';
+  fb.fillStyle='#000'; fb.fillRect(0,0,CW,CH);
+  fb.globalCompositeOperation='lighter';
+  for(var i=0;i<fbBlobs.length;i++){
+    var bl=fbBlobs[i];
+    var bx=(bl.x + Math.sin(timeSec*0.05*bl.sp*m.flow+bl.ph)*0.06)*CW;
+    var by=(bl.y + Math.cos(timeSec*0.04*bl.sp+bl.ph)*0.04)*CH;
+    var sz=bl.r*CW*(0.5+bl.dz);
+    fb.globalAlpha=(0.10+0.16*bl.dz)*(0.7+0.3*Math.sin(timeSec*0.5+bl.ph));
+    fb.drawImage(fbSprite,bx-sz/2,by-sz/2,sz,sz);
+  }
+  // gold/mood tint wash
+  fb.globalAlpha=1;
+  fb.globalCompositeOperation='multiply';
+  fb.fillStyle='rgba('+Math.round(m.gold[0]*255)+','+Math.round(m.gold[1]*255)+','+Math.round(m.gold[2]*255)+',1)';
+  fb.fillRect(0,0,CW,CH);
+  fb.globalCompositeOperation='source-over';
+}
+
+/* ---------- main loop ---------- */
+var startT=performance.now();
+var lastT=startT;
+var visible=true, hidden=false, running=false;
+
+function frame(now){
+  if(!running) return;
+  var dt=now-lastT;
+  // ~30fps throttle
+  if(dt<32){ requestAnimationFrame(frame); return; }
+  lastT=now;
+
+  // degrade if frames run long repeatedly
+  if(dt>90){ longFrames++; if(longFrames>10 && quality>0.45){ quality-=0.12; longFrames=0; } }
+  else if(longFrames>0){ longFrames--; }
+
+  var timeSec=(now-startT)/1000;
+
+  // mood from the page (tile hover sets FT._target); fall back to default
+  var _ftm = (window.FT && window.FT._target) ? MOODS[window.FT._target] : null; if(_ftm) tgtMood=_ftm;
+  // mood lerp (smooth)
+  lerpMood(curMood, tgtMood, 0.045);
+  curMood.name=tgtMood.name;
+
+  // (light is fixed overhead — no pointer easing)
+
+  if(glOK){ renderGL(timeSec); }
+  else if(fb){ fbRender(timeSec); }
+  if(!STATIC){ chartAdvance(dt); }
+  drawCandles(now);
+
+  requestAnimationFrame(frame);
+}
+function start(){ if(running||STATIC) return; running=true; lastT=performance.now(); requestAnimationFrame(frame); }
+function stop(){ running=false; }
+
+/* visibility + intersection pause */
+document.addEventListener('visibilitychange',function(){
+  hidden=document.hidden;
+  if(hidden) stop(); else if(visible) start();
+});
+if('IntersectionObserver' in window){
+  var io=new IntersectionObserver(function(ents){
+    ents.forEach(function(e){ visible=e.isIntersecting; if(visible && !hidden) start(); else stop(); });
+  },{threshold:0.02});
+  io.observe(hero);
+}
+
+/* moods come from the page's tile hover via FT._target — no auto-cycle */
+
+/* ---------- boot (deep black background — no WebGL; live candles + crosshair on fx) ---------- */
+resize();
+if(STATIC){ drawCandles(0); }
+else { start(); }
+
+if(chart.c.length===0){ chartResize(); }
+
+})();
 
       // ───── tile demos + backdrop mood wiring ─────
       function buildScreener(){
