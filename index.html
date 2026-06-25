@@ -247,6 +247,9 @@
       .grade.B { background: rgba(204,177,103,0.18); color: var(--gold-hi); }
       .grade.C { background: rgba(204,177,103,0.10); color: var(--gold); }
       .grade.D { background: rgba(229,72,77,0.14); color: rgb(240,150,150); }
+      /* tiny pop when a ticker's grade re-shuffles on hover */
+      .grade-pop { animation: grade-pop 0.42s var(--ease-out-expo) both; }
+      @keyframes grade-pop { 0% { transform: scale(0.62); } 58% { transform: scale(1.12); } 100% { transform: scale(1); } }
 
       /* ── Intelligence demo: gauge needle + breadth ── */
       .intel { position: absolute; inset: 0; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 10px; padding: 12px; }
@@ -1256,12 +1259,24 @@ if(chart.c.length===0){ chartResize(); }
         var order=t.map(function(v,i){return {i:i,v:v};}).sort(function(a,b){return b.v-a.v;});
         var rankGrade=["A","A","B","B","C","D"], gradeFor=[];
         order.forEach(function(o,rank){ gradeFor[o.i]=rankGrade[rank]||"C"; });
-        host.innerHTML="";
+        var rows=host.querySelectorAll(".scr-row");
+        // Build the rows once; afterwards update bar widths + grades IN PLACE so the bars
+        // animate (CSS width transition) and grades re-shuffle each time the demo re-derives.
+        if(rows.length!==tks.length){
+          host.innerHTML="";
+          tks.forEach(function(tk){
+            var row=document.createElement("div"); row.className="scr-row";
+            row.innerHTML='<span class="scr-tk">'+tk+'</span><span class="scr-bar"><i></i></span><span class="grade"></span>';
+            host.appendChild(row);
+          });
+          rows=host.querySelectorAll(".scr-row");
+        }
         tks.forEach(function(tk,i){
           var v=t[i]!=null?t[i]:0.5, g=gradeFor[i]||"C";
-          var row=document.createElement("div"); row.className="scr-row";
-          row.innerHTML='<span class="scr-tk">'+tk+'</span><span class="scr-bar"><i style="width:'+Math.round(28+v*70)+'%"></i></span><span class="grade '+g+'">'+g+'</span>';
-          host.appendChild(row);
+          var bar=rows[i].querySelector(".scr-bar i");
+          var grd=rows[i].querySelector(".grade");
+          if(bar) bar.style.width=Math.round(28+v*70)+"%";
+          if(grd && grd.textContent!==g){ grd.textContent=g; grd.className="grade "+g; grd.classList.remove("grade-pop"); void grd.offsetWidth; grd.classList.add("grade-pop"); }
         });
       }
       function setIntel(){
@@ -1302,9 +1317,20 @@ if(chart.c.length===0){ chartResize(); }
 
       buildScreener(); setIntel(); setTimeout(playOptions, 450);
 
+      // Keep the shared demo tape alive so the cards' bars + levels drift like a live market.
+      // The old WebGL backdrop advanced FT.series every tick; the candle backdrop that replaced
+      // it runs its own series, so the tape was left frozen and the demos stopped changing.
+      // Re-drive it here: paused when the tab is hidden, skipped for reduced-motion / save-data.
+      var tapeTimer=null;
+      function startTape(){ if(!STATIC && tapeTimer==null && !document.hidden) tapeTimer=setInterval(pushPoint, 1500); }
+      function stopTape(){ if(tapeTimer!=null){ clearInterval(tapeTimer); tapeTimer=null; } }
+      document.addEventListener("visibilitychange", function(){ if(document.hidden) stopTape(); else startTape(); });
+      startTape();
+
       document.querySelectorAll(".card").forEach(function(card){
         var mood=card.getAttribute("data-mood"), demo=card.getAttribute("data-demo");
-        function on(){ FT.setMood(mood); FT.setFocus(card); if(demo==="screener")buildScreener(); else if(demo==="options")playOptions(); else if(demo==="intelligence")sweepIntel(); }
+        // Nudge the tape on hover so the bars + levels visibly change every time the pointer lands.
+        function on(){ if(!STATIC){ pushPoint(); pushPoint(); pushPoint(); } FT.setMood(mood); FT.setFocus(card); if(demo==="screener")buildScreener(); else if(demo==="options")playOptions(); else if(demo==="intelligence")sweepIntel(); }
         function off(){ FT.setMood(null); FT.clearFocus(); }
         card.addEventListener("mouseenter",on); card.addEventListener("mouseleave",off);
         card.addEventListener("focusin",on); card.addEventListener("focusout",off);
