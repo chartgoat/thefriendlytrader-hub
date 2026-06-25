@@ -230,9 +230,30 @@
       .card.suite { grid-column: 4; grid-row: 1 / 3; }
       .suite .demo { padding: 7px; display: flex; }
       .suite .ind-list { list-style: none; margin: 0; padding: 0; flex: 1; display: flex; flex-direction: column; gap: 7px; }
-      .suite .ind-list li { flex: 1; display: flex; flex-direction: column; justify-content: center; gap: 3px; padding: 9px 12px; border-radius: 8px; background: rgba(255,255,255,0.04); border: 1px solid rgba(255,255,255,0.06); }
-      .suite .ind-list b { font-size: 12.5px; font-weight: 600; color: var(--gold-bright); letter-spacing: -0.01em; }
-      .suite .ind-list span { font-size: 11px; color: var(--body); line-height: 1.4; }
+      .suite .ind-list li { flex: 1; display: flex; flex-direction: column; justify-content: center; gap: 7px; padding: 10px 12px; border-radius: 8px; background: rgba(255,255,255,0.04); border: 1px solid rgba(255,255,255,0.06); }
+      .suite .ind-top { display: flex; align-items: baseline; justify-content: space-between; gap: 8px; }
+      .suite .ind-list b { font-size: 12px; font-weight: 600; color: var(--gold-bright); letter-spacing: -0.01em; }
+      .suite .ind-val { font-size: 11px; font-weight: 600; color: var(--body); font-variant-numeric: tabular-nums; }
+      .suite .ind-grade { font-size: 12px; font-weight: 700; font-variant-numeric: tabular-nums; }
+      .suite .ind-grade.ghi { color: var(--green-soft); } .suite .ind-grade.gmid { color: var(--gold-hi); } .suite .ind-grade.glo { color: var(--muted); }
+      .suite .ind-bias { font-size: 11px; font-weight: 700; }
+      .suite .ind-bias.long { color: var(--green-soft); } .suite .ind-bias.short { color: rgb(240,150,150); } .suite .ind-bias.flat { color: var(--gold); }
+      /* GOAT Scalp Levels — spot price riding a breakdown↔breakout rail */
+      .suite .lv-rail { position: relative; height: 5px; border-radius: 3px; background: linear-gradient(90deg, rgba(229,72,77,0.55), rgba(204,177,103,0.4) 50%, rgba(61,220,139,0.55)); }
+      .suite .lv-dot { position: absolute; top: 50%; left: 50%; width: 9px; height: 9px; border-radius: 50%; background: var(--gold-bright); box-shadow: 0 0 0 2px rgba(5,5,5,0.7), 0 0 9px rgba(255,234,138,0.7); transform: translate(-50%,-50%); transition: left 0.7s var(--ease-reveal); }
+      .suite .lv-ends { display: flex; justify-content: space-between; font-size: 9.5px; font-variant-numeric: tabular-nums; }
+      .suite .lv-ends .dn { color: rgb(240,150,150); } .suite .lv-ends .up { color: var(--green-soft); }
+      /* A+ Dashboard — four confluence segments */
+      .suite .ap-segs { display: flex; gap: 5px; }
+      .suite .ap-segs span { flex: 1; height: 17px; border-radius: 4px; display: grid; place-items: center; font-size: 9.5px; font-weight: 700; color: var(--muted); background: rgba(255,255,255,0.05); border: 1px solid rgba(255,255,255,0.06); transition: background 0.45s var(--ease), color 0.45s var(--ease), border-color 0.45s var(--ease), box-shadow 0.45s var(--ease); }
+      .suite .ap-segs span.on { color: var(--green-soft); background: rgba(61,220,139,0.16); border-color: rgba(61,220,139,0.32); box-shadow: 0 0 9px rgba(61,220,139,0.2); }
+      /* Profit Windows — session blocks, the live one glows */
+      .suite .pw-blocks { display: flex; gap: 4px; }
+      .suite .pw-blocks span { flex: 1; height: 15px; border-radius: 3px; background: rgba(255,255,255,0.05); border: 1px solid rgba(255,255,255,0.06); transition: background 0.5s var(--ease), box-shadow 0.5s var(--ease); }
+      .suite .pw-blocks span.on { background: var(--gold-gradient); border-color: transparent; box-shadow: 0 0 11px rgba(255,234,138,0.42); }
+      /* GOAT Scalp Alpha — signal-strength meter */
+      .suite .ax-meter { height: 6px; border-radius: 3px; background: rgba(255,255,255,0.06); overflow: hidden; }
+      .suite .ax-meter i { display: block; height: 100%; width: 50%; border-radius: 3px; background: var(--gold-gradient); transition: width 0.7s var(--ease-reveal); }
 
       /* ── Screener demo: grade pills + rows ── */
       .scr { position: absolute; inset: 0; padding: 12px; display: flex; flex-direction: column; gap: 7px; }
@@ -590,15 +611,28 @@
             </article>
 
             <!-- TradingView Indicators (right-side flagship, mirrors The Screener) -->
-            <article class="card flagship suite" data-mood="default">
+            <article class="card flagship suite" data-mood="default" data-demo="indicators">
               <a class="card-link" href="https://whop.com/checkout/plan_aYHjuBwYl3Ceb" rel="noopener" aria-label="Unlock the TradingView indicators"></a>
               <div class="inner">
                 <div class="demo">
-                  <ul class="ind-list">
-                    <li><b>GOAT Scalp Levels</b><span>Daily breakout &amp; breakdown targets, auto-drawn for 25+ tickers.</span></li>
-                    <li><b>A+ Dashboard</b><span>Trend, momentum, structure &amp; volume scored in one table.</span></li>
-                    <li><b>Profit Windows</b><span>The session mapped into high-probability time zones.</span></li>
-                    <li><b>GOAT Scalp Alpha</b><span>All three, fused into one all-in-one overlay.</span></li>
+                  <ul class="ind-list" id="indDemo">
+                    <li>
+                      <div class="ind-top"><b>GOAT Scalp Levels</b><span class="ind-val" data-role="lv-px">182.40</span></div>
+                      <div class="lv-rail"><span class="lv-dot" data-role="lv-dot"></span></div>
+                      <div class="lv-ends"><span class="dn" data-role="lv-dn">▼ 178.10</span><span class="up" data-role="lv-up">▲ 186.70</span></div>
+                    </li>
+                    <li>
+                      <div class="ind-top"><b>A+ Dashboard</b><span class="ind-grade ghi" data-role="ap-grade">A+</span></div>
+                      <div class="ap-segs"><span data-role="ap-t">T</span><span data-role="ap-m">M</span><span data-role="ap-s">S</span><span data-role="ap-v">V</span></div>
+                    </li>
+                    <li>
+                      <div class="ind-top"><b>Profit Windows</b><span class="ind-val" data-role="pw-label">Power Hour</span></div>
+                      <div class="pw-blocks"><span></span><span></span><span></span><span></span><span></span><span></span></div>
+                    </li>
+                    <li>
+                      <div class="ind-top"><b>GOAT Scalp Alpha</b><span class="ind-bias long" data-role="ax-bias">Long</span></div>
+                      <div class="ax-meter"><i data-role="ax-fill"></i></div>
+                    </li>
                   </ul>
                 </div>
                 <div>
@@ -1279,6 +1313,41 @@ if(chart.c.length===0){ chartResize(); }
           if(grd && grd.textContent!==g){ grd.textContent=g; grd.className="grade "+g; grd.classList.remove("grade-pop"); void grd.offsetWidth; grd.classList.add("grade-pop"); }
         });
       }
+      // Indicators flagship: derive all four widgets from the shared tape so they animate
+      // and change on hover, just like the Screener + Options demos.
+      function setRole(host, role, text){ var el=host.querySelector('[data-role="'+role+'"]'); if(el && el.textContent!==text) el.textContent=text; }
+      function buildIndicators(){
+        var host=document.getElementById("indDemo"); if(!host) return;
+        var t=tail(16);
+        var last=t[t.length-1], prev=t[t.length-2]!=null?t[t.length-2]:last;
+        var lo=Math.min.apply(null,t), hi=Math.max.apply(null,t);
+        var sum=0; for(var i=0;i<t.length;i++){ sum+=t[i]; } var mean=sum/t.length;
+        function px(v){ return (180+(v-0.5)*22).toFixed(2); }
+        // 1) GOAT Scalp Levels — spot price between the breakdown (lo) and breakout (hi)
+        var pos = hi>lo ? (last-lo)/(hi-lo) : 0.5;
+        setRole(host,"lv-px", px(last));
+        setRole(host,"lv-dn","▼ "+px(lo));
+        setRole(host,"lv-up","▲ "+px(hi));
+        var dot=host.querySelector('[data-role="lv-dot"]'); if(dot) dot.style.left=(8+pos*84)+"%";
+        // 2) A+ Dashboard — four confluence checks + a letter grade
+        var vol=0; for(var j=1;j<t.length;j++){ vol+=Math.abs(t[j]-t[j-1]); } vol/=(t.length-1);
+        var sig=[ last>mean, last>=prev, last>t[t.length-5], vol>0.045 ];
+        var on=0; for(var k=0;k<4;k++){ if(sig[k]) on++; }
+        ["ap-t","ap-m","ap-s","ap-v"].forEach(function(r,idx){ var el=host.querySelector('[data-role="'+r+'"]'); if(el) el.classList.toggle("on", !!sig[idx]); });
+        setRole(host,"ap-grade", on>=4?"A+":(on===3?"A":(on===2?"B":"C")));
+        var gEl=host.querySelector('[data-role="ap-grade"]'); if(gEl) gEl.className="ind-grade "+(on>=3?"ghi":(on===2?"gmid":"glo"));
+        // 3) Profit Windows — the live session block
+        var WIN=["Pre-Market","The Open","Morning","Midday","Power Hour","The Close"];
+        var wi=Math.max(0,Math.min(5,Math.floor(pos*6)));
+        setRole(host,"pw-label",WIN[wi]);
+        var blocks=host.querySelectorAll(".pw-blocks span"); for(var b=0;b<blocks.length;b++){ blocks[b].classList.toggle("on", b===wi); }
+        // 4) GOAT Scalp Alpha — signal strength + directional bias
+        var strength=Math.round(30 + (on/4)*52 + pos*16); if(strength>100)strength=100; if(strength<8)strength=8;
+        var fill=host.querySelector('[data-role="ax-fill"]'); if(fill) fill.style.width=strength+"%";
+        var bias = (on>=3 && last>=prev) ? "Long" : ((on<=1 && last<prev) ? "Short" : "Flat");
+        setRole(host,"ax-bias",bias);
+        var bEl=host.querySelector('[data-role="ax-bias"]'); if(bEl) bEl.className="ind-bias "+bias.toLowerCase();
+      }
       function setIntel(){
         var t=tail(20); var ups=0; for(var i=1;i<t.length;i++){ if(t[i]>=t[i-1])ups++; }
         var ratio=ups/(t.length-1);
@@ -1315,7 +1384,7 @@ if(chart.c.length===0){ chartResize(); }
         if(fill){ fill.style.width="50%"; setTimeout(function(){ fill.style.width=s+"%"; },600); }
       }
 
-      buildScreener(); setIntel(); setTimeout(playOptions, 450);
+      buildScreener(); buildIndicators(); setIntel(); setTimeout(playOptions, 450);
 
       // Keep the shared demo tape alive so the cards' bars + levels drift like a live market.
       // The old WebGL backdrop advanced FT.series every tick; the candle backdrop that replaced
@@ -1330,7 +1399,7 @@ if(chart.c.length===0){ chartResize(); }
       document.querySelectorAll(".card").forEach(function(card){
         var mood=card.getAttribute("data-mood"), demo=card.getAttribute("data-demo");
         // Nudge the tape on hover so the bars + levels visibly change every time the pointer lands.
-        function on(){ if(!STATIC){ pushPoint(); pushPoint(); pushPoint(); } FT.setMood(mood); FT.setFocus(card); if(demo==="screener")buildScreener(); else if(demo==="options")playOptions(); else if(demo==="intelligence")sweepIntel(); }
+        function on(){ if(!STATIC){ pushPoint(); pushPoint(); pushPoint(); } FT.setMood(mood); FT.setFocus(card); if(demo==="screener")buildScreener(); else if(demo==="options")playOptions(); else if(demo==="intelligence")sweepIntel(); else if(demo==="indicators")buildIndicators(); }
         function off(){ FT.setMood(null); FT.clearFocus(); }
         card.addEventListener("mouseenter",on); card.addEventListener("mouseleave",off);
         card.addEventListener("focusin",on); card.addEventListener("focusout",off);
@@ -1339,7 +1408,7 @@ if(chart.c.length===0){ chartResize(); }
       if(coarse && "IntersectionObserver" in window){
         document.querySelectorAll(".card").forEach(function(card){
           var demo=card.getAttribute("data-demo");
-          var io=new IntersectionObserver(function(es){ es.forEach(function(e){ if(e.isIntersecting){ FT.setMood(card.getAttribute("data-mood")); FT.setFocus(card); if(demo==="options")playOptions(); else if(demo==="screener")buildScreener(); else if(demo==="intelligence")sweepIntel(); setTimeout(function(){ FT.setMood(null); FT.clearFocus(); }, 1300); io.disconnect(); } }); },{threshold:0.5});
+          var io=new IntersectionObserver(function(es){ es.forEach(function(e){ if(e.isIntersecting){ FT.setMood(card.getAttribute("data-mood")); FT.setFocus(card); if(demo==="options")playOptions(); else if(demo==="screener")buildScreener(); else if(demo==="intelligence")sweepIntel(); else if(demo==="indicators")buildIndicators(); setTimeout(function(){ FT.setMood(null); FT.clearFocus(); }, 1300); io.disconnect(); } }); },{threshold:0.5});
           io.observe(card);
         });
       }
