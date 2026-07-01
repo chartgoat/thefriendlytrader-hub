@@ -34,7 +34,9 @@
         { "@type": "ItemList", "@id": "https://thefriendlytrader.com/#tools", "name": "Friendly Trader tools", "itemListElement": [
           { "@type": "ListItem", "position": 1, "name": "The Screener", "url": "https://friendlyscreener.com", "description": "Daily stock screening with explainable A to D grading." },
           { "@type": "ListItem", "position": 2, "name": "Friendly Options", "url": "https://thefriendlytrader.com/options", "description": "Pick cleaner contracts, analyze the trade, and read the options flow in plain English." },
-          { "@type": "ListItem", "position": 3, "name": "Friendly Intelligence", "url": "https://friendly-trader.com", "description": "Market breadth, internals, and the Fear and Greed gauge in one dashboard. Coming soon." }
+          { "@type": "ListItem", "position": 3, "name": "Discord Trade Tracker", "url": "https://leaderboard.stockswithjosh.com", "description": "Track every entry, scale-in, and exit as the alerts post live." },
+          { "@type": "ListItem", "position": 4, "name": "TradingView Indicators", "description": "Four scalping indicators for TradingView: GOAT Scalp Levels, A+ Dashboard, Profit Windows, and GOAT Scalp Alpha." },
+          { "@type": "ListItem", "position": 5, "name": "Friendly Intelligence", "url": "https://friendly-trader.com", "description": "Market breadth, internals, and the Fear and Greed gauge in one dashboard. Coming soon." }
         ] }
       ]
     }
@@ -50,6 +52,7 @@
         --border-gold: rgba(204,177,103,0.5);
         --gold: rgb(204,177,103);
         --gold-hi: rgb(255,255,138);
+        --gold-bright: rgb(255,234,138);
         --gold-gradient: linear-gradient(65deg, rgb(207,181,104) 27.49%, rgb(255,255,138) 72.54%);
         --gold-glow: rgba(212,168,83,0.30);
         --green: rgb(61,220,139);
@@ -125,9 +128,9 @@
 
       /* ───── Ticker tape ───── */
       .ticker { overflow: hidden; border-bottom: 1px solid var(--border); background: rgba(5,5,5,0.4); }
-      .ticker-mask { display: flex; width: max-content; }
+      .ticker-mask { display: flex; gap: var(--ticker-gap); width: max-content; }
       .ticker-track { display: flex; gap: var(--ticker-gap); padding: 8px 0; white-space: nowrap; animation: ticker 42s linear infinite; }
-      .ticker-track .sep { color: var(--muted); padding-left: var(--ticker-gap); }
+      .ticker-track .sep { color: var(--muted); }
       .ticker-chip { font-size: 11.5px; font-weight: 500; letter-spacing: 0.02em; color: var(--muted); font-variant-numeric: tabular-nums; }
       .ticker-chip b { font-weight: 600; color: var(--text); margin-right: 6px; }
       .ticker-chip.up { color: var(--green-soft); }
@@ -138,7 +141,6 @@
       /* ───── Hero ───── */
       .hero { position: relative; min-height: 92vh; padding: 64px 24px 80px; overflow: hidden; isolation: isolate;
         background: #000; }
-      #bg { position: absolute; inset: 0; width: 100%; height: 100%; z-index: 0; display: block; }
       #fx { position: absolute; inset: 0; width: 100%; height: 100%; z-index: 0; display: block; pointer-events: none;
         /* gentle central spotlight-dim: candles dim VERY slightly behind the middle of the subhead/trust, fading back to full brightness by the text edges and out to the page edges */
         -webkit-mask-image: radial-gradient(ellipse 21% 10% at 50% 26.5%, rgba(0,0,0,0.42) 0%, rgba(0,0,0,0.46) 60%, #000 100%);
@@ -148,9 +150,6 @@
           radial-gradient(72% 50% at 50% 34%, rgba(0,0,0,0.62) 0%, rgba(0,0,0,0.34) 46%, transparent 72%),
           linear-gradient(180deg, rgba(0,0,0,0.45) 0%, transparent 24%, transparent 70%, rgba(0,0,0,0.5) 100%);
       }
-      /* Cursor-reactive light lens - the market warms where you look. Below the text (z1), compositor-only. */
-      .lens { position: absolute; inset: 0; z-index: 1; pointer-events: none; mix-blend-mode: screen;
-        background: radial-gradient(440px circle at var(--lx,50%) var(--ly,40%), rgba(204,177,103,0.12), transparent 60%); }
       .hero-inner { position: relative; z-index: 2; max-width: 1140px; margin: 0 auto; }
       .glass {
         max-width: 880px; margin: 40px auto 54px; text-align: center;
@@ -219,8 +218,10 @@
       .card-title { font-size: 19px; font-weight: 600; margin: 0; letter-spacing: -0.01em; }
       .card-blurb { font-size: 13.5px; color: var(--body); margin: 0; line-height: 1.5; }
       .card-foot { display: flex; align-items: center; justify-content: space-between; gap: 10px; margin-top: auto; }
-      .card-cta { font-size: 13px; font-weight: 600; color: var(--gold); display: inline-flex; align-items: center; gap: 5px; transition: gap var(--dur-fast) var(--ease), color var(--dur-fast) var(--ease); }
-      .card:hover .card-cta, .card:focus-within .card-cta { gap: 9px; color: var(--gold-hi); }
+      .card-cta { font-size: 13px; font-weight: 600; color: var(--gold); display: inline-flex; align-items: center; gap: 5px; transition: color var(--dur-fast) var(--ease); }
+      .card-cta .arr { display: inline-block; transition: transform 0.22s var(--spring); }
+      .card:hover .card-cta, .card:focus-within .card-cta { color: var(--gold-hi); }
+      .card:hover .card-cta .arr, .card:focus-within .card-cta .arr { transform: translateX(4px); }
       .card-host { font-size: 10.5px; color: var(--muted); letter-spacing: 0.02em; }
       .chip-soon { font-size: 10px; font-weight: 600; letter-spacing: 0.1em; text-transform: uppercase; color: var(--amber-soon); border: 1px solid rgba(255,196,140,0.35); background: rgba(255,196,140,0.08); padding: 4px 9px; border-radius: 999px; }
       .card.soon { opacity: 0.82; }
@@ -308,10 +309,11 @@
       @keyframes track-pulse { 0% { box-shadow: 0 0 0 0 rgba(61,220,139,0.45); } 70% { box-shadow: 0 0 0 7px rgba(61,220,139,0); } 100% { box-shadow: 0 0 0 0 rgba(61,220,139,0); } }
 
       /* ───── Explainer (iOS step cards) ───── */
-      .explainer { background: var(--surface-1); border-top: 1px solid var(--border); border-bottom: 1px solid var(--border); margin-top: 60px; padding: 80px 24px; }
+      .explainer { background: radial-gradient(640px 150px at 50% 0%, rgba(204,177,103,0.05), transparent 72%), var(--surface-1); border-top: 1px solid var(--border); border-bottom: 1px solid var(--border); margin-top: 60px; padding: 80px 24px; }
       .explainer-inner { max-width: 1040px; margin: 0 auto; text-align: center; }
       .explainer h2 { font-family: var(--font-display); font-weight: 800; font-size: clamp(30px, 4.6vw, 48px); margin: 8px 0 18px; letter-spacing: -0.03em; }
-      .h2-rule { width: 60px; height: 3px; border-radius: 3px; margin: 0 auto 44px; background: var(--gold-gradient); transform: scaleX(0); transform-origin: center; transition: transform 0.8s var(--ease-reveal) 0.1s; }
+      .h2-rule { width: 60px; height: 3px; border-radius: 3px; margin: 0 auto 44px; background: var(--gold-gradient); transform-origin: center; transition: transform 0.8s var(--ease-reveal) 0.1s; }
+      .js .h2-rule { transform: scaleX(0); }
       .explainer.in .h2-rule { transform: scaleX(1); }
       .proof-row { display: flex; flex-wrap: wrap; justify-content: center; align-items: flex-start; gap: 24px 64px; margin: 6px auto 0; }
       .js .proof-stat { opacity: 0; transform: translateY(18px); }
@@ -330,7 +332,10 @@
       .offer h2 .g { background: var(--gold-gradient); -webkit-background-clip: text; background-clip: text; -webkit-text-fill-color: transparent; }
       .offer.in .h2-rule { transform: scaleX(1); }
 
-      .price { display: inline-flex; align-items: flex-start; justify-content: center; gap: 3px; line-height: 1; margin: 4px 0 0; }
+      .price { position: relative; display: inline-flex; align-items: flex-start; justify-content: center; gap: 3px; line-height: 1; margin: 4px 0 0; }
+      /* soft ambient warmth behind the price - the offer's own hero moment */
+      .price::before { content: ""; position: absolute; inset: -46px -96px; z-index: -1; pointer-events: none;
+        background: radial-gradient(52% 62% at 50% 56%, rgba(212,168,83,0.13), transparent 72%); }
       .price-cur { margin-top: 0.52em; font-size: clamp(24px, 3vw, 32px); font-weight: 700; color: var(--text); }
       .price-num { font-size: clamp(74px, 12vw, 110px); font-weight: 800; letter-spacing: -0.045em; padding-bottom: 0.06em; background: var(--gold-gradient); -webkit-background-clip: text; background-clip: text; -webkit-text-fill-color: transparent; }
       .price-per { align-self: flex-end; margin-bottom: 0.85em; font-size: 15px; font-weight: 600; color: var(--muted); }
@@ -340,6 +345,11 @@
       .incl > ul { list-style: none; margin: 0; padding: 0; display: flex; flex-direction: column; align-items: flex-start; gap: 11px; }
       .incl li { display: inline-flex; align-items: center; gap: 8px; font-size: 14.5px; font-weight: 500; color: var(--text); }
       .incl li svg { flex: none; width: 17px; height: 17px; color: var(--gold); }
+      /* Included list: rows rise in with a stagger and each gold check draws itself on */
+      .js .offer .incl li { opacity: 0; transform: translateX(-10px); }
+      .offer.in .incl li { opacity: 1; transform: none; transition: opacity 0.55s var(--ios) var(--ld, 0ms), transform 0.55s var(--spring) var(--ld, 0ms); }
+      .offer.in .incl li svg path { stroke-dasharray: 22; animation: check-draw 0.45s var(--ease-out-expo) both; animation-delay: calc(var(--ld, 0ms) + 140ms); }
+      @keyframes check-draw { from { stroke-dashoffset: 22; } to { stroke-dashoffset: 0; } }
       .soon-tag { font-size: 9.5px; font-weight: 800; letter-spacing: 0.09em; text-transform: uppercase; color: var(--amber-soon); border: 1px solid rgba(255,196,140,0.4); border-radius: 999px; padding: 1.5px 7px; margin-left: 4px; }
 
       .magnet-wrap { display: inline-block; }
@@ -349,11 +359,18 @@
         background: var(--gold-gradient); color: rgb(10,10,10);
         font-family: var(--font-ui); font-weight: 800; font-size: 16.5px; letter-spacing: -0.2px;
         box-shadow: inset 0 3px 0 0 rgba(255,255,255,0.34), 0 10px 34px rgba(212,168,83,0.34);
-        transition: filter var(--dur-fast) var(--ease), box-shadow var(--dur-fast) var(--ease);
+        transition: filter var(--dur-fast) var(--ease), box-shadow var(--dur-fast) var(--ease), transform var(--dur-fast) var(--ios);
+        overflow: hidden;
       }
       .cta-btn:hover { filter: brightness(1.07); box-shadow: inset 0 3px 0 0 rgba(255,255,255,0.34), 0 14px 48px rgba(212,168,83,0.5); }
       .cta-btn:active { transform: scale(0.97); }
       .cta-btn svg { width: 18px; height: 18px; }
+      /* One-shot glint sweeps the CTA as the offer reveals - a single pass, then done */
+      .cta-btn::after { content: ""; position: absolute; inset: 0; border-radius: inherit; pointer-events: none; opacity: 0;
+        background: linear-gradient(115deg, transparent 32%, rgba(255,255,255,0.5) 50%, transparent 68%);
+        transform: translateX(-130%); }
+      .offer.in .cta-btn::after { animation: cta-sheen 1.05s var(--ease-out-expo) 0.7s both; }
+      @keyframes cta-sheen { 0% { opacity: 0; transform: translateX(-130%); } 15% { opacity: 1; } 100% { opacity: 0; transform: translateX(130%); } }
       /* Lock that starts closed and springs open on hover / focus / press */
       .lock-ico .shackle { transform-box: fill-box; transform-origin: 18% 100%; transition: transform 0.42s var(--spring); }
       .pill:hover .lock-ico .shackle, .pill:focus-visible .lock-ico .shackle, .pill:active .lock-ico .shackle,
@@ -367,6 +384,9 @@
       .upsell-cta svg { width: 15px; height: 15px; transition: transform 180ms var(--ease); }
       .upsell:hover .upsell-cta svg { transform: translateX(3px); }
       .upsell:hover .upsell-lock { background: rgba(193,155,63,0.18); }
+      /* the carrot's padlock springs open on hover, same language as the Unlock buttons */
+      .upsell-lock .shackle { transform-box: fill-box; transform-origin: 18% 100%; transition: transform 0.42s var(--spring); }
+      .upsell:hover .upsell-lock .shackle, .upsell:focus-visible .upsell-lock .shackle { transform: rotate(-30deg) translateY(-1px); }
       .upsell-lock { flex: none; width: 46px; height: 46px; border-radius: 14px; display: grid; place-items: center; background: rgba(193,155,63,0.10); border: 1px solid var(--border-gold); color: var(--gold); }
       .upsell-lock svg { width: 22px; height: 22px; }
       .upsell-body { flex: 1; min-width: 0; }
@@ -385,16 +405,16 @@
       .foot-tag { margin: 0; color: var(--gold); opacity: 0.7; font-size: 12px; letter-spacing: 0.05em; }
 
       /* ───── Scroll reveal base (spring) ───── */
-      .reveal { opacity: 0; transform: translateY(28px) scale(0.985); filter: blur(6px); transition: opacity var(--dur-reveal) var(--ios), transform var(--dur-reveal) var(--spring), filter var(--dur-reveal) var(--ios); }
-      .reveal.in { opacity: 1; transform: none; filter: none; }
+      /* Hidden start is gated on .js so a no-JS visit still sees every section. */
+      .js .reveal { opacity: 0; transform: translateY(28px) scale(0.985); filter: blur(6px); transition: opacity var(--dur-reveal) var(--ios), transform var(--dur-reveal) var(--spring), filter var(--dur-reveal) var(--ios); }
+      .js .reveal.in { opacity: 1; transform: none; filter: none; }
       /* Bento card scroll-in (gated on .js so no-JS keeps the tool cards visible) */
       .js .bento .card { opacity: 0; }
       .js .bento .card.in { animation: card-pop 0.62s var(--spring) both; animation-delay: var(--cd, 0ms); }
       @keyframes card-pop { from { opacity: 0; transform: translateY(22px) scale(0.99); } to { opacity: 1; transform: none; } }
 
       /* ───── Responsive: tablet / mobile ───── */
-      /* Desktop 3-col: flagship spans 2 rows (col 1); the other four tiles fill the 2x2 on the right. */
-      @media (max-width: 1024px) and (min-width: 701px) { .bento .card:last-child:nth-child(odd) { grid-column: span 2; } }
+      /* Desktop 4-col: two flagships span 2 rows (cols 1 + 4); the four mid tiles fill the 2x2 center. */
       @media (max-width: 1024px) {
         .bento { grid-template-columns: 1fr 1fr; }
         .card.flagship { grid-row: auto; }
@@ -423,8 +443,8 @@
       @media (prefers-reduced-motion: reduce) {
         html { scroll-behavior: auto; }
         *, *::before, *::after { animation: none !important; transition: none !important; }
-        .reveal-words h1 .w, .reveal { opacity: 1; transform: none; filter: none; }
-        .js .bento .card, .js .proof-stat { opacity: 1 !important; transform: none !important; }
+        .reveal-words h1 .w, .reveal, .js .reveal { opacity: 1; transform: none; filter: none; }
+        .js .bento .card, .js .proof-stat, .js .offer .incl li { opacity: 1 !important; transform: none !important; }
         .flow-chip { opacity: 1 !important; transform: none !important; }
         .h2-rule { transform: scaleX(1); }
         .ticker-track { transform: none; }
@@ -434,7 +454,8 @@
       html.static *, html.static *::before, html.static *::after { animation: none !important; transition: none !important; }
       html.static { scroll-behavior: auto; }
       html.static .reveal-words h1 .w, html.static .reveal { opacity: 1; transform: none; filter: none; }
-      html.static .js .bento .card, html.static .js .proof-stat { opacity: 1 !important; transform: none !important; }
+      /* NOTE: .static and .js both live on <html>, so these must be compound (no descendant combinator) */
+      html.static.js .bento .card, html.static.js .proof-stat, html.static.js .offer .incl li { opacity: 1 !important; transform: none !important; }
       html.static .flow-chip { opacity: 1 !important; transform: none !important; }
       html.static .h2-rule { transform: scaleX(1); }
       html.static .ticker-track { transform: none; }
@@ -465,7 +486,6 @@
 
     <main>
       <section class="hero" id="hero">
-        <canvas id="bg" aria-hidden="true"></canvas>
         <canvas id="fx" aria-hidden="true"></canvas>
         <div class="scrim"></div>
         <div class="hero-inner">
@@ -482,7 +502,7 @@
 
           <div class="bento">
             <!-- Flagship: The Screener -->
-            <article class="card flagship" data-mood="screener" data-demo="screener">
+            <article class="card flagship" data-demo="screener">
               <a class="card-link" href="https://friendlyscreener.com" rel="noopener" aria-label="Open The Screener"></a>
               <div class="inner">
                 <div class="demo">
@@ -496,14 +516,14 @@
                   <p class="card-blurb">Daily setups, graded A to D so you know what is worth a look in seconds.</p>
                 </div>
                 <div class="card-foot">
-                  <span class="card-cta">Open the Screener →</span>
+                  <span class="card-cta">Open the Screener <span class="arr" aria-hidden="true">→</span></span>
                   <span class="card-host">friendlyscreener.com</span>
                 </div>
               </div>
             </article>
 
             <!-- Friendly Options -->
-            <article class="card" data-mood="options" data-demo="options">
+            <article class="card" data-demo="options">
               <a class="card-link" href="https://thefriendlytrader.com/options" rel="noopener" aria-label="Open Friendly Options"></a>
               <div class="inner">
                 <div class="demo">
@@ -521,14 +541,14 @@
                   <p class="card-blurb">Pick cleaner contracts, analyze the trade, and read the options flow in plain English.</p>
                 </div>
                 <div class="card-foot">
-                  <span class="card-cta">Analyze an options trade →</span>
+                  <span class="card-cta">Analyze an options trade <span class="arr" aria-hidden="true">→</span></span>
                   <span class="card-host">thefriendlytrader.com/options</span>
                 </div>
               </div>
             </article>
 
             <!-- Discord Trade Tracker -->
-            <article class="card" data-mood="default">
+            <article class="card">
               <a class="card-link" href="https://leaderboard.stockswithjosh.com" rel="noopener" aria-label="Open the Discord Trade Tracker"></a>
               <div class="inner">
                 <div class="demo">
@@ -546,13 +566,13 @@
                   <p class="card-blurb">Track every entry, scale-in, and exit as the alerts post live.</p>
                 </div>
                 <div class="card-foot">
-                  <span class="card-cta">Open the tracker →</span>
+                  <span class="card-cta">Open the tracker <span class="arr" aria-hidden="true">→</span></span>
                 </div>
               </div>
             </article>
 
             <!-- Friendly Intelligence (coming soon) -->
-            <article class="card soon" data-mood="intelligence" tabindex="0" aria-label="Friendly Intelligence, coming soon">
+            <article class="card soon" tabindex="0" aria-label="Friendly Intelligence, coming soon">
               <div class="inner">
                 <div class="demo">
                   <div class="intel">
@@ -584,7 +604,7 @@
             </article>
 
             <!-- BTC Edge (coming soon) -->
-            <article class="card soon" data-mood="btc" tabindex="0" aria-label="BTC Edge, coming soon">
+            <article class="card soon" tabindex="0" aria-label="BTC Edge, coming soon">
               <div class="inner">
                 <div class="demo">
                   <div class="btc">
@@ -611,7 +631,7 @@
             </article>
 
             <!-- TradingView Indicators (right-side flagship, mirrors The Screener) -->
-            <article class="card flagship suite" data-mood="default" data-demo="indicators">
+            <article class="card flagship suite" data-demo="indicators">
               <a class="card-link" href="https://whop.com/checkout/plan_aYHjuBwYl3Ceb" rel="noopener" aria-label="Unlock the TradingView indicators"></a>
               <div class="inner">
                 <div class="demo">
@@ -643,7 +663,7 @@
                   <p class="card-blurb">Four scalping indicators that put your daily levels, a live A+ score, and the session's best windows right on your chart.</p>
                 </div>
                 <div class="card-foot">
-                  <span class="card-cta">Unlock the indicators →</span>
+                  <span class="card-cta">Unlock the indicators <span class="arr" aria-hidden="true">→</span></span>
                   <span class="card-host">for TradingView</span>
                 </div>
               </div>
@@ -706,7 +726,7 @@
           <!-- Trader-tier carrot: Josh's live portfolio, held one tier up -->
           <a class="upsell" href="https://whop.com/checkout/plan_55iRHuZ72Vhl9" rel="noopener" aria-label="Upgrade to the Trader Tier to unlock Josh's Portfolio">
             <div class="upsell-lock" aria-hidden="true">
-              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="5" y="11" width="14" height="9" rx="2"/><path d="M8 11V7a4 4 0 0 1 8 0v4"/></svg>
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="5" y="11" width="14" height="9" rx="2"/><path class="shackle" d="M8 11V7a4 4 0 0 1 8 0v4"/></svg>
             </div>
             <div class="upsell-body">
               <p class="upsell-kicker">Trader tier</p>
@@ -760,11 +780,10 @@
       function tail(n){ return series.slice(series.length-n); }
       function pushPoint(){ series.push(step(series[series.length-1])); if(series.length>2000) series.shift(); }
 
-      var FT = window.FT = { series: series, mood: "default", setMood: function(m){ FT._target = m || "default"; } };
-      FT._target = "default"; FT._lerp = 0; FT._cur = "default";
+      var FT = window.FT = { series: series };
 
       // ── Tile claim: fires a one-shot CSS "receive-flash" (.demo::after, driven by the .claimed class)
-      //    when a tile is hovered/focused; the tile also re-derives its demo from the live tape + tunes the backdrop mood. ──
+      //    when a tile is hovered/focused; the tile also re-derives its demo from the live tape. ──
       FT._focusCard = null;
       FT.setFocus = function(card){
         if(STATIC || !card) return;
@@ -778,7 +797,9 @@
         var data = [["AAPL",1.2],["BTC",-0.4],["NVDA",0.8],["SPY",0.3],["TSLA",-1.1],["QQQ",0.5],["ETH",2.4],["AMD",-0.6]];
         function row(){ return data.map(function(d){ var up=d[1]>=0; return '<span class="ticker-chip '+(up?'up':'down')+'"><b>'+d[0]+'</b>'+(up?'+':'')+d[1].toFixed(1)+'%</span>'; }).join('<span class="sep">·</span>'); }
         var t1=document.getElementById("tk1"), t2=document.getElementById("tk2");
-        if(t1) t1.innerHTML=row(); if(t2) t2.innerHTML=row();
+        // trailing sep keeps the chip·chip rhythm even across the loop seam
+        var html=row()+'<span class="sep">·</span>';
+        if(t1) t1.innerHTML=html; if(t2) t2.innerHTML=html;
         if(STATIC){ var tw=document.querySelector(".ticker"); if(tw) tw.classList.add("ticker-static"); if(t2) t2.style.display="none"; }
       })();
 
@@ -791,62 +812,16 @@
         if(!STATIC){ h1.parentNode.classList.add("reveal-words"); }
       })();
 
-      // ───── nebula + candles backdrop (WebGL2 shader grid/motes + canvas candlesticks) ─────
-      "use strict";
+      // ───── hero backdrop: live candlestick chart + trading crosshair (Canvas 2D) ─────
 (function(){
 
 /* ---------- seeded PRNG (exact, per contract) ---------- */
 function mulberry32(a){return function(){a|=0;a=a+0x6D2B79F5|0;var t=Math.imul(a^a>>>15,1|a);t=t+Math.imul(t^t>>>7,61|t)^t;return((t^t>>>14)>>>0)/4294967296;};}
 var rnd = mulberry32(20260616);
 
-/* ---------- build a gently mean-reverting random walk price series ---------- */
-var SERIES_N = 240;
-var series = (function(){
-  var arr = new Array(SERIES_N), v = 0.5, drift = 0.00035, mean = 0.5;
-  for(var i=0;i<SERIES_N;i++){
-    var shock = (rnd()-0.5)*0.052;
-    v += shock + (mean - v)*0.045 + drift;          // mean-reversion + slight upward drift
-    if(v<0.06)v=0.06; if(v>0.94)v=0.94;
-    arr[i]=v;
-  }
-  // light smoothing so the curve reads clean
-  var out = arr.slice();
-  for(var k=1;k<SERIES_N-1;k++) out[k]=(arr[k-1]+arr[k]*2+arr[k+1])/4;
-  return out;
-})();
-function priceAt(t){ // t in [0,1] -> smooth sampled price [0,1]
-  var x = t*(SERIES_N-1), i = Math.floor(x), f = x-i;
-  var a = series[Math.max(0,Math.min(SERIES_N-1,i))];
-  var b = series[Math.max(0,Math.min(SERIES_N-1,i+1))];
-  var s = f*f*(3-2*f);                               // smoothstep interp
-  return a+(b-a)*s;
-}
-
-/* ---------- moods ---------- */
-var MOODS = {
-  default:      { gold:[1.00,0.86,0.40], accent:[1.00,0.93,0.54], flow:1.00, sat:1.00, strikes:0.0, breadth:0.0, hueShift:0.0, name:"default" },
-  screener:     { gold:[0.82,0.92,0.46], accent:[0.41,0.86,0.55], flow:1.06, sat:1.05, strikes:0.0, breadth:0.0, hueShift:0.05, name:"screener" },
-  options:      { gold:[1.00,0.84,0.42], accent:[1.00,0.90,0.55], flow:0.92, sat:1.00, strikes:1.0, breadth:0.0, hueShift:0.0, name:"options" },
-  intelligence: { gold:[1.00,0.88,0.50], accent:[1.00,0.95,0.62], flow:1.02, sat:0.98, strikes:0.0, breadth:1.0, hueShift:0.0, name:"intelligence" },
-  btc:          { gold:[0.80,0.62,0.34], accent:[0.92,0.74,0.42], flow:0.86, sat:0.55, strikes:0.0, breadth:0.0, hueShift:-0.04,name:"btc" }
-};
-var MOOD_ORDER = ["default","screener","options","intelligence","btc"];
-var curMood = clone(MOODS.default);   // animated/lerped state
-var tgtMood = MOODS.default;
-function clone(m){return {gold:m.gold.slice(),accent:m.accent.slice(),flow:m.flow,sat:m.sat,strikes:m.strikes,breadth:m.breadth,hueShift:m.hueShift,name:m.name};}
-function lerp(a,b,t){return a+(b-a)*t;}
-function lerpMood(c,t,k){
-  for(var i=0;i<3;i++){c.gold[i]=lerp(c.gold[i],t.gold[i],k);c.accent[i]=lerp(c.accent[i],t.accent[i],k);}
-  c.flow=lerp(c.flow,t.flow,k); c.sat=lerp(c.sat,t.sat,k);
-  c.strikes=lerp(c.strikes,t.strikes,k); c.breadth=lerp(c.breadth,t.breadth,k);
-  c.hueShift=lerp(c.hueShift,t.hueShift,k);
-}
-
 /* ---------- environment ---------- */
 var hero = document.getElementById('hero');
-var glCanvas = document.getElementById('bg');
 var fxCanvas = document.getElementById('fx');
-var moodNameEl = document.getElementById('moodname');
 
 var reduceMotion = (window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches);
 var saveData = !!(navigator.connection && navigator.connection.saveData);
@@ -856,157 +831,8 @@ var DPR = Math.min(window.devicePixelRatio||1, 1.75);
 var W=0,H=0, CW=0, CH=0;      // CSS px and device px
 var heroRect = hero.getBoundingClientRect();
 
-/* fixed overhead light source — NO cursor reactivity (god-rays read as ambient light from above) */
-var pointer = { x:0.5, y:0.15, active:0.34 };
-
-/* perf degrade */
-var quality = 1.0;        // 1 -> full, lowered when frames run long
-var longFrames = 0;
-
-/* ---------- WebGL2 setup ---------- */
-var gl=null, prog=null, vao=null, uni={}, glOK=false;
-function tryWebGL(){
-  try{
-    gl = glCanvas.getContext('webgl2', {antialias:false, alpha:false, premultipliedAlpha:false, powerPreference:'high-performance'});
-  }catch(e){ gl=null; }
-  if(!gl) return false;
-
-  var vs = '#version 300 es\nin vec2 p; out vec2 uv; void main(){ uv=p*0.5+0.5; gl_Position=vec4(p,0.0,1.0); }';
-
-  var fs = '#version 300 es\n' +
-  'precision highp float;\n' +
-  'in vec2 uv; out vec4 frag;\n' +
-  'uniform vec2  uRes;\n' +
-  'uniform float uTime;\n' +
-  'uniform vec2  uLight;\n' +    // pointer in uv space
-  'uniform float uLightA;\n' +   // pointer activity 0..1
-  'uniform vec3  uGold;\n' +
-  'uniform vec3  uAccent;\n' +
-  'uniform float uFlow;\n' +
-  'uniform float uSat;\n' +
-  'uniform float uStrike;\n' +   // options vertical strikes
-  'uniform float uBreadth;\n' +  // intelligence secondary band
-  'uniform float uHue;\n' +
-  // hash / value-noise
-  'float hash(vec2 p){ p=fract(p*vec2(123.34,456.21)); p+=dot(p,p+45.32); return fract(p.x*p.y); }\n' +
-  'float vnoise(vec2 p){ vec2 i=floor(p), f=fract(p); vec2 u=f*f*(3.0-2.0*f);' +
-  '  float a=hash(i), b=hash(i+vec2(1,0)), c=hash(i+vec2(0,1)), d=hash(i+vec2(1,1));' +
-  '  return mix(mix(a,b,u.x),mix(c,d,u.x),u.y); }\n' +
-  'float fbm(vec2 p){ float s=0.0,a=0.5; mat2 m=mat2(1.6,1.2,-1.2,1.6);' +
-  '  for(int i=0;i<6;i++){ s+=a*vnoise(p); p=m*p; a*=0.5; } return s; }\n' +
-
-  'void main(){\n' +
-  '  vec2 res=uRes; float asp=res.x/res.y;\n' +
-  '  vec2 p=uv; vec2 q=p; q.x*=asp;\n' +
-  '  float t=uTime;\n' +
-  // ---- perspective depth coord: horizon a bit below center, ground recedes downward
-  '  float horizon=0.46;\n' +
-  '  float yb = p.y - horizon;\n' +
-  // depth value: large near bottom, →0 near horizon (perspective)
-  '  float depth = 1.0/ max(0.04, (horizon - p.y)* -1.0 );\n' +
-  // we want depth defined only below horizon; clamp
-  '  float below = step(p.y, horizon);\n' +
-  '  depth = clamp(depth,0.0,30.0);\n' +
-
-  // (volumetric haze removed by request — backdrop is the receding grid + floating motes)
-  // vertical falloff band still used by dust / strikes / breadth
-  '  float band = smoothstep(1.0,0.18,abs(p.y-0.5)*1.9);\n' +
-
-  // (god-rays removed by request — pure atmospheric haze, no directional light)
-
-  // (perspective grid removed by request — no sweeping line / no hazy brightening behind candles)
-  // ===== floating dust motes (the "dots" — kept) =====
-  '  float dust=0.0;\n' +
-  '  vec2 dp = q*7.0; dp.y += t*0.05*uFlow; dp.x += sin(t*0.2)*0.2;\n' +
-  '  vec2 dc = floor(dp); vec2 df = fract(dp)-0.5;\n' +
-  '  float dh = hash(dc);\n' +
-  '  float twk = 0.5+0.5*sin(t*1.6 + dh*30.0);\n' +
-  '  float dm = smoothstep(0.10,0.0,length(df+ (vec2(dh,fract(dh*7.0))-0.5)*0.5));\n' +
-  '  dust = dm*twk* step(0.83,dh) * band;\n' +
-
-  // ===== options strikes (faint vertical lines) =====
-  '  float strikes=0.0;\n' +
-  '  if(uStrike>0.001){\n' +
-  '    float sx = abs(fract(p.x*9.0 + 0.0)-0.5);\n' +
-  '    strikes = smoothstep(0.018,0.0,sx) * band * uStrike *0.30;\n' +
-  '  }\n' +
-
-  // ===== intelligence breadth band (secondary horizontal glow line) =====
-  '  float breadth=0.0;\n' +
-  '  if(uBreadth>0.001){\n' +
-  '    float by = 0.40 + 0.06*sin(p.x*6.2831 + t*0.3) + 0.03*fbm(vec2(p.x*4.0,t*0.1));\n' +
-  '    breadth = smoothstep(0.045,0.0,abs(p.y-by)) * uBreadth*0.5;\n' +
-  '  }\n' +
-
-  // ===== compose intensity (no haze, no directional light, no rays) =====
-  '  float energy = dust*1.6 + strikes + breadth;\n' +
-
-  // ===== color: gold-on-black, hot core toward accent =====
-  '  vec3 col = uGold * energy;\n' +
-  '  float hot = smoothstep(0.55,1.3,energy);\n' +
-  '  col = mix(col, uAccent, hot*0.7);\n' +
-  // subtle hue trim per mood
-  '  col.r += uHue; col.b -= uHue*0.5;\n' +
-  // desaturate toward luminance by (1-uSat)
-  '  float lum = dot(col, vec3(0.299,0.587,0.114));\n' +
-  '  col = mix(vec3(lum), col, clamp(uSat,0.0,1.4));\n' +
-
-  // gentle vignette baked (canvas scrim does the heavy lifting)
-  '  float vig = smoothstep(1.25,0.35,length((p-0.5)*vec2(asp,1.0)));\n' +
-  '  col *= 0.55+0.45*vig;\n' +
-
-  // filmic-ish soft clamp + tiny dither to kill banding
-  '  col = col/(col+vec3(0.85));\n' +
-  '  col += (hash(p*res+t)-0.5)/255.0;\n' +
-  '  frag = vec4(max(col,0.0),1.0);\n' +
-  '}\n';
-
-  function sh(type,src){ var s=gl.createShader(type); gl.shaderSource(s,src); gl.compileShader(s);
-    if(!gl.getShaderParameter(s,gl.COMPILE_STATUS)){ console.warn('shader',gl.getShaderInfoLog(s)); return null;} return s; }
-  var v=sh(gl.VERTEX_SHADER,vs), f=sh(gl.FRAGMENT_SHADER,fs);
-  if(!v||!f) return false;
-  prog=gl.createProgram(); gl.attachShader(prog,v); gl.attachShader(prog,f); gl.linkProgram(prog);
-  if(!gl.getProgramParameter(prog,gl.LINK_STATUS)){ console.warn('link',gl.getProgramInfoLog(prog)); return false; }
-  gl.useProgram(prog);
-
-  var quad=new Float32Array([-1,-1, 3,-1, -1,3]);
-  vao=gl.createVertexArray(); gl.bindVertexArray(vao);
-  var buf=gl.createBuffer(); gl.bindBuffer(gl.ARRAY_BUFFER,buf);
-  gl.bufferData(gl.ARRAY_BUFFER,quad,gl.STATIC_DRAW);
-  var loc=gl.getAttribLocation(prog,'p'); gl.enableVertexAttribArray(loc);
-  gl.vertexAttribPointer(loc,2,gl.FLOAT,false,0,0);
-
-  ['uRes','uTime','uLight','uLightA','uGold','uAccent','uFlow','uSat','uStrike','uBreadth','uHue']
-    .forEach(function(n){ uni[n]=gl.getUniformLocation(prog,n); });
-  glOK=true;
-  return true;
-}
-
 /* ---------- Canvas 2D FX layer (price line + comet, composited on top) ---------- */
 var fx = fxCanvas.getContext('2d');
-var cometSprite=null, dotSprite=null;
-function bakeSprites(){
-  // comet bloom sprite
-  var s=128, c=document.createElement('canvas'); c.width=c.height=s;
-  var x=c.getContext('2d');
-  var g=x.createRadialGradient(s/2,s/2,0,s/2,s/2,s/2);
-  g.addColorStop(0,'rgba(255,243,200,0.95)');
-  g.addColorStop(0.25,'rgba(255,222,140,0.55)');
-  g.addColorStop(0.6,'rgba(204,177,103,0.18)');
-  g.addColorStop(1,'rgba(204,177,103,0)');
-  x.fillStyle=g; x.fillRect(0,0,s,s);
-  cometSprite=c;
-  // small dot sprite for markers
-  var s2=48, c2=document.createElement('canvas'); c2.width=c2.height=s2;
-  var x2=c2.getContext('2d');
-  var g2=x2.createRadialGradient(s2/2,s2/2,0,s2/2,s2/2,s2/2);
-  g2.addColorStop(0,'rgba(255,235,170,0.9)');
-  g2.addColorStop(0.5,'rgba(204,177,103,0.30)');
-  g2.addColorStop(1,'rgba(204,177,103,0)');
-  x2.fillStyle=g2; x2.fillRect(0,0,s2,s2);
-  dotSprite=c2;
-}
-
 /* ---------- live candlestick chart (forms in real time, scrolls left) ---------- */
 var chart = { c:[], price:0.5, target:0.5, acc:0, PERIOD:1500, sx:0, slot:26, bw:14, N:24, bandTop:0, bandH:0 };
 function ampV(v){ v = 0.5 + (v-0.5)*1.55; return v<0.03?0.03:(v>0.97?0.97:v); }  // stretch deviations so candles have body
@@ -1056,16 +882,12 @@ function resize(){
   CH = Math.max(1, Math.round(heroRect.height));
   W = Math.round(CW*DPR); H = Math.round(CH*DPR);
 
-  glCanvas.width=W; glCanvas.height=H;
-  glCanvas.style.width=CW+'px'; glCanvas.style.height=CH+'px';
   fxCanvas.width=W; fxCanvas.height=H;
   fxCanvas.style.width=CW+'px'; fxCanvas.style.height=CH+'px';
 
-  if(glOK){ gl.viewport(0,0,W,H); }
   fx.setTransform(DPR,0,0,DPR,0,0);                 // draw in CSS px
   chartResize();
-  bakeSprites();
-  if(STATIC){ renderGL(0.0); drawCandles(0.0); }     // single static frame
+  if(STATIC){ drawCandles(0.0); }                    // single static frame
 }
 var resizeTimer=null;
 function onResize(){ clearTimeout(resizeTimer); resizeTimer=setTimeout(resize,150); }
@@ -1110,9 +932,6 @@ function drawCrosshair(){
   fx.restore();
 }
 
-/* ---------- mood control ---------- */
-/* mood is driven by the page's FT._target (set by tile hover) — read each frame in frame() */
-
 /* ---------- draw FX (live candlesticks scrolling left, glowing forming edge) ---------- */
 function drawCandles(time){
   fx.clearRect(0,0,CW,CH);
@@ -1154,81 +973,8 @@ function drawCandles(time){
   drawCrosshair();
 }
 
-/* ---------- render GL ---------- */
-function renderGL(timeSec){
-  if(!glOK) return;
-  gl.useProgram(prog); gl.bindVertexArray(vao);
-  gl.uniform2f(uni.uRes, W, H);
-  gl.uniform1f(uni.uTime, timeSec);
-  gl.uniform2f(uni.uLight, pointer.x, 1.0-pointer.y);   // flip y for uv space
-  gl.uniform1f(uni.uLightA, pointer.active);
-  var m=curMood;
-  gl.uniform3f(uni.uGold, m.gold[0],m.gold[1],m.gold[2]);
-  gl.uniform3f(uni.uAccent, m.accent[0],m.accent[1],m.accent[2]);
-  gl.uniform1f(uni.uFlow, m.flow*quality);
-  gl.uniform1f(uni.uSat, m.sat);
-  gl.uniform1f(uni.uStrike, m.strikes);
-  gl.uniform1f(uni.uBreadth, m.breadth);
-  gl.uniform1f(uni.uHue, m.hueShift);
-  gl.drawArrays(gl.TRIANGLES,0,3);
-}
-
-/* ---------- Canvas-2D fallback nebula (no WebGL2) ---------- */
-var fbCanvas=null, fb=null, fbSprite=null;
-function setupFallback(){
-  fbCanvas=document.createElement('canvas');
-  fbCanvas.style.cssText='position:absolute;inset:0;width:100%;height:100%;display:block;';
-  glCanvas.parentNode.replaceChild(fbCanvas, glCanvas);
-  fb=fbCanvas.getContext('2d');
-  // bake a soft haze blob sprite
-  var s=256,c=document.createElement('canvas');c.width=c.height=s;
-  var x=c.getContext('2d');
-  var g=x.createRadialGradient(s/2,s/2,0,s/2,s/2,s/2);
-  g.addColorStop(0,'rgba(204,177,103,0.5)');
-  g.addColorStop(0.5,'rgba(204,177,103,0.14)');
-  g.addColorStop(1,'rgba(204,177,103,0)');
-  x.fillStyle=g;x.fillRect(0,0,s,s);
-  fbSprite=c;
-}
-var fbBlobs=[];
-function fbBuild(){
-  fbBlobs.length=0;
-  for(var i=0;i<26;i++){
-    fbBlobs.push({x:rnd(),y:0.2+rnd()*0.6,r:0.18+rnd()*0.4,sp:0.2+rnd()*0.8,ph:rnd()*6.28,dz:rnd()});
-  }
-}
-function fbResize(){
-  heroRect=hero.getBoundingClientRect();
-  CW=Math.round(heroRect.width); CH=Math.round(heroRect.height);
-  W=Math.round(CW*DPR);H=Math.round(CH*DPR);
-  fbCanvas.width=W;fbCanvas.height=H;fbCanvas.style.width=CW+'px';fbCanvas.style.height=CH+'px';
-  fb.setTransform(DPR,0,0,DPR,0,0);
-}
-function fbRender(timeSec){
-  var m=curMood;
-  fb.setTransform(DPR,0,0,DPR,0,0);
-  fb.globalCompositeOperation='source-over';
-  fb.fillStyle='#000'; fb.fillRect(0,0,CW,CH);
-  fb.globalCompositeOperation='lighter';
-  for(var i=0;i<fbBlobs.length;i++){
-    var bl=fbBlobs[i];
-    var bx=(bl.x + Math.sin(timeSec*0.05*bl.sp*m.flow+bl.ph)*0.06)*CW;
-    var by=(bl.y + Math.cos(timeSec*0.04*bl.sp+bl.ph)*0.04)*CH;
-    var sz=bl.r*CW*(0.5+bl.dz);
-    fb.globalAlpha=(0.10+0.16*bl.dz)*(0.7+0.3*Math.sin(timeSec*0.5+bl.ph));
-    fb.drawImage(fbSprite,bx-sz/2,by-sz/2,sz,sz);
-  }
-  // gold/mood tint wash
-  fb.globalAlpha=1;
-  fb.globalCompositeOperation='multiply';
-  fb.fillStyle='rgba('+Math.round(m.gold[0]*255)+','+Math.round(m.gold[1]*255)+','+Math.round(m.gold[2]*255)+',1)';
-  fb.fillRect(0,0,CW,CH);
-  fb.globalCompositeOperation='source-over';
-}
-
 /* ---------- main loop ---------- */
-var startT=performance.now();
-var lastT=startT;
+var lastT=performance.now();
 var visible=true, hidden=false, running=false;
 
 function frame(now){
@@ -1238,22 +984,6 @@ function frame(now){
   if(dt<32){ requestAnimationFrame(frame); return; }
   lastT=now;
 
-  // degrade if frames run long repeatedly
-  if(dt>90){ longFrames++; if(longFrames>10 && quality>0.45){ quality-=0.12; longFrames=0; } }
-  else if(longFrames>0){ longFrames--; }
-
-  var timeSec=(now-startT)/1000;
-
-  // mood from the page (tile hover sets FT._target); fall back to default
-  var _ftm = (window.FT && window.FT._target) ? MOODS[window.FT._target] : null; if(_ftm) tgtMood=_ftm;
-  // mood lerp (smooth)
-  lerpMood(curMood, tgtMood, 0.045);
-  curMood.name=tgtMood.name;
-
-  // (light is fixed overhead — no pointer easing)
-
-  if(glOK){ renderGL(timeSec); }
-  else if(fb){ fbRender(timeSec); }
   if(!STATIC){ chartAdvance(dt); }
   drawCandles(now);
 
@@ -1274,14 +1004,10 @@ if('IntersectionObserver' in window){
   io.observe(hero);
 }
 
-/* moods come from the page's tile hover via FT._target — no auto-cycle */
-
-/* ---------- boot (deep black background — no WebGL; live candles + crosshair on fx) ---------- */
+/* ---------- boot ---------- */
 resize();
 if(STATIC){ drawCandles(0); }
 else { start(); }
-
-if(chart.c.length===0){ chartResize(); }
 
 })();
 
@@ -1348,20 +1074,6 @@ if(chart.c.length===0){ chartResize(); }
         setRole(host,"ax-bias",bias);
         var bEl=host.querySelector('[data-role="ax-bias"]'); if(bEl) bEl.className="ind-bias "+bias.toLowerCase();
       }
-      function setIntel(){
-        var t=tail(20); var ups=0; for(var i=1;i<t.length;i++){ if(t[i]>=t[i-1])ups++; }
-        var ratio=ups/(t.length-1);
-        var deg=(ratio-0.5)*150;
-        var needle=document.getElementById("needle"); if(needle) needle.style.transform="rotate("+deg+"deg)";
-        var fill=document.getElementById("breadthFill"); if(fill) fill.style.width=Math.round(ratio*100)+"%";
-        var lab=document.getElementById("fgLabel"); if(lab) lab.textContent = ratio>0.62?"Greed":(ratio<0.4?"Fear":"Neutral");
-      }
-      function sweepIntel(){
-        var needle=document.getElementById("needle"); if(!needle){ setIntel(); return; }
-        if(STATIC){ setIntel(); return; }
-        needle.style.transition="none"; needle.style.transform="rotate(-80deg)";
-        requestAnimationFrame(function(){ requestAnimationFrame(function(){ needle.style.transition=""; setIntel(); }); });
-      }
       var flowPool=[
         {t:'Someone bought <b>400 calls</b>, leaning bullish', c:'bull', s:72},
         {t:'Sweep on <b>NVDA</b>, just above the ask', c:'', s:64},
@@ -1384,7 +1096,10 @@ if(chart.c.length===0){ chartResize(); }
         if(fill){ fill.style.width="50%"; setTimeout(function(){ fill.style.width=s+"%"; },600); }
       }
 
-      buildScreener(); buildIndicators(); setIntel(); setTimeout(playOptions, 450);
+      buildScreener(); buildIndicators(); setTimeout(playOptions, 450);
+
+      // stagger delays for the offer's included-tools reveal (DOM order across the three columns)
+      document.querySelectorAll(".incl li").forEach(function(li,i){ li.style.setProperty("--ld",(i*60)+"ms"); });
 
       // Keep the shared demo tape alive so the cards' bars + levels drift like a live market.
       // The old WebGL backdrop advanced FT.series every tick; the candle backdrop that replaced
@@ -1397,10 +1112,10 @@ if(chart.c.length===0){ chartResize(); }
       startTape();
 
       document.querySelectorAll(".card").forEach(function(card){
-        var mood=card.getAttribute("data-mood"), demo=card.getAttribute("data-demo");
+        var demo=card.getAttribute("data-demo");
         // Nudge the tape on hover so the bars + levels visibly change every time the pointer lands.
-        function on(){ if(!STATIC){ pushPoint(); pushPoint(); pushPoint(); } FT.setMood(mood); FT.setFocus(card); if(demo==="screener")buildScreener(); else if(demo==="options")playOptions(); else if(demo==="intelligence")sweepIntel(); else if(demo==="indicators")buildIndicators(); }
-        function off(){ FT.setMood(null); FT.clearFocus(); }
+        function on(){ if(!STATIC){ pushPoint(); pushPoint(); pushPoint(); } FT.setFocus(card); if(demo==="screener")buildScreener(); else if(demo==="options")playOptions(); else if(demo==="indicators")buildIndicators(); }
+        function off(){ FT.clearFocus(); }
         card.addEventListener("mouseenter",on); card.addEventListener("mouseleave",off);
         card.addEventListener("focusin",on); card.addEventListener("focusout",off);
       });
@@ -1408,30 +1123,41 @@ if(chart.c.length===0){ chartResize(); }
       if(coarse && "IntersectionObserver" in window){
         document.querySelectorAll(".card").forEach(function(card){
           var demo=card.getAttribute("data-demo");
-          var io=new IntersectionObserver(function(es){ es.forEach(function(e){ if(e.isIntersecting){ FT.setMood(card.getAttribute("data-mood")); FT.setFocus(card); if(demo==="options")playOptions(); else if(demo==="screener")buildScreener(); else if(demo==="intelligence")sweepIntel(); else if(demo==="indicators")buildIndicators(); setTimeout(function(){ FT.setMood(null); FT.clearFocus(); }, 1300); io.disconnect(); } }); },{threshold:0.5});
+          var io=new IntersectionObserver(function(es){ es.forEach(function(e){ if(e.isIntersecting){ FT.setFocus(card); if(demo==="options")playOptions(); else if(demo==="screener")buildScreener(); else if(demo==="indicators")buildIndicators(); setTimeout(function(){ FT.clearFocus(); }, 1300); io.disconnect(); } }); },{threshold:0.5});
           io.observe(card);
         });
       }
 
       // ───── cursor glow + 3D tilt (pointer:fine) ─────
-      // One rAF per move sets the glow position (--mx/--my) AND leans the tile toward the cursor.
-      // A short transform transition gives it a weighted, premium follow; the tile settles back on leave.
+      // A persistent per-card rAF lerp loop eases the tilt toward the cursor every frame
+      // (no CSS transition stepping between move events), then settles the tile back to
+      // rest on leave and releases the inline transform so stylesheet states take over.
       if(fine && !STATIC){
-        var TILT_TR = "transform 0.13s var(--ease), border-color var(--dur-mid) var(--ease), box-shadow var(--dur-mid) var(--ease)";
         document.querySelectorAll(".card").forEach(function(card){
-          var raf=null;
-          card.addEventListener("pointerenter",function(){ card.style.transition=TILT_TR; });
+          var raf=null, leaving=false;
+          var cur={rx:0,ry:0,ty:0}, tgt={rx:0,ry:0,ty:0};
+          function loop(){
+            var k=0.18;
+            cur.rx+=(tgt.rx-cur.rx)*k; cur.ry+=(tgt.ry-cur.ry)*k; cur.ty+=(tgt.ty-cur.ty)*k;
+            card.style.transform="perspective(900px) rotateX("+cur.rx.toFixed(3)+"deg) rotateY("+cur.ry.toFixed(3)+"deg) translateY("+cur.ty.toFixed(2)+"px)";
+            var settled=Math.abs(cur.rx-tgt.rx)<0.02 && Math.abs(cur.ry-tgt.ry)<0.02 && Math.abs(cur.ty-tgt.ty)<0.06;
+            if(settled && leaving){ card.style.transform=""; card.style.transition=""; cur.rx=cur.ry=cur.ty=0; raf=null; leaving=false; return; }
+            raf=requestAnimationFrame(loop);
+          }
+          function run(){ if(!raf) raf=requestAnimationFrame(loop); }
+          card.addEventListener("pointerenter",function(){
+            leaving=false;
+            // transform is owned by the loop; keep border/shadow on their CSS transitions
+            card.style.transition="border-color var(--dur-mid) var(--ease), box-shadow var(--dur-mid) var(--ease)";
+            tgt.ty=-5; run();
+          });
           card.addEventListener("pointermove",function(e){
             var r=card.getBoundingClientRect();
             var px=(e.clientX-r.left)/r.width, py=(e.clientY-r.top)/r.height;
-            if(raf)cancelAnimationFrame(raf);
-            raf=requestAnimationFrame(function(){
-              card.style.setProperty("--mx",(px*100)+"%"); card.style.setProperty("--my",(py*100)+"%");
-              var rx=((py-0.5)*7).toFixed(2), ry=((0.5-px)*9).toFixed(2);
-              card.style.transform="perspective(900px) rotateX("+rx+"deg) rotateY("+ry+"deg) translateY(-5px)";
-            });
+            card.style.setProperty("--mx",(px*100)+"%"); card.style.setProperty("--my",(py*100)+"%");
+            tgt.rx=(py-0.5)*7; tgt.ry=(0.5-px)*9; run();
           });
-          card.addEventListener("pointerleave",function(){ if(raf){cancelAnimationFrame(raf);raf=null;} card.style.transition=""; card.style.transform=""; });
+          card.addEventListener("pointerleave",function(){ tgt.rx=0; tgt.ry=0; tgt.ty=0; leaving=true; run(); });
         });
       }
 
@@ -1481,13 +1207,16 @@ if(chart.c.length===0){ chartResize(); }
       }
 
       // ───── magnetic CTA ─────
+      // The magnet translate lives on the WRAPPER so the button's own transform stays
+      // free for the :active press dip (an inline transform would override it).
       (function magnet(){
         var btn=document.getElementById("ctaBtn"); if(!btn)return;
         if(STATIC||!fine){ return; }
-        var cx=0,cy=0,tx=0,ty=0,raf=null,active=false;
+        var wrap=btn.closest(".magnet-wrap")||btn.parentNode;
+        var cx=0,cy=0,tx=0,ty=0,active=false;
         btn.addEventListener("pointermove",function(e){ var r=btn.getBoundingClientRect(); tx=Math.max(-12,Math.min(12,(e.clientX-(r.left+r.width/2))*0.25)); ty=Math.max(-10,Math.min(10,(e.clientY-(r.top+r.height/2))*0.35)); if(!active){active=true;loop();} });
         btn.addEventListener("pointerleave",function(){ tx=0;ty=0; if(!active){active=true;loop();} });
-        function loop(){ cx+=(tx-cx)*0.15; cy+=(ty-cy)*0.15; btn.style.transform="translate("+cx+"px,"+cy+"px)"; if(Math.abs(cx-tx)>0.2||Math.abs(cy-ty)>0.2){ raf=requestAnimationFrame(loop); } else { btn.style.transform="translate("+tx+"px,"+ty+"px)"; active=false; } }
+        function loop(){ cx+=(tx-cx)*0.15; cy+=(ty-cy)*0.15; wrap.style.transform="translate("+cx.toFixed(2)+"px,"+cy.toFixed(2)+"px)"; if(Math.abs(cx-tx)>0.2||Math.abs(cy-ty)>0.2){ requestAnimationFrame(loop); } else { wrap.style.transform=(tx===0&&ty===0)?"":"translate("+tx+"px,"+ty+"px)"; active=false; } }
       })();
     })();
     </script>
