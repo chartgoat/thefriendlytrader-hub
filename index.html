@@ -186,12 +186,17 @@
         transform-style: preserve-3d;
         transition: transform var(--dur-mid) var(--ease-reveal), border-color var(--dur-mid) var(--ease), box-shadow var(--dur-mid) var(--ease);
       }
+      /* Cursor edge-light: a gold light travels the card's 1px border, tracking the cursor.
+         The light lives on the chrome, the data lives inside - no fog over the content. */
       .card::before {
-        content: ""; position: absolute; inset: 0; z-index: 0; pointer-events: none; opacity: 0;
-        background: radial-gradient(220px circle at var(--mx, 50%) var(--my, 0%), var(--gold-glow), transparent 60%);
+        content: ""; position: absolute; inset: 0; z-index: 1; pointer-events: none; opacity: 0;
+        border-radius: inherit; padding: 1px;
+        background: radial-gradient(210px circle at var(--mx, 50%) var(--my, 0%), rgba(255,234,138,0.95), rgba(204,177,103,0.4) 45%, transparent 72%);
+        -webkit-mask: linear-gradient(#000 0 0) content-box, linear-gradient(#000 0 0);
+        -webkit-mask-composite: xor; mask: linear-gradient(#000 0 0) content-box, linear-gradient(#000 0 0); mask-composite: exclude;
         transition: opacity var(--dur-mid) var(--ease);
       }
-      .card:hover, .card:focus-within { border-color: var(--border-gold); box-shadow: 0 22px 60px rgba(0,0,0,0.55); transform: translateY(-4px); }
+      .card:hover, .card:focus-within { border-color: rgba(204,177,103,0.28); box-shadow: 0 22px 60px rgba(0,0,0,0.55); transform: translateY(-4px); }
       .card:hover::before, .card:focus-within::before { opacity: 1; }
       .card.flagship { grid-row: span 2; }
       .card.flagship::after {
@@ -382,6 +387,14 @@
       .upsell:active { border-color: var(--border-gold); transform: scale(0.988); }
       .upsell:focus-visible { outline: 2px solid var(--gold); outline-offset: 3px; }
       .upsell::after { content: ""; position: absolute; inset: 0; border-radius: inherit; pointer-events: none; box-shadow: inset 0 0 0 1px rgba(204,177,103,0.12), inset 0 1px 0 rgba(255,255,255,0.04); }
+      /* same cursor edge-light language as the tool tiles */
+      .upsell::before { content: ""; position: absolute; inset: 0; z-index: 0; pointer-events: none; opacity: 0;
+        border-radius: inherit; padding: 1px;
+        background: radial-gradient(260px circle at var(--mx, 50%) var(--my, 50%), rgba(255,234,138,0.9), rgba(204,177,103,0.35) 45%, transparent 72%);
+        -webkit-mask: linear-gradient(#000 0 0) content-box, linear-gradient(#000 0 0);
+        -webkit-mask-composite: xor; mask: linear-gradient(#000 0 0) content-box, linear-gradient(#000 0 0); mask-composite: exclude;
+        transition: opacity var(--dur-mid) var(--ease); }
+      .upsell:hover::before, .upsell:focus-visible::before { opacity: 1; }
       .upsell-cta { flex: none; display: inline-flex; align-items: center; gap: 5px; font-size: 12.5px; font-weight: 700; letter-spacing: 0.02em; color: var(--gold-bright); }
       .upsell-cta svg { width: 15px; height: 15px; transition: transform 180ms var(--ease); }
       .upsell:hover .upsell-cta svg { transform: translateX(3px); }
@@ -553,7 +566,7 @@
                   <p class="card-blurb">Pick cleaner contracts, analyze the trade, and read the options flow in plain English.</p>
                 </div>
                 <div class="card-foot">
-                  <span class="card-cta">Analyze an options trade <span class="arr" aria-hidden="true">→</span></span>
+                  <span class="card-cta">Analyze a trade <span class="arr" aria-hidden="true">→</span></span>
                   <span class="card-host">thefriendlytrader.com/options</span>
                 </div>
               </div>
@@ -758,6 +771,11 @@
           <svg class="mark" viewBox="0 0 32 32" aria-hidden="true"><rect width="32" height="32" rx="8" fill="#050505"/><path d="M6 22 L13 15 L18 19 L26 9" fill="none" stroke="#ccb167" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/><circle cx="26" cy="9" r="2.6" fill="#ffff8a"/></svg>
           <span class="wordmark"><span class="g">Friendly</span> Trader</span>
         </a>
+        <p class="foot-links">
+          <a href="https://friendlyscreener.com" rel="noopener">The Screener</a>
+          <span class="sep">·</span><a href="/options" rel="noopener">Friendly Options</a>
+          <span class="sep">·</span><a href="https://leaderboard.stockswithjosh.com" rel="noopener">Trade Tracker</a>
+        </p>
         <p class="foot-links">
           Educational, not financial advice.
           <span class="sep">·</span><a href="/faq/">FAQ</a>
@@ -1196,6 +1214,15 @@ else { start(); }
           });
           card.addEventListener("pointerleave",function(){ tgt.rx=0; tgt.ry=0; tgt.ty=0; leaving=true; run(); });
         });
+        // the Trader-Tier upsell shares the edge-light (no tilt - it's a wide, quiet card)
+        var upsellEl=document.querySelector(".upsell");
+        if(upsellEl){
+          upsellEl.addEventListener("pointermove",function(e){
+            var r=upsellEl.getBoundingClientRect();
+            upsellEl.style.setProperty("--mx",((e.clientX-r.left)/r.width*100)+"%");
+            upsellEl.style.setProperty("--my",((e.clientY-r.top)/r.height*100)+"%");
+          });
+        }
       }
 
       // ───── count-up (proof stats) ─────
