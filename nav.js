@@ -148,7 +148,7 @@
     var host = document.createElement("div");
     host.setAttribute("data-ft-nav", "");
     host.style.cssText =
-      "position:fixed;top:16px;right:16px;z-index:2147483647;font-family:ui-monospace,SFMono-Regular,Menlo,monospace;";
+      "position:fixed;top:16px;right:16px;z-index:49;font-family:ui-monospace,SFMono-Regular,Menlo,monospace;";
     var root = host.attachShadow ? host.attachShadow({ mode: "open" }) : host;
 
     var style = document.createElement("style");
