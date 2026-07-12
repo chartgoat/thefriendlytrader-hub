@@ -115,7 +115,7 @@
       .bar-nav a { font-size: 13.5px; font-weight: 500; color: var(--body); transition: color var(--dur-fast) var(--ease); }
       .bar-nav a:hover { color: var(--gold-hi); }
       .bar-nav a:focus-visible { outline: 2px solid var(--gold); outline-offset: 3px; border-radius: 4px; }
-      #tools, #join { scroll-margin-top: 92px; }
+      #tools, #join, #faq { scroll-margin-top: 92px; }
 
       /* ───── Ticker tape ───── */
       .ticker { overflow: hidden; border-bottom: 1px solid var(--border); background: rgba(5,5,5,0.4); }
@@ -415,6 +415,21 @@
       .upsell-foot { margin: 16px auto 0; max-width: 540px; font-size: 12.5px; color: var(--muted); }
 
       /* ───── Footer ───── */
+      /* ───── On-page FAQ: keeps the doorway sealed - answers live here, not on the main site ───── */
+      .faq { padding: 8px 24px 104px; }
+      .faq-inner { max-width: 720px; margin: 0 auto; }
+      .faq-inner > .eyebrow, .faq-inner > h2 { text-align: center; }
+      .faq h2 { font-family: var(--font-display); font-weight: 800; font-size: clamp(28px, 4.2vw, 42px); margin: 8px 0 26px; letter-spacing: -0.03em; }
+      .faq details { border: 1px solid var(--border); border-radius: var(--radius); background: var(--surface-2); margin: 0 0 10px; overflow: hidden; transition: border-color var(--dur-fast) var(--ease); }
+      .faq details[open], .faq details:hover { border-color: rgba(204,177,103,0.32); }
+      .faq summary { list-style: none; cursor: pointer; display: flex; align-items: center; justify-content: space-between; gap: 14px; padding: 16px 18px; font-size: 15px; font-weight: 600; color: var(--text); }
+      .faq summary::-webkit-details-marker { display: none; }
+      .faq summary:focus-visible { outline: 2px solid var(--gold); outline-offset: -2px; border-radius: var(--radius); }
+      .faq summary .plus { flex: none; width: 18px; height: 18px; color: var(--gold); transition: transform 0.3s var(--spring); }
+      .faq details[open] summary .plus { transform: rotate(45deg); }
+      .faq .faq-a { padding: 0 18px 16px; font-size: 14.5px; line-height: 1.65; color: var(--body); max-width: 68ch; }
+      .faq .faq-a b { color: var(--text); }
+
       footer { border-top: 1px solid var(--border); background: var(--surface-1); padding: 48px 24px calc(48px + env(safe-area-inset-bottom)); text-align: center; color: var(--muted); font-size: 12.5px; }
       .foot-inner { max-width: 1140px; margin: 0 auto; display: flex; flex-direction: column; align-items: center; gap: 14px; }
       .foot-brand { opacity: 0.92; }
@@ -499,14 +514,14 @@
   <body>
     <div class="bar-wrap">
       <header class="bar">
-        <a class="brand" href="/" aria-label="Friendly Trader home">
+        <a class="brand" href="#hero" aria-label="Back to top">
           <svg class="mark" viewBox="0 0 32 32" aria-hidden="true"><rect width="32" height="32" rx="8" fill="#050505"/><path class="tick" d="M6 22 L13 15 L18 19 L26 9" fill="none" stroke="#ccb167" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/><circle cx="26" cy="9" r="2.6" fill="#ffff8a"/></svg>
           <span class="wordmark"><span class="g">Friendly</span> Trader</span>
         </a>
         <nav class="bar-nav" aria-label="Page">
           <a href="#tools">Tools</a>
           <a href="#join">Pricing</a>
-          <a href="/faq/">FAQ</a>
+          <a href="#faq">FAQ</a>
         </nav>
         <a class="pill" href="https://whop.com/checkout/plan_qPuvfVGzKgEPW/?session=ch_1Lq53Y8w31UvXSC" rel="noopener">
           <svg class="lock-ico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="5" y="11" width="14" height="9" rx="2"/><path class="shackle" d="M8 11V7a4 4 0 0 1 8 0v4"/></svg>
@@ -548,7 +563,7 @@
           <div class="bento" id="tools">
             <!-- Flagship: The Screener -->
             <article class="card flagship" data-demo="screener">
-              <a class="card-link" href="https://friendlyscreener.com" rel="noopener" aria-label="Open The Screener"></a>
+              <a class="card-link" href="#join" aria-label="The Screener, included with membership"></a>
               <div class="inner">
                 <div class="demo">
                   <div class="scr" id="scrDemo"></div>
@@ -561,15 +576,14 @@
                   <p class="card-blurb">Daily setups, graded A to D so you know what is worth a look in seconds.</p>
                 </div>
                 <div class="card-foot">
-                  <span class="card-cta">Open the Screener <span class="arr" aria-hidden="true">→</span></span>
-                  <span class="card-host">friendlyscreener.com</span>
+                  <span class="card-cta">Included with membership <span class="arr" aria-hidden="true">→</span></span>
                 </div>
               </div>
             </article>
 
             <!-- Friendly Options -->
             <article class="card" data-demo="options">
-              <a class="card-link" href="https://thefriendlytrader.com/options" rel="noopener" aria-label="Open Friendly Options"></a>
+              <a class="card-link" href="#join" aria-label="Friendly Options, included with membership"></a>
               <div class="inner">
                 <div class="demo">
                   <div class="flow" id="flowDemo">
@@ -586,15 +600,14 @@
                   <p class="card-blurb">Pick cleaner contracts, analyze the trade, and read the options flow in plain English.</p>
                 </div>
                 <div class="card-foot">
-                  <span class="card-cta">Analyze a trade <span class="arr" aria-hidden="true">→</span></span>
-                  <span class="card-host">thefriendlytrader.com/options</span>
+                  <span class="card-cta">Included with membership <span class="arr" aria-hidden="true">→</span></span>
                 </div>
               </div>
             </article>
 
             <!-- Discord Trade Tracker -->
             <article class="card">
-              <a class="card-link" href="https://leaderboard.stockswithjosh.com" rel="noopener" aria-label="Open the Discord Trade Tracker"></a>
+              <a class="card-link" href="#join" aria-label="Trade Tracker, included with membership"></a>
               <div class="inner">
                 <div class="demo">
                   <div class="track">
@@ -611,7 +624,7 @@
                   <p class="card-blurb">Track every entry, scale-in, and exit as the alerts post live.</p>
                 </div>
                 <div class="card-foot">
-                  <span class="card-cta">Open the tracker <span class="arr" aria-hidden="true">→</span></span>
+                  <span class="card-cta">Included with membership <span class="arr" aria-hidden="true">→</span></span>
                 </div>
               </div>
             </article>
@@ -643,7 +656,7 @@
                 </div>
                 <div class="card-foot">
                   <span class="chip-soon">Coming soon</span>
-                  <span class="card-host">friendly-trader.com</span>
+                  
                 </div>
               </div>
             </article>
@@ -670,7 +683,7 @@
                 </div>
                 <div class="card-foot">
                   <span class="chip-soon">Coming soon</span>
-                  <span class="card-host">btc.friendlytrader.com</span>
+                  
                 </div>
               </div>
             </article>
@@ -749,7 +762,6 @@
               <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12.5l4.2 4.2L19 7"/></svg>Discord Trade Tracker</li>
             </ul>
             <ul>
-              <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12.5l4.2 4.2L19 7"/></svg>Community access</li>
               <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12.5l4.2 4.2L19 7"/></svg>BTC Edge<span class="soon-tag">soon</span></li>
               <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12.5l4.2 4.2L19 7"/></svg>Friendly Intelligence<span class="soon-tag">soon</span></li>
             </ul>
@@ -771,23 +783,53 @@
 
         </div>
       </section>
+
+      <!-- FAQ: Kenan and the tools only. No exits. -->
+      <section class="faq" id="faq" aria-labelledby="faq-h">
+        <div class="faq-inner">
+          <p class="eyebrow">Questions, answered</p>
+          <h2 id="faq-h">Before you join</h2>
+          <details>
+            <summary>Does joining here count for Kenan? <svg class="plus" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" aria-hidden="true"><path d="M12 5v14M5 12h14"/></svg></summary>
+            <p class="faq-a">Yes. This page checks out through <b>Kenan&rsquo;s link automatically</b>. There is no code to enter and nothing extra to do. If you buy here, it counts.</p>
+          </details>
+          <details>
+            <summary>What exactly am I getting? <svg class="plus" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" aria-hidden="true"><path d="M12 5v14M5 12h14"/></svg></summary>
+            <p class="faq-a">One membership that unlocks every Friendly Trader tool: <b>The Screener</b> (daily stock setups, graded A to D), <b>Friendly Options</b> (plain-English options help), the <b>live Trade Tracker</b>, and four TradingView indicators. New tools are added to the same membership as they launch.</p>
+          </details>
+          <details>
+            <summary>How much does it cost? <svg class="plus" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" aria-hidden="true"><path d="M12 5v14M5 12h14"/></svg></summary>
+            <p class="faq-a"><b>$79.99 a month.</b> One price, every tool. Cancel anytime, no contracts.</p>
+          </details>
+          <details>
+            <summary>I am new to trading. Is this for me? <svg class="plus" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" aria-hidden="true"><path d="M12 5v14M5 12h14"/></svg></summary>
+            <p class="faq-a">Yes. Every tool is built to make sense on day one: plain English instead of jargon, dollar amounts before percentages, and each screen tells you what it means, not just the numbers.</p>
+          </details>
+          <details>
+            <summary>How do I open the tools after I join? <svg class="plus" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" aria-hidden="true"><path d="M12 5v14M5 12h14"/></svg></summary>
+            <p class="faq-a">Right after checkout, open any tool and click <b>Continue with Whop</b>. The account you just created unlocks everything with one login.</p>
+          </details>
+          <details>
+            <summary>Is this financial advice? <svg class="plus" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" aria-hidden="true"><path d="M12 5v14M5 12h14"/></svg></summary>
+            <p class="faq-a">No. These are educational tools that help you see the market more clearly. Every trade is always your own decision.</p>
+          </details>
+          <details>
+            <summary>How do I cancel? <svg class="plus" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" aria-hidden="true"><path d="M12 5v14M5 12h14"/></svg></summary>
+            <p class="faq-a">From your Whop account, in a couple of clicks. You keep access through the time you already paid for.</p>
+          </details>
+        </div>
+      </section>
     </main>
 
     <footer>
       <div class="foot-inner">
-        <a class="brand foot-brand" href="/" aria-label="Friendly Trader home">
+        <a class="brand foot-brand" href="#hero" aria-label="Back to top">
           <svg class="mark" viewBox="0 0 32 32" aria-hidden="true"><rect width="32" height="32" rx="8" fill="#050505"/><path d="M6 22 L13 15 L18 19 L26 9" fill="none" stroke="#ccb167" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/><circle cx="26" cy="9" r="2.6" fill="#ffff8a"/></svg>
           <span class="wordmark"><span class="g">Friendly</span> Trader</span>
         </a>
         <p class="foot-links">
-          <a href="https://friendlyscreener.com" rel="noopener">The Screener</a>
-          <span class="sep">·</span><a href="/options" rel="noopener">Friendly Options</a>
-          <span class="sep">·</span><a href="https://leaderboard.stockswithjosh.com" rel="noopener">Trade Tracker</a>
-        </p>
-        <p class="foot-links">
           Educational, not financial advice.
-          <span class="sep">·</span><a href="/faq/">FAQ</a>
-          <span class="sep">·</span><a href="https://whop.com/stocks-with-josh/" rel="noopener">Community</a>
+          <span class="sep">·</span><a href="#faq">FAQ</a>
           <span class="sep">·</span>© 2026 Friendly Trader
         </p>
         <p class="foot-tag">Markets, made friendly.</p>
