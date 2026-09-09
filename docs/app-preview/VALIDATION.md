@@ -5,12 +5,22 @@ Verified September 8, 2026 (Hawaii time).
 ## Review deployment
 
 - URL: https://friendly-trader-app-preview.vercel.app/
-- Deployment: dpl_N24UdEVpMT327D7y86GMvkweJV5g
+- Deployment: dpl_9fYozcNB2ZjH8GVoA9cLFfAjtF88
 - Isolated Vercel project: friendly-trader-app-preview, clancy-bonds-projects
 - Status: READY
 - Vercel target: production for the independent review project. This does not publish to thefriendlytrader.com or alter its GitHub Pages deployment.
 - Only the homepage, its app-preview assets and review routing configuration were uploaded. Source docs, tests, repository metadata and unrelated files were excluded.
 - Six served HTML/JS/CSS files returned HTTP 200 and matched the local source byte-for-byte. Evidence: deployed-files.json.
+
+## Clean layout revision
+
+The hosted review now uses a quieter app-first layout: native-sized phone without CSS zoom, six app shortcuts, contextual Pip in the header, profile editing in a disclosure, simpler chart labels, compact playback and a three-group directory. All fourteen destinations remain accessible.
+
+This revision was checked in the browser at 1440×1000, 375×812 and 320×568. All fourteen app destinations had equal content/client widths at both mobile sizes (no horizontal content overflow). At 320×568, Close preview remained within x=209–308 and y=8–38; the app navigation remained within x=5–315 and y=394–456. The mobile preview fills the viewport without a nested decorative phone border.
+
+Verified profile editing and dark appearance, continuous keyboard tour scrubbing with slider focus retained, chart-interaction takeover, navigation into Pip, and resume to the original chapter and chart viewport with profile appearance retained. Stop Finder Short selection, zoom from 42 to 36 bars and pan to Earlier worked. The hosted revision also passed fullscreen entry, six-shortcut navigation, manual takeover and resume back to Home. No warning/error logs appeared locally or on the hosted revision. Eight automated groups, syntax checks and diff whitespace checks passed again after the final code changes.
+
+Current screenshots: desktop.png, mobile.png, mobile-chart.png. The checks below also describe the broader initial implementation regression coverage; the clean revision changes presentation and preserves those workflows.
 
 ## Automated checks
 

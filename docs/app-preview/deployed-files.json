@@ -2,37 +2,37 @@
   {
     "file": "index.html",
     "status": 200,
-    "matches_local": true,
-    "type": "text/html; charset=utf-8"
+    "sha256": "6e67707a32764daa30f8a4da2731f95e4a4cfdc8505c153d6f165b64a130896d",
+    "matchesLocal": true
   },
   {
     "file": "assets/app-preview/app.js",
     "status": 200,
-    "matches_local": true,
-    "type": "application/javascript; charset=utf-8"
+    "sha256": "e42f03c4dc7f6fcde8e32bb58d91f17fa8ddc5e3ba7d6dd5d3e30f66dff9ead6",
+    "matchesLocal": true
   },
   {
     "file": "assets/app-preview/core.mjs",
     "status": 200,
-    "matches_local": true,
-    "type": "application/javascript; charset=utf-8"
+    "sha256": "1dcda19048a94b5986a34f1c63993607fcd2d07e5c30dfa20abd63fa7bb25930",
+    "matchesLocal": true
   },
   {
     "file": "assets/app-preview/ui.mjs",
     "status": 200,
-    "matches_local": true,
-    "type": "application/javascript; charset=utf-8"
+    "sha256": "253861b9cca7bcf42fb36473d5ebab547615196933dff4a365c705d392107867",
+    "matchesLocal": true
   },
   {
     "file": "assets/app-preview/chart.mjs",
     "status": 200,
-    "matches_local": true,
-    "type": "application/javascript; charset=utf-8"
+    "sha256": "dffa49f8fc54d77edadf7e7936e1e00a138530fad62cab3d5c355a542e887ea9",
+    "matchesLocal": true
   },
   {
     "file": "assets/app-preview/site.css",
     "status": 200,
-    "matches_local": true,
-    "type": "text/css; charset=utf-8"
+    "sha256": "339c4a108e3eea0c410bb7245f84cc5c777446dc7cc8326692c268b0eeda71dc",
+    "matchesLocal": true
   }
 ]

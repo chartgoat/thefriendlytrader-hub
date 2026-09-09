@@ -46,7 +46,14 @@ export function attachChart(svg, state, onTakeover) {
     for (let i = 0; i < 5; i++) {
       const v = lo + ((hi - lo) * i) / 4,
         cy = y(v);
-      out += `<line x1="8" y1="${cy}" x2="276" y2="${cy}" stroke="var(--app-elev)" stroke-width="1"/><text x="282" y="${cy + 3}" fill="var(--app-dim)" font-size="9">${v.toFixed(2)}</text>`;
+      const nearLevel =
+        showLevels &&
+        [p.stop, p.entry, p.target, p.target2].some(
+          (level) => Math.abs(y(level) - cy) < 15,
+        );
+      out += `<line x1="8" y1="${cy}" x2="276" y2="${cy}" stroke="var(--app-elev)" stroke-width="1"/>`;
+      if (!nearLevel)
+        out += `<text x="282" y="${cy + 3}" fill="var(--app-dim)" font-size="9">${v.toFixed(2)}</text>`;
     }
     if (showLevels) {
       out += `<rect x="8" y="${Math.min(y(p.entry), y(p.target))}" width="266" height="${Math.abs(y(p.target) - y(p.entry))}" fill="#16875f" opacity=".045"/><rect x="8" y="${Math.min(y(p.entry), y(p.stop))}" width="266" height="${Math.abs(y(p.stop) - y(p.entry))}" fill="#cd343c" opacity=".06"/>`;

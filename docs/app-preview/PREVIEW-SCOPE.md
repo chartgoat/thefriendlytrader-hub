@@ -1,6 +1,12 @@
 # App-first website and complete browser preview
 
-The memorable element is the usable iPhone, with Friendly Trader's actual icon and app arrangement. Forest #0B5D3F, cream #EDE6D8, white #FFFFFF, mint #DDEADF, ink #172A22 and risk red #CD343C. System rounded display typography and native system text keep the site related to the iOS product. Left-aligned large headline; phone and tour controls alongside it. Mobile opens the same preview as a full-height panel.
+## Clean design revision
+
+The app is the visual focus. Keep its native system typography, six tool shortcuts, green identity and red Stop Finder. Use white #FFFFFF for the app, soft white #FAFBF9 for the site, ink #17251E, green #078763, subtle line #E1E8E2 and risk red #CD343C. Native text uses the system face; the site uses the same family with a restrained rounded headline. Align the desktop headline left beside one legible, unscaled phone; stack the same elements on mobile. The hierarchy is `headline + two actions | app + compact playback`, followed by three grouped screen lists. Remove the decorative oval, duplicate mascot pitch, redundant Home shortcut and floating assistant. Keep all destinations in the app menu, and place contextual Pip in the header. Use disclosure for supporting explanations, not for core chart controls.
+
+Review against the brief: a generic device mockup with miniature content would miss the request. The phone must remain usable at native CSS size. Preserve the complete interactive workflows and pause/takeover behavior; simplify only their presentation. Grouping the directory into Tools, Your day and Your space makes the fourteen areas easier to scan without removing any of them.
+
+The memorable element is the usable iPhone, with Friendly Trader’s actual icon and app arrangement. The page uses the clean revision’s palette and native typography. The phone remains legible at its CSS dimensions; mobile opens the same preview as a full-height panel.
 
 The initial concept was reviewed against the brief: a three-screen demo was explicitly rejected. All ten AppTab destinations, live-calendar entry, profile/settings, onboarding, Pip and their principal child screens must be navigable. Use a screen directory so visitors are not trapped on the tour's route.
 

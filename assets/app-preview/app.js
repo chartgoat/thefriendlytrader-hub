@@ -72,7 +72,14 @@ function render({ keepScroll = false } = {}) {
     : 0;
   phone.classList.toggle("dark", state.dark);
   const isHome = state.screen === "home";
-  root.innerHTML = `<header class="app-header ${isHome ? "home-header" : ""}">${isHome ? "" : `<button class="icon-button" data-action="back" aria-label="Back">${icon("back")}</button>`}<h2>${isHome ? "Friendly Trader" : state.detail === "chart" ? "Chart" : state.detail === "thread" ? "Thread" : label(state.screen)}</h2>${isHome ? `<button class="avatar" data-screen="profile" aria-label="Open your profile">${esc(state.avatar)}</button>` : `<button class="icon-button" data-screen="menu" aria-label="Open all app screens">${icon("menu")}</button>`}</header><div class="app-content ${isHome ? "home-content" : ""}" data-screen-content="${state.screen}">${renderView(state)}</div>${state.screen !== "assistant" && state.screen !== "onboarding" ? `<button class="pip-float" data-action="open-pip" aria-label="Ask Pip about this screen"><img src="assets/app-preview/pip.png" alt=""></button>` : ""}<nav class="app-nav" aria-label="App quick menu"><button class="nav-home ${isHome ? "active" : ""}" data-screen="home" aria-label="Home">${icon("home")}<span>Home</span></button>${state.quick
+  const contextHelp = ![
+    "home",
+    "assistant",
+    "profile",
+    "onboarding",
+    "menu",
+  ].includes(state.screen);
+  root.innerHTML = `<header class="app-header ${isHome ? "home-header" : ""}">${isHome ? "" : `<button class="icon-button back-button" data-action="back" aria-label="Back">${icon("back")}</button>`}<h2>${isHome ? "Friendly Trader" : state.detail === "chart" ? "Chart" : state.detail === "thread" ? "Thread" : label(state.screen)}</h2>${isHome ? `<button class="avatar" data-screen="profile" aria-label="Open your profile">${esc(state.avatar)}</button>` : `${contextHelp ? `<button class="icon-button pip-help" data-action="open-pip" aria-label="Ask Pip about this screen">${icon("pip")}</button>` : ""}<button class="icon-button" data-screen="menu" aria-label="Open all app screens">${icon("menu")}</button>`}</header><div class="app-content ${isHome ? "home-content" : ""}" data-screen-content="${state.screen}">${renderView(state)}</div><nav class="app-nav" aria-label="App quick menu">${state.quick
     .map((id) => {
       const meta = SCREENS.find((x) => x[0] === id);
       return `<button class="${state.screen === id ? "active" : ""}" data-screen="${id}" aria-label="${label(id)}" ${state.screen === id ? 'aria-current="page"' : ""}>${icon(meta?.[3])}<span>${id === "stops" ? "Stops" : label(id)}</span></button>`;
@@ -108,7 +115,7 @@ function back() {
 }
 function renderPlayer() {
   const step = TOUR[tour.index];
-  player.innerHTML = `<p class="tour-caption"><strong>${tour.hasStarted ? (tour.playing ? "" : tour.completed ? "Tour complete · " : "Paused · ") + step.title : "Watch it. Then make it your own."}</strong>${tour.hasStarted ? step.text : "Take a guided tour, or start tapping. Every screen is yours to explore."}</p><div class="tour-controls"><button class="tour-toggle" data-tour="toggle" aria-label="${tour.playing ? "Pause tour" : tour.hasStarted && !tour.completed ? "Resume tour" : "Play tour"}">${icon(tour.playing ? "pause" : "play")}</button><button data-tour="previous" aria-label="Previous tour chapter" ${tour.index === 0 ? "disabled" : ""}>${icon("back")}</button><input type="range" aria-label="Tour chapter" min="0" max="${TOUR.length - 1}" value="${tour.index}" step="1"><button data-tour="next" aria-label="Next tour chapter" ${tour.index === TOUR.length - 1 ? "disabled" : ""}>${icon("next")}</button><span class="tour-count">${tour.index + 1}/${TOUR.length}</span><button class="replay" data-tour="restart" aria-label="Restart tour">↺</button></div><div class="tour-progress" aria-hidden="true"><span></span></div><p class="tour-hint">${tour.playing ? "Tap any app control to take over." : "Resume the tour whenever you’re ready."}</p>`;
+  player.innerHTML = `<div class="tour-heading"><p class="tour-caption"><strong>${tour.hasStarted ? (tour.playing ? "" : tour.completed ? "Complete · " : "Paused · ") + step.title : "Take a look around"}</strong></p><span class="tour-count">${tour.index + 1}/${TOUR.length}</span></div><div class="tour-controls"><button class="tour-toggle" data-tour="toggle" aria-label="${tour.playing ? "Pause tour" : tour.hasStarted && !tour.completed ? "Resume tour" : "Play tour"}">${icon(tour.playing ? "pause" : "play")}</button><button data-tour="previous" aria-label="Previous tour chapter" ${tour.index === 0 ? "disabled" : ""}>${icon("back")}</button><input type="range" aria-label="Tour chapter" min="0" max="${TOUR.length - 1}" value="${tour.index}" step="1"><button data-tour="next" aria-label="Next tour chapter" ${tour.index === TOUR.length - 1 ? "disabled" : ""}>${icon("next")}</button><button class="replay" data-tour="restart" aria-label="Restart tour">↺</button></div><div class="tour-progress" aria-hidden="true"><span></span></div><p class="tour-hint">${tour.hasStarted ? step.text : "Play the tour. Tap inside the app to take over."}</p>`;
 }
 function loadStep(index, keepPlayer = false) {
   tour.index = Math.max(0, Math.min(TOUR.length - 1, index));
@@ -691,7 +698,7 @@ player.addEventListener("input", (e) => {
     loadStep(Number(e.target.value), true);
     const step = TOUR[tour.index];
     player.querySelector(".tour-caption").innerHTML =
-      `<strong>Paused · ${step.title}</strong>${step.text}`;
+      `<strong>Paused · ${step.title}</strong>`;
     const toggle = player.querySelector(".tour-toggle");
     toggle.setAttribute("aria-label", "Resume tour");
     toggle.innerHTML = icon("play");
@@ -700,8 +707,7 @@ player.addEventListener("input", (e) => {
     player.querySelector('[data-tour="previous"]').disabled = tour.index === 0;
     player.querySelector('[data-tour="next"]').disabled =
       tour.index === TOUR.length - 1;
-    player.querySelector(".tour-hint").textContent =
-      "Resume the tour whenever you’re ready.";
+    player.querySelector(".tour-hint").textContent = step.text;
     tickProgress();
   }
 });
@@ -756,9 +762,24 @@ document.addEventListener("keydown", (e) => {
 document.addEventListener("visibilitychange", () => {
   if (document.hidden) takeOver();
 });
-document.querySelector("#screen-directory").innerHTML = SCREENS.map(
-  ([id, title, description, i]) =>
-    `<button data-open="${id}"><span class="directory-icon">${icon(i)}</span><span><strong>${title}</strong><small>${description}</small></span></button>`,
-).join("");
+const directoryGroups = [
+  ["Your tools", ["aplus", "macd", "patterns", "screener", "stops"]],
+  ["Your day", ["home", "stream", "earnings", "economy", "live"]],
+  ["Your space", ["chat", "assistant", "profile", "onboarding"]],
+];
+document.querySelector("#screen-directory").innerHTML = directoryGroups
+  .map(
+    ([group, ids]) =>
+      `<div class="directory-group"><h3>${group}</h3>${ids
+        .map((id) => {
+          const [, title, description, i] = SCREENS.find(
+            (screen) => screen[0] === id,
+          );
+          return `<button data-open="${id}"><span class="directory-icon">${icon(i)}</span><span class="grow"><strong>${title}</strong><small>${description}</small></span>${icon("next")}</button>`;
+        })
+        .join("")}</div>`,
+  )
+  .join("");
+
 render();
 renderPlayer();
