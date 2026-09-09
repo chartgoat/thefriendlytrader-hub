@@ -1,14 +1,14 @@
 {
-  "deployment": "dpl_3cEznLeL5c2xV1LK87HtbWztf5Hd",
+  "deployment": "dpl_HQeJm3njzE38x8r2y6k6hToKtPbV",
   "url": "https://friendly-trader-app-preview.vercel.app/",
-  "checked_utc": "2026-09-09T19:36:32.268853+00:00",
+  "checked_utc": "2026-09-09T20:13:24.129908+00:00",
   "files": [
     {
       "file": "index.html",
       "status": 200,
-      "sha256": "9b984d91bfb60a87d20f19208f4e101d6e8dfaab168ead3f457dd4392063212a",
+      "sha256": "447d1ea4e1ab1e66b66a630c5dfeffc6c735fda98f1259265a059b9e10498225",
       "matches_source": true,
-      "bytes": 14433
+      "bytes": 14503
     },
     {
       "file": "assets/app-preview/native.css",
@@ -16,6 +16,20 @@
       "sha256": "6b115a6a541740dab4b2b0b58d60a754e2439afe72d84ed80b3a6143e8469114",
       "matches_source": true,
       "bytes": 52091
+    },
+    {
+      "file": "assets/app-preview/film.mjs",
+      "status": 200,
+      "sha256": "0265ed7220c39e920f014040928de63469cf2feb936e45c09e5533094970d6c5",
+      "matches_source": true,
+      "bytes": 8090
+    },
+    {
+      "file": "assets/app-preview/film-script.mjs",
+      "status": 200,
+      "sha256": "956642543c37d8badd23edafec18286031bc00112ec2e8bbf56191c1ad2e609c",
+      "matches_source": true,
+      "bytes": 4407
     },
     {
       "file": "assets/app-preview/platform.css",
@@ -34,9 +48,9 @@
     {
       "file": "assets/app-preview/core.mjs",
       "status": 200,
-      "sha256": "2e7b5fdd9939d8f18b1fbd90743bb4497b7ef55f0b7372b274d137667f41ac4c",
+      "sha256": "a55b328b62b3f56d98078a6a56370e7d477af62cabe4f58ae90a13ca8c249b9e",
       "matches_source": true,
-      "bytes": 10185
+      "bytes": 7743
     },
     {
       "file": "assets/app-preview/app-icon.png",
@@ -60,11 +74,18 @@
       "bytes": 39450
     },
     {
+      "file": "assets/app-preview/film.css",
+      "status": 200,
+      "sha256": "1d9d81ee5b1126ce780b707bc528ec6778641c2db0194978af1ebd7794728bf7",
+      "matches_source": true,
+      "bytes": 10365
+    },
+    {
       "file": "assets/app-preview/native.mjs",
       "status": 200,
-      "sha256": "6c3460529cefad982db01a4d0f12cb1c840b2b0acd03ab5edfc53b69116c78f1",
+      "sha256": "e4b8a61ba52251b17436192b0279dadd3f95dfb544505424f193008c7e1ecd78",
       "matches_source": true,
-      "bytes": 46548
+      "bytes": 46558
     },
     {
       "file": "assets/app-preview/native-quiz.mjs",
@@ -83,9 +104,9 @@
     {
       "file": "assets/app-preview/app.js",
       "status": 200,
-      "sha256": "48476574e9963eabc5c9a900cdbea2187a6c7db940d69e27b9c12258a2ec50b5",
+      "sha256": "8d2f0238a3c86ca0a91551772e84a149eb27215d975629ec215984382ded1c0c",
       "matches_source": true,
-      "bytes": 35170
+      "bytes": 31981
     },
     {
       "file": "assets/app-preview/platform.mjs",
@@ -123,6 +144,13 @@
       "bytes": 257840
     },
     {
+      "file": "assets/app-preview/media/friendly-trader-film-portrait.mp4",
+      "status": 200,
+      "sha256": "95ee60ee69e0b73721925aa522a9f96ea963ebc91349d3ed709129c74d79cd0d",
+      "matches_source": true,
+      "bytes": 6496389
+    },
+    {
       "file": "assets/app-preview/media/bull_asleep_dark.mp4",
       "status": 200,
       "sha256": "9cfce6677b6649b8a6066f9e1b444e17f6d67bfa363781a872ebd0bab6468fd2",
@@ -149,6 +177,13 @@
       "sha256": "e534f0e06cdcf06ee1fc65b60a572674de16205c163bea5ff913ca09df9d5fc7",
       "matches_source": true,
       "bytes": 274621
+    },
+    {
+      "file": "assets/app-preview/media/friendly-trader-film-landscape.mp4",
+      "status": 200,
+      "sha256": "f8f524fa1d37e5cb0951d140cdade23b980d63c8821d4080ed762f9043130d29",
+      "matches_source": true,
+      "bytes": 9803421
     },
     {
       "file": "assets/app-preview/media/bear_strong_dark.mp4",

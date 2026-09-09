@@ -4,7 +4,7 @@
 
 The iOS and Mac apps are the design references. The earlier approximation is superseded by source-derived screen hierarchy, typography, colors and behavior. Reference checkout: `swj-macd-ios`, HEAD `93a19e6`, inspected September 8, 2026. Its concurrent native work was not edited.
 
-The website has an iOS/Mac platform switch, a readable phone or desktop window, compact tour controls and a directory of all 14 destinations. The browser implementation remains dependency-free, with deterministic simulated data and no production services.
+The website has an iOS/Mac platform switch, a readable phone or desktop window, a 90-second interactive marketing film and a directory of all 14 destinations. The browser implementation remains dependency-free, with deterministic simulated data and no production services.
 
 | Preview surface | Native reference | Browser implementation |
 | --- | --- | --- |
@@ -30,17 +30,17 @@ The Mac reference is `friendly-trader-macos`, HEAD `f2cf0b1`, inspected Septembe
 
 The Mac browser frame uses a title bar, collapsible 236px sidebar, the native Home / Tools / Calendars / Community grouping, profile and notification footer, centered shared pages, and centered detail sheets. Charts redraw at the workspace width while keeping readable axis text. Phone quick navigation and its editor are omitted in Mac mode. The Go menu exposes the native destination order; Command/Control-number navigation is scoped to the expanded preview when focus is inside the app. Small browser widths use a collapsible overlay sidebar.
 
-Both versions use the same 14 pages, 16 tour chapters and simulated session. Switching preserves chart position, screen, plan settings, drafts, saved work and appearance. Unsubmitted form fields are retained during the switch. Platform choice is a viewing preference and is not rewound when a tour resumes. Platform access cards open the corresponding full preview.
+Both versions use the same 14 pages and simulated session. Switching preserves chart position, screen, plan settings, drafts, saved work and appearance. Unsubmitted form fields are retained during the switch. The film demonstrates iOS and Mac in its edit; pausing opens the device and screen shown at that moment. Platform access cards open the corresponding full preview.
 
 Availability remains explicit: the dated September 8 iOS public-beta check reported closed enrollment; the Mac release ledger records invited internal TestFlight access, with public beta not open. Mac requires macOS 14 or later. The Mac TestFlight link points to Apple's verified [TestFlight listing](https://apps.apple.com/us/app/testflight/id899247664), not an invented Friendly Trader download or public invitation. Native binary release holds do not authorize or imply a native release from this website work.
 
 ## Benefit-first story and reading sizes
 
-The September 9 creative pass leads with “Turn ‘what now?’ into a plan.” The page shows why the product matters through a plan illustration, Pip explanation and community habits before the feature directory. The first five tour chapters show the problem, a plan, risk, Pip and community; the remaining chapters explain the tools. All 16 chapters and 14 independently accessible roots remain.
+The September 9 creative pass leads with “Turn ‘what now?’ into a plan.” The page shows why the product matters through a plan illustration, Pip explanation and community habits before the feature directory. The website opening is retained; the film now carries its own marketing story, with all 14 app destinations independently accessible.
 
 Primary design references and their interpretation are recorded in `CREATIVE-DIRECTION.md`. They informed the message structure and friendly personality, not performance claims or imitation branding.
 
-Desktop introductory and expanded-tour text is 22px; the inline tour is 20px. Expanded mobile captions are 18px (17px at 320px). Controls and secondary website copy are generally 16px or larger. The inline phone retains its compact proportions, but opening a feature now uses the expanded view with unscaled app text. Chart price labels are larger with a wider reserved axis area. Native source and binaries remain untouched.
+Desktop introductory text is 22px. The film has its own large display typography and separate landscape and portrait edits. Controls and secondary website copy are generally 16px or larger. The inline phone retains its compact proportions, but opening a feature now uses the expanded view with unscaled app text. Chart price labels are larger with a wider reserved axis area. Native source and binaries remain untouched.
 
 ## Demo data and plan behavior
 
@@ -54,7 +54,11 @@ Stop Finder creates a new prospective plan from the current sample quote. Its le
 
 ## Interaction and boundaries
 
-The 16-chapter guided tour uses plain-language explanations and 7.5 seconds per chapter. It can be paused, scrubbed and taken over at any point. On desktop, the iOS walkthrough places the explanation beside a proportionally scaled phone; mobile and Mac keep readable captions beneath the preview. The website phone is smaller, with further reductions on shorter desktop screens, while opening the preview restores its interactive workspace. Resuming restores its screen and chart position while retaining visitor profile, watchlist, drafts, saved messages and Wins changes. All 14 main destinations are independently accessible.
+The preview now includes an actual 90-second H.264/AAC marketing film, with 12 chapters, 21 edited shots, gentle camera movement, short dissolves and an original instrumental score. Landscape (1280×720) and portrait (480×800) files have the same timing and choose automatically for the viewport. The opening moves from market overwhelm to a friendly starting point; the product edit shows planning, sizing risk, Pip, chart context, discovery, calendars, community and Mac before an invitation to explore. There is no voiceover: large on-screen copy tells the story with or without sound.
+
+“Pause and explore” pauses the media and opens the matching native-style app screen. Visitors can use every destination and save simulated work. “Resume film” returns to the saved video time and restores the edited screen and camera position. Personal demo changes such as saved plans, watchlists, posted messages and Wins remain; the edit controls its navigation, chart view and platform. Closing the film, switching away from the tab or exploring stops playback. The time scrubber, chapter selector, mute control and end card are keyboard reachable. Underlying app controls are inert during video playback.
+
+The original score recipe, assembler, edit manifest and captured composition frames are retained under `scripts/` and `docs/app-preview/film-frames/`. Only the finished MP4 assets and runtime code are included in the isolated review deployment. See `FILM-DIRECTION.md` and `VALIDATION.md`.
 
 No live API, AI service, notification request, camera upload, membership mutation, trading action or real community post occurs in the preview. State remains in tab memory and resets on reload. Pip answers are prewritten. The lesson is an illustrative slideshow. Membership/TestFlight links remain explicit external destinations. The page states that public beta enrollment was closed when checked September 8, 2026.
 

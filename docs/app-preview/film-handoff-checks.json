@@ -1,0 +1,362 @@
+[
+  {
+    "appOverflow": false,
+    "height": 874,
+    "mediaPaused": true,
+    "platform": "ios",
+    "resumeVisible": true,
+    "screen": "home",
+    "time": 0,
+    "width": 402
+  },
+  {
+    "appOverflow": false,
+    "height": 874,
+    "mediaPaused": true,
+    "platform": "ios",
+    "resumeVisible": true,
+    "screen": "home",
+    "time": 6,
+    "width": 402
+  },
+  {
+    "appOverflow": false,
+    "height": 874,
+    "mediaPaused": true,
+    "platform": "ios",
+    "resumeVisible": true,
+    "screen": "aplus",
+    "time": 12,
+    "width": 402
+  },
+  {
+    "appOverflow": false,
+    "height": 874,
+    "mediaPaused": true,
+    "platform": "ios",
+    "resumeVisible": true,
+    "screen": "stops",
+    "time": 22,
+    "width": 402
+  },
+  {
+    "appOverflow": false,
+    "height": 874,
+    "mediaPaused": true,
+    "platform": "ios",
+    "resumeVisible": true,
+    "screen": "assistant",
+    "time": 30,
+    "width": 402
+  },
+  {
+    "appOverflow": false,
+    "height": 874,
+    "mediaPaused": true,
+    "platform": "ios",
+    "resumeVisible": true,
+    "screen": "macd",
+    "time": 38,
+    "width": 402
+  },
+  {
+    "appOverflow": false,
+    "height": 874,
+    "mediaPaused": true,
+    "platform": "ios",
+    "resumeVisible": true,
+    "screen": "patterns",
+    "time": 46,
+    "width": 402
+  },
+  {
+    "appOverflow": false,
+    "height": 874,
+    "mediaPaused": true,
+    "platform": "ios",
+    "resumeVisible": true,
+    "screen": "screener",
+    "time": 54,
+    "width": 402
+  },
+  {
+    "appOverflow": false,
+    "height": 874,
+    "mediaPaused": true,
+    "platform": "ios",
+    "resumeVisible": true,
+    "screen": "earnings",
+    "time": 61,
+    "width": 402
+  },
+  {
+    "appOverflow": false,
+    "height": 874,
+    "mediaPaused": true,
+    "platform": "ios",
+    "resumeVisible": true,
+    "screen": "chat",
+    "time": 68,
+    "width": 402
+  },
+  {
+    "appOverflow": false,
+    "height": 874,
+    "mediaPaused": true,
+    "platform": "macos",
+    "resumeVisible": true,
+    "screen": "home",
+    "time": 76,
+    "width": 402
+  },
+  {
+    "appOverflow": false,
+    "height": 874,
+    "mediaPaused": true,
+    "platform": "ios",
+    "resumeVisible": true,
+    "screen": "home",
+    "time": 84,
+    "width": 402
+  },
+  {
+    "appOverflow": false,
+    "height": 900,
+    "mediaPaused": true,
+    "platform": "ios",
+    "resumeVisible": true,
+    "screen": "home",
+    "time": 0,
+    "width": 1280
+  },
+  {
+    "appOverflow": false,
+    "height": 900,
+    "mediaPaused": true,
+    "platform": "ios",
+    "resumeVisible": true,
+    "screen": "home",
+    "time": 6,
+    "width": 1280
+  },
+  {
+    "appOverflow": false,
+    "height": 900,
+    "mediaPaused": true,
+    "platform": "ios",
+    "resumeVisible": true,
+    "screen": "aplus",
+    "time": 12,
+    "width": 1280
+  },
+  {
+    "appOverflow": false,
+    "height": 900,
+    "mediaPaused": true,
+    "platform": "ios",
+    "resumeVisible": true,
+    "screen": "stops",
+    "time": 22,
+    "width": 1280
+  },
+  {
+    "appOverflow": false,
+    "height": 900,
+    "mediaPaused": true,
+    "platform": "ios",
+    "resumeVisible": true,
+    "screen": "assistant",
+    "time": 30,
+    "width": 1280
+  },
+  {
+    "appOverflow": false,
+    "height": 900,
+    "mediaPaused": true,
+    "platform": "ios",
+    "resumeVisible": true,
+    "screen": "macd",
+    "time": 38,
+    "width": 1280
+  },
+  {
+    "appOverflow": false,
+    "height": 900,
+    "mediaPaused": true,
+    "platform": "ios",
+    "resumeVisible": true,
+    "screen": "patterns",
+    "time": 46,
+    "width": 1280
+  },
+  {
+    "appOverflow": false,
+    "height": 900,
+    "mediaPaused": true,
+    "platform": "ios",
+    "resumeVisible": true,
+    "screen": "screener",
+    "time": 54,
+    "width": 1280
+  },
+  {
+    "appOverflow": false,
+    "height": 900,
+    "mediaPaused": true,
+    "platform": "ios",
+    "resumeVisible": true,
+    "screen": "earnings",
+    "time": 61,
+    "width": 1280
+  },
+  {
+    "appOverflow": false,
+    "height": 900,
+    "mediaPaused": true,
+    "platform": "ios",
+    "resumeVisible": true,
+    "screen": "chat",
+    "time": 68,
+    "width": 1280
+  },
+  {
+    "appOverflow": false,
+    "height": 900,
+    "mediaPaused": true,
+    "platform": "macos",
+    "resumeVisible": true,
+    "screen": "home",
+    "time": 76,
+    "width": 1280
+  },
+  {
+    "appOverflow": false,
+    "height": 900,
+    "mediaPaused": true,
+    "platform": "ios",
+    "resumeVisible": true,
+    "screen": "home",
+    "time": 84,
+    "width": 1280
+  },
+  {
+    "appOverflow": false,
+    "height": 568,
+    "mediaPaused": true,
+    "platform": "ios",
+    "resumeVisible": true,
+    "screen": "home",
+    "time": 0,
+    "width": 320
+  },
+  {
+    "appOverflow": false,
+    "height": 568,
+    "mediaPaused": true,
+    "platform": "ios",
+    "resumeVisible": true,
+    "screen": "home",
+    "time": 6,
+    "width": 320
+  },
+  {
+    "appOverflow": false,
+    "height": 568,
+    "mediaPaused": true,
+    "platform": "ios",
+    "resumeVisible": true,
+    "screen": "aplus",
+    "time": 12,
+    "width": 320
+  },
+  {
+    "appOverflow": false,
+    "height": 568,
+    "mediaPaused": true,
+    "platform": "ios",
+    "resumeVisible": true,
+    "screen": "stops",
+    "time": 22,
+    "width": 320
+  },
+  {
+    "appOverflow": false,
+    "height": 568,
+    "mediaPaused": true,
+    "platform": "ios",
+    "resumeVisible": true,
+    "screen": "assistant",
+    "time": 30,
+    "width": 320
+  },
+  {
+    "appOverflow": false,
+    "height": 568,
+    "mediaPaused": true,
+    "platform": "ios",
+    "resumeVisible": true,
+    "screen": "macd",
+    "time": 38,
+    "width": 320
+  },
+  {
+    "appOverflow": false,
+    "height": 568,
+    "mediaPaused": true,
+    "platform": "ios",
+    "resumeVisible": true,
+    "screen": "patterns",
+    "time": 46,
+    "width": 320
+  },
+  {
+    "appOverflow": false,
+    "height": 568,
+    "mediaPaused": true,
+    "platform": "ios",
+    "resumeVisible": true,
+    "screen": "screener",
+    "time": 54,
+    "width": 320
+  },
+  {
+    "appOverflow": false,
+    "height": 568,
+    "mediaPaused": true,
+    "platform": "ios",
+    "resumeVisible": true,
+    "screen": "earnings",
+    "time": 61,
+    "width": 320
+  },
+  {
+    "appOverflow": false,
+    "height": 568,
+    "mediaPaused": true,
+    "platform": "ios",
+    "resumeVisible": true,
+    "screen": "chat",
+    "time": 68,
+    "width": 320
+  },
+  {
+    "appOverflow": false,
+    "height": 568,
+    "mediaPaused": true,
+    "platform": "macos",
+    "resumeVisible": true,
+    "screen": "home",
+    "time": 76,
+    "width": 320
+  },
+  {
+    "appOverflow": false,
+    "height": 568,
+    "mediaPaused": true,
+    "platform": "ios",
+    "resumeVisible": true,
+    "screen": "home",
+    "time": 84,
+    "width": 320
+  }
+]

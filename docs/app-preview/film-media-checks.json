@@ -1,0 +1,52 @@
+[
+  {
+    "format": {
+      "duration": "90.000000",
+      "size": "6496389"
+    },
+    "sha256": "95ee60ee69e0b73721925aa522a9f96ea963ebc91349d3ed709129c74d79cd0d",
+    "programs": [],
+    "stream_groups": [],
+    "streams": [
+      {
+        "codec_name": "h264",
+        "width": 480,
+        "height": 800,
+        "r_frame_rate": "30/1",
+        "nb_frames": "2700"
+      },
+      {
+        "codec_name": "aac",
+        "sample_rate": "48000",
+        "r_frame_rate": "0/0",
+        "nb_frames": "4220"
+      }
+    ],
+    "edit": "portrait"
+  },
+  {
+    "format": {
+      "duration": "90.000000",
+      "size": "9803421"
+    },
+    "sha256": "f8f524fa1d37e5cb0951d140cdade23b980d63c8821d4080ed762f9043130d29",
+    "programs": [],
+    "stream_groups": [],
+    "streams": [
+      {
+        "codec_name": "h264",
+        "width": 1280,
+        "height": 720,
+        "r_frame_rate": "30/1",
+        "nb_frames": "2700"
+      },
+      {
+        "codec_name": "aac",
+        "sample_rate": "48000",
+        "r_frame_rate": "0/0",
+        "nb_frames": "4220"
+      }
+    ],
+    "edit": "landscape"
+  }
+]

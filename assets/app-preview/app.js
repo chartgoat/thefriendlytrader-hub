@@ -4,18 +4,19 @@ import {
   SYMBOLS,
   NAMES,
   BASE,
-  TOUR,
-  TOUR_STEP_MS,
   tourPosition,
   restoreTour,
   escapeHTML as esc,
   price,
   storyPlan,
+  plan,
+  positionSize,
 } from "./core.mjs";
 import { META, fixtures } from "./ui.mjs";
 import { renderNativeView, nativeHeader, nativeIcon as icon, sheetStyle } from "./native.mjs";
 import { QUIZ } from "./native-quiz.mjs";
 import { attachChart } from "./chart.mjs";
+import { createFilm } from "./film.mjs";
 import { PLATFORMS, changePlatform, MAC_SHORTCUTS, renderMacFrame } from "./platform.mjs";
 let state = createState(),
   history = [],
@@ -25,41 +26,32 @@ const root = document.querySelector("#app-root"),
   phone = document.querySelector("#phone"),
   stage = document.querySelector("#preview-stage"),
   player = document.querySelector("#tour-player");
-const tour = {
-  playing: false,
-  index: 0,
-  snapshot: null,
-  remaining: TOUR_STEP_MS,
-  started: 0,
-  timer: null,
-  hasStarted: false,
-  completed: false,
-};
-let focusBeforeFullscreen = null,
-  progressFrame = null;
-function tourHighlight() {
-  root
-    .querySelectorAll(".tour-focus")
-    .forEach((e) => e.classList.remove("tour-focus"));
-  if (tour.playing)
-    root
-      .querySelector(".home-greeting,.card,.chart-card,.home-row,.pip-question")
-      ?.classList.add("tour-focus");
+let focusBeforeFullscreen = null;
+let film;
+function takeOver() { film?.pause(); }
+function showFilmFrame(frame) {
+  Object.assign(state, {
+    screen:frame.screen, detail:frame.detail||null, platform:frame.platform,
+    macSection:MAC_SHORTCUTS.includes(frame.screen)?frame.screen:'home',
+    macMenuOpen:false, macSidebarCollapsed:matchMedia('(max-width:800px)').matches,
+    symbol:'NVDA', timeframe:frame.screen==='aplus'?'1m':frame.screen==='patterns'?'1d':'15m',
+    direction:'long', mode:'swing', scenario:'Breakout', session:'Morning',
+    room:frame.room||'Trading Floor', search:'', lookup:null, levelInfo:null,
+    chart:{offset:0,count:frame.id==='plan'?(frame.local<3?48:frame.local<6?42:36):42}, assistantContext:'stops', day:null, calendarTab:'This week',
+  });
+  if(frame.id==='pip'){
+    state.pipQuestion='What does a stop mean?';
+    state.pipAnswer='A stop is where you plan to exit if the trade moves against you. Think about it before you enter.';
+  }
+  history=[];
+  render();
+  const content=root.querySelector('.app-content');
+  const focalSelector=frame.focal==='size'?'.n-size>div':{plan:'.n-candle-panel',risk:'.n-size',pip:'.n-pip-question',momentum:'.n-story-card',patterns:'.n-chart'}[frame.id];
+  const focal=frame.id==='community'?[...root.querySelectorAll('.n-win-message')].find(el=>el.querySelector('.n-win-kind')?.textContent.includes('FOLLOWED')):focalSelector?root.querySelector(focalSelector):frame.platform==='macos'&&frame.screen==='stops'?root.querySelector('.stop-chart'):null;
+  if(content&&focal)content.scrollTop=Math.max(0,content.scrollTop+focal.getBoundingClientRect().top-content.getBoundingClientRect().top-(frame.id==='community'?84:16));
 }
-function tickProgress() {
-  cancelAnimationFrame(progressFrame);
-  const update = () => {
-    const elapsed = tour.playing
-      ? Math.min(tour.remaining, performance.now() - tour.started)
-      : 0;
-    const within = TOUR_STEP_MS - tour.remaining + elapsed;
-    const fill = player.querySelector(".tour-progress>span");
-    if (fill)
-      fill.style.width =
-        ((tour.index * TOUR_STEP_MS + within) / (TOUR.length * TOUR_STEP_MS)) * 100 + "%";
-    if (tour.playing) progressFrame = requestAnimationFrame(update);
-  };
-  update();
+function renderPlayer() {
+  player.innerHTML=`<button class="film-launch" data-site="tour"><span class="film-launch-play">▶</span><span><strong>Watch the Friendly Trader film</strong><small>90 seconds. Then step inside.</small></span></button><p class="film-launch-note">Pause anywhere to explore the app.</p>${film?.started()?'<button class="film-return" data-site="resume-film">Resume film ↗</button>':''}`;
 }
 function label(screen) {
   return META[screen]?.[0] || screen;
@@ -138,88 +130,6 @@ function back() {
     restoreTour(state, history.pop());
     render();
   } else go(state.detail ? state.screen : "home");
-}
-function renderPlayer() {
-  const step = TOUR[tour.index];
-  const status = !tour.hasStarted ? "Meet Friendly Trader" : tour.playing ? "Walkthrough" : tour.completed ? "All done" : "Paused";
-  player.innerHTML = `<div class="tour-explainer" aria-live="polite" aria-atomic="true"><div class="tour-heading"><span class="tour-status">${status}</span><span class="tour-count">${tour.index + 1} / ${TOUR.length}</span></div><h3>${tour.hasStarted ? step.title : "A clearer day starts here."}</h3><p>${tour.hasStarted ? step.text : "See what a plan, a guide and a community can bring to your trading day."}</p></div><div class="tour-controls"><button class="tour-toggle" data-tour="toggle" aria-label="${tour.playing ? "Pause tour" : tour.hasStarted && !tour.completed ? "Resume tour" : "Play tour"}">${icon(tour.playing ? "pause" : "play")}</button><button data-tour="previous" aria-label="Previous tour chapter" ${tour.index === 0 ? "disabled" : ""}>${icon("back")}</button><input type="range" aria-label="Tour chapter" aria-valuetext="${tour.index + 1} of ${TOUR.length}: ${step.title}" min="0" max="${TOUR.length - 1}" value="${tour.index}" step="1"><button data-tour="next" aria-label="Next tour chapter" ${tour.index === TOUR.length - 1 ? "disabled" : ""}>${icon("next")}</button><button class="replay" data-tour="restart" aria-label="Restart tour">↺</button></div><div class="tour-progress" aria-hidden="true"><span></span></div>`;
-}
-function loadStep(index, keepPlayer = false) {
-  tour.index = Math.max(0, Math.min(TOUR.length - 1, index));
-  const step = TOUR[tour.index];
-  Object.assign(state, {
-    screen: step.screen,
-    macSection: MAC_SHORTCUTS.includes(step.screen)?step.screen:state.macSection,
-    macMenuOpen:false,
-    detail: step.detail || null,
-    symbol: "NVDA",
-    timeframe: step.screen==="aplus"?"1m":step.screen==="patterns"?"1d":"15m",
-    direction: "long",
-    mode: "swing",
-    scenario: "Breakout",
-    session: "Morning",
-    room: step.room || "Trading Floor",
-    horizon: "Day trades",
-    lookup: null,
-    calendarTab: "This week",
-    chart: { offset: 0, count: 42 },
-    search: "",
-    day: null,
-  });
-  if (step.screen === "assistant") state.assistantContext = "stops";
-  history = [];
-  tour.remaining = TOUR_STEP_MS;
-  tour.snapshot = tourPosition(state);
-  tour.hasStarted = true;
-  render();
-  if (!keepPlayer) renderPlayer();
-}
-function schedule() {
-  clearTimeout(tour.timer);
-  if (!tour.playing) return;
-  tour.started = performance.now();
-  tourHighlight();
-  tickProgress();
-  tour.timer = setTimeout(() => {
-    if (tour.index >= TOUR.length - 1) {
-      tour.playing = false;
-      tour.completed = true;
-      tour.snapshot = null;
-      renderPlayer();
-      tourHighlight();
-      cancelAnimationFrame(progressFrame);
-      return;
-    }
-    loadStep(tour.index + 1);
-    schedule();
-  }, tour.remaining);
-}
-function play() {
-  if (tour.completed) {
-    tour.completed = false;
-    loadStep(0);
-  } else if (!tour.hasStarted) loadStep(0);
-  else if (tour.snapshot) {
-    restoreTour(state, tour.snapshot);
-    history = [];
-    render();
-  }
-  tour.playing = true;
-  renderPlayer();
-  schedule();
-}
-function takeOver() {
-  if (!tour.playing) return;
-  tour.remaining = Math.max(
-    200,
-    tour.remaining - (performance.now() - tour.started),
-  );
-  tour.snapshot = tourPosition(state);
-  tour.playing = false;
-  clearTimeout(tour.timer);
-  renderPlayer();
-  tourHighlight();
-  tickProgress();
 }
 function fullscreen(open = true) {
   if (open) {
@@ -658,22 +568,12 @@ root.addEventListener("click", (event) => {
       openExternalSection("#membership");
       break;
     case "replay-tour":
-      tour.completed = false;
-      loadStep(0);
-      play();
+      film.start();
       break;
     case "reset":
       state = {...createState(),platform:state.platform,macSidebarCollapsed:state.macSidebarCollapsed};
       history = [];
-      clearTimeout(tour.timer);
-      Object.assign(tour, {
-        playing: false,
-        index: 0,
-        snapshot: null,
-        remaining: TOUR_STEP_MS,
-        hasStarted: false,
-        completed: false,
-      });
+      film.pause();
       render();
       renderPlayer();
       toast("Fresh start. All demo changes have been reset.");
@@ -681,6 +581,15 @@ root.addEventListener("click", (event) => {
   }
 });
 root.addEventListener("input", (e) => {
+  if(e.target.dataset.change==='riskBudget'){
+    const budget=Number(e.target.value);
+    if(Number.isFinite(budget)&&budget>0&&budget<=1000000){
+      state.riskBudget=budget;
+      const p=plan(state.symbol,state.direction,state.mode),shares=positionSize(budget,p.risk);
+      root.querySelector('.n-size>div strong').textContent=shares.toLocaleString()+' shares';
+      root.querySelector('.n-size>p').innerHTML=`Target 1: ${price(shares*Math.abs(p.target-p.entry))} potential move<br>Stop: ${price(shares*p.risk)} planned risk`;
+    }
+  }
   if (e.target.name === "message") {
     const key =
       state.detail === "thread" ? "thread:" + state.thread : state.room;
@@ -790,49 +699,6 @@ root.addEventListener("submit", (e) => {
     if (q) askPip(q);
   }
 });
-player.addEventListener("click", (e) => {
-  const b = e.target.closest("[data-tour]");
-  if (!b) return;
-  const a = b.dataset.tour;
-  if (a === "toggle") {
-    tour.playing ? takeOver() : play();
-    return;
-  }
-  const was = tour.playing;
-  takeOver();
-  if (a === "restart") {
-    tour.completed = false;
-    loadStep(0);
-    play();
-  } else {
-    loadStep(tour.index + (a === "next" ? 1 : -1));
-    if (was) play();
-  }
-});
-player.addEventListener("input", (e) => {
-  if (e.target.type === "range") {
-    // Keep the range element mounted throughout a drag or keyboard sequence.
-    clearTimeout(tour.timer);
-    cancelAnimationFrame(progressFrame);
-    tour.playing = false;
-    tour.completed = false;
-    loadStep(Number(e.target.value), true);
-    const step = TOUR[tour.index];
-    player.querySelector(".tour-status").textContent = "Paused";
-    player.querySelector(".tour-explainer h3").textContent = step.title;
-    player.querySelector(".tour-explainer p").textContent = step.text;
-    e.target.setAttribute("aria-valuetext", `${tour.index + 1} of ${TOUR.length}: ${step.title}`);
-    const toggle = player.querySelector(".tour-toggle");
-    toggle.setAttribute("aria-label", "Resume tour");
-    toggle.innerHTML = icon("play");
-    player.querySelector(".tour-count").textContent =
-      `${tour.index + 1} / ${TOUR.length}`;
-    player.querySelector('[data-tour="previous"]').disabled = tour.index === 0;
-    player.querySelector('[data-tour="next"]').disabled =
-      tour.index === TOUR.length - 1;
-    tickProgress();
-  }
-});
 function setPreviewPlatform(platform, expand=false) {
   // Keep unfinished form input when the same page changes its platform frame.
   const pendingForms = [...root.querySelectorAll('form[data-form]')].map(form => ({
@@ -869,8 +735,10 @@ document.addEventListener("click", (e) => {
       fullscreen(true);
       break;
     case "tour":
-      play();
-      fullscreen(true);
+      film.start();
+      break;
+    case "resume-film":
+      film.resume();
       break;
     case "fullscreen":
       fullscreen();
@@ -934,5 +802,8 @@ document.querySelector("#screen-directory").innerHTML = directoryGroups
   )
   .join("");
 
+film=createFilm({phone,showFrame:showFilmFrame,openApp:()=>fullscreen(true),closeApp:()=>fullscreen(false),onStatus:({started})=>{
+  if(started&&!player.querySelector('.film-return')){const button=document.createElement('button');button.className='film-return';button.dataset.site='resume-film';button.textContent='Resume film ↗';player.append(button);}
+}});
 render();
 renderPlayer();

@@ -1,0 +1,32 @@
+[
+  {
+    "inApp": false,
+    "label": "Film timeline",
+    "tag": "INPUT"
+  },
+  {
+    "inApp": false,
+    "label": "Unmute film",
+    "tag": "BUTTON"
+  },
+  {
+    "inApp": false,
+    "label": "Film chapter",
+    "tag": "SELECT"
+  },
+  {
+    "inApp": false,
+    "label": "Pause and explore ↗",
+    "tag": "BUTTON"
+  },
+  {
+    "inApp": false,
+    "label": "Close film",
+    "tag": "BUTTON"
+  },
+  {
+    "inApp": false,
+    "label": "Play film",
+    "tag": "BUTTON"
+  }
+]

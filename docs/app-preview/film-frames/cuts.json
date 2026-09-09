@@ -1,0 +1,107 @@
+[
+  {
+    "time": 0,
+    "duration": 2,
+    "key": "noise-0"
+  },
+  {
+    "time": 2,
+    "duration": 2,
+    "key": "noise-1"
+  },
+  {
+    "time": 4,
+    "duration": 2,
+    "key": "noise-2"
+  },
+  {
+    "time": 6,
+    "duration": 3,
+    "key": "friendly-0"
+  },
+  {
+    "time": 9,
+    "duration": 3,
+    "key": "friendly-1"
+  },
+  {
+    "time": 12,
+    "duration": 3,
+    "key": "plan-0"
+  },
+  {
+    "time": 15,
+    "duration": 3,
+    "key": "plan-1"
+  },
+  {
+    "time": 18,
+    "duration": 4,
+    "key": "plan-2"
+  },
+  {
+    "time": 22,
+    "duration": 4,
+    "key": "risk-0"
+  },
+  {
+    "time": 26,
+    "duration": 4,
+    "key": "risk-1"
+  },
+  {
+    "time": 30,
+    "duration": 4,
+    "key": "pip-0"
+  },
+  {
+    "time": 34,
+    "duration": 4,
+    "key": "pip-1"
+  },
+  {
+    "time": 38,
+    "duration": 8,
+    "key": "momentum-0"
+  },
+  {
+    "time": 46,
+    "duration": 8,
+    "key": "patterns-0"
+  },
+  {
+    "time": 54,
+    "duration": 7,
+    "key": "discover-0"
+  },
+  {
+    "time": 61,
+    "duration": 3.5,
+    "key": "calendar-0"
+  },
+  {
+    "time": 64.5,
+    "duration": 3.5,
+    "key": "calendar-1"
+  },
+  {
+    "time": 68,
+    "duration": 8,
+    "key": "community-0"
+  },
+  {
+    "time": 76,
+    "duration": 4,
+    "key": "mac-0"
+  },
+  {
+    "time": 80,
+    "duration": 4,
+    "key": "mac-1"
+  },
+  {
+    "time": 84,
+    "duration": 6,
+    "key": "invitation-0"
+  }
+]

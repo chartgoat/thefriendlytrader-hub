@@ -5,20 +5,31 @@ Latest verification: September 9, 2026 (Hawaii time). Earlier passes below are r
 ## Deployment
 
 - Review: https://friendly-trader-app-preview.vercel.app/
-- Final deployment: `dpl_3cEznLeL5c2xV1LK87HtbWztf5Hd`
-- Immutable URL: https://friendly-trader-app-preview-nn7zj2vaq-clancy-bonds-projects.vercel.app
+- Final deployment: `dpl_HQeJm3njzE38x8r2y6k6hToKtPbV`
+- Immutable URL: https://friendly-trader-app-preview-a21q2qtk4-clancy-bonds-projects.vercel.app
 - Status: READY, production target of the isolated `friendly-trader-app-preview` Vercel project in `clancy-bonds-projects`.
 - The existing `thefriendlytrader.com` site was not deployed by this work.
 - Only index.html, app-preview assets and the explicit review routing configuration were staged. No repository metadata, tests, source docs, native source or unrelated files were uploaded.
-- All 22 public content files, including 8 original animation videos, returned HTTP 200 and matched local source SHA-256 hashes. See `deployed-files.json`.
+- All 27 public content files, including 8 original animation videos and 2 new product films, returned HTTP 200 and matched local source SHA-256 hashes. See `deployed-files.json`.
 
 ## Automated checks
 
-`npm test`: 14 passing groups. JS syntax and `git diff --check` pass.
+`npm test`: 17 passing groups. JS syntax and `git diff --check` pass.
 
-Coverage includes repeatable candles, OHLC bounds/continuity/current-quote parity, both stop directions and sizing modes, whole-share risk rounding, tour restore while preserving user changes, all 14 roots and 16 chapters, principal detail/empty states, HTML escaping, service-call/storage prohibition, action wiring, exact price extrema and recorded target outcomes, pattern direction/failed-state consistency, calculated sample Wins, and all four reachable native quiz outcomes without routing cycles.
+Coverage includes repeatable candles, OHLC bounds/continuity/current-quote parity, both stop directions and sizing modes, whole-share risk rounding, tour restore while preserving user changes, all 14 roots and the current film destinations, principal detail/empty states, HTML escaping, service-call/storage prohibition, action wiring, exact price extrema and recorded target outcomes, pattern direction/failed-state consistency, calculated sample Wins, and all four reachable native quiz outcomes without routing cycles.
 
-## Benefit-first story and typography
+## Interactive marketing film
+
+- The former narrated-by-text screen rotation is replaced by a real 90-second product film: 12 chapters, 21 shots, camera push-ins, 250ms dissolves and an original instrumental score. There is no voiceover; large on-screen copy carries the story. Both MP4s are H.264, 30fps/2,700 frames and AAC 48kHz stereo. Landscape is 1280×720; portrait is 480×800. Both probe at exactly 90.000 seconds. See `film-media-checks.json`.
+- Forty-two captured compositions cover both edits. Copy/device placement and app horizontal overflow were checked, and the rendered landscape contact sheet was visually reviewed. See `film-composition-checks.json`, `film-contact-sheet.jpg` and `film-frames/`.
+- All 12 chapters passed film → matching app → film at 1280×900, 402×874 and 320×568 (36 handoffs): correct app screen and platform, stopped media during exploration, visible resume control and no app horizontal overflow. See `film-handoff-checks.json`.
+- Seeking to 15.5s opened the A+ chart at 42 bars. Zooming changed it to 36 bars; resume returned to the saved film time. Byte-range serving was required for valid local seek QA; `scripts/serve-review.py` supplies it.
+- A $500 risk input recalculated to 147 sample shares; the value and saved plan survived leaving and resuming the film. Risk sizing now responds to input while preserving the input element and focus. See `film-saved-work-check.json`.
+- Changing from portrait to landscape at 46s retained time, mute and paused status. Keyboard traversal cycles through play, timeline, sound, chapters, explore and close; the underlying app is inert. The ending exposes its step-inside/replay controls. No error logs were recorded in the final local flows. See `film-keyboard-checks.json`.
+- Hosted verification repeated all 12 chapters in portrait and landscape: 24 successful handoffs, exact selected times, 90-second duration, paused audio during exploration and visible resume controls. Both MP4s return HTTP 206 for byte-range requests; all 27 public assets match local SHA-256 hashes. No error logs were recorded. See `film-hosted-checks.json`, `film-hosted-range-checks.json`, `film-hosted-desktop.png` and `film-hosted-mobile.png`.
+- Source scenes, score recipe and assembler are retained for future edits. Composition PNGs, scripts, tests, docs and intermediates are excluded from the isolated review upload. No native binary or production service changed.
+
+## Earlier benefit-first story and typography
 
 - At 1440×1000 the introduction is 22px, inline explanation is 20px, and compact phone remains 257px wide. At 320×568 the main introduction is 18px; page, header, benefit stories and directory have no horizontal overflow.
 - All 16 chapters in both platforms passed at 1440×1000, 402×874 and 320×568: 96 observations with captions and controls inside the viewport, no app-content/page horizontal overflow, and no caption scrolling required. Expanded captions measure 22px for desktop iOS, 20px for desktop Mac, 18px at 402px and 17px at 320px. See `story-browser-checks.json`.
