@@ -2,1318 +2,330 @@
 <html lang="en">
   <head>
     <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
-    <meta name="color-scheme" content="dark" />
-    <meta name="theme-color" content="#000000" />
-    <title>Friendly Trader: Clarity over noise</title>
-    <meta name="description" content="Friendly trading tools that turn noisy charts and confusing options into decisions you can actually make. A daily stock screener, plain-English options flow, and a live Discord trade tracker." />
-    <meta property="og:title" content="Friendly Trader: Clarity over noise" />
-    <meta property="og:description" content="Four friendly tools that turn noisy charts and confusing options into decisions you can actually make." />
+    <meta
+      name="viewport"
+      content="width=device-width,initial-scale=1,viewport-fit=cover"
+    />
+    <meta
+      name="description"
+      content="Meet Friendly Trader for iPhone. Explore the interactive app demo: setups, charts, stop plans, calendars and community, all in one friendly place."
+    />
+    <meta name="theme-color" content="#0b5d3f" />
+    <meta
+      property="og:title"
+      content="Friendly Trader. Your trading day, made friendly."
+    />
+    <meta
+      property="og:description"
+      content="Take the whole app for a spin. Explore charts, setups, stop plans and community with sample data."
+    />
+    <meta
+      property="og:image"
+      content="https://thefriendlytrader.com/assets/app-preview/app-icon.png"
+    />
     <meta property="og:type" content="website" />
-    <meta property="og:url" content="https://thefriendlytrader.com/" />
-    <meta property="og:image" content="https://thefriendlytrader.com/assets/og.png" />
-    <meta property="og:image:width" content="1200" />
-    <meta property="og:image:height" content="630" />
-    <meta property="og:site_name" content="Friendly Trader" />
-    <meta name="twitter:card" content="summary_large_image" />
-    <meta name="twitter:title" content="Friendly Trader: Clarity over noise" />
-    <meta name="twitter:description" content="Four friendly tools that turn noisy charts and confusing options into decisions you can actually make." />
-    <meta name="twitter:image" content="https://thefriendlytrader.com/assets/og.png" />
+    <meta
+      http-equiv="Content-Security-Policy"
+      content="default-src 'self'; script-src 'self'; style-src 'self' 'unsafe-inline'; img-src 'self' data: blob:; media-src 'self'; connect-src 'none'; font-src 'self'; object-src 'none'; base-uri 'self'; form-action 'none'"
+    />
     <link rel="canonical" href="https://thefriendlytrader.com/" />
-    <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='8' fill='%23050505'/%3E%3Cpath d='M6 22 L13 15 L18 19 L26 9' fill='none' stroke='%23ccb167' stroke-width='2.4' stroke-linecap='round' stroke-linejoin='round'/%3E%3Ccircle cx='26' cy='9' r='2.6' fill='%23ffff8a'/%3E%3C/svg%3E" />
-    <link rel="apple-touch-icon" href="assets/apple-touch-icon.png" />
-    <link rel="preconnect" href="https://fonts.googleapis.com" />
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet" />
-    <script type="application/ld+json">
-    {
-      "@context": "https://schema.org",
-      "@graph": [
-        { "@type": "Organization", "@id": "https://thefriendlytrader.com/#org", "name": "Friendly Trader", "url": "https://thefriendlytrader.com/", "description": "A suite of plain-English trading tools: a daily stock screener with explainable grading, market intelligence, and options flow analysis." },
-        { "@type": "WebSite", "@id": "https://thefriendlytrader.com/#website", "name": "Friendly Trader", "alternateName": "The Friendly Trader", "url": "https://thefriendlytrader.com/", "publisher": { "@id": "https://thefriendlytrader.com/#org" } },
-        { "@type": "ItemList", "@id": "https://thefriendlytrader.com/#tools", "name": "Friendly Trader tools", "itemListElement": [
-          { "@type": "ListItem", "position": 1, "name": "The Screener", "url": "https://friendlyscreener.com", "description": "Daily stock screening with explainable A to D grading." },
-          { "@type": "ListItem", "position": 2, "name": "Friendly Options", "url": "https://thefriendlytrader.com/options", "description": "Pick cleaner contracts, analyze the trade, and read the options flow in plain English." },
-          { "@type": "ListItem", "position": 3, "name": "Discord Trade Tracker", "url": "https://leaderboard.stockswithjosh.com", "description": "Track every entry, scale-in, and exit as the alerts post live." },
-          { "@type": "ListItem", "position": 4, "name": "TradingView Indicators", "description": "Four scalping indicators for TradingView: GOAT Scalp Levels, A+ Dashboard, Profit Windows, and GOAT Scalp Alpha." },
-          { "@type": "ListItem", "position": 5, "name": "Friendly Intelligence", "url": "https://friendly-trader.com", "description": "Market breadth, internals, and the Fear and Greed gauge in one dashboard. Coming soon." }
-        ] }
-      ]
-    }
-    </script>
-    <style>
-      :root {
-        --bg: rgb(0,0,0);
-        --surface-1: rgb(5,5,5);
-        --surface-2: rgb(18,19,28);
-        --surface-3: rgb(24,26,36);
-        --border: rgb(30,35,51);
-        --border-soft: rgba(255,255,255,0.06);
-        --border-gold: rgba(204,177,103,0.5);
-        --gold: rgb(204,177,103);
-        --gold-hi: rgb(255,255,138);
-        --gold-bright: rgb(255,234,138);
-        --gold-gradient: linear-gradient(65deg, rgb(207,181,104) 27.49%, rgb(255,255,138) 72.54%);
-        --gold-glow: rgba(212,168,83,0.30);
-        --green: rgb(61,220,139);
-        --green-soft: rgb(127,233,180);
-        --down: rgb(229,72,77);
-        --down-ink: rgb(150,120,60);
-        --amber-soon: rgb(255,196,140);
-        --text: rgb(255,255,255);
-        --body: rgb(180,180,180);
-        --muted: rgb(130,130,130);
-        --glass: rgba(8,9,14,0.5);
-        --glass-solid: rgba(8,9,14,0.88);
-        --radius-sm: 10px;
-        --radius: 16px;
-        --radius-card: 18px;
-        --radius-lg: 22px;
-        --radius-xl: 28px;
-        --font-display: "Inter", system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
-        --font-ui: "Inter", system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
-        --ease: cubic-bezier(0.2,0.8,0.2,1);
-        --ease-out-expo: cubic-bezier(0.16,1,0.3,1);
-        --ease-overshoot: cubic-bezier(0.34,1.56,0.64,1);
-        --ease-reveal: cubic-bezier(0.22,1,0.36,1);
-        --spring: cubic-bezier(0.34,1.16,0.64,1);
-        --ios: cubic-bezier(0.32,0.72,0,1);
-        --dur-fast: 180ms;
-        --dur-mid: 250ms;
-        --dur-reveal: 640ms;
-        --ticker-gap: 3rem;
-      }
-
-      * { box-sizing: border-box; -webkit-tap-highlight-color: transparent; }
-      html, body { margin: 0; padding: 0; }
-      html { scroll-behavior: smooth; }
-      body {
-        background: var(--bg);
-        color: var(--text);
-        font-family: var(--font-ui);
-        font-size: 16px;
-        line-height: 1.55;
-        -webkit-font-smoothing: antialiased;
-        -moz-osx-font-smoothing: grayscale;
-        overflow-x: hidden;
-      }
-      a { color: inherit; text-decoration: none; }
-      ::selection { background: rgba(204,177,103,0.28); }
-
-      /* ───── Sticky bar ───── */
-      .bar-wrap { position: sticky; top: 0; z-index: 50; border-bottom: 1px solid var(--border); background: rgba(0,0,0,0.55); }
-      .bar {
-        display: flex; align-items: center; justify-content: space-between;
-        gap: 16px; max-width: 1140px; margin: 0 auto;
-        padding: 14px 24px; padding-top: calc(14px + env(safe-area-inset-top));
-        backdrop-filter: blur(10px); -webkit-backdrop-filter: blur(10px);
-      }
-      .brand { display: flex; align-items: center; gap: 10px; }
-      .mark { width: 30px; height: 30px; display: block; flex-shrink: 0; }
-      .mark path.tick { stroke-dasharray: 60; stroke-dashoffset: 60; animation: draw-on 0.7s var(--ease-out-expo) 0.2s forwards; }
-      @keyframes draw-on { to { stroke-dashoffset: 0; } }
-      .wordmark { font-weight: 600; font-size: 18px; letter-spacing: -0.01em; }
-      .wordmark .g { background: var(--gold-gradient); -webkit-background-clip: text; background-clip: text; -webkit-text-fill-color: transparent; }
-      .pill {
-        display: inline-flex; align-items: center; gap: 7px;
-        padding: 0 18px; height: 44px; border-radius: 999px;
-        border: 1px solid var(--border-gold); color: var(--gold);
-        font-size: 13.5px; font-weight: 700; letter-spacing: -0.01em;
-        background: rgba(204,177,103,0.06);
-        transition: background var(--dur-fast) var(--ease), border-color var(--dur-fast) var(--ease), color var(--dur-fast) var(--ease), transform var(--dur-fast) var(--ios);
-      }
-      .pill:hover { background: rgba(204,177,103,0.14); border-color: var(--gold); color: var(--gold-hi); }
-      .pill:active { transform: scale(0.95); }
-      .pill svg { width: 14px; height: 14px; }
-      /* quiet in-page anchors: help skimmers jump straight to the tools / the price */
-      .bar-nav { display: flex; align-items: center; gap: 22px; margin-left: auto; margin-right: 22px; }
-      .bar-nav a { font-size: 13.5px; font-weight: 500; color: var(--body); transition: color var(--dur-fast) var(--ease); }
-      .bar-nav a:hover { color: var(--gold-hi); }
-      .bar-nav a:focus-visible { outline: 2px solid var(--gold); outline-offset: 3px; border-radius: 4px; }
-      #tools, #join { scroll-margin-top: 92px; }
-
-      /* ───── Ticker tape ───── */
-      .ticker { overflow: hidden; border-bottom: 1px solid var(--border); background: rgba(5,5,5,0.4); }
-      .ticker-mask { display: flex; gap: var(--ticker-gap); width: max-content; }
-      .ticker-track { display: flex; gap: var(--ticker-gap); padding: 8px 0; white-space: nowrap; animation: ticker 42s linear infinite; }
-      .ticker-track .sep { color: var(--muted); }
-      .ticker-chip { font-size: 11.5px; font-weight: 500; letter-spacing: 0.02em; color: var(--muted); font-variant-numeric: tabular-nums; }
-      .ticker-chip b { font-weight: 600; color: var(--text); margin-right: 6px; }
-      .ticker-chip.up { color: var(--green-soft); }
-      .ticker-chip.down { color: var(--down); }
-      @keyframes ticker { from { transform: translateX(0); } to { transform: translateX(calc(-100% - var(--ticker-gap))); } }
-      .ticker-static .ticker-track { animation: none; transform: none; }
-
-      /* ───── Hero ───── */
-      .hero { position: relative; min-height: 92vh; padding: 64px 24px 80px; overflow: hidden; isolation: isolate;
-        background: #000; }
-      #fx { position: absolute; inset: 0; width: 100%; height: 100%; z-index: 0; display: block; pointer-events: none;
-        /* gentle central spotlight-dim: candles dim VERY slightly behind the middle of the subhead/trust, fading back to full brightness by the text edges and out to the page edges */
-        -webkit-mask-image: radial-gradient(ellipse 21% 10% at 50% 26.5%, rgba(0,0,0,0.42) 0%, rgba(0,0,0,0.46) 60%, #000 100%);
-                mask-image: radial-gradient(ellipse 21% 10% at 50% 26.5%, rgba(0,0,0,0.42) 0%, rgba(0,0,0,0.46) 60%, #000 100%); }
-      .scrim { position: absolute; inset: 0; z-index: 1; pointer-events: none;
-        background:
-          radial-gradient(72% 50% at 50% 34%, rgba(0,0,0,0.62) 0%, rgba(0,0,0,0.34) 46%, transparent 72%),
-          linear-gradient(180deg, rgba(0,0,0,0.45) 0%, transparent 24%, transparent 70%, rgba(0,0,0,0.5) 100%);
-      }
-      .hero-inner { position: relative; z-index: 2; max-width: 1140px; margin: 0 auto; }
-      .glass {
-        max-width: 880px; margin: 40px auto 54px; text-align: center;
-        padding: 0 14px;
-      }
-      .eyebrow { font-size: 12px; font-weight: 700; letter-spacing: 0.16em; text-transform: uppercase; color: var(--gold); margin: 0 0 16px; text-shadow: 0 1px 16px rgba(0,0,0,0.55); }
-      h1 {
-        font-family: var(--font-display); font-weight: 800;
-        font-size: clamp(40px, 7.4vw, 80px); line-height: 1.06; letter-spacing: -0.035em;
-        margin: 0 0 20px; color: var(--text);
-        text-shadow: 0 2px 30px rgba(0,0,0,0.6);
-      }
-      h1 .w { display: inline-block; }
-      h1 .w.gold { background: var(--gold-gradient); -webkit-background-clip: text; background-clip: text; -webkit-text-fill-color: transparent; text-shadow: 0 0 42px var(--gold-glow); padding-bottom: 0.14em; margin-bottom: -0.1em; }
-      .reveal-words h1 .w { opacity: 0; transform: translate(var(--tx,0), var(--ty,0.5em)); filter: blur(10px); animation: word-rise 0.8s var(--ease-out-expo) both; animation-delay: var(--d, 0ms); }
-      @keyframes word-rise { from { opacity: 0; transform: translate(var(--tx,0), var(--ty,0.5em)); filter: blur(10px); } to { opacity: 1; transform: translate(0,0); filter: blur(0); } }
-      .subhead { font-size: clamp(15px, 1.6vw, 18px); color: rgba(255,255,255,0.82); max-width: 54ch; margin: 0 auto; text-shadow: 0 1px 18px rgba(0,0,0,0.78); }
-      /* Hero trust anchor - honest social proof above the fold, so a skeptic sees credibility before scrolling */
-      .hero-trust { margin: 22px 0 0; display: inline-flex; flex-wrap: wrap; align-items: center; justify-content: center; gap: 5px 13px; font-size: 13px; color: var(--body); text-shadow: 0 1px 16px rgba(0,0,0,0.72); }
-      .hero-trust b { color: var(--text); font-weight: 700; font-variant-numeric: tabular-nums; }
-      .hero-trust .hero-trust-star { color: var(--gold-hi); }
-      .hero-trust .hero-trust-sep { color: var(--muted); opacity: 0.65; }
-      /* Hero CTA: the primary action at the moment of maximum attention. Slightly smaller
-         than the offer CTA so the headline keeps the stage. Rises in after the words. */
-      .hero-cta { margin: 28px 0 0; }
-      .hero-cta .cta-btn { height: 52px; font-size: 15.5px; padding: 0 26px; }
-      .hero-cta-note { margin: 12px 0 0; font-size: 12.5px; color: var(--body); text-shadow: 0 1px 14px rgba(0,0,0,0.7); }
-      .reveal-words .hero-cta { opacity: 0; animation: word-rise 0.8s var(--ease-out-expo) 0.45s both; }
-
-      /* ───── Bento grid ───── */
-      .bento {
-        display: grid; gap: 16px;
-        grid-template-columns: 1.18fr 1fr 1fr 1.18fr;
-        grid-auto-rows: 1fr;
-      }
-      .card {
-        position: relative; display: flex; flex-direction: column;
-        background: var(--surface-2); border: 1px solid var(--border);
-        border-radius: var(--radius-card); padding: 20px; overflow: hidden;
-        transform-style: preserve-3d;
-        transition: transform var(--dur-mid) var(--ease-reveal), border-color var(--dur-mid) var(--ease), box-shadow var(--dur-mid) var(--ease);
-      }
-      /* Cursor edge-light: a gold light travels the card's 1px border, tracking the cursor.
-         The light lives on the chrome, the data lives inside - no fog over the content. */
-      .card::before {
-        content: ""; position: absolute; inset: 0; z-index: 1; pointer-events: none; opacity: 0;
-        border-radius: inherit; padding: 1px;
-        background: radial-gradient(210px circle at var(--mx, 50%) var(--my, 0%), rgba(255,234,138,0.95), rgba(204,177,103,0.4) 45%, transparent 72%);
-        -webkit-mask: linear-gradient(#000 0 0) content-box, linear-gradient(#000 0 0);
-        -webkit-mask-composite: xor; mask: linear-gradient(#000 0 0) content-box, linear-gradient(#000 0 0); mask-composite: exclude;
-        transition: opacity var(--dur-mid) var(--ease);
-      }
-      .card:hover, .card:focus-within { border-color: rgba(204,177,103,0.28); box-shadow: 0 22px 60px rgba(0,0,0,0.55); transform: translateY(-4px); }
-      .card:hover::before, .card:focus-within::before { opacity: 1; }
-      .card.flagship { grid-row: span 2; }
-      .card.flagship::after {
-        content: ""; position: absolute; inset: 0; border-radius: var(--radius-card); padding: 1px; pointer-events: none;
-        background: var(--gold-gradient); opacity: 0.55;
-        -webkit-mask: linear-gradient(#000 0 0) content-box, linear-gradient(#000 0 0);
-        -webkit-mask-composite: xor; mask: linear-gradient(#000 0 0) content-box, linear-gradient(#000 0 0); mask-composite: exclude;
-      }
-      .card-link { position: absolute; inset: 0; z-index: 3; border-radius: var(--radius-card); }
-      .card-link:focus-visible { outline: 2px solid var(--gold); outline-offset: 2px; }
-      .pill:focus-visible, .cta-btn:focus-visible, .card.soon:focus-visible, .brand:focus-visible, footer a:focus-visible { outline: 2px solid var(--gold); outline-offset: 3px; border-radius: 6px; }
-      .card > .inner { position: relative; z-index: 2; display: flex; flex-direction: column; height: 100%; gap: 14px; pointer-events: none; transition: transform 0.16s var(--ease); }
-      /* Tactile press: the tile dips when you click it */
-      .card:active > .inner { transform: scale(0.984); }
-      .demo { position: relative; flex: 1; min-height: 120px; border-radius: var(--radius-sm); background: rgba(0,0,0,0.5); border: 1px solid rgba(255,255,255,0.05); overflow: hidden; }
-      .card.flagship .demo { min-height: 220px; }
-      /* Refraction Handoff: the tile flashes as the live signal arrives from the backdrop */
-      .demo::after { content: ""; position: absolute; inset: 0; border-radius: inherit; pointer-events: none; opacity: 0; z-index: 4;
-        background: radial-gradient(130% 92% at 50% 0%, rgba(255,255,138,0.24), rgba(204,177,103,0.06) 44%, transparent 72%); }
-      .card.claimed .demo::after { animation: claim-flash 0.85s var(--ease-out-expo); }
-      @keyframes claim-flash { 0% { opacity: 0; } 30% { opacity: 1; } 100% { opacity: 0; } }
-      .card-glyph { width: 22px; height: 22px; color: var(--gold); }
-      .card-head { display: flex; align-items: center; gap: 9px; }
-      .card-title { font-size: 19px; font-weight: 600; margin: 0; letter-spacing: -0.01em; }
-      .card-blurb { font-size: 13.5px; color: var(--body); margin: 0; line-height: 1.5; }
-      .card-foot { display: flex; align-items: center; justify-content: space-between; gap: 10px; margin-top: auto; }
-      .card-cta { font-size: 13px; font-weight: 600; color: var(--gold); display: inline-flex; align-items: center; gap: 5px; transition: color var(--dur-fast) var(--ease); }
-      .card-cta .arr { display: inline-block; transition: transform 0.22s var(--spring); }
-      .card:hover .card-cta, .card:focus-within .card-cta { color: var(--gold-hi); }
-      .card:hover .card-cta .arr, .card:focus-within .card-cta .arr { transform: translateX(4px); }
-      .card-host { font-size: 10.5px; color: var(--muted); letter-spacing: 0.02em; }
-      .chip-soon { font-size: 10px; font-weight: 600; letter-spacing: 0.1em; text-transform: uppercase; color: var(--amber-soon); border: 1px solid rgba(255,196,140,0.35); background: rgba(255,196,140,0.08); padding: 4px 9px; border-radius: 999px; }
-      .card.soon { opacity: 0.82; }
-      .card.soon .demo { filter: grayscale(0.3); }
-
-      /* ── TradingView Indicators: right-side flagship that mirrors The Screener (desktop). Tablet/mobile: normal flagship tile. ── */
-      .card.suite { grid-column: 4; grid-row: 1 / 3; }
-      .suite .demo { padding: 7px; display: flex; }
-      .suite .ind-list { list-style: none; margin: 0; padding: 0; flex: 1; display: flex; flex-direction: column; gap: 7px; }
-      .suite .ind-list li { flex: 1; display: flex; flex-direction: column; justify-content: center; gap: 7px; padding: 10px 12px; border-radius: 8px; background: rgba(255,255,255,0.04); border: 1px solid rgba(255,255,255,0.06); }
-      .suite .ind-top { display: flex; align-items: baseline; justify-content: space-between; gap: 8px; }
-      .suite .ind-list b { font-size: 12px; font-weight: 600; color: var(--gold-bright); letter-spacing: -0.01em; }
-      .suite .ind-val { font-size: 11px; font-weight: 600; color: var(--body); font-variant-numeric: tabular-nums; }
-      .suite .ind-grade { font-size: 12px; font-weight: 700; font-variant-numeric: tabular-nums; }
-      .suite .ind-grade.ghi { color: var(--green-soft); } .suite .ind-grade.gmid { color: var(--gold-hi); } .suite .ind-grade.glo { color: var(--muted); }
-      .suite .ind-bias { font-size: 11px; font-weight: 700; }
-      .suite .ind-bias.long { color: var(--green-soft); } .suite .ind-bias.short { color: rgb(240,150,150); } .suite .ind-bias.flat { color: var(--gold); }
-      /* GOAT Scalp Levels — spot price riding a breakdown↔breakout rail */
-      .suite .lv-rail { position: relative; height: 5px; border-radius: 3px; background: linear-gradient(90deg, rgba(229,72,77,0.55), rgba(204,177,103,0.4) 50%, rgba(61,220,139,0.55)); }
-      .suite .lv-dot { position: absolute; top: 50%; left: 50%; width: 9px; height: 9px; border-radius: 50%; background: var(--gold-bright); box-shadow: 0 0 0 2px rgba(5,5,5,0.7), 0 0 9px rgba(255,234,138,0.7); transform: translate(-50%,-50%); transition: left 0.7s var(--ease-reveal); }
-      .suite .lv-ends { display: flex; justify-content: space-between; font-size: 9.5px; font-variant-numeric: tabular-nums; }
-      .suite .lv-ends .dn { color: rgb(240,150,150); } .suite .lv-ends .up { color: var(--green-soft); }
-      /* A+ Dashboard — four confluence segments */
-      .suite .ap-segs { display: flex; gap: 5px; }
-      .suite .ap-segs span { flex: 1; height: 17px; border-radius: 4px; display: grid; place-items: center; font-size: 9.5px; font-weight: 700; color: var(--muted); background: rgba(255,255,255,0.05); border: 1px solid rgba(255,255,255,0.06); transition: background 0.45s var(--ease), color 0.45s var(--ease), border-color 0.45s var(--ease), box-shadow 0.45s var(--ease); }
-      .suite .ap-segs span.on { color: var(--green-soft); background: rgba(61,220,139,0.16); border-color: rgba(61,220,139,0.32); box-shadow: 0 0 9px rgba(61,220,139,0.2); }
-      /* Profit Windows — session blocks, the live one glows */
-      .suite .pw-blocks { display: flex; gap: 4px; }
-      .suite .pw-blocks span { flex: 1; height: 15px; border-radius: 3px; background: rgba(255,255,255,0.05); border: 1px solid rgba(255,255,255,0.06); transition: background 0.5s var(--ease), box-shadow 0.5s var(--ease); }
-      .suite .pw-blocks span.on { background: var(--gold-gradient); border-color: transparent; box-shadow: 0 0 11px rgba(255,234,138,0.42); }
-      /* GOAT Scalp Alpha — signal-strength meter */
-      .suite .ax-meter { height: 6px; border-radius: 3px; background: rgba(255,255,255,0.06); overflow: hidden; }
-      .suite .ax-meter i { display: block; height: 100%; width: 50%; border-radius: 3px; background: var(--gold-gradient); transition: width 0.7s var(--ease-reveal); }
-
-      /* ── Screener demo: grade pills + rows ── */
-      .scr { position: absolute; inset: 0; padding: 12px; display: flex; flex-direction: column; gap: 7px; }
-      /* Flagship demo is tall - center the rows so they don't strand at the top with dead space below */
-      .card.flagship .scr { justify-content: center; gap: 11px; }
-      .scr-row { display: flex; align-items: center; gap: 10px; transition: transform 0.5s var(--ease-reveal); }
-      .scr-tk { font-size: 11px; font-weight: 600; color: var(--text); width: 42px; font-variant-numeric: tabular-nums; }
-      .scr-bar { flex: 1; height: 6px; border-radius: 3px; background: rgba(255,255,255,0.06); overflow: hidden; }
-      .scr-bar i { display: block; height: 100%; border-radius: 3px; background: var(--gold-gradient); transition: width 0.6s var(--ease-reveal); }
-      .grade { width: 22px; height: 22px; border-radius: 6px; display: grid; place-items: center; font-size: 12px; font-weight: 700; font-family: var(--font-ui); }
-      .grade.A { background: rgba(61,220,139,0.16); color: var(--green-soft); }
-      .grade.B { background: rgba(204,177,103,0.18); color: var(--gold-hi); }
-      .grade.C { background: rgba(204,177,103,0.10); color: var(--gold); }
-      .grade.D { background: rgba(229,72,77,0.14); color: rgb(240,150,150); }
-      /* tiny pop when a ticker's grade re-shuffles on hover */
-      .grade-pop { animation: grade-pop 0.42s var(--ease-out-expo) both; }
-      @keyframes grade-pop { 0% { transform: scale(0.62); } 58% { transform: scale(1.12); } 100% { transform: scale(1); } }
-
-      /* ── Intelligence demo: gauge needle + breadth ── */
-      .intel { position: absolute; inset: 0; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 10px; padding: 12px; }
-      .gauge { width: 150px; height: 84px; }
-      .gauge .needle { transform-box: fill-box; transform-origin: 50% 100%; transition: transform 1.1s var(--ease-overshoot); }
-      .breadth { width: 86%; }
-      .breadth-l { display: flex; justify-content: space-between; font-size: 9.5px; color: var(--muted); margin-bottom: 4px; letter-spacing: 0.04em; text-transform: uppercase; }
-      .breadth-bar { height: 7px; border-radius: 4px; background: rgba(255,255,255,0.06); overflow: hidden; }
-      .breadth-bar i { display: block; height: 100%; background: linear-gradient(90deg, var(--down) 0%, var(--gold) 50%, var(--green) 100%); width: 50%; transition: width 1s var(--ease-reveal); }
-
-      /* ── Options demo: flow chips + sentiment ── */
-      .flow { position: absolute; inset: 0; padding: 12px; display: flex; flex-direction: column; gap: 8px; justify-content: center; }
-      .flow-chip { font-size: 11.5px; color: var(--body); background: rgba(255,255,255,0.04); border: 1px solid rgba(255,255,255,0.06); border-radius: 8px; padding: 7px 10px; opacity: 0; transform: translateY(8px); }
-      .flow-chip b { color: var(--text); font-weight: 600; }
-      .flow-chip.bull b { color: var(--green-soft); }
-      .flow-chip.bear b { color: var(--down); }
-      .flow-chip.show { animation: chip-in 0.5s var(--ease-reveal) forwards; }
-      @keyframes chip-in { to { opacity: 1; transform: translateY(0); } }
-      .sent { display: flex; align-items: center; gap: 8px; margin-top: 2px; }
-      .sent-bar { flex: 1; height: 6px; border-radius: 3px; background: rgba(255,255,255,0.06); overflow: hidden; }
-      .sent-bar i { display: block; height: 100%; width: 50%; background: linear-gradient(90deg, var(--down), var(--gold), var(--green)); transition: width 0.9s var(--ease-reveal); }
-      .sent-l { font-size: 10px; color: var(--green-soft); font-weight: 600; }
-
-      /* ── BTC demo: locked dial ── */
-      .btc { position: absolute; inset: 0; display: grid; place-items: center; }
-      .demo .lock { position: absolute; top: 10px; right: 10px; width: 16px; height: 16px; color: var(--muted); z-index: 5; }
-
-      /* ── Discord Trade Tracker demo: live alert feed ── */
-      .track { position: absolute; inset: 0; padding: 12px; display: flex; flex-direction: column; gap: 8px; justify-content: center; }
-      .track-row { display: flex; align-items: center; gap: 8px; font-size: 12px; color: var(--text); background: rgba(255,255,255,0.04); border: 1px solid rgba(255,255,255,0.06); border-radius: 8px; padding: 7px 10px; }
-      .track-row b { font-weight: 700; letter-spacing: -0.01em; }
-      .track-tag { margin-left: auto; font-size: 9.5px; font-weight: 700; letter-spacing: 0.06em; text-transform: uppercase; color: var(--gold); border: 1px solid var(--border-gold); border-radius: 999px; padding: 2px 8px; }
-      .track-tag.muted { color: var(--muted); border-color: var(--border); }
-      .track-live { flex: none; width: 7px; height: 7px; border-radius: 999px; background: var(--green); box-shadow: 0 0 0 0 rgba(61,220,139,0.5); animation: track-pulse 2.2s var(--ease) infinite; }
-      @keyframes track-pulse { 0% { box-shadow: 0 0 0 0 rgba(61,220,139,0.45); } 70% { box-shadow: 0 0 0 7px rgba(61,220,139,0); } 100% { box-shadow: 0 0 0 0 rgba(61,220,139,0); } }
-
-      /* ───── Explainer (iOS step cards) ───── */
-      .explainer { background: radial-gradient(640px 150px at 50% 0%, rgba(204,177,103,0.05), transparent 72%), var(--surface-1); border-top: 1px solid var(--border); border-bottom: 1px solid var(--border); margin-top: 60px; padding: 80px 24px; }
-      .explainer-inner { max-width: 1040px; margin: 0 auto; text-align: center; }
-      .explainer h2 { font-family: var(--font-display); font-weight: 800; font-size: clamp(30px, 4.6vw, 48px); margin: 8px 0 18px; letter-spacing: -0.03em; }
-      .h2-rule { width: 60px; height: 3px; border-radius: 3px; margin: 0 auto 44px; background: var(--gold-gradient); transform-origin: center; transition: transform 0.8s var(--ease-reveal) 0.1s; }
-      .js .h2-rule { transform: scaleX(0); }
-      .explainer.in .h2-rule { transform: scaleX(1); }
-      .proof-row { display: flex; flex-wrap: wrap; justify-content: center; align-items: flex-start; gap: 24px 64px; margin: 6px auto 0; }
-      .js .proof-stat { opacity: 0; transform: translateY(18px); }
-      .js .proof-stat.in { opacity: 1; transform: none; transition: opacity var(--dur-reveal) var(--ios), transform var(--dur-reveal) var(--spring); transition-delay: var(--d, 0ms); }
-      .proof-stat { display: flex; flex-direction: column; align-items: center; gap: 8px; }
-      .proof-num { font-size: clamp(42px, 6.2vw, 66px); font-weight: 800; line-height: 1; letter-spacing: -0.035em; }
-      .proof-num .g { background: var(--gold-gradient); -webkit-background-clip: text; background-clip: text; -webkit-text-fill-color: transparent; }
-      .proof-num .star { color: var(--gold-hi); }
-      .proof-cap { font-size: 13px; color: var(--muted); letter-spacing: 0.03em; }
-      .explainer-foot { margin: 40px auto 0; font-size: 14.5px; color: var(--muted); max-width: 54ch; }
-
-      /* ───── Offer (one membership · one price) ───── */
-      .offer { padding: 96px 24px 104px; text-align: center; }
-      .offer-inner { max-width: 720px; margin: 0 auto; }
-      .offer h2 { font-family: var(--font-display); font-weight: 800; font-size: clamp(30px, 4.6vw, 48px); margin: 8px 0 18px; letter-spacing: -0.03em; }
-      .offer h2 .g { background: var(--gold-gradient); -webkit-background-clip: text; background-clip: text; -webkit-text-fill-color: transparent; }
-      .offer.in .h2-rule { transform: scaleX(1); }
-
-      .price { position: relative; display: inline-flex; align-items: flex-start; justify-content: center; gap: 3px; line-height: 1; margin: 4px 0 0; }
-      /* soft ambient warmth behind the price - the offer's own hero moment */
-      .price::before { content: ""; position: absolute; inset: -46px -96px; z-index: -1; pointer-events: none;
-        background: radial-gradient(52% 62% at 50% 56%, rgba(212,168,83,0.13), transparent 72%); }
-      .price-cur { margin-top: 0.52em; font-size: clamp(24px, 3vw, 32px); font-weight: 700; color: var(--text); }
-      .price-num { font-size: clamp(74px, 12vw, 110px); font-weight: 800; letter-spacing: -0.045em; padding-bottom: 0.06em; background: var(--gold-gradient); -webkit-background-clip: text; background-clip: text; -webkit-text-fill-color: transparent; }
-      .price-cents { font-size: 0.34em; letter-spacing: -0.01em; vertical-align: 1.12em; }
-      .price-per { align-self: flex-end; margin-bottom: 0.85em; font-size: 15px; font-weight: 600; color: var(--muted); }
-      .price-note { margin: 14px auto 0; max-width: 44ch; font-size: 14.5px; color: var(--body); }
-
-      .incl { margin: 26px auto 32px; padding: 0; display: flex; justify-content: center; align-items: flex-start; flex-wrap: wrap; gap: 14px 34px; }
-      .incl > ul { list-style: none; margin: 0; padding: 0; display: flex; flex-direction: column; align-items: flex-start; gap: 11px; }
-      .incl li { display: inline-flex; align-items: center; gap: 8px; font-size: 14.5px; font-weight: 500; color: var(--text); }
-      .incl li svg { flex: none; width: 17px; height: 17px; color: var(--gold); }
-      /* Included list: rows rise in with a stagger and each gold check draws itself on */
-      .js .offer .incl li { opacity: 0; transform: translateX(-10px); }
-      .offer.in .incl li { opacity: 1; transform: none; transition: opacity 0.55s var(--ios) var(--ld, 0ms), transform 0.55s var(--spring) var(--ld, 0ms); }
-      .offer.in .incl li svg path { stroke-dasharray: 22; animation: check-draw 0.45s var(--ease-out-expo) both; animation-delay: calc(var(--ld, 0ms) + 140ms); }
-      @keyframes check-draw { from { stroke-dashoffset: 22; } to { stroke-dashoffset: 0; } }
-      .soon-tag { font-size: 9.5px; font-weight: 800; letter-spacing: 0.09em; text-transform: uppercase; color: var(--amber-soon); border: 1px solid rgba(255,196,140,0.4); border-radius: 999px; padding: 1.5px 7px; margin-left: 4px; }
-
-      .magnet-wrap { display: inline-block; }
-      .cta-note { margin: 14px 0 0; font-size: 12.5px; color: var(--muted); }
-      .cta-btn {
-        position: relative; display: inline-flex; align-items: center; gap: 9px;
-        padding: 0 30px; height: 56px; border-radius: 999px; border: none; cursor: pointer;
-        background: var(--gold-gradient); color: rgb(10,10,10);
-        font-family: var(--font-ui); font-weight: 800; font-size: 16.5px; letter-spacing: -0.2px;
-        box-shadow: inset 0 3px 0 0 rgba(255,255,255,0.34), 0 10px 34px rgba(212,168,83,0.34);
-        transition: filter var(--dur-fast) var(--ease), box-shadow var(--dur-fast) var(--ease), transform var(--dur-fast) var(--ios);
-        overflow: hidden;
-      }
-      .cta-btn:hover { filter: brightness(1.07); box-shadow: inset 0 3px 0 0 rgba(255,255,255,0.34), 0 14px 48px rgba(212,168,83,0.5); }
-      .cta-btn:active { transform: scale(0.97); }
-      .cta-btn svg { width: 18px; height: 18px; }
-      /* One-shot glint sweeps the CTA as the offer reveals - a single pass, then done */
-      .cta-btn::after { content: ""; position: absolute; inset: 0; border-radius: inherit; pointer-events: none; opacity: 0;
-        background: linear-gradient(115deg, transparent 32%, rgba(255,255,255,0.5) 50%, transparent 68%);
-        transform: translateX(-130%); }
-      .offer.in .cta-btn::after { animation: cta-sheen 1.05s var(--ease-out-expo) 0.7s both; }
-      @keyframes cta-sheen { 0% { opacity: 0; transform: translateX(-130%); } 15% { opacity: 1; } 100% { opacity: 0; transform: translateX(130%); } }
-      /* Lock that starts closed and springs open on hover / focus / press */
-      .lock-ico .shackle { transform-box: fill-box; transform-origin: 18% 100%; transition: transform 0.42s var(--spring); }
-      .pill:hover .lock-ico .shackle, .pill:focus-visible .lock-ico .shackle, .pill:active .lock-ico .shackle,
-      .cta-btn:hover .lock-ico .shackle, .cta-btn:focus-visible .lock-ico .shackle, .cta-btn:active .lock-ico .shackle { transform: rotate(-30deg) translateY(-1px); }
-      /* Trader-tier carrot - locked Portfolio */
-      .upsell { position: relative; max-width: 540px; margin: 54px auto 0; text-align: left; display: flex; align-items: center; gap: 16px; padding: 18px 20px; border-radius: var(--radius-lg); background: linear-gradient(180deg, var(--surface-3), var(--surface-2)); border: 1px solid var(--border); text-decoration: none; color: inherit; cursor: pointer; transition: border-color 180ms var(--ease), transform 180ms var(--ease), box-shadow 180ms var(--ease); }
-      .upsell:hover { border-color: var(--border-gold); transform: translateY(-2px); box-shadow: 0 14px 40px rgba(0,0,0,0.45); }
-      /* touch feedback: hover never fires on phones, so the press itself responds */
-      .upsell:active { border-color: var(--border-gold); transform: scale(0.988); }
-      .upsell:focus-visible { outline: 2px solid var(--gold); outline-offset: 3px; }
-      .upsell::after { content: ""; position: absolute; inset: 0; border-radius: inherit; pointer-events: none; box-shadow: inset 0 0 0 1px rgba(204,177,103,0.12), inset 0 1px 0 rgba(255,255,255,0.04); }
-      /* same cursor edge-light language as the tool tiles */
-      .upsell::before { content: ""; position: absolute; inset: 0; z-index: 0; pointer-events: none; opacity: 0;
-        border-radius: inherit; padding: 1px;
-        background: radial-gradient(260px circle at var(--mx, 50%) var(--my, 50%), rgba(255,234,138,0.9), rgba(204,177,103,0.35) 45%, transparent 72%);
-        -webkit-mask: linear-gradient(#000 0 0) content-box, linear-gradient(#000 0 0);
-        -webkit-mask-composite: xor; mask: linear-gradient(#000 0 0) content-box, linear-gradient(#000 0 0); mask-composite: exclude;
-        transition: opacity var(--dur-mid) var(--ease); }
-      .upsell:hover::before, .upsell:focus-visible::before { opacity: 1; }
-      .upsell-cta { flex: none; display: inline-flex; align-items: center; gap: 5px; font-size: 12.5px; font-weight: 700; letter-spacing: 0.02em; color: var(--gold-bright); }
-      .upsell-cta svg { width: 15px; height: 15px; transition: transform 180ms var(--ease); }
-      .upsell:hover .upsell-cta svg { transform: translateX(3px); }
-      .upsell:hover .upsell-lock { background: rgba(193,155,63,0.18); }
-      /* the carrot's padlock springs open on hover, same language as the Unlock buttons */
-      .upsell-lock .shackle { transform-box: fill-box; transform-origin: 18% 100%; transition: transform 0.42s var(--spring); }
-      .upsell:hover .upsell-lock .shackle, .upsell:focus-visible .upsell-lock .shackle { transform: rotate(-30deg) translateY(-1px); }
-      .upsell-lock { flex: none; width: 46px; height: 46px; border-radius: 14px; display: grid; place-items: center; background: rgba(193,155,63,0.10); border: 1px solid var(--border-gold); color: var(--gold); }
-      .upsell-lock svg { width: 22px; height: 22px; }
-      .upsell-body { flex: 1; min-width: 0; }
-      .upsell-kicker { font-size: 11px; font-weight: 800; letter-spacing: 0.14em; text-transform: uppercase; color: var(--gold); margin: 0 0 3px; }
-      .upsell-title { font-size: 17px; font-weight: 800; letter-spacing: -0.01em; margin: 0; color: var(--text); }
-      .upsell-desc { font-size: 13px; color: var(--body); margin: 4px 0 0; line-height: 1.45; }
-      .upsell-foot { margin: 16px auto 0; max-width: 540px; font-size: 12.5px; color: var(--muted); }
-
-      /* ───── Footer ───── */
-      footer { border-top: 1px solid var(--border); background: var(--surface-1); padding: 48px 24px calc(48px + env(safe-area-inset-bottom)); text-align: center; color: var(--muted); font-size: 12.5px; }
-      .foot-inner { max-width: 1140px; margin: 0 auto; display: flex; flex-direction: column; align-items: center; gap: 14px; }
-      .foot-brand { opacity: 0.92; }
-      .foot-links a { color: var(--body); }
-      .foot-links a:hover { color: var(--gold); }
-      .foot-links .sep { margin: 0 10px; opacity: 0.5; }
-      .foot-tag { margin: 0; color: var(--gold); opacity: 0.7; font-size: 12px; letter-spacing: 0.05em; }
-
-      /* ───── Scroll reveal base (spring) ───── */
-      /* Hidden start is gated on .js so a no-JS visit still sees every section. */
-      .js .reveal { opacity: 0; transform: translateY(28px) scale(0.985); filter: blur(6px); transition: opacity var(--dur-reveal) var(--ios), transform var(--dur-reveal) var(--spring), filter var(--dur-reveal) var(--ios); }
-      .js .reveal.in { opacity: 1; transform: none; filter: none; }
-      /* Bento card scroll-in (gated on .js so no-JS keeps the tool cards visible) */
-      .js .bento .card { opacity: 0; }
-      .js .bento .card.in { animation: card-pop 0.62s var(--spring) both; animation-delay: var(--cd, 0ms); }
-      @keyframes card-pop { from { opacity: 0; transform: translateY(22px) scale(0.99); } to { opacity: 1; transform: none; } }
-
-      /* ───── Responsive: tablet / mobile ───── */
-      /* Desktop 4-col: two flagships span 2 rows (cols 1 + 4); the four mid tiles fill the 2x2 center. */
-      @media (max-width: 1024px) {
-        .bento { grid-template-columns: 1fr 1fr; }
-        .card.flagship { grid-row: auto; }
-        .card.suite { grid-column: auto; grid-row: auto; }
-        .card.flagship .demo { min-height: 170px; }
-      }
-      @media (max-width: 700px) {
-        .hero { min-height: auto; padding: 44px 16px 48px; }
-        .glass { padding: 0 6px; margin: 16px auto 34px; }
-        .bar { padding: 12px 16px; padding-top: calc(12px + env(safe-area-inset-top)); backdrop-filter: none; -webkit-backdrop-filter: none; }
-        /* no blur on phones (perf) - compensate with a more opaque bar so content doesn't ghost through */
-        .bar-wrap { background: rgba(0,0,0,0.82); }
-        /* the anchor row would crowd the brand + pill on a phone bar */
-        .bar-nav { display: none; }
-        /* content-sized cards: the sparse "soon" tiles stop stretching to match the tallest card,
-           trimming ~600px of dead scroll from the stacked page */
-        .bento { grid-template-columns: 1fr; grid-auto-rows: auto; gap: 12px; }
-        .card.flagship .demo { min-height: 180px; }
-        .demo { min-height: 136px; }
-        .proof-row { gap: 22px 40px; }
-        .explainer { padding: 60px 18px; }
-        .offer { padding: 68px 18px 78px; }
-        /* wider gap between the three groups so tools / membership / indicators read as groups */
-        .incl { flex-direction: column; align-items: flex-start; gap: 20px; }
-        /* upsell: let the description breathe - body takes the full row under the lock,
-           the Unlock affordance gets its own right-aligned row */
-        .upsell { flex-wrap: wrap; gap: 12px 14px; padding: 16px 16px; }
-        .upsell-body { flex: 1 1 calc(100% - 60px); }
-        .upsell-cta { margin-left: auto; }
-      }
-      @media (max-width: 430px) {
-        .pill { padding: 0 14px; font-size: 12.5px; }
-        .ticker-track { animation-duration: 30s; }
-      }
-
-      /* ───── Fully static, fully legible. Media query = always/no-JS fallback for reduced-motion;
-         html.static = JS path covering BOTH reduced-motion AND save-data (set when STATIC). ───── */
-      @media (prefers-reduced-motion: reduce) {
-        html { scroll-behavior: auto; }
-        *, *::before, *::after { animation: none !important; transition: none !important; }
-        .reveal-words h1 .w, .reveal, .js .reveal { opacity: 1; transform: none; filter: none; }
-        .js .bento .card, .js .proof-stat, .js .offer .incl li { opacity: 1 !important; transform: none !important; }
-        .flow-chip { opacity: 1 !important; transform: none !important; }
-        .h2-rule { transform: scaleX(1); }
-        .ticker-track { transform: none; }
-        .mark path.tick { stroke-dashoffset: 0; }
-        .glass { transform: none !important; opacity: 1 !important; }
-      }
-      html.static *, html.static *::before, html.static *::after { animation: none !important; transition: none !important; }
-      html.static { scroll-behavior: auto; }
-      html.static .reveal-words h1 .w, html.static .reveal { opacity: 1; transform: none; filter: none; }
-      /* NOTE: .static and .js both live on <html>, so these must be compound (no descendant combinator) */
-      html.static.js .bento .card, html.static.js .proof-stat, html.static.js .offer .incl li { opacity: 1 !important; transform: none !important; }
-      html.static .flow-chip { opacity: 1 !important; transform: none !important; }
-      html.static .h2-rule { transform: scaleX(1); }
-      html.static .ticker-track { transform: none; }
-      html.static .mark path.tick { stroke-dashoffset: 0; }
-      html.static .glass { transform: none !important; opacity: 1 !important; }
-    </style>
+    <link rel="icon" href="assets/app-preview/app-icon.png" />
+    <link rel="apple-touch-icon" href="assets/app-preview/app-icon.png" />
+    <link rel="stylesheet" href="assets/app-preview/site.css" />
+    <title>Friendly Trader | Your trading day, made friendly</title>
   </head>
   <body>
-    <div class="bar-wrap">
-      <header class="bar">
-        <a class="brand" href="/" aria-label="Friendly Trader home">
-          <svg class="mark" viewBox="0 0 32 32" aria-hidden="true"><rect width="32" height="32" rx="8" fill="#050505"/><path class="tick" d="M6 22 L13 15 L18 19 L26 9" fill="none" stroke="#ccb167" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/><circle cx="26" cy="9" r="2.6" fill="#ffff8a"/></svg>
-          <span class="wordmark"><span class="g">Friendly</span> Trader</span>
-        </a>
-        <nav class="bar-nav" aria-label="Page">
-          <a href="#tools">Tools</a>
-          <a href="#join">Pricing</a>
-          <a href="/faq/">FAQ</a>
-        </nav>
-        <a class="pill" href="https://whop.com/checkout/plan_qPuvfVGzKgEPW" rel="noopener">
-          <svg class="lock-ico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="5" y="11" width="14" height="9" rx="2"/><path class="shackle" d="M8 11V7a4 4 0 0 1 8 0v4"/></svg>
-          Unlock Tools
-        </a>
-      </header>
-    </div>
-
-    <div class="ticker ticker-wrap" aria-hidden="true">
-      <div class="ticker-mask">
-        <div class="ticker-track" id="tk1"></div>
-        <div class="ticker-track" aria-hidden="true" id="tk2"></div>
-      </div>
-    </div>
-
-    <main>
-      <section class="hero" id="hero">
-        <canvas id="fx" aria-hidden="true"></canvas>
-        <div class="scrim"></div>
-        <div class="hero-inner">
-          <div class="glass" id="heroGlass">
-            <p class="eyebrow">A friendlier way to read the market</p>
-            <h1 id="h1" aria-label="Clarity over noise">Clarity over noise</h1>
-            <p class="subhead">Four friendly tools that turn noisy charts and confusing options into decisions you can actually make.</p>
-            <p class="hero-trust">
-              <span><b>190K</b> on YouTube</span>
-              <span class="hero-trust-sep" aria-hidden="true">·</span>
-              <span><span class="hero-trust-star" aria-hidden="true">★</span> <b>4.6</b> from 717 reviews</span>
+    <a class="skip-link" href="#main">Skip to content</a>
+    <header class="site-header">
+      <a class="brand" href="#" aria-label="Friendly Trader home"
+        ><img
+          src="assets/app-preview/app-icon.png"
+          alt=""
+          width="42"
+          height="42"
+        /><span>Friendly Trader</span></a
+      >
+      <nav aria-label="Main navigation">
+        <a href="#inside">Inside the app</a><a href="#membership">Membership</a
+        ><a href="#web-tools">Web tools</a>
+      </nav>
+      <a class="button small" href="#get-app"
+        >Get the app <span aria-hidden="true">↗</span></a
+      >
+    </header>
+    <main id="main">
+      <section class="hero" id="try-app">
+        <div class="hero-copy">
+          <div class="availability">
+            <span></span>Meet Friendly Trader for iPhone
+          </div>
+          <h1>Your trading day,<br />made friendly.</h1>
+          <p class="hero-description">
+            Find what’s moving. Make sense of the chart. Plan your next step.
+            Your trading tools and community, together in one app.
+          </p>
+          <div class="hero-actions">
+            <button class="button" data-site="explore">
+              Try the whole app <span aria-hidden="true">↗</span></button
+            ><button class="button secondary" data-site="tour">
+              <span aria-hidden="true">▷</span> Watch the tour
+            </button>
+          </div>
+          <p class="quiet">No account needed. All preview data is simulated.</p>
+          <div class="hero-bottom">
+            <div class="mini-icon">
+              <img
+                src="assets/app-preview/pip.png"
+                alt="Pip, the Friendly Assistant"
+                width="58"
+                height="58"
+              />
+            </div>
+            <p>
+              A little guidance goes a long way.<br /><strong
+                >Meet Pip. Your friendly guide.</strong
+              >
             </p>
-            <div class="hero-cta">
-              <a class="cta-btn" href="https://whop.com/checkout/plan_qPuvfVGzKgEPW" rel="noopener">
-                <svg class="lock-ico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="5" y="11" width="14" height="9" rx="2"/><path class="shackle" d="M8 11V7a4 4 0 0 1 8 0v4"/></svg>
-                <span>Unlock Tools</span>
-              </a>
-              <p class="hero-cta-note">$79.99/month · cancel anytime</p>
-            </div>
           </div>
-
-          <div class="bento" id="tools">
-            <!-- Flagship: The Screener -->
-            <article class="card flagship" data-demo="screener">
-              <a class="card-link" href="https://friendlyscreener.com" rel="noopener" aria-label="Open The Screener"></a>
-              <div class="inner">
-                <div class="demo">
-                  <div class="scr" id="scrDemo"></div>
-                </div>
-                <div>
-                  <div class="card-head">
-                    <svg class="card-glyph" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 3v18h18"/><path d="M7 14l3-3 3 2 5-6"/></svg>
-                    <h2 class="card-title">The Screener</h2>
-                  </div>
-                  <p class="card-blurb">Daily setups, graded A to D so you know what is worth a look in seconds.</p>
-                </div>
-                <div class="card-foot">
-                  <span class="card-cta">Open the Screener <span class="arr" aria-hidden="true">→</span></span>
-                  <span class="card-host">friendlyscreener.com</span>
-                </div>
-              </div>
-            </article>
-
-            <!-- Friendly Options -->
-            <article class="card" data-demo="options">
-              <a class="card-link" href="https://thefriendlytrader.com/options" rel="noopener" aria-label="Open Friendly Options"></a>
-              <div class="inner">
-                <div class="demo">
-                  <div class="flow" id="flowDemo">
-                    <div class="flow-chip bull">Someone bought <b>400 calls</b>, leaning bullish</div>
-                    <div class="flow-chip">Sweep on <b>NVDA</b>, just above the ask</div>
-                    <div class="sent"><span class="sent-l" id="sentL">Bullish</span><div class="sent-bar"><i id="sentFill"></i></div></div>
-                  </div>
-                </div>
-                <div>
-                  <div class="card-head">
-                    <svg class="card-glyph" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 18l5-5 4 3 7-8"/><path d="M21 7v5h-5"/></svg>
-                    <h2 class="card-title">Friendly Options</h2>
-                  </div>
-                  <p class="card-blurb">Pick cleaner contracts, analyze the trade, and read the options flow in plain English.</p>
-                </div>
-                <div class="card-foot">
-                  <span class="card-cta">Analyze a trade <span class="arr" aria-hidden="true">→</span></span>
-                  <span class="card-host">thefriendlytrader.com/options</span>
-                </div>
-              </div>
-            </article>
-
-            <!-- Discord Trade Tracker -->
-            <article class="card">
-              <a class="card-link" href="https://leaderboard.stockswithjosh.com" rel="noopener" aria-label="Open the Discord Trade Tracker"></a>
-              <div class="inner">
-                <div class="demo">
-                  <div class="track">
-                    <div class="track-row"><span class="track-live" aria-hidden="true"></span><b>NVDA</b><span class="track-tag">Entry</span></div>
-                    <div class="track-row"><b>SPY</b><span class="track-tag">Scaled</span></div>
-                    <div class="track-row"><b>AAPL</b><span class="track-tag muted">Closed</span></div>
-                  </div>
-                </div>
-                <div>
-                  <div class="card-head">
-                    <svg class="card-glyph" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 12h4l2-7 4 14 2-7h6"/></svg>
-                    <h2 class="card-title">Discord Trade Tracker</h2>
-                  </div>
-                  <p class="card-blurb">Track every entry, scale-in, and exit as the alerts post live.</p>
-                </div>
-                <div class="card-foot">
-                  <span class="card-cta">Open the tracker <span class="arr" aria-hidden="true">→</span></span>
-                </div>
-              </div>
-            </article>
-
-            <!-- Friendly Intelligence (coming soon) -->
-            <article class="card soon" tabindex="0" aria-label="Friendly Intelligence, coming soon">
-              <div class="inner">
-                <div class="demo">
-                  <div class="intel">
-                    <svg class="lock" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><rect x="5" y="11" width="14" height="9" rx="2"/><path d="M8 11V8a4 4 0 0 1 8 0v3"/></svg>
-                    <svg class="gauge" viewBox="0 0 150 84" aria-hidden="true">
-                      <path d="M12 80 A63 63 0 0 1 138 80" fill="none" stroke="rgba(255,255,255,0.08)" stroke-width="9" stroke-linecap="round"/>
-                      <path d="M12 80 A63 63 0 0 1 138 80" fill="none" stroke="url(#gg)" stroke-width="9" stroke-linecap="round" opacity="0.4"/>
-                      <defs><linearGradient id="gg" x1="0" y1="0" x2="1" y2="0"><stop offset="0" stop-color="#e5484d"/><stop offset="0.5" stop-color="#ccb167"/><stop offset="1" stop-color="#3ddc8b"/></linearGradient></defs>
-                      <g><line x1="75" y1="80" x2="75" y2="30" stroke="#888" stroke-width="2.5" stroke-linecap="round"/><circle cx="75" cy="80" r="5" fill="#888"/></g>
-                    </svg>
-                    <div class="breadth">
-                      <div class="breadth-l"><span>Bears</span><span>Neutral</span><span>Bulls</span></div>
-                      <div class="breadth-bar"><i style="width:50%"></i></div>
-                    </div>
-                  </div>
-                </div>
-                <div>
-                  <div class="card-head">
-                    <svg class="card-glyph" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 20v-6M6 20v-3M18 20v-9"/><circle cx="12" cy="6" r="2"/></svg>
-                    <h2 class="card-title">Friendly Intelligence</h2>
-                  </div>
-                  <p class="card-blurb">Market breadth, internals, and a Fear and Greed read in one calm dashboard.</p>
-                </div>
-                <div class="card-foot">
-                  <span class="chip-soon">Coming soon</span>
-                  <span class="card-host">friendly-trader.com</span>
-                </div>
-              </div>
-            </article>
-
-            <!-- BTC Edge (coming soon) -->
-            <article class="card soon" tabindex="0" aria-label="BTC Edge, coming soon">
-              <div class="inner">
-                <div class="demo">
-                  <div class="btc">
-                    <svg class="lock" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><rect x="5" y="11" width="14" height="9" rx="2"/><path d="M8 11V8a4 4 0 0 1 8 0v3"/></svg>
-                    <svg width="120" height="74" viewBox="0 0 150 84" aria-hidden="true">
-                      <path d="M12 80 A63 63 0 0 1 138 80" fill="none" stroke="rgba(255,255,255,0.10)" stroke-width="9" stroke-linecap="round"/>
-                      <g transform="rotate(0 75 80)"><line x1="75" y1="80" x2="75" y2="30" stroke="#888" stroke-width="2.5" stroke-linecap="round"/><circle cx="75" cy="80" r="5" fill="#888"/></g>
-                      <text x="75" y="58" text-anchor="middle" fill="#888" font-size="11" font-family="Inter, sans-serif" font-weight="600">Neutral</text>
-                    </svg>
-                  </div>
-                </div>
-                <div>
-                  <div class="card-head">
-                    <svg class="card-glyph" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M9.5 9.5h4a2 2 0 0 1 0 4h-4m0-4v6m0-6V8m2 8v1.5"/></svg>
-                    <h2 class="card-title">BTC Edge</h2>
-                  </div>
-                  <p class="card-blurb">One calibrated daily brief that reads the Bitcoin regime for you.</p>
-                </div>
-                <div class="card-foot">
-                  <span class="chip-soon">Coming soon</span>
-                  <span class="card-host">btc.friendlytrader.com</span>
-                </div>
-              </div>
-            </article>
-
-            <!-- TradingView Indicators (right-side flagship, mirrors The Screener) -->
-            <article class="card flagship suite" data-demo="indicators">
-              <a class="card-link" href="https://whop.com/checkout/plan_qPuvfVGzKgEPW" rel="noopener" aria-label="Unlock the TradingView indicators"></a>
-              <div class="inner">
-                <div class="demo">
-                  <ul class="ind-list" id="indDemo">
-                    <li>
-                      <div class="ind-top"><b>GOAT Scalp Levels</b><span class="ind-val" data-role="lv-px">182.40</span></div>
-                      <div class="lv-rail"><span class="lv-dot" data-role="lv-dot"></span></div>
-                      <div class="lv-ends"><span class="dn" data-role="lv-dn">▼ 178.10</span><span class="up" data-role="lv-up">▲ 186.70</span></div>
-                    </li>
-                    <li>
-                      <div class="ind-top"><b>A+ Dashboard</b><span class="ind-grade ghi" data-role="ap-grade">A+</span></div>
-                      <div class="ap-segs"><span data-role="ap-t">T</span><span data-role="ap-m">M</span><span data-role="ap-s">S</span><span data-role="ap-v">V</span></div>
-                    </li>
-                    <li>
-                      <div class="ind-top"><b>Profit Windows</b><span class="ind-val" data-role="pw-label">Power Hour</span></div>
-                      <div class="pw-blocks"><span></span><span></span><span></span><span></span><span></span><span></span></div>
-                    </li>
-                    <li>
-                      <div class="ind-top"><b>GOAT Scalp Alpha</b><span class="ind-bias long" data-role="ax-bias">Long</span></div>
-                      <div class="ax-meter"><i data-role="ax-fill"></i></div>
-                    </li>
-                  </ul>
-                </div>
-                <div>
-                  <div class="card-head">
-                    <svg class="card-glyph" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 3v18h18"/><path d="M7 14l3-4 2.5 3L18 7"/></svg>
-                    <h2 class="card-title">TradingView Indicators</h2>
-                  </div>
-                  <p class="card-blurb">Four scalping indicators that put your daily levels, a live A+ score, and the session's best windows right on your chart.</p>
-                </div>
-                <div class="card-foot">
-                  <span class="card-cta">Unlock the indicators <span class="arr" aria-hidden="true">→</span></span>
-                  <span class="card-host">for TradingView</span>
-                </div>
-              </div>
-            </article>
+          <div class="jump-list">
+            <button data-open="aplus">Find a setup <span>↗</span></button
+            ><button data-open="stops">Plan an exit <span>↗</span></button
+            ><button data-open="chat">
+              Meet the community <span>↗</span>
+            </button>
           </div>
         </div>
-      </section>
-
-      <!-- Proof -->
-      <section class="explainer" id="proof">
-        <div class="explainer-inner">
-          <p class="eyebrow">Trusted by traders</p>
-          <h2>You're in good company</h2>
-          <div class="h2-rule" aria-hidden="true"></div>
-          <div class="proof-row">
-            <div class="proof-stat"><span class="proof-num"><span class="g" data-count-to="190" data-count-suffix="K">190K</span></span><span class="proof-cap">on YouTube</span></div>
-            <div class="proof-stat"><span class="proof-num"><span class="star">★</span> <span class="g" data-count-to="4.6" data-count-decimals="1">4.6</span></span><span class="proof-cap">from 717 reviews</span></div>
+        <div class="preview-stage" id="preview-stage">
+          <div class="stage-top">
+            <span class="preview-label"
+              ><span></span>Interactive app preview</span
+            ><button
+              class="text-button"
+              data-site="fullscreen"
+              aria-label="Expand app preview"
+            >
+              Expand ↗
+            </button>
           </div>
-          <p class="explainer-foot">Built and used by a real trading community.</p>
+          <div class="phone" id="phone">
+            <div class="device-status" aria-hidden="true">
+              <span>10:42</span><span class="island"></span><span>▮▮▮ ◒ ▰</span>
+            </div>
+            <div class="demo-label">
+              Demo session <span>All data is simulated</span>
+            </div>
+            <div id="app-root" class="app-root"></div>
+            <div
+              id="app-toast"
+              class="toast"
+              role="status"
+              aria-live="polite"
+            ></div>
+          </div>
+          <div class="tour-player" id="tour-player"></div>
+          <button class="mobile-close button" data-site="close-fullscreen">
+            Close preview
+          </button>
         </div>
       </section>
-
-      <!-- Offer -->
-      <section class="offer reveal" id="join">
-        <div class="offer-inner">
-          <p class="eyebrow">One membership</p>
-          <div class="h2-rule" aria-hidden="true"></div>
-
-          <div class="price">
-            <span class="price-cur">$</span><span class="price-num">79<span class="price-cents">.99</span></span><span class="price-per">/ month</span>
-          </div>
-          <p class="price-note">The full toolkit unlocks the moment you join.</p>
-
-          <div class="incl">
-            <ul>
-              <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12.5l4.2 4.2L19 7"/></svg>The Screener</li>
-              <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12.5l4.2 4.2L19 7"/></svg>Friendly Options</li>
-              <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12.5l4.2 4.2L19 7"/></svg>Discord Trade Tracker</li>
-            </ul>
-            <ul>
-              <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12.5l4.2 4.2L19 7"/></svg>Community access</li>
-              <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12.5l4.2 4.2L19 7"/></svg>BTC Edge<span class="soon-tag">soon</span></li>
-              <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12.5l4.2 4.2L19 7"/></svg>Friendly Intelligence<span class="soon-tag">soon</span></li>
-            </ul>
-            <ul>
-              <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12.5l4.2 4.2L19 7"/></svg>Profit Windows</li>
-              <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12.5l4.2 4.2L19 7"/></svg>GOAT Scalp Levels</li>
-              <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12.5l4.2 4.2L19 7"/></svg>GOAT Scalp Alpha</li>
-              <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12.5l4.2 4.2L19 7"/></svg>A+ Dashboard</li>
-            </ul>
-          </div>
-
-          <span class="magnet-wrap">
-            <a class="cta-btn" id="ctaBtn" href="https://whop.com/checkout/plan_qPuvfVGzKgEPW" rel="noopener">
-              <svg class="lock-ico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="5" y="11" width="14" height="9" rx="2"/><path class="shackle" d="M8 11V7a4 4 0 0 1 8 0v4"/></svg>
-              <span>Unlock Tools</span>
-            </a>
-          </span>
-          <p class="cta-note">Cancel anytime. No contracts.</p>
-
-          <!-- Trader-tier carrot: Josh's live portfolio, held one tier up -->
-          <a class="upsell" href="https://whop.com/checkout/plan_55iRHuZ72Vhl9" rel="noopener" aria-label="Upgrade to the Trader Tier to unlock Josh's Portfolio">
-            <div class="upsell-lock" aria-hidden="true">
-              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="5" y="11" width="14" height="9" rx="2"/><path class="shackle" d="M8 11V7a4 4 0 0 1 8 0v4"/></svg>
+      <section class="inside section-wrap" id="inside">
+        <div class="section-heading">
+          <h2>A whole trading day.<br />One friendly place.</h2>
+          <p>
+            Every corner is open. Choose a screen, then tap, scroll and explore
+            just like you would in the app.
+          </p>
+        </div>
+        <div id="screen-directory" class="screen-directory"></div>
+      </section>
+      <section class="explain section-wrap">
+        <div class="explain-intro">
+          <img src="assets/app-preview/pip.png" alt="" width="80" height="80" />
+          <h2>Less figuring out.<br />More understanding.</h2>
+          <p>
+            Pip helps explain the screen you’re looking at, one plain-English
+            answer at a time.
+          </p>
+          <button class="text-button" data-open="assistant">
+            Say hello to Pip ↗
+          </button>
+        </div>
+        <div class="explain-steps">
+          <article>
+            <span class="step-symbol">⌁</span>
+            <div>
+              <h3>See the setup</h3>
+              <p>
+                Explore momentum, patterns and the day’s movers without piecing
+                together a dozen different tabs.
+              </p>
             </div>
-            <div class="upsell-body">
-              <p class="upsell-kicker">Trader tier</p>
-              <p class="upsell-title">Josh's Portfolio</p>
-              <p class="upsell-desc">StockswithJosh's personal portfolio, traded live. Every long term position, in real time.</p>
+          </article>
+          <article>
+            <span class="step-symbol">⏣</span>
+            <div>
+              <h3>Know your plan</h3>
+              <p>
+                See the entry, stop and targets on the chart. Understand what
+                would invalidate the idea.
+              </p>
             </div>
-            <span class="upsell-cta" aria-hidden="true">Unlock<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg></span>
-          </a>
-          <p class="upsell-foot">After three months, roll what you've paid toward a yearly Trader Tier upgrade.</p>
+          </article>
+          <article>
+            <span class="step-symbol">☷</span>
+            <div>
+              <h3>Stay in the loop</h3>
+              <p>
+                Keep earnings, economic events, sessions and your trading
+                community close at hand.
+              </p>
+            </div>
+          </article>
+        </div>
+      </section>
+      <section class="membership section-wrap" id="membership">
+        <div>
+          <h2>Get to know it.<br />Then make it yours.</h2>
+          <p>
+            Explore the app here for free. Membership opens the connected tools
+            and community. Review current plans and access details before
+            joining.
+          </p>
+          <a
+            class="button"
+            href="https://whop.com/checkout/plan_qPuvfVGzKgEPW"
+            target="_blank"
+            rel="noopener"
+            >View membership options ↗</a
+          >
+          <p class="quiet">
+            Opens the existing Friendly Trader checkout on Whop.
+          </p>
+        </div>
+        <div class="access-card" id="get-app">
+          <img
+            src="assets/app-preview/app-icon.png"
+            alt="Friendly Trader app icon"
+            width="70"
+            height="70"
+          />
+          <h3>Friendly Trader for iPhone</h3>
+          <p>
+            The app is in beta. Public beta enrollment is currently closed.
+            Existing testers can open their invitation in TestFlight.
+          </p>
+          <a
+            class="button secondary"
+            href="https://testflight.apple.com/join/K7xPdhjc"
+            target="_blank"
+            rel="noopener"
+            >Check TestFlight availability ↗</a
+          ><button class="text-button" data-site="explore">
+            Explore the browser preview
+          </button>
+          <p class="quiet">Beta availability checked September 8, 2026.</p>
+        </div>
+      </section>
+      <section class="web-tools section-wrap" id="web-tools">
+        <div>
+          <h2>At your desk?</h2>
+          <p>Your familiar web tools are still here.</p>
+        </div>
+        <div class="web-links">
+          <a href="https://friendlyscreener.com/" target="_blank" rel="noopener"
+            >Friendly Screener ↗</a
+          ><a href="/options/">Friendly Options ↗</a
+          ><a
+            href="https://leaderboard.stockswithjosh.com/"
+            target="_blank"
+            rel="noopener"
+            >Trade Tracker ↗</a
+          ><a
+            href="https://macd.stockswithjosh.com/"
+            target="_blank"
+            rel="noopener"
+            >MACD ↗</a
+          >
+        </div>
+      </section>
+      <section class="faq section-wrap" id="faq">
+        <h2>A few friendly answers.</h2>
+        <div>
+          <details>
+            <summary>Is this the actual iPhone app?</summary>
+            <p>
+              This is an interactive browser recreation of the app’s main
+              screens and workflows. It uses simulated data so you can explore
+              without an account. The iPhone app connects to the actual
+              services.
+            </p>
+          </details>
+          <details>
+            <summary>Can I pause the tour and use it myself?</summary>
+            <p>
+              Yes. Tap a control or pause the tour to take over. Resume returns
+              you to the saved tour position. You can also jump directly to any
+              screen.
+            </p>
+          </details>
+          <details>
+            <summary>
+              Are these live prices or real member conversations?
+            </summary>
+            <p>
+              No. Every market example, event and conversation in the preview is
+              simulated. Your demo posts, plans and alerts stay inside this
+              preview and reset when you reload.
+            </p>
+          </details>
+          <details>
+            <summary>Can I trade through this preview?</summary>
+            <p>
+              No. The preview demonstrates research and planning tools. It does
+              not connect to a brokerage, send alerts or place orders.
+            </p>
+          </details>
+          <details>
+            <summary>What if I don’t have an iPhone?</summary>
+            <p>
+              You can explore the complete browser preview on your phone, tablet
+              or computer. Existing web tools remain available through the links
+              above.
+            </p>
+          </details>
         </div>
       </section>
     </main>
-
-    <footer>
-      <div class="foot-inner">
-        <a class="brand foot-brand" href="/" aria-label="Friendly Trader home">
-          <svg class="mark" viewBox="0 0 32 32" aria-hidden="true"><rect width="32" height="32" rx="8" fill="#050505"/><path d="M6 22 L13 15 L18 19 L26 9" fill="none" stroke="#ccb167" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/><circle cx="26" cy="9" r="2.6" fill="#ffff8a"/></svg>
-          <span class="wordmark"><span class="g">Friendly</span> Trader</span>
-        </a>
-        <p class="foot-links">
-          <a href="https://friendlyscreener.com" rel="noopener">The Screener</a>
-          <span class="sep">·</span><a href="/options" rel="noopener">Friendly Options</a>
-          <span class="sep">·</span><a href="https://leaderboard.stockswithjosh.com" rel="noopener">Trade Tracker</a>
-        </p>
-        <p class="foot-links">
-          Educational, not financial advice.
-          <span class="sep">·</span><a href="/faq/">FAQ</a>
-          <span class="sep">·</span><a href="https://whop.com/stocks-with-josh/" rel="noopener">Community</a>
-          <span class="sep">·</span>© 2026 Friendly Trader
-        </p>
-        <p class="foot-tag">Markets, made friendly.</p>
+    <footer class="site-footer">
+      <a class="brand" href="#"
+        ><img
+          src="assets/app-preview/app-icon.png"
+          alt=""
+          width="36"
+          height="36"
+        /><span>Friendly Trader</span></a
+      >
+      <p>Markets, made friendly.</p>
+      <div>
+        <a href="/faq/">Help &amp; FAQ</a
+        ><a
+          href="https://whop.com/stockswithjosh/"
+          target="_blank"
+          rel="noopener"
+          >Community</a
+        >
       </div>
+      <small
+        >© 2026 Friendly Trader. Educational tools, not financial advice.
+        Simulated examples are not evidence of trading performance.</small
+      >
     </footer>
-
-    <script>
-    (function () {
-      "use strict";
-      document.documentElement.classList.add("js");
-      var RM = matchMedia("(prefers-reduced-motion: reduce)");
-      var coarse = matchMedia("(pointer: coarse)").matches;
-      var saveData = (navigator.connection && navigator.connection.saveData) || false;
-      // Only reduced-motion / save-data force a fully static page. Phones DO animate
-      // (the candle backdrop, ticker, reveals and demos), guarded by 30fps throttle,
-      // off-screen + tab-hide pause, DPR cap and long-frame-degrade.
-      var STATIC = RM.matches || saveData;
-      if(STATIC) document.documentElement.classList.add("static");   // neutralizes ALL CSS animation for save-data + reduced-motion
-      var fine = matchMedia("(pointer: fine)").matches;
-
-      // ───── seeded PRNG + shared market series ─────
-      function mulberry32(a){return function(){a|=0;a=a+0x6D2B79F5|0;var t=Math.imul(a^a>>>15,1|a);t=t+Math.imul(t^t>>>7,61|t)^t;return((t^t>>>14)>>>0)/4294967296;};}
-      var rnd = mulberry32(20260616);
-      var MEAN = 0.5, VOL = 0.085, K = 0.045, LO = 0.12, HI = 0.88;
-      var series = [];
-      function step(prev){ var n = prev + (rnd()-0.5)*VOL - K*(prev-MEAN); if(n<LO)n=LO; if(n>HI)n=HI; return n; }
-      (function seed(){ var v = 0.5; for(var i=0;i<260;i++){ v = step(v); series.push(v); } })();
-      function tail(n){ return series.slice(series.length-n); }
-      function pushPoint(){ series.push(step(series[series.length-1])); if(series.length>2000) series.shift(); }
-
-      var FT = window.FT = { series: series };
-
-      // ── Tile claim: fires a one-shot CSS "receive-flash" (.demo::after, driven by the .claimed class)
-      //    when a tile is hovered/focused; the tile also re-derives its demo from the live tape. ──
-      FT._focusCard = null;
-      FT.setFocus = function(card){
-        if(STATIC || !card) return;
-        FT._focusCard = card;
-        card.classList.remove("claimed"); void card.offsetWidth; card.classList.add("claimed");
-      };
-      FT.clearFocus = function(){ if(FT._focusCard) FT._focusCard.classList.remove("claimed"); FT._focusCard = null; };
-
-      // ───── ticker tape ─────
-      (function buildTicker(){
-        var data = [["AAPL",1.2],["BTC",-0.4],["NVDA",0.8],["SPY",0.3],["TSLA",-1.1],["QQQ",0.5],["ETH",2.4],["AMD",-0.6]];
-        function row(){ return data.map(function(d){ var up=d[1]>=0; return '<span class="ticker-chip '+(up?'up':'down')+'"><b>'+d[0]+'</b>'+(up?'+':'')+d[1].toFixed(1)+'%</span>'; }).join('<span class="sep">·</span>'); }
-        var t1=document.getElementById("tk1"), t2=document.getElementById("tk2");
-        // trailing sep keeps the chip·chip rhythm even across the loop seam
-        var html=row()+'<span class="sep">·</span>';
-        if(t1) t1.innerHTML=html; if(t2) t2.innerHTML=html;
-        if(STATIC){ var tw=document.querySelector(".ticker"); if(tw) tw.classList.add("ticker-static"); if(t2) t2.style.display="none"; }
-      })();
-
-      // ───── hero headline split ─────
-      (function splitHead(){
-        var h1=document.getElementById("h1"); if(!h1) return;
-        var words="Clarity over noise".split(" ");
-        var jit=[[0,16],[-15,26],[16,9]];   // per-word condense offset [tx,ty] px - words drift in from the noise
-        h1.innerHTML = words.map(function(w,i){ var g=(i===0)?' gold':''; var j=jit[i]||[0,16]; return '<span class="w'+g+'" style="--d:'+(i*85)+'ms;--tx:'+j[0]+'px;--ty:'+j[1]+'px">'+w+(i<words.length-1?'&nbsp;':'')+'</span>'; }).join("");
-        if(!STATIC){ h1.parentNode.classList.add("reveal-words"); }
-      })();
-
-      // ───── hero backdrop: live candlestick chart + trading crosshair (Canvas 2D) ─────
-(function(){
-
-/* ---------- seeded PRNG (exact, per contract) ---------- */
-function mulberry32(a){return function(){a|=0;a=a+0x6D2B79F5|0;var t=Math.imul(a^a>>>15,1|a);t=t+Math.imul(t^t>>>7,61|t)^t;return((t^t>>>14)>>>0)/4294967296;};}
-var rnd = mulberry32(20260616);
-
-/* ---------- environment ---------- */
-var hero = document.getElementById('hero');
-var fxCanvas = document.getElementById('fx');
-
-var reduceMotion = (window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches);
-var saveData = !!(navigator.connection && navigator.connection.saveData);
-var STATIC = reduceMotion || saveData;
-
-var DPR = Math.min(window.devicePixelRatio||1, 1.75);
-var W=0,H=0, CW=0, CH=0;      // CSS px and device px
-var heroRect = hero.getBoundingClientRect();
-
-/* ---------- Canvas 2D FX layer (price line + comet, composited on top) ---------- */
-var fx = fxCanvas.getContext('2d');
-/* ---------- live candlestick chart (forms in real time, scrolls left) ---------- */
-var chart = { c:[], price:0.5, target:0.5, acc:0, PERIOD:1500, sx:0, slot:26, bw:14, N:24, bandTop:0, bandH:0 };
-function ampV(v){ v = 0.5 + (v-0.5)*1.55; return v<0.03?0.03:(v>0.97?0.97:v); }  // stretch deviations so candles have body
-function chartResize(){
-  // Desktop (>1024): the hero is ~a viewport tall, so the hand-tuned proportional band +
-  // the static CSS reading-notch mask are right. Stacked layouts (<=1024) grow the hero to
-  // contain the whole bento (3000px+ on phones), which used to push the candles down BEHIND
-  // THE CARDS - so anchor the band to the actual headline block and move the reading-notch
-  // with it (inline mask overrides the CSS one; cleared again on desktop widths).
-  // offsetTop chains are used instead of getBoundingClientRect so the scroll parallax
-  // transform on .glass can't skew the measurement mid-scroll.
-  var stacked = CW <= 1024;
-  var inner = hero.querySelector('.hero-inner'), glass = hero.querySelector('.glass');
-  function topInHero(el){ return el.offsetTop + inner.offsetTop; }
-  if(stacked && inner && glass && glass.offsetHeight > 0){
-    chart.bandTop = Math.max(0, topInHero(glass) - 6);
-    chart.bandH   = glass.offsetHeight * 0.98;
-    var sub = hero.querySelector('.subhead'), tru = hero.querySelector('.hero-trust');
-    if(sub && tru){
-      var subTop = topInHero(sub), truBot = topInHero(tru) + tru.offsetHeight;
-      var cy = Math.round((subTop + truBot)/2);
-      var ry = Math.round(Math.max(52, (truBot - subTop) * 0.85));
-      var rx = Math.round(CW * 0.54);
-      fxCanvas.style.webkitMaskImage = fxCanvas.style.maskImage =
-        'radial-gradient(ellipse '+rx+'px '+ry+'px at 50% '+cy+'px, rgba(0,0,0,0.30) 0%, rgba(0,0,0,0.4) 60%, #000 100%)';
-    }
-  } else {
-    chart.bandTop = CH*0.12; chart.bandH = CH*0.26;   // behind the headline (scrim keeps text legible); bento covers below ~38%
-    fxCanvas.style.webkitMaskImage = fxCanvas.style.maskImage = '';
-  }
-  chart.slot = Math.max(18, Math.min(34, CW/34));
-  chart.bw   = Math.max(5, Math.min(chart.slot*0.6, 18));
-  chart.N    = Math.ceil(CW/chart.slot) + 3;
-  if(chart.c.length===0){                            // seed an opening chart so it never starts empty
-    var p=0.5;
-    for(var i=0;i<chart.N+2;i++){
-      var o=p, hi=p, lo=p, cc=p;
-      for(var ss=0;ss<6;ss++){ cc += (rnd()-0.5)*0.05 + (0.5-cc)*0.02; if(cc<0.06)cc=0.06; if(cc>0.94)cc=0.94; if(cc>hi)hi=cc; if(cc<lo)lo=cc; }
-      chart.c.push({o:o,h:hi,l:lo,c:cc}); p=cc;
-    }
-    chart.price=p;
-    chart.target = chart.price + (rnd()-0.5)*0.12;
-    if(chart.target<0.08)chart.target=0.08; if(chart.target>0.92)chart.target=0.92;
-  }
-}
-function chartAdvance(dt){
-  if(dt>100) dt=100;   // ignore huge frame gaps (tab switch / resize) so the scroll can't lurch
-  // CALM forming candle: ease the price gently toward this candle's target (less jittery / slower feel)
-  chart.price += (chart.target - chart.price)*0.045 + (rnd()-0.5)*0.0022;
-  if(chart.price<0.06)chart.price=0.06; if(chart.price>0.94)chart.price=0.94;
-  var last=chart.c[chart.c.length-1];
-  last.c=chart.price; if(chart.price>last.h)last.h=chart.price; if(chart.price<last.l)last.l=chart.price;
-  chart.acc+=dt;
-  while(chart.acc>=chart.PERIOD){                      // close finished candle(s), open a new one + pick its target
-    chart.acc-=chart.PERIOD;
-    chart.c.push({o:chart.price,h:chart.price,l:chart.price,c:chart.price});
-    chart.target = chart.price + (rnd()-0.5)*0.14;
-    if(chart.target<0.08)chart.target=0.08; if(chart.target>0.92)chart.target=0.92;
-    while(chart.c.length>chart.N+2) chart.c.shift();
-  }
-  chart.sx=chart.acc/chart.PERIOD;                    // 0..1 smooth scroll progress (scroll speed unchanged)
-}
-function yOfV(v){ return chart.bandTop + (1-ampV(v))*chart.bandH; }
-function rrect(x,y,w,h,r){ if(r>h/2)r=h/2; if(r>w/2)r=w/2; if(r<0)r=0;
-  fx.beginPath(); fx.moveTo(x+r,y); fx.arcTo(x+w,y,x+w,y+h,r); fx.arcTo(x+w,y+h,x,y+h,r);
-  fx.arcTo(x,y+h,x,y,r); fx.arcTo(x,y,x+w,y,r); fx.closePath(); }
-
-/* ---------- resize ---------- */
-function resize(){
-  heroRect = hero.getBoundingClientRect();
-  CW = Math.max(1, Math.round(heroRect.width));
-  CH = Math.max(1, Math.round(heroRect.height));
-  W = Math.round(CW*DPR); H = Math.round(CH*DPR);
-
-  fxCanvas.width=W; fxCanvas.height=H;
-  fxCanvas.style.width=CW+'px'; fxCanvas.style.height=CH+'px';
-
-  fx.setTransform(DPR,0,0,DPR,0,0);                 // draw in CSS px
-  chartResize();
-  if(STATIC){ drawCandles(0.0); }                    // single static frame
-}
-var resizeTimer=null;
-function onResize(){ clearTimeout(resizeTimer); resizeTimer=setTimeout(resize,150); }
-window.addEventListener('resize', onResize);
-
-/* ---------- pointer: trading-chart crosshair (the interesting mouse interaction) ---------- */
-var cursor={mx:-1,my:-1,on:false,_cx:0,_cy:0,_p:false};
-if(fine){
-  hero.addEventListener('pointermove',function(e){
-    cursor._cx=e.clientX; cursor._cy=e.clientY; cursor.on=true;
-    if(!cursor._p){ cursor._p=true; requestAnimationFrame(function(){ cursor._p=false; var r=hero.getBoundingClientRect(); cursor.mx=cursor._cx-r.left; cursor.my=cursor._cy-r.top; if(STATIC) drawCandles(0); }); }
-  },{passive:true});
-  hero.addEventListener('pointerleave',function(){ cursor.on=false; if(STATIC) drawCandles(0); });
-}
-function drawCrosshair(){
-  if(!fine || !cursor.on || cursor.mx<0) return;
-  var mx=cursor.mx, my=cursor.my, slot=chart.slot, rightMargin=slot*1.6, sx=STATIC?0:chart.sx, L=chart.c.length;
-  var k=Math.round((CW-rightMargin-mx)/slot - sx), idx=(L-1)-k;
-  fx.save();
-  // thin dashed crosshair lines
-  fx.globalCompositeOperation='source-over';
-  fx.setLineDash([3,6]); fx.lineWidth=1; fx.strokeStyle='rgba(230,235,255,0.16)';
-  fx.beginPath(); fx.moveTo(mx,0); fx.lineTo(mx,CH); fx.moveTo(0,my); fx.lineTo(CW,my); fx.stroke();
-  fx.setLineDash([]);
-  if(idx>=0 && idx<L){
-    var cc=chart.c[idx], up=cc.c>=cc.o, cx=CW-rightMargin-(k+sx)*slot, bw=chart.bw;
-    var yo=yOfV(cc.o), yc=yOfV(cc.c), yh=yOfV(cc.h), yl=yOfV(cc.l), top=Math.min(yo,yc), bot=Math.max(yo,yc);
-    var col=up?'54,222,140':'233,74,79';
-    // soft column glow over the hovered candle
-    fx.globalCompositeOperation='lighter';
-    var cg=fx.createLinearGradient(0,chart.bandTop,0,chart.bandTop+chart.bandH);
-    cg.addColorStop(0,'rgba('+col+',0)'); cg.addColorStop(0.5,'rgba('+col+',0.12)'); cg.addColorStop(1,'rgba('+col+',0)');
-    fx.fillStyle=cg; fx.fillRect(cx-slot*0.6, chart.bandTop, slot*1.2, chart.bandH);
-    // brighten the hovered candle (wick + body)
-    fx.strokeStyle='rgba('+col+',0.9)'; fx.lineWidth=Math.max(1,bw*0.13);
-    fx.beginPath(); fx.moveTo(cx,yh); fx.lineTo(cx,yl); fx.stroke();
-    fx.fillStyle='rgba('+col+',1)'; fx.fillRect(cx-bw/2, top, bw, Math.max(1.6,bot-top));
-    // ring marker where the crosshair meets the candle column
-    fx.globalCompositeOperation='source-over';
-    fx.beginPath(); fx.arc(cx, my, 3.4, 0, Math.PI*2); fx.strokeStyle='rgba(255,255,255,0.75)'; fx.lineWidth=1.2; fx.stroke();
-  }
-  fx.restore();
-}
-
-/* ---------- draw FX (live candlesticks scrolling left, glowing forming edge) ---------- */
-function drawCandles(time){
-  fx.clearRect(0,0,CW,CH);
-  var arr=chart.c, L=arr.length; if(L<2) return;
-  var slot=chart.slot, bw=chart.bw, sx=STATIC?0:chart.sx, rightMargin=slot*1.6;
-  function cu(a){ return 'rgba(54,222,140,'+a+')'; }   // up = green
-  function cd(a){ return 'rgba(233,74,79,'+a+')'; }    // down = red
-  function X(k){ return CW - rightMargin - (k + sx)*slot; }  // k=0 = newest/forming; slides left as sx grows
-  var pulse = STATIC ? 0.6 : (0.55 + 0.45*Math.sin(time*0.0038));
-  var i,k,c,cx,yo,yc,top,bot,h,up;
-
-  // 1) soft additive bloom behind each body
-  fx.globalCompositeOperation='lighter';
-  for(i=0;i<L;i++){ k=(L-1)-i; cx=X(k); if(cx<-slot||cx>CW+slot) continue;
-    c=arr[i]; up=c.c>=c.o; yo=yOfV(c.o); yc=yOfV(c.c); top=Math.min(yo,yc); bot=Math.max(yo,yc); h=Math.max(2,bot-top);
-    fx.fillStyle = up ? cu(0.14) : cd(0.09); fx.fillRect(cx-bw*0.85, top-3, bw*1.7, h+6);
-  }
-  // 2) wicks
-  fx.globalCompositeOperation='source-over';
-  fx.lineWidth=Math.max(1, bw*0.13); fx.lineCap='round';
-  for(i=0;i<L;i++){ k=(L-1)-i; cx=X(k); if(cx<-slot||cx>CW+slot) continue;
-    c=arr[i]; up=c.c>=c.o; fx.strokeStyle = up ? cu(0.5) : cd(0.46);
-    fx.beginPath(); fx.moveTo(cx, yOfV(c.h)); fx.lineTo(cx, yOfV(c.l)); fx.stroke();
-  }
-  // 3) bodies
-  for(i=0;i<L;i++){ k=(L-1)-i; cx=X(k); if(cx<-slot||cx>CW+slot) continue;
-    c=arr[i]; up=c.c>=c.o; yo=yOfV(c.o); yc=yOfV(c.c); top=Math.min(yo,yc); bot=Math.max(yo,yc); h=Math.max(1.6,bot-top);
-    fx.fillStyle = up ? cu(0.92) : cd(0.84); rrect(cx-bw/2, top, bw, h, Math.min(2.2, bw*0.22)); fx.fill();
-  }
-  // 4) glowing forming edge on the newest candle (k=0)
-  c=arr[L-1]; up=c.c>=c.o; cx=X(0); yo=yOfV(c.o); yc=yOfV(c.c);
-  var midY=(Math.min(yo,yc)+Math.max(yo,yc))/2, base = up ? '54,222,140' : '233,74,79', gs=26+10*pulse;
-  fx.globalCompositeOperation='lighter';
-  var lg=fx.createRadialGradient(cx,midY,0,cx,midY,gs);
-  lg.addColorStop(0,'rgba('+base+','+(0.30+0.45*pulse)+')'); lg.addColorStop(1,'rgba('+base+',0)');
-  fx.fillStyle=lg; fx.fillRect(cx-gs,midY-gs,gs*2,gs*2);
-  fx.beginPath(); fx.arc(cx, yOfV(c.c), 2.2, 0, Math.PI*2); fx.fillStyle='rgba(255,255,255,0.92)'; fx.fill();
-  fx.globalCompositeOperation='source-over';
-  drawCrosshair();
-}
-
-/* ---------- main loop ---------- */
-var lastT=performance.now();
-var visible=true, hidden=false, running=false;
-
-function frame(now){
-  if(!running) return;
-  var dt=now-lastT;
-  // ~30fps throttle
-  if(dt<32){ requestAnimationFrame(frame); return; }
-  lastT=now;
-
-  if(!STATIC){ chartAdvance(dt); }
-  drawCandles(now);
-
-  requestAnimationFrame(frame);
-}
-function start(){ if(running||STATIC) return; running=true; lastT=performance.now(); requestAnimationFrame(frame); }
-function stop(){ running=false; }
-
-/* visibility + intersection pause */
-document.addEventListener('visibilitychange',function(){
-  hidden=document.hidden;
-  if(hidden) stop(); else if(visible) start();
-});
-if('IntersectionObserver' in window){
-  var io=new IntersectionObserver(function(ents){
-    ents.forEach(function(e){ visible=e.isIntersecting; if(visible && !hidden) start(); else stop(); });
-  },{threshold:0.02});
-  io.observe(hero);
-}
-
-/* ---------- boot ---------- */
-resize();
-if(STATIC){ drawCandles(0); }
-else { start(); }
-
-})();
-
-      // ───── tile demos + backdrop mood wiring ─────
-      function buildScreener(){
-        var host=document.getElementById("scrDemo"); if(!host) return;
-        var tks=["NVDA","AAPL","MSFT","AMD","META","TSLA"];
-        var t=tail(6).slice();
-        var order=t.map(function(v,i){return {i:i,v:v};}).sort(function(a,b){return b.v-a.v;});
-        var rankGrade=["A","A","B","B","C","D"], gradeFor=[];
-        order.forEach(function(o,rank){ gradeFor[o.i]=rankGrade[rank]||"C"; });
-        var rows=host.querySelectorAll(".scr-row");
-        // Build the rows once; afterwards update bar widths + grades IN PLACE so the bars
-        // animate (CSS width transition) and grades re-shuffle each time the demo re-derives.
-        if(rows.length!==tks.length){
-          host.innerHTML="";
-          tks.forEach(function(tk){
-            var row=document.createElement("div"); row.className="scr-row";
-            row.innerHTML='<span class="scr-tk">'+tk+'</span><span class="scr-bar"><i></i></span><span class="grade"></span>';
-            host.appendChild(row);
-          });
-          rows=host.querySelectorAll(".scr-row");
-        }
-        tks.forEach(function(tk,i){
-          var v=t[i]!=null?t[i]:0.5, g=gradeFor[i]||"C";
-          var bar=rows[i].querySelector(".scr-bar i");
-          var grd=rows[i].querySelector(".grade");
-          if(bar) bar.style.width=Math.round(28+v*70)+"%";
-          if(grd && grd.textContent!==g){ grd.textContent=g; grd.className="grade "+g; grd.classList.remove("grade-pop"); void grd.offsetWidth; grd.classList.add("grade-pop"); }
-        });
-      }
-      // Indicators flagship: derive all four widgets from the shared tape so they animate
-      // and change on hover, just like the Screener + Options demos.
-      function setRole(host, role, text){ var el=host.querySelector('[data-role="'+role+'"]'); if(el && el.textContent!==text) el.textContent=text; }
-      function buildIndicators(){
-        var host=document.getElementById("indDemo"); if(!host) return;
-        var t=tail(16);
-        var last=t[t.length-1], prev=t[t.length-2]!=null?t[t.length-2]:last;
-        var lo=Math.min.apply(null,t), hi=Math.max.apply(null,t);
-        var sum=0; for(var i=0;i<t.length;i++){ sum+=t[i]; } var mean=sum/t.length;
-        function px(v){ return (180+(v-0.5)*22).toFixed(2); }
-        // 1) GOAT Scalp Levels — spot price between the breakdown (lo) and breakout (hi)
-        var pos = hi>lo ? (last-lo)/(hi-lo) : 0.5;
-        setRole(host,"lv-px", px(last));
-        setRole(host,"lv-dn","▼ "+px(lo));
-        setRole(host,"lv-up","▲ "+px(hi));
-        var dot=host.querySelector('[data-role="lv-dot"]'); if(dot) dot.style.left=(8+pos*84)+"%";
-        // 2) A+ Dashboard — four confluence checks + a letter grade
-        var vol=0; for(var j=1;j<t.length;j++){ vol+=Math.abs(t[j]-t[j-1]); } vol/=(t.length-1);
-        var sig=[ last>mean, last>=prev, last>t[t.length-5], vol>0.045 ];
-        var on=0; for(var k=0;k<4;k++){ if(sig[k]) on++; }
-        ["ap-t","ap-m","ap-s","ap-v"].forEach(function(r,idx){ var el=host.querySelector('[data-role="'+r+'"]'); if(el) el.classList.toggle("on", !!sig[idx]); });
-        setRole(host,"ap-grade", on>=4?"A+":(on===3?"A":(on===2?"B":"C")));
-        var gEl=host.querySelector('[data-role="ap-grade"]'); if(gEl) gEl.className="ind-grade "+(on>=3?"ghi":(on===2?"gmid":"glo"));
-        // 3) Profit Windows — the live session block
-        var WIN=["Pre-Market","The Open","Morning","Midday","Power Hour","The Close"];
-        var wi=Math.max(0,Math.min(5,Math.floor(pos*6)));
-        setRole(host,"pw-label",WIN[wi]);
-        var blocks=host.querySelectorAll(".pw-blocks span"); for(var b=0;b<blocks.length;b++){ blocks[b].classList.toggle("on", b===wi); }
-        // 4) GOAT Scalp Alpha — signal strength + directional bias
-        var strength=Math.round(30 + (on/4)*52 + pos*16); if(strength>100)strength=100; if(strength<8)strength=8;
-        var fill=host.querySelector('[data-role="ax-fill"]'); if(fill) fill.style.width=strength+"%";
-        var bias = (on>=3 && last>=prev) ? "Long" : ((on<=1 && last<prev) ? "Short" : "Flat");
-        setRole(host,"ax-bias",bias);
-        var bEl=host.querySelector('[data-role="ax-bias"]'); if(bEl) bEl.className="ind-bias "+bias.toLowerCase();
-      }
-      var flowPool=[
-        {t:'Someone bought <b>400 calls</b>, leaning bullish', c:'bull', s:72},
-        {t:'Sweep on <b>NVDA</b>, just above the ask', c:'', s:64},
-        {t:'Puts sold on <b>SPY</b>, fading the dip', c:'bull', s:67},
-        {t:'Big <b>put</b> buyer in <b>TSLA</b>, cautious', c:'bear', s:33},
-        {t:'Call spread on <b>AMD</b>, measured upside', c:'', s:58},
-        {t:'Unusual <b>QQQ</b> volume, eyes on tech', c:'', s:61}
-      ];
-      var flowIdx=0;
-      function playOptions(){
-        var host=document.getElementById("flowDemo"); if(!host) return;
-        var chips=host.querySelectorAll(".flow-chip"); var fill=document.getElementById("sentFill"), lab=document.getElementById("sentL");
-        var a=flowPool[flowIdx%flowPool.length], b=flowPool[(flowIdx+1)%flowPool.length]; flowIdx+=2;
-        var picks=[a,b], s=Math.round((a.s+b.s)/2);
-        chips.forEach(function(c,i){ var p=picks[i]; if(p){ c.className="flow-chip "+(p.c||""); c.innerHTML=p.t; } });
-        if(lab){ lab.textContent=s>58?"Bullish":(s<45?"Bearish":"Mixed"); lab.style.color=s>58?"var(--green-soft)":(s<45?"var(--down)":"var(--gold)"); }
-        if(STATIC){ chips.forEach(function(c){c.classList.add("show");}); if(fill)fill.style.width=s+"%"; return; }
-        chips.forEach(function(c){c.classList.remove("show");});
-        chips.forEach(function(c,i){ setTimeout(function(){ c.classList.add("show"); },i*200); });
-        if(fill){ fill.style.width="50%"; setTimeout(function(){ fill.style.width=s+"%"; },600); }
-      }
-
-      buildScreener(); buildIndicators(); setTimeout(playOptions, 450);
-
-      // stagger delays for the offer's included-tools reveal (DOM order across the three columns)
-      document.querySelectorAll(".incl li").forEach(function(li,i){ li.style.setProperty("--ld",(i*60)+"ms"); });
-
-      // Keep the shared demo tape alive so the cards' bars + levels drift like a live market.
-      // The old WebGL backdrop advanced FT.series every tick; the candle backdrop that replaced
-      // it runs its own series, so the tape was left frozen and the demos stopped changing.
-      // Re-drive it here: paused when the tab is hidden, skipped for reduced-motion / save-data.
-      var tapeTimer=null;
-      function startTape(){ if(!STATIC && tapeTimer==null && !document.hidden) tapeTimer=setInterval(pushPoint, 1500); }
-      function stopTape(){ if(tapeTimer!=null){ clearInterval(tapeTimer); tapeTimer=null; } }
-      document.addEventListener("visibilitychange", function(){ if(document.hidden) stopTape(); else startTape(); });
-      startTape();
-
-      document.querySelectorAll(".card").forEach(function(card){
-        var demo=card.getAttribute("data-demo");
-        // Nudge the tape on hover so the bars + levels visibly change every time the pointer lands.
-        function on(){ if(!STATIC){ pushPoint(); pushPoint(); pushPoint(); } FT.setFocus(card); if(demo==="screener")buildScreener(); else if(demo==="options")playOptions(); else if(demo==="indicators")buildIndicators(); }
-        function off(){ FT.clearFocus(); }
-        card.addEventListener("mouseenter",on); card.addEventListener("mouseleave",off);
-        card.addEventListener("focusin",on); card.addEventListener("focusout",off);
-      });
-
-      if(coarse && "IntersectionObserver" in window){
-        document.querySelectorAll(".card").forEach(function(card){
-          var demo=card.getAttribute("data-demo");
-          var io=new IntersectionObserver(function(es){ es.forEach(function(e){ if(e.isIntersecting){ FT.setFocus(card); if(demo==="options")playOptions(); else if(demo==="screener")buildScreener(); else if(demo==="indicators")buildIndicators(); setTimeout(function(){ FT.clearFocus(); }, 1300); io.disconnect(); } }); },{threshold:0.5});
-          io.observe(card);
-        });
-      }
-
-      // ───── cursor glow + 3D tilt (pointer:fine) ─────
-      // A persistent per-card rAF lerp loop eases the tilt toward the cursor every frame
-      // (no CSS transition stepping between move events), then settles the tile back to
-      // rest on leave and releases the inline transform so stylesheet states take over.
-      if(fine && !STATIC){
-        document.querySelectorAll(".card").forEach(function(card){
-          var raf=null, leaving=false;
-          var cur={rx:0,ry:0,ty:0}, tgt={rx:0,ry:0,ty:0};
-          function loop(){
-            var k=0.18;
-            cur.rx+=(tgt.rx-cur.rx)*k; cur.ry+=(tgt.ry-cur.ry)*k; cur.ty+=(tgt.ty-cur.ty)*k;
-            card.style.transform="perspective(900px) rotateX("+cur.rx.toFixed(3)+"deg) rotateY("+cur.ry.toFixed(3)+"deg) translateY("+cur.ty.toFixed(2)+"px)";
-            var settled=Math.abs(cur.rx-tgt.rx)<0.02 && Math.abs(cur.ry-tgt.ry)<0.02 && Math.abs(cur.ty-tgt.ty)<0.06;
-            if(settled && leaving){ card.style.transform=""; card.style.transition=""; cur.rx=cur.ry=cur.ty=0; raf=null; leaving=false; return; }
-            raf=requestAnimationFrame(loop);
-          }
-          function run(){ if(!raf) raf=requestAnimationFrame(loop); }
-          card.addEventListener("pointerenter",function(){
-            leaving=false;
-            // transform is owned by the loop; keep border/shadow on their CSS transitions
-            card.style.transition="border-color var(--dur-mid) var(--ease), box-shadow var(--dur-mid) var(--ease)";
-            tgt.ty=-5; run();
-          });
-          card.addEventListener("pointermove",function(e){
-            var r=card.getBoundingClientRect();
-            var px=(e.clientX-r.left)/r.width, py=(e.clientY-r.top)/r.height;
-            card.style.setProperty("--mx",(px*100)+"%"); card.style.setProperty("--my",(py*100)+"%");
-            tgt.rx=(py-0.5)*7; tgt.ry=(0.5-px)*9; run();
-          });
-          card.addEventListener("pointerleave",function(){ tgt.rx=0; tgt.ry=0; tgt.ty=0; leaving=true; run(); });
-        });
-        // the Trader-Tier upsell shares the edge-light (no tilt - it's a wide, quiet card)
-        var upsellEl=document.querySelector(".upsell");
-        if(upsellEl){
-          upsellEl.addEventListener("pointermove",function(e){
-            var r=upsellEl.getBoundingClientRect();
-            upsellEl.style.setProperty("--mx",((e.clientX-r.left)/r.width*100)+"%");
-            upsellEl.style.setProperty("--my",((e.clientY-r.top)/r.height*100)+"%");
-          });
-        }
-      }
-
-      // ───── count-up (proof stats) ─────
-      // Animates a number from 0 to its target when it scrolls into view. The element's
-      // text already holds the final value, so no-JS and reduced-motion/save-data show it correctly.
-      function countUp(el){
-        var to=parseFloat(el.getAttribute("data-count-to")); if(isNaN(to)) return;
-        var dec=parseInt(el.getAttribute("data-count-decimals")||"0",10);
-        var suf=el.getAttribute("data-count-suffix")||"";
-        function fmt(n){ return (dec? n.toFixed(dec) : Math.round(n).toLocaleString("en-US"))+suf; }
-        if(STATIC){ el.textContent=fmt(to); return; }
-        var dur=1150, t0=0;
-        el.textContent=fmt(0);
-        function tick(t){ if(!t0)t0=t; var p=Math.min(1,(t-t0)/dur); var e=1-Math.pow(1-p,3); el.textContent=fmt(to*e); if(p<1) requestAnimationFrame(tick); else el.textContent=fmt(to); }
-        requestAnimationFrame(tick);
-      }
-
-      // ───── scroll reveals ─────
-      if(!STATIC && "IntersectionObserver" in window){
-        var ro=new IntersectionObserver(function(es){ es.forEach(function(e){ if(e.isIntersecting){ e.target.classList.add("in"); ro.unobserve(e.target);} }); },{threshold:0.2});
-        document.querySelectorAll(".reveal").forEach(function(el){ ro.observe(el); });
-        var cardEls=document.querySelectorAll(".bento .card");
-        // stagger by position WITHIN this batch (not global card index) so a card scrolling
-        // in alone on phones appears immediately instead of waiting out its desktop delay
-        var cro=new IntersectionObserver(function(es){ var hit=es.filter(function(e){return e.isIntersecting;}); hit.forEach(function(e,bi){ e.target.style.setProperty("--cd",(bi*80)+"ms"); e.target.classList.add("in"); cro.unobserve(e.target); }); },{threshold:0.12});
-        cardEls.forEach(function(el){ cro.observe(el); });
-        var so=new IntersectionObserver(function(es){ es.forEach(function(e){ if(e.isIntersecting){ var ex=e.target.closest(".explainer"); if(ex)ex.classList.add("in"); var s=e.target.querySelectorAll(".proof-stat"); s.forEach(function(st,i){ st.style.setProperty("--d",(i*100)+"ms"); st.classList.add("in"); }); e.target.querySelectorAll(".proof-num .g[data-count-to]").forEach(function(g){ countUp(g); }); so.disconnect(); } }); },{threshold:0.3});
-        var proofEl=document.querySelector(".proof-row"); if(proofEl) so.observe(proofEl);
-      } else {
-        document.querySelectorAll(".reveal,.proof-stat,.bento .card").forEach(function(el){ el.classList.add("in"); });
-        var ex2=document.querySelector(".explainer"); if(ex2) ex2.classList.add("in");
-      }
-
-      // ───── hero parallax (iOS large-title collapse) ─────
-      if(!STATIC){
-        var glassEl=document.getElementById("heroGlass"), pRaf=null;
-        addEventListener("scroll",function(){
-          if(pRaf||!glassEl) return;
-          pRaf=requestAnimationFrame(function(){
-            pRaf=null;
-            var y=window.scrollY||window.pageYOffset||0;
-            if(y>760){ glassEl.style.opacity="0"; return; }
-            var p=Math.min(1, y/560);
-            glassEl.style.transform="translateY("+(-y*0.16)+"px) scale("+(1-p*0.045)+")";
-            glassEl.style.opacity=String(1-p*0.92);
-          });
-        },{passive:true});
-      }
-
-      // ───── magnetic CTA ─────
-      // The magnet translate lives on the WRAPPER so the button's own transform stays
-      // free for the :active press dip (an inline transform would override it).
-      (function magnet(){
-        var btn=document.getElementById("ctaBtn"); if(!btn)return;
-        if(STATIC||!fine){ return; }
-        var wrap=btn.closest(".magnet-wrap")||btn.parentNode;
-        var cx=0,cy=0,tx=0,ty=0,active=false;
-        btn.addEventListener("pointermove",function(e){ var r=btn.getBoundingClientRect(); tx=Math.max(-12,Math.min(12,(e.clientX-(r.left+r.width/2))*0.25)); ty=Math.max(-10,Math.min(10,(e.clientY-(r.top+r.height/2))*0.35)); if(!active){active=true;loop();} });
-        btn.addEventListener("pointerleave",function(){ tx=0;ty=0; if(!active){active=true;loop();} });
-        function loop(){ cx+=(tx-cx)*0.15; cy+=(ty-cy)*0.15; wrap.style.transform="translate("+cx.toFixed(2)+"px,"+cy.toFixed(2)+"px)"; if(Math.abs(cx-tx)>0.2||Math.abs(cy-ty)>0.2){ requestAnimationFrame(loop); } else { wrap.style.transform=(tx===0&&ty===0)?"":"translate("+tx+"px,"+ty+"px)"; active=false; } }
-      })();
-    })();
-    </script>
+    <noscript
+      ><p class="noscript">
+        Enable JavaScript to explore the interactive app preview. Membership and
+        web tool links above work without it.
+      </p></noscript
+    >
+    <script type="module" src="assets/app-preview/app.js"></script>
   </body>
 </html>

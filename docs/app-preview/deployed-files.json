@@ -1,0 +1,38 @@
+[
+  {
+    "file": "index.html",
+    "status": 200,
+    "matches_local": true,
+    "type": "text/html; charset=utf-8"
+  },
+  {
+    "file": "assets/app-preview/app.js",
+    "status": 200,
+    "matches_local": true,
+    "type": "application/javascript; charset=utf-8"
+  },
+  {
+    "file": "assets/app-preview/core.mjs",
+    "status": 200,
+    "matches_local": true,
+    "type": "application/javascript; charset=utf-8"
+  },
+  {
+    "file": "assets/app-preview/ui.mjs",
+    "status": 200,
+    "matches_local": true,
+    "type": "application/javascript; charset=utf-8"
+  },
+  {
+    "file": "assets/app-preview/chart.mjs",
+    "status": 200,
+    "matches_local": true,
+    "type": "application/javascript; charset=utf-8"
+  },
+  {
+    "file": "assets/app-preview/site.css",
+    "status": 200,
+    "matches_local": true,
+    "type": "text/css; charset=utf-8"
+  }
+]
