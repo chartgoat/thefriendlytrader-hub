@@ -15,6 +15,7 @@ import { META, fixtures } from "./ui.mjs";
 import { renderNativeView, nativeHeader, nativeIcon as icon, sheetStyle } from "./native.mjs";
 import { QUIZ } from "./native-quiz.mjs";
 import { attachChart } from "./chart.mjs";
+import { PLATFORMS, changePlatform, MAC_SHORTCUTS, renderMacFrame } from "./platform.mjs";
 let state = createState(),
   history = [],
   chartHandle = null,
@@ -70,19 +71,28 @@ function toast(text) {
   toastTimer = setTimeout(() => el.classList.remove("visible"), 3200);
 }
 function render({ keepScroll = false } = {}) {
+  chartHandle?.destroy?.();
   const scroll = keepScroll
     ? root.querySelector(".app-content")?.scrollTop || 0
     : 0;
   phone.classList.toggle("dark", state.dark);
-  const isHome = state.screen === "home", sheet=sheetStyle(state);
+  const isHome = state.screen === "home", sheet=sheetStyle(state), mac=state.platform==="macos";
+  phone.classList.toggle("mac",mac);
+  document.body.dataset.platform=state.platform;
+  stage.dataset.platform=state.platform;
+  phone.setAttribute("aria-label",mac?"Friendly Trader macOS preview":"Friendly Trader iOS preview");
+  stage.querySelector('.preview-label').textContent=PLATFORMS[state.platform].previewLabel;
+  document.querySelector('#platform-description').textContent=PLATFORMS[state.platform].description;
+  document.querySelectorAll('button[data-platform]').forEach(b=>b.setAttribute('aria-pressed',b.dataset.platform===state.platform));
   phone.classList.add("native");
-  root.classList.toggle("native-sheet",sheet);
+  root.classList.toggle("native-sheet",sheet&&!mac);
   root.dataset.view=state.screen;
   const floating= !sheet && !["home","menu","onboarding"].includes(state.screen);
-  root.innerHTML = `${nativeHeader(state)}<div class="app-content ${isHome ? "home-content" : ""}" data-screen-content="${state.screen}">${renderNativeView(state)}</div>${floating?`<div class="n-floating">${["macd","patterns","screener","stops","aplus"].includes(state.screen)?`<button data-action="share" aria-label="Share sample screen">${icon("share")}</button>`:""}<button class="n-float-pip" data-action="open-pip" aria-label="Ask Pip about this screen">${icon("pip")}</button></div>`:""}${!sheet&&state.screen!=="onboarding"?`<nav class="app-nav" aria-label="App quick menu">${state.quick.map(id=>{
+  const pageHTML = `${nativeHeader(state)}<div class="app-content ${isHome ? "home-content" : ""}" data-screen-content="${state.screen}">${renderNativeView(state)}</div>${floating?`<div class="n-floating">${["macd","patterns","screener","stops","aplus"].includes(state.screen)?`<button data-action="share" aria-label="Share sample screen">${icon("share")}</button>`:""}<button class="n-float-pip" data-action="open-pip" aria-label="Ask Pip about this screen">${icon("pip")}</button></div>`:""}${!mac&&!sheet&&state.screen!=="onboarding"?`<nav class="app-nav" aria-label="App quick menu">${state.quick.map(id=>{
     const meta=SCREENS.find(x=>x[0]===id);
     return `<button class="${state.screen===id?"active":""}" data-screen="${id}" aria-label="${label(id)}" ${state.screen===id?'aria-current="page"':""}>${icon(meta?.[3])}<span>${id==="stops"?"Stops":label(id)}</span></button>`;
   }).join("")}</nav>`:""}`;
+  root.innerHTML=mac?renderMacFrame(state,pageHTML,sheet):pageHTML;
   root.querySelectorAll("video").forEach(video=>{
     video.muted=true;
     if(matchMedia("(prefers-reduced-motion: reduce)").matches)video.pause();
@@ -106,6 +116,9 @@ function go(screen, detail = null, extra = {}, fromTour = false) {
   history.push(tourPosition(state));
   if (history.length > 50) history.shift();
   const switching=screen!==state.screen;
+  state.macMenuOpen=false;
+  if(MAC_SHORTCUTS.includes(screen))state.macSection=screen;
+  if(state.platform==="macos"&&matchMedia("(max-width:800px)").matches)state.macSidebarCollapsed=true;
   Object.assign(state, { screen, detail, search: "", levelInfo: null, lookup:null }, extra);
   if(switching && screen==="aplus" && !extra.timeframe)state.timeframe="1m";
   if(switching && screen==="macd" && !extra.timeframe)state.timeframe="15m";
@@ -134,6 +147,8 @@ function loadStep(index, keepPlayer = false) {
   const step = TOUR[tour.index];
   Object.assign(state, {
     screen: step.screen,
+    macSection: MAC_SHORTCUTS.includes(step.screen)?step.screen:state.macSection,
+    macMenuOpen:false,
     detail: step.detail || null,
     symbol: "NVDA",
     timeframe: step.screen==="aplus"?"1m":step.screen==="patterns"?"1d":"15m",
@@ -215,6 +230,7 @@ function fullscreen(open = true) {
     document
       .querySelectorAll("main>section:not(.hero),.site-footer,.hero-copy")
       .forEach((e) => (e.inert = true));
+    chartHandle?.draw();
     root.querySelector("button")?.focus();
   } else {
     document.body.classList.remove("preview-open");
@@ -225,6 +241,7 @@ function fullscreen(open = true) {
     document
       .querySelectorAll("main>section:not(.hero),.site-footer,.hero-copy")
       .forEach((e) => (e.inert = false));
+    chartHandle?.draw();
     focusBeforeFullscreen?.focus();
   }
 }
@@ -332,6 +349,17 @@ root.addEventListener("click", (event) => {
   const v = b.dataset.value,
     t = b.dataset.symbol;
   switch (a) {
+    case "mac-sidebar":
+      state.macSidebarCollapsed=!state.macSidebarCollapsed;render({keepScroll:true});
+      root.querySelector('[data-action="mac-sidebar"]')?.focus();
+      break;
+    case "mac-menu":
+      state.macMenuOpen=!state.macMenuOpen;render({keepScroll:true});
+      root.querySelector('[data-action="mac-menu"]')?.focus();
+      break;
+    case "mac-notifications":
+      go("profile","notifications");
+      break;
     case "chat-search-toggle":
       state.showChatSearch=!state.showChatSearch;render();root.querySelector('[name="query"]')?.focus();
       break;
@@ -639,7 +667,7 @@ root.addEventListener("click", (event) => {
       play();
       break;
     case "reset":
-      state = createState();
+      state = {...createState(),platform:state.platform,macSidebarCollapsed:state.macSidebarCollapsed};
       history = [];
       clearTimeout(tour.timer);
       Object.assign(tour, {
@@ -808,7 +836,29 @@ player.addEventListener("input", (e) => {
     tickProgress();
   }
 });
+function setPreviewPlatform(platform, expand=false) {
+  // Keep unfinished form input when the same page changes its platform frame.
+  const pendingForms = [...root.querySelectorAll('form[data-form]')].map(form => ({
+    kind: form.dataset.form,
+    fields: [...form.elements].filter(field => field.name && field.type !== 'file').map(field => [field.name, field.value]),
+  }));
+  takeOver();
+  changePlatform(state,platform);
+  state.macMenuOpen=false;
+  state.macSidebarCollapsed=matchMedia("(max-width:800px)").matches;
+  render({keepScroll:true});
+  for (const {kind, fields} of pendingForms) {
+    const form = root.querySelector(`form[data-form="${CSS.escape(kind)}"]`);
+    for (const [name, value] of fields) {
+      const field = form?.elements.namedItem(name);
+      if (field) field.value = value;
+    }
+  }
+  if(expand)fullscreen(true);
+}
 document.addEventListener("click", (e) => {
+  const switcher=e.target.closest('button[data-platform],button[data-preview-platform]');
+  if(switcher){setPreviewPlatform(switcher.dataset.platform||switcher.dataset.previewPlatform,!!switcher.dataset.previewPlatform);return;}
   const b = e.target.closest("[data-site],[data-open]");
   if (!b) return;
   if (b.dataset.open) {
@@ -835,7 +885,16 @@ document.addEventListener("click", (e) => {
 });
 document.addEventListener("keydown", (e) => {
   if (!document.body.classList.contains("preview-open")) return;
+  if(state.platform==="macos"&&(e.metaKey||e.ctrlKey)&&phone.contains(document.activeElement)){
+    const digit=/^[0-9]$/.test(e.key)?Number(e.key):null;
+    if(digit!==null){e.preventDefault();go(MAC_SHORTCUTS[digit===0?9:digit-1]);return;}
+    if(e.key===","){e.preventDefault();go("profile");return;}
+    if(e.shiftKey&&e.key.toLowerCase()==="n"){e.preventDefault();go("profile","notifications");return;}
+  }
   if (e.key === "Escape") {
+    if(state.macMenuOpen){state.macMenuOpen=false;render({keepScroll:true});return;}
+    if(state.platform==="macos"&&sheetStyle(state)){back();return;}
+    if(state.platform==="macos"&&!state.macSidebarCollapsed&&matchMedia("(max-width:800px)").matches){state.macSidebarCollapsed=true;render({keepScroll:true});return;}
     fullscreen(false);
     return;
   }

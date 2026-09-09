@@ -8,7 +8,7 @@
     />
     <meta
       name="description"
-      content="Meet Friendly Trader for iPhone. Explore the interactive app demo: setups, charts, stop plans, calendars and community, all in one friendly place."
+      content="Meet Friendly Trader for iPhone and Mac. Explore the interactive app demo: setups, charts, stop plans, calendars and community, all in one friendly place."
     />
     <meta name="theme-color" content="#0b5d3f" />
     <meta
@@ -17,7 +17,7 @@
     />
     <meta
       property="og:description"
-      content="Take the whole app for a spin. Explore charts, setups, stop plans and community with sample data."
+      content="Explore Friendly Trader for iOS and macOS. Try both interactive previews with sample charts, plans and community."
     />
     <meta
       property="og:image"
@@ -33,6 +33,7 @@
     <link rel="apple-touch-icon" href="assets/app-preview/app-icon.png" />
     <link rel="stylesheet" href="assets/app-preview/site.css" />
     <link rel="stylesheet" href="assets/app-preview/native.css" />
+    <link rel="stylesheet" href="assets/app-preview/platform.css" />
     <title>Friendly Trader | Your trading day, made friendly</title>
   </head>
   <body>
@@ -57,11 +58,11 @@
     <main id="main">
       <section class="hero" id="try-app">
         <div class="hero-copy">
-          <p class="availability">Friendly Trader for iPhone</p>
+          <p class="availability">Friendly Trader for iPhone and Mac</p>
           <h1>Your trading day,<br />made friendly.</h1>
           <p class="hero-description">
             Your charts, your plan, your people.<br />
-            A clearer way to move through the market.
+            At your desk or on the go.
           </p>
           <div class="hero-actions">
             <button class="button" data-site="explore">Explore the app</button
@@ -72,8 +73,13 @@
           <p class="quiet">The whole app to explore. No account needed.</p>
         </div>
         <div class="preview-stage" id="preview-stage">
+          <div class="platform-picker" role="group" aria-label="Choose app platform">
+            <button data-platform="ios" aria-pressed="true"><svg viewBox="0 0 24 24" aria-hidden="true"><rect x="6" y="2" width="12" height="20" rx="3"/><path d="M10 5h4M10 19h4"/></svg>iOS · iPhone</button>
+            <button data-platform="macos" aria-pressed="false"><svg viewBox="0 0 24 24" aria-hidden="true"><rect x="2" y="3" width="20" height="14" rx="2"/><path d="M9 21h6M12 17v4"/></svg>macOS · Mac</button>
+          </div>
+          <p class="platform-description" id="platform-description">Your trading day, in your pocket.</p>
           <div class="stage-top">
-            <span class="preview-label">App preview · sample data</span
+            <span class="preview-label">iPhone preview · sample data</span
             ><button
               class="text-button"
               data-site="fullscreen"
@@ -174,33 +180,27 @@
             Opens the existing Friendly Trader checkout on Whop.
           </p>
         </div>
-        <div class="access-card" id="get-app">
-          <img
-            src="assets/app-preview/app-icon.png"
-            alt="Friendly Trader app icon"
-            width="70"
-            height="70"
-          />
-          <h3>Friendly Trader for iPhone</h3>
-          <p>
-            The app is in beta. Public beta enrollment is currently closed.
-            Existing testers can open their invitation in TestFlight.
-          </p>
-          <a
-            class="button secondary"
-            href="https://testflight.apple.com/join/K7xPdhjc"
-            target="_blank"
-            rel="noopener"
-            >Check TestFlight availability ↗</a
-          ><button class="text-button" data-site="explore">
-            Explore the browser preview
-          </button>
-          <p class="quiet">Beta availability checked September 8, 2026.</p>
+      </section>
+      <section class="platform-access section-wrap" id="get-app">
+        <div class="section-heading"><h2>One Friendly Trader.<br>iPhone and Mac.</h2><p>Choose your device. Explore the full preview before you join.</p></div>
+        <div class="platform-access-grid">
+          <article class="access-card" id="get-ios">
+            <div class="access-platform-heading"><img src="assets/app-preview/app-icon.png" alt="Friendly Trader app icon" width="60" height="60"><div><span>iOS</span><h3>Friendly Trader for iPhone</h3></div></div>
+            <p>Charts, setups and your community, wherever your day takes you.</p>
+            <button class="button" data-preview-platform="ios">Explore the iOS app</button>
+            <div class="platform-beta"><strong>iPhone beta</strong><p>Public beta enrollment was closed when checked September 8. Existing testers can use their TestFlight invitation.</p><a href="https://testflight.apple.com/join/K7xPdhjc" target="_blank" rel="noopener">Check iOS beta availability ↗</a></div>
+          </article>
+          <article class="access-card" id="get-macos">
+            <div class="access-platform-heading"><img src="assets/app-preview/app-icon.png" alt="Friendly Trader app icon" width="60" height="60"><div><span>macOS</span><h3>Friendly Trader for Mac</h3></div></div>
+            <p>A dedicated workspace with a sidebar, wider charts and room to think.</p>
+            <button class="button" data-preview-platform="macos">Explore the macOS app</button>
+            <div class="platform-beta"><strong>Mac beta · macOS 14 or later</strong><p>Currently available to invited internal testers through TestFlight. Public Mac beta access is not open yet.</p><a href="https://apps.apple.com/us/app/testflight/id899247664" target="_blank" rel="noopener">Get TestFlight for Mac ↗</a><small>TestFlight installation does not grant access to the Friendly Trader beta.</small></div>
+          </article>
         </div>
       </section>
       <section class="web-tools section-wrap" id="web-tools">
         <div>
-          <h2>At your desk?</h2>
+          <h2>Prefer your browser?</h2>
           <p>Your familiar web tools are still here.</p>
         </div>
         <div class="web-links">
@@ -224,12 +224,11 @@
         <h2>A few friendly answers.</h2>
         <div>
           <details>
-            <summary>Is this the actual iPhone app?</summary>
+            <summary>Can I try both the iOS and macOS apps?</summary>
             <p>
-              This is an interactive browser recreation of the app’s main
-              screens and workflows. It uses simulated data so you can explore
-              without an account. The iPhone app connects to the actual
-              services.
+              Yes. Use the iOS / macOS switch to explore the iPhone layout or
+              the Mac workspace. These are interactive browser recreations using
+              simulated data. The native apps connect to the actual services.
             </p>
           </details>
           <details>
@@ -258,11 +257,12 @@
             </p>
           </details>
           <details>
-            <summary>What if I don’t have an iPhone?</summary>
+            <summary>Can I switch devices during the preview?</summary>
             <p>
-              You can explore the complete browser preview on your phone, tablet
-              or computer. Existing web tools remain available through the links
-              above.
+              Yes. Your current screen, sample plans and demo changes stay with
+              you when you switch between the iOS and macOS previews. On a small
+              screen, the Mac sidebar opens with its menu button. The native Mac
+              app requires macOS 14 or later.
             </p>
           </details>
         </div>

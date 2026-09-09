@@ -1,24 +1,33 @@
-# Native app preview validation
+# iOS and macOS app preview validation
 
 Verified September 8, 2026 (Hawaii time).
 
 ## Deployment
 
 - Review: https://friendly-trader-app-preview.vercel.app/
-- Final deployment: `dpl_2vXK1NDfnbGNdp5qwgka4E7VW2ho`
-- Immutable URL: https://friendly-trader-app-preview-9xdaumq26-clancy-bonds-projects.vercel.app
+- Final deployment: `dpl_HfLnhfi3VLga3jotsfBLhJB5jWoB`
+- Immutable URL: https://friendly-trader-app-preview-g26m18fvr-clancy-bonds-projects.vercel.app
 - Status: READY, production target of the isolated `friendly-trader-app-preview` Vercel project in `clancy-bonds-projects`.
 - The existing `thefriendlytrader.com` site was not deployed by this work.
 - Only index.html, app-preview assets and the explicit review routing configuration were staged. No repository metadata, tests, source docs, native source or unrelated files were uploaded.
-- All 19 public content files, including 8 original animation videos, returned HTTP 200 and matched local source SHA-256 hashes. See `deployed-files.json`.
+- All 21 public content files, including 8 original animation videos, returned HTTP 200 and matched local source SHA-256 hashes. See `deployed-files.json`.
 
 ## Automated checks
 
-`npm test`: 11 passing groups. JS syntax and `git diff --check` pass.
+`npm test`: 14 passing groups. JS syntax and `git diff --check` pass.
 
 Coverage includes repeatable candles, OHLC bounds/continuity/current-quote parity, both stop directions and sizing modes, whole-share risk rounding, tour restore while preserving user changes, all 14 roots and 16 chapters, principal detail/empty states, HTML escaping, service-call/storage prohibition, action wiring, exact price extrema and recorded target outcomes, pattern direction/failed-state consistency, calculated sample Wins, and all four reachable native quiz outcomes without routing cycles.
 
-## Browser verification
+## iOS/macOS platform verification
+
+- All 14 roots in both versions were opened at 402×874 and 320×568: 56 checks with no missing content, horizontal overflow or offscreen close control. See `platform-browser-checks.json`.
+- Desktop Mac Home, MACD, Stop Finder and profile were checked at 1440×1100. Sidebar grouping and selection, Go menu, Control+2 navigation, mobile sidebar collapse, light/dark appearance and platform-specific profile settings passed.
+- Stop Finder kept 36 bars and its earlier position through Mac → iOS → Mac. The Mac plot used its full 886px width. Keyboard activation of the stop line opened its explanation. Unit coverage also verifies resize redraw and observer disposal.
+- An unfinished profile name survived both switches and saved successfully. Both platform access buttons opened the chosen version in expanded mode.
+- The final hosted version passed all 28 root checks (both platforms, 402×874); see `platform-hosted-checks.json`. The desktop Mac chart filled its 924px surface and expanded to 1080px. Escape closed the expanded chart while leaving the app open. Tour chapter 4 resumed in iOS after a Mac chart takeover and platform switch, restoring 42 bars. No warning/error logs were captured during the tested local or hosted flows.
+- Screenshots: `mac-home.png`, `mac-chart.png`, `mac-dark.png`, `platform-access.png`.
+
+## Earlier iOS browser verification
 
 - All 14 roots were opened at 402×874 and 320×568 locally. Content scroll width equaled client width on every root; page width stayed within the viewport. Close preview remained within the viewport. `native-browser-checks.json` records all 28 observations.
 - All 14 roots were reopened on the final hosted deployment at 402×874. No missing/NaN content or horizontal content overflow was observed. See `native-hosted-checks.json`.

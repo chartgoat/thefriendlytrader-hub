@@ -2,9 +2,9 @@
 
 ## Native reference revision
 
-The iOS app is the design reference. The earlier approximation is superseded by source-derived screen hierarchy, typography, colors and behavior. Reference checkout: `swj-macd-ios`, HEAD `93a19e6`, inspected September 8, 2026. Its concurrent native work was not edited.
+The iOS and Mac apps are the design references. The earlier approximation is superseded by source-derived screen hierarchy, typography, colors and behavior. Reference checkout: `swj-macd-ios`, HEAD `93a19e6`, inspected September 8, 2026. Its concurrent native work was not edited.
 
-The website keeps an app-first hero, a readable phone, compact tour controls and a directory of all 14 destinations. The browser implementation remains dependency-free, with deterministic simulated data and no production services.
+The website has an iOS/Mac platform switch, a readable phone or desktop window, compact tour controls and a directory of all 14 destinations. The browser implementation remains dependency-free, with deterministic simulated data and no production services.
 
 | Preview surface | Native reference | Browser implementation |
 | --- | --- | --- |
@@ -23,6 +23,16 @@ The website keeps an app-first hero, a readable phone, compact tour controls and
 | Onboarding | QuizWelcomeView.swift, QuizData.swift, QuizModels.swift | Native welcome copy, exact question/answer branching and four persona outcomes |
 
 The browser is a recreation of the main app surfaces and principal flows. It is not the SwiftUI binary or a claim of pixel-perfect equivalence. Some secondary sheets reuse the existing browser components, company marks are placeholders, and OS services are simulated.
+
+## macOS preview
+
+The Mac reference is `friendly-trader-macos`, HEAD `f2cf0b1`, inspected September 8, 2026 (Hawaii). `DesktopRoot.swift`, `DesktopChrome.swift`, `AppTab.swift`, `docs/macos/DESIGN.md`, `docs/macos/RELEASE.md` and existing Home/MACD evidence establish the layout. Native files and concurrent Whop work were read only.
+
+The Mac browser frame uses a title bar, collapsible 236px sidebar, the native Home / Tools / Calendars / Community grouping, profile and notification footer, centered shared pages, and centered detail sheets. Charts redraw at the workspace width while keeping readable axis text. Phone quick navigation and its editor are omitted in Mac mode. The Go menu exposes the native destination order; Command/Control-number navigation is scoped to the expanded preview when focus is inside the app. Small browser widths use a collapsible overlay sidebar.
+
+Both versions use the same 14 pages, 16 tour chapters and simulated session. Switching preserves chart position, screen, plan settings, drafts, saved work and appearance. Unsubmitted form fields are retained during the switch. Platform choice is a viewing preference and is not rewound when a tour resumes. Platform access cards open the corresponding full preview.
+
+Availability remains explicit: the dated September 8 iOS public-beta check reported closed enrollment; the Mac release ledger records invited internal TestFlight access, with public beta not open. Mac requires macOS 14 or later. The Mac TestFlight link points to Apple's verified [TestFlight listing](https://apps.apple.com/us/app/testflight/id899247664), not an invented Friendly Trader download or public invitation. Native binary release holds do not authorize or imply a native release from this website work.
 
 ## Demo data and plan behavior
 

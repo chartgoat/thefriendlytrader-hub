@@ -1,14 +1,14 @@
 {
-  "deployment": "dpl_2vXK1NDfnbGNdp5qwgka4E7VW2ho",
+  "deployment": "dpl_HfLnhfi3VLga3jotsfBLhJB5jWoB",
   "url": "https://friendly-trader-app-preview.vercel.app/",
-  "checked_utc": "2026-09-09T05:08:10.051119+00:00",
+  "checked_utc": "2026-09-09T06:44:02.090707+00:00",
   "files": [
     {
       "file": "index.html",
       "status": 200,
-      "sha256": "93825b14783f4736f05480b57a4d2c31e9a43b5aecbac50f3e752b2bb89adf8f",
+      "sha256": "b0dbfcc5a4a7bcd20db44c22f2b8ab457de9ecf2d7cc8c6ee057e8d5d4fde039",
       "matches_source": true,
-      "bytes": 11121
+      "bytes": 13060
     },
     {
       "file": "assets/app-preview/native.css",
@@ -16,6 +16,13 @@
       "sha256": "6b115a6a541740dab4b2b0b58d60a754e2439afe72d84ed80b3a6143e8469114",
       "matches_source": true,
       "bytes": 52091
+    },
+    {
+      "file": "assets/app-preview/platform.css",
+      "status": 200,
+      "sha256": "8e4236b1bc0e8f6e39d7ed1fb73cd3f0bf4288c74aaba8c7914a040c61778dbb",
+      "matches_source": true,
+      "bytes": 22047
     },
     {
       "file": "assets/app-preview/ui.mjs",
@@ -27,9 +34,9 @@
     {
       "file": "assets/app-preview/core.mjs",
       "status": 200,
-      "sha256": "bf7a1737bbcffc272a4fcc1bb4c74e10834a151a6a453b84082cde8c581cdb35",
+      "sha256": "eb359572330573c5534b7c5c8378f3b5c3959fe186e2f0699d9d3d33dd187def",
       "matches_source": true,
-      "bytes": 10166
+      "bytes": 10267
     },
     {
       "file": "assets/app-preview/app-icon.png",
@@ -48,9 +55,9 @@
     {
       "file": "assets/app-preview/native.mjs",
       "status": 200,
-      "sha256": "3ce3c25c97a55e7a5d68d4979ffee2ef0650ea64e5a518e30ad62002e70e644b",
+      "sha256": "6c3460529cefad982db01a4d0f12cb1c840b2b0acd03ab5edfc53b69116c78f1",
       "matches_source": true,
-      "bytes": 46471
+      "bytes": 46548
     },
     {
       "file": "assets/app-preview/native-quiz.mjs",
@@ -69,16 +76,23 @@
     {
       "file": "assets/app-preview/app.js",
       "status": 200,
-      "sha256": "1ae8a9c910fae30379b8b85c1fc17db7449b11384d64a04017b68a82f525c945",
+      "sha256": "39f4893ef89231b1f2d7b73bd1ad7490081da4fa9b07c9135358852d606b65bb",
       "matches_source": true,
-      "bytes": 31512
+      "bytes": 34965
+    },
+    {
+      "file": "assets/app-preview/platform.mjs",
+      "status": 200,
+      "sha256": "5a0f5cb7bd41aa44d285e4dbdedcf797c827f7c89f2a6a50d5ba1a1eb2e154fe",
+      "matches_source": true,
+      "bytes": 3229
     },
     {
       "file": "assets/app-preview/chart.mjs",
       "status": 200,
-      "sha256": "2a70caac72937d51652f608585af7c7365bbea4d2285756ed02f9a98a01e4fc7",
+      "sha256": "b3ea2509b80c655a5ff2e1d2761ab08c7f648baf79d1cfb5d806aa699b05a7fd",
       "matches_source": true,
-      "bytes": 7863
+      "bytes": 8443
     },
     {
       "file": "assets/app-preview/media/bear_strong.mp4",

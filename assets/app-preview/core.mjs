@@ -107,6 +107,10 @@ export function positionSize(budget, risk) {
 export function createState() {
   return {
     screen: "home",
+    platform: "ios",
+    macSection: "home",
+    macSidebarCollapsed: false,
+    macMenuOpen: false,
     detail: null,
     symbol: "NVDA",
     timeframe: "15m",

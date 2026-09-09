@@ -1,0 +1,282 @@
+[
+  {
+    "bad": false,
+    "contentScrollWidth": 402,
+    "contentWidth": 402,
+    "height": 874,
+    "pageWidth": 402,
+    "platform": "ios",
+    "screen": "aplus",
+    "width": 402
+  },
+  {
+    "bad": false,
+    "contentScrollWidth": 402,
+    "contentWidth": 402,
+    "height": 874,
+    "pageWidth": 402,
+    "platform": "ios",
+    "screen": "macd",
+    "width": 402
+  },
+  {
+    "bad": false,
+    "contentScrollWidth": 402,
+    "contentWidth": 402,
+    "height": 874,
+    "pageWidth": 402,
+    "platform": "ios",
+    "screen": "patterns",
+    "width": 402
+  },
+  {
+    "bad": false,
+    "contentScrollWidth": 402,
+    "contentWidth": 402,
+    "height": 874,
+    "pageWidth": 402,
+    "platform": "ios",
+    "screen": "screener",
+    "width": 402
+  },
+  {
+    "bad": false,
+    "contentScrollWidth": 402,
+    "contentWidth": 402,
+    "height": 874,
+    "pageWidth": 402,
+    "platform": "ios",
+    "screen": "stops",
+    "width": 402
+  },
+  {
+    "bad": false,
+    "contentScrollWidth": 402,
+    "contentWidth": 402,
+    "height": 874,
+    "pageWidth": 402,
+    "platform": "ios",
+    "screen": "home",
+    "width": 402
+  },
+  {
+    "bad": false,
+    "contentScrollWidth": 402,
+    "contentWidth": 402,
+    "height": 874,
+    "pageWidth": 402,
+    "platform": "ios",
+    "screen": "stream",
+    "width": 402
+  },
+  {
+    "bad": false,
+    "contentScrollWidth": 402,
+    "contentWidth": 402,
+    "height": 874,
+    "pageWidth": 402,
+    "platform": "ios",
+    "screen": "earnings",
+    "width": 402
+  },
+  {
+    "bad": false,
+    "contentScrollWidth": 402,
+    "contentWidth": 402,
+    "height": 874,
+    "pageWidth": 402,
+    "platform": "ios",
+    "screen": "economy",
+    "width": 402
+  },
+  {
+    "bad": false,
+    "contentScrollWidth": 402,
+    "contentWidth": 402,
+    "height": 874,
+    "pageWidth": 402,
+    "platform": "ios",
+    "screen": "live",
+    "width": 402
+  },
+  {
+    "bad": false,
+    "contentScrollWidth": 402,
+    "contentWidth": 402,
+    "height": 874,
+    "pageWidth": 402,
+    "platform": "ios",
+    "screen": "chat",
+    "width": 402
+  },
+  {
+    "bad": false,
+    "contentScrollWidth": 402,
+    "contentWidth": 402,
+    "height": 874,
+    "pageWidth": 402,
+    "platform": "ios",
+    "screen": "assistant",
+    "width": 402
+  },
+  {
+    "bad": false,
+    "contentScrollWidth": 402,
+    "contentWidth": 402,
+    "height": 874,
+    "pageWidth": 402,
+    "platform": "ios",
+    "screen": "profile",
+    "width": 402
+  },
+  {
+    "bad": false,
+    "contentScrollWidth": 402,
+    "contentWidth": 402,
+    "height": 874,
+    "pageWidth": 402,
+    "platform": "ios",
+    "screen": "onboarding",
+    "width": 402
+  },
+  {
+    "bad": false,
+    "contentScrollWidth": 402,
+    "contentWidth": 402,
+    "height": 874,
+    "pageWidth": 402,
+    "platform": "macos",
+    "screen": "aplus",
+    "width": 402
+  },
+  {
+    "bad": false,
+    "contentScrollWidth": 402,
+    "contentWidth": 402,
+    "height": 874,
+    "pageWidth": 402,
+    "platform": "macos",
+    "screen": "macd",
+    "width": 402
+  },
+  {
+    "bad": false,
+    "contentScrollWidth": 402,
+    "contentWidth": 402,
+    "height": 874,
+    "pageWidth": 402,
+    "platform": "macos",
+    "screen": "patterns",
+    "width": 402
+  },
+  {
+    "bad": false,
+    "contentScrollWidth": 402,
+    "contentWidth": 402,
+    "height": 874,
+    "pageWidth": 402,
+    "platform": "macos",
+    "screen": "screener",
+    "width": 402
+  },
+  {
+    "bad": false,
+    "contentScrollWidth": 402,
+    "contentWidth": 402,
+    "height": 874,
+    "pageWidth": 402,
+    "platform": "macos",
+    "screen": "stops",
+    "width": 402
+  },
+  {
+    "bad": false,
+    "contentScrollWidth": 402,
+    "contentWidth": 402,
+    "height": 874,
+    "pageWidth": 402,
+    "platform": "macos",
+    "screen": "home",
+    "width": 402
+  },
+  {
+    "bad": false,
+    "contentScrollWidth": 402,
+    "contentWidth": 402,
+    "height": 874,
+    "pageWidth": 402,
+    "platform": "macos",
+    "screen": "stream",
+    "width": 402
+  },
+  {
+    "bad": false,
+    "contentScrollWidth": 402,
+    "contentWidth": 402,
+    "height": 874,
+    "pageWidth": 402,
+    "platform": "macos",
+    "screen": "earnings",
+    "width": 402
+  },
+  {
+    "bad": false,
+    "contentScrollWidth": 402,
+    "contentWidth": 402,
+    "height": 874,
+    "pageWidth": 402,
+    "platform": "macos",
+    "screen": "economy",
+    "width": 402
+  },
+  {
+    "bad": false,
+    "contentScrollWidth": 382,
+    "contentWidth": 382,
+    "height": 874,
+    "pageWidth": 402,
+    "platform": "macos",
+    "screen": "live",
+    "width": 402
+  },
+  {
+    "bad": false,
+    "contentScrollWidth": 402,
+    "contentWidth": 402,
+    "height": 874,
+    "pageWidth": 402,
+    "platform": "macos",
+    "screen": "chat",
+    "width": 402
+  },
+  {
+    "bad": false,
+    "contentScrollWidth": 382,
+    "contentWidth": 382,
+    "height": 874,
+    "pageWidth": 402,
+    "platform": "macos",
+    "screen": "assistant",
+    "width": 402
+  },
+  {
+    "bad": false,
+    "contentScrollWidth": 382,
+    "contentWidth": 382,
+    "height": 874,
+    "pageWidth": 402,
+    "platform": "macos",
+    "screen": "profile",
+    "width": 402
+  },
+  {
+    "bad": false,
+    "contentScrollWidth": 402,
+    "contentWidth": 402,
+    "height": 874,
+    "pageWidth": 402,
+    "platform": "macos",
+    "screen": "onboarding",
+    "width": 402
+  }
+]

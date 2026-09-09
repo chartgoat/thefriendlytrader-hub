@@ -182,7 +182,7 @@ test("visitor-authored content is escaped in chat, profile and Pip", () => {
   }
 });
 test("preview cannot make service calls, persist personal data or invoke notification APIs", () => {
-  const code = ["app.js", "core.mjs", "ui.mjs", "chart.mjs", "native.mjs", "native-quiz.mjs"]
+  const code = ["app.js", "core.mjs", "ui.mjs", "chart.mjs", "native.mjs", "native-quiz.mjs", "platform.mjs"]
     .map((f) =>
       fs.readFileSync(
         new URL("../assets/app-preview/" + f, import.meta.url),
