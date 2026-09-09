@@ -86,17 +86,20 @@ export function candles(symbol="NVDA", timeframe="15m") {
   });
 }
 export function plan(symbol = "NVDA", direction = "long", mode = "swing") {
-  const entry = BASE[symbol] ?? BASE.NVDA,
-    risk = entry * (mode === "scalp" ? 0.006 : 0.018),
+  // Size the example against the same cent prices shown on the chart.
+  const entryCents = Math.round((BASE[symbol] ?? BASE.NVDA) * 100),
+    riskCents = Math.max(1, Math.round(entryCents * (mode === "scalp" ? 0.006 : 0.018))),
+    entry = entryCents / 100, risk = riskCents / 100,
     sign = direction === "long" ? 1 : -1;
+  const target = (entryCents + sign * Math.round(riskCents * 2.5)) / 100;
   return {
     entry,
-    stop: entry - sign * risk,
-    target: entry + sign * risk * 2.5,
-    target2: entry + sign * risk * 4,
-    target3: entry + sign * risk * 5.5,
+    stop: (entryCents - sign * riskCents) / 100,
+    target,
+    target2: (entryCents + sign * riskCents * 4) / 100,
+    target3: (entryCents + sign * Math.round(riskCents * 5.5)) / 100,
     risk,
-    rr: 2.5,
+    rr: Math.abs(target - entry) / risk,
   };
 }
 export function positionSize(budget, risk) {

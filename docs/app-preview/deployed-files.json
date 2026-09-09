@@ -1,196 +1,237 @@
 {
-  "deployment": "dpl_HQeJm3njzE38x8r2y6k6hToKtPbV",
-  "url": "https://friendly-trader-app-preview.vercel.app/",
-  "checked_utc": "2026-09-09T20:13:24.129908+00:00",
+  "deployment": "dpl_CwvQBkQBgaoCS4cYCF6bDPweX1yY",
   "files": [
     {
-      "file": "index.html",
+      "path": "index.html",
       "status": 200,
+      "bytes": 14503,
+      "content_type": "text/html; charset=utf-8",
       "sha256": "447d1ea4e1ab1e66b66a630c5dfeffc6c735fda98f1259265a059b9e10498225",
-      "matches_source": true,
-      "bytes": 14503
+      "matches": true
     },
     {
-      "file": "assets/app-preview/native.css",
+      "path": "assets/app-preview/app-icon.png",
       "status": 200,
-      "sha256": "6b115a6a541740dab4b2b0b58d60a754e2439afe72d84ed80b3a6143e8469114",
-      "matches_source": true,
-      "bytes": 52091
-    },
-    {
-      "file": "assets/app-preview/film.mjs",
-      "status": 200,
-      "sha256": "0265ed7220c39e920f014040928de63469cf2feb936e45c09e5533094970d6c5",
-      "matches_source": true,
-      "bytes": 8090
-    },
-    {
-      "file": "assets/app-preview/film-script.mjs",
-      "status": 200,
-      "sha256": "956642543c37d8badd23edafec18286031bc00112ec2e8bbf56191c1ad2e609c",
-      "matches_source": true,
-      "bytes": 4407
-    },
-    {
-      "file": "assets/app-preview/platform.css",
-      "status": 200,
-      "sha256": "123ec731b80a090c0aca65911aeab68d3a9954c184098619a0a4ce0980815b18",
-      "matches_source": true,
-      "bytes": 27023
-    },
-    {
-      "file": "assets/app-preview/ui.mjs",
-      "status": 200,
-      "sha256": "7b5a9b9bc99df9d63d92d1914bbae5626631e036f12be02f014cd641606fa64f",
-      "matches_source": true,
-      "bytes": 41890
-    },
-    {
-      "file": "assets/app-preview/core.mjs",
-      "status": 200,
-      "sha256": "a55b328b62b3f56d98078a6a56370e7d477af62cabe4f58ae90a13ca8c249b9e",
-      "matches_source": true,
-      "bytes": 7743
-    },
-    {
-      "file": "assets/app-preview/app-icon.png",
-      "status": 200,
+      "bytes": 54713,
+      "content_type": "image/png",
       "sha256": "9541fd96f948e793c2ed952f67479ffe4d34d87fa4488289526032b23fb651c0",
-      "matches_source": true,
-      "bytes": 54713
+      "matches": true
     },
     {
-      "file": "assets/app-preview/story.css",
+      "path": "assets/app-preview/app.js",
       "status": 200,
-      "sha256": "222d4c28247bee7e24bb4c54a2637cff83685ff6362d426a7c5f9cbdbd39d673",
-      "matches_source": true,
-      "bytes": 14351
+      "bytes": 32627,
+      "content_type": "application/javascript; charset=utf-8",
+      "sha256": "11b922b0498276741599efa4e3deada0f484014340f9f30182a0813e9e377a42",
+      "matches": true
     },
     {
-      "file": "assets/app-preview/site.css",
+      "path": "assets/app-preview/capture.mjs",
       "status": 200,
-      "sha256": "339c4a108e3eea0c410bb7245f84cc5c777446dc7cc8326692c268b0eeda71dc",
-      "matches_source": true,
-      "bytes": 39450
+      "bytes": 7105,
+      "content_type": "application/javascript; charset=utf-8",
+      "sha256": "781e677808147ebb54f464fc3f8766d4179ebaf82dc94a4f3102437963a088eb",
+      "matches": true
     },
     {
-      "file": "assets/app-preview/film.css",
+      "path": "assets/app-preview/chart.mjs",
       "status": 200,
-      "sha256": "1d9d81ee5b1126ce780b707bc528ec6778641c2db0194978af1ebd7794728bf7",
-      "matches_source": true,
-      "bytes": 10365
-    },
-    {
-      "file": "assets/app-preview/native.mjs",
-      "status": 200,
-      "sha256": "e4b8a61ba52251b17436192b0279dadd3f95dfb544505424f193008c7e1ecd78",
-      "matches_source": true,
-      "bytes": 46558
-    },
-    {
-      "file": "assets/app-preview/native-quiz.mjs",
-      "status": 200,
-      "sha256": "3799be1e335d476459d9745966663f678c9d5eeaba1be86b98d162114ddcc85e",
-      "matches_source": true,
-      "bytes": 4534
-    },
-    {
-      "file": "assets/app-preview/pip.png",
-      "status": 200,
-      "sha256": "5254f526ff8c3d34edfd7972200ca9544725f0404345db2a7f3f2dfe95d5a721",
-      "matches_source": true,
-      "bytes": 9616
-    },
-    {
-      "file": "assets/app-preview/app.js",
-      "status": 200,
-      "sha256": "8d2f0238a3c86ca0a91551772e84a149eb27215d975629ec215984382ded1c0c",
-      "matches_source": true,
-      "bytes": 31981
-    },
-    {
-      "file": "assets/app-preview/platform.mjs",
-      "status": 200,
-      "sha256": "5a0f5cb7bd41aa44d285e4dbdedcf797c827f7c89f2a6a50d5ba1a1eb2e154fe",
-      "matches_source": true,
-      "bytes": 3229
-    },
-    {
-      "file": "assets/app-preview/chart.mjs",
-      "status": 200,
+      "bytes": 8301,
+      "content_type": "application/javascript; charset=utf-8",
       "sha256": "d23653b39116794491cff1e4b868c78fb6cfa89d6df8deddfecb8ea5f5c4d426",
-      "matches_source": true,
-      "bytes": 8301
+      "matches": true
     },
     {
-      "file": "assets/app-preview/media/bear_strong.mp4",
+      "path": "assets/app-preview/core.mjs",
       "status": 200,
-      "sha256": "8acf4272f51d7eb4b32fdd10a586446743e3b638bfd68ddeba273be2078b037b",
-      "matches_source": true,
-      "bytes": 391318
+      "bytes": 8069,
+      "content_type": "application/javascript; charset=utf-8",
+      "sha256": "663a24c785020df8169d0b9bc40d9165df297824af78dca17708916a036b42c9",
+      "matches": true
     },
     {
-      "file": "assets/app-preview/media/bull_strong.mp4",
+      "path": "assets/app-preview/film-script.mjs",
       "status": 200,
-      "sha256": "31f1c17124fb99be171c89aaf70987da8bfeb03fbd6ff204959113a7f7da8dd0",
-      "matches_source": true,
-      "bytes": 416207
+      "bytes": 4459,
+      "content_type": "application/javascript; charset=utf-8",
+      "sha256": "8e4264d73bed171af1d6b5cb322d33de10ea910066e43ead1bb3c65f69793c2b",
+      "matches": true
     },
     {
-      "file": "assets/app-preview/media/bear_asleep.mp4",
+      "path": "assets/app-preview/film.css",
       "status": 200,
+      "bytes": 10729,
+      "content_type": "text/css; charset=utf-8",
+      "sha256": "77c705fa115b6c5217aae175effc90e558c18498d102834220e17f556dd0ad97",
+      "matches": true
+    },
+    {
+      "path": "assets/app-preview/film.mjs",
+      "status": 200,
+      "bytes": 8736,
+      "content_type": "application/javascript; charset=utf-8",
+      "sha256": "276a4dbd9696b31a8c816cd269b4b6313954714dd15072490d9bc715abfcf4a8",
+      "matches": true
+    },
+    {
+      "path": "assets/app-preview/media/bear_asleep.mp4",
+      "status": 200,
+      "bytes": 257840,
+      "content_type": "video/mp4",
       "sha256": "8b37c6c434cc1a9e06bd5d7eb94a29945c641ffa1d2fce1f819a61b10d68b8de",
-      "matches_source": true,
-      "bytes": 257840
+      "matches": true
     },
     {
-      "file": "assets/app-preview/media/friendly-trader-film-portrait.mp4",
+      "path": "assets/app-preview/media/bear_asleep_dark.mp4",
       "status": 200,
-      "sha256": "95ee60ee69e0b73721925aa522a9f96ea963ebc91349d3ed709129c74d79cd0d",
-      "matches_source": true,
-      "bytes": 6496389
-    },
-    {
-      "file": "assets/app-preview/media/bull_asleep_dark.mp4",
-      "status": 200,
-      "sha256": "9cfce6677b6649b8a6066f9e1b444e17f6d67bfa363781a872ebd0bab6468fd2",
-      "matches_source": true,
-      "bytes": 145831
-    },
-    {
-      "file": "assets/app-preview/media/bull_asleep.mp4",
-      "status": 200,
-      "sha256": "b9e83e80f5c6f94027229a004bfacfb6d50cfd5e7ef423637a4d3c8f983d6eef",
-      "matches_source": true,
-      "bytes": 144217
-    },
-    {
-      "file": "assets/app-preview/media/bull_strong_dark.mp4",
-      "status": 200,
-      "sha256": "5f1bbc0a621cc189c904c0bc6fd07e04e9b55b645ffd39724431bbfb147fe086",
-      "matches_source": true,
-      "bytes": 437863
-    },
-    {
-      "file": "assets/app-preview/media/bear_asleep_dark.mp4",
-      "status": 200,
+      "bytes": 274621,
+      "content_type": "video/mp4",
       "sha256": "e534f0e06cdcf06ee1fc65b60a572674de16205c163bea5ff913ca09df9d5fc7",
-      "matches_source": true,
-      "bytes": 274621
+      "matches": true
     },
     {
-      "file": "assets/app-preview/media/friendly-trader-film-landscape.mp4",
+      "path": "assets/app-preview/media/bear_strong.mp4",
       "status": 200,
-      "sha256": "f8f524fa1d37e5cb0951d140cdade23b980d63c8821d4080ed762f9043130d29",
-      "matches_source": true,
-      "bytes": 9803421
+      "bytes": 391318,
+      "content_type": "video/mp4",
+      "sha256": "8acf4272f51d7eb4b32fdd10a586446743e3b638bfd68ddeba273be2078b037b",
+      "matches": true
     },
     {
-      "file": "assets/app-preview/media/bear_strong_dark.mp4",
+      "path": "assets/app-preview/media/bear_strong_dark.mp4",
       "status": 200,
+      "bytes": 418914,
+      "content_type": "video/mp4",
       "sha256": "cde37f3000bf5659fe4e284b4a09bb6e17bc0190dae0df5141e3491b0260bd54",
-      "matches_source": true,
-      "bytes": 418914
+      "matches": true
+    },
+    {
+      "path": "assets/app-preview/media/bull_asleep.mp4",
+      "status": 200,
+      "bytes": 144217,
+      "content_type": "video/mp4",
+      "sha256": "b9e83e80f5c6f94027229a004bfacfb6d50cfd5e7ef423637a4d3c8f983d6eef",
+      "matches": true
+    },
+    {
+      "path": "assets/app-preview/media/bull_asleep_dark.mp4",
+      "status": 200,
+      "bytes": 145831,
+      "content_type": "video/mp4",
+      "sha256": "9cfce6677b6649b8a6066f9e1b444e17f6d67bfa363781a872ebd0bab6468fd2",
+      "matches": true
+    },
+    {
+      "path": "assets/app-preview/media/bull_strong.mp4",
+      "status": 200,
+      "bytes": 416207,
+      "content_type": "video/mp4",
+      "sha256": "31f1c17124fb99be171c89aaf70987da8bfeb03fbd6ff204959113a7f7da8dd0",
+      "matches": true
+    },
+    {
+      "path": "assets/app-preview/media/bull_strong_dark.mp4",
+      "status": 200,
+      "bytes": 437863,
+      "content_type": "video/mp4",
+      "sha256": "5f1bbc0a621cc189c904c0bc6fd07e04e9b55b645ffd39724431bbfb147fe086",
+      "matches": true
+    },
+    {
+      "path": "assets/app-preview/media/friendly-trader-film-en.vtt",
+      "status": 200,
+      "bytes": 2116,
+      "content_type": "text/vtt; charset=utf-8",
+      "sha256": "b30ae97a391a8f5556164dcab3380a5ef76b2b18089b60ce21a6f2c2add62e63",
+      "matches": true
+    },
+    {
+      "path": "assets/app-preview/media/friendly-trader-film-landscape.mp4",
+      "status": 200,
+      "bytes": 25424350,
+      "content_type": "video/mp4",
+      "sha256": "468ab29689bd94ca38895fb4bda4cfed222e5457d121909d8a5da27067f8c618",
+      "matches": true
+    },
+    {
+      "path": "assets/app-preview/media/friendly-trader-film-portrait.mp4",
+      "status": 200,
+      "bytes": 30669561,
+      "content_type": "video/mp4",
+      "sha256": "47d268f75a856354c814e00a48fbb1db9d0401c24c354b302d71f50445496206",
+      "matches": true
+    },
+    {
+      "path": "assets/app-preview/native-quiz.mjs",
+      "status": 200,
+      "bytes": 4534,
+      "content_type": "application/javascript; charset=utf-8",
+      "sha256": "3799be1e335d476459d9745966663f678c9d5eeaba1be86b98d162114ddcc85e",
+      "matches": true
+    },
+    {
+      "path": "assets/app-preview/native.css",
+      "status": 200,
+      "bytes": 52091,
+      "content_type": "text/css; charset=utf-8",
+      "sha256": "6b115a6a541740dab4b2b0b58d60a754e2439afe72d84ed80b3a6143e8469114",
+      "matches": true
+    },
+    {
+      "path": "assets/app-preview/native.mjs",
+      "status": 200,
+      "bytes": 46553,
+      "content_type": "application/javascript; charset=utf-8",
+      "sha256": "852ca5ac430c996e0e08db5d45dadd885f3b2a875ce2e0896e0276026cdbea8f",
+      "matches": true
+    },
+    {
+      "path": "assets/app-preview/pip.png",
+      "status": 200,
+      "bytes": 9616,
+      "content_type": "image/png",
+      "sha256": "5254f526ff8c3d34edfd7972200ca9544725f0404345db2a7f3f2dfe95d5a721",
+      "matches": true
+    },
+    {
+      "path": "assets/app-preview/platform.css",
+      "status": 200,
+      "bytes": 27023,
+      "content_type": "text/css; charset=utf-8",
+      "sha256": "123ec731b80a090c0aca65911aeab68d3a9954c184098619a0a4ce0980815b18",
+      "matches": true
+    },
+    {
+      "path": "assets/app-preview/platform.mjs",
+      "status": 200,
+      "bytes": 3229,
+      "content_type": "application/javascript; charset=utf-8",
+      "sha256": "5a0f5cb7bd41aa44d285e4dbdedcf797c827f7c89f2a6a50d5ba1a1eb2e154fe",
+      "matches": true
+    },
+    {
+      "path": "assets/app-preview/site.css",
+      "status": 200,
+      "bytes": 39450,
+      "content_type": "text/css; charset=utf-8",
+      "sha256": "339c4a108e3eea0c410bb7245f84cc5c777446dc7cc8326692c268b0eeda71dc",
+      "matches": true
+    },
+    {
+      "path": "assets/app-preview/story.css",
+      "status": 200,
+      "bytes": 14351,
+      "content_type": "text/css; charset=utf-8",
+      "sha256": "222d4c28247bee7e24bb4c54a2637cff83685ff6362d426a7c5f9cbdbd39d673",
+      "matches": true
+    },
+    {
+      "path": "assets/app-preview/ui.mjs",
+      "status": 200,
+      "bytes": 41890,
+      "content_type": "application/javascript; charset=utf-8",
+      "sha256": "7b5a9b9bc99df9d63d92d1914bbae5626631e036f12be02f014cd641606fa64f",
+      "matches": true
     }
   ]
 }

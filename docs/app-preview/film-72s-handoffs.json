@@ -1,0 +1,563 @@
+[
+  {
+    "label": "local-landscape",
+    "chapter": "Now what?",
+    "duration": 72.042667,
+    "source": "http://127.0.0.1:5562/assets/app-preview/media/friendly-trader-film-landscape.mp4",
+    "time": 0,
+    "hidden": true,
+    "overflow": false,
+    "paused": true,
+    "platform": "ios",
+    "screen": "aplus",
+    "viewport": [
+      1440,
+      1000
+    ],
+    "pass": true
+  },
+  {
+    "label": "local-landscape",
+    "chapter": "Still no plan",
+    "duration": 72.042667,
+    "source": "http://127.0.0.1:5562/assets/app-preview/media/friendly-trader-film-landscape.mp4",
+    "time": 3.35,
+    "hidden": true,
+    "overflow": false,
+    "paused": true,
+    "platform": "ios",
+    "screen": "home",
+    "viewport": [
+      1440,
+      1000
+    ],
+    "pass": true
+  },
+  {
+    "label": "local-landscape",
+    "chapter": "Meet Friendly Trader",
+    "duration": 72.042667,
+    "source": "http://127.0.0.1:5562/assets/app-preview/media/friendly-trader-film-landscape.mp4",
+    "time": 3.35,
+    "hidden": true,
+    "overflow": false,
+    "paused": true,
+    "platform": "ios",
+    "screen": "home",
+    "viewport": [
+      1440,
+      1000
+    ],
+    "pass": true
+  },
+  {
+    "label": "local-landscape",
+    "chapter": "Together, on the chart",
+    "duration": 72.042667,
+    "source": "http://127.0.0.1:5562/assets/app-preview/media/friendly-trader-film-landscape.mp4",
+    "time": 3.35,
+    "hidden": true,
+    "overflow": false,
+    "paused": true,
+    "platform": "ios",
+    "screen": "aplus",
+    "viewport": [
+      1440,
+      1000
+    ],
+    "pass": true
+  },
+  {
+    "label": "local-landscape",
+    "chapter": "Size it",
+    "duration": 72.042667,
+    "source": "http://127.0.0.1:5562/assets/app-preview/media/friendly-trader-film-landscape.mp4",
+    "time": 3.35,
+    "hidden": true,
+    "overflow": false,
+    "paused": true,
+    "platform": "ios",
+    "screen": "stops",
+    "viewport": [
+      1440,
+      1000
+    ],
+    "pass": true
+  },
+  {
+    "label": "local-landscape",
+    "chapter": "Meet Pip",
+    "duration": 72.042667,
+    "source": "http://127.0.0.1:5562/assets/app-preview/media/friendly-trader-film-landscape.mp4",
+    "time": 3.35,
+    "hidden": true,
+    "overflow": false,
+    "paused": true,
+    "platform": "ios",
+    "screen": "assistant",
+    "viewport": [
+      1440,
+      1000
+    ],
+    "pass": true
+  },
+  {
+    "label": "local-landscape",
+    "chapter": "Check the signals",
+    "duration": 72.042667,
+    "source": "http://127.0.0.1:5562/assets/app-preview/media/friendly-trader-film-landscape.mp4",
+    "time": 3.35,
+    "hidden": true,
+    "overflow": false,
+    "paused": true,
+    "platform": "ios",
+    "screen": "macd",
+    "viewport": [
+      1440,
+      1000
+    ],
+    "pass": true
+  },
+  {
+    "label": "local-landscape",
+    "chapter": "Talk it through",
+    "duration": 72.042667,
+    "source": "http://127.0.0.1:5562/assets/app-preview/media/friendly-trader-film-landscape.mp4",
+    "time": 3.35,
+    "hidden": true,
+    "overflow": false,
+    "paused": true,
+    "platform": "ios",
+    "screen": "chat",
+    "viewport": [
+      1440,
+      1000
+    ],
+    "pass": true
+  },
+  {
+    "label": "local-landscape",
+    "chapter": "On your Mac",
+    "duration": 72.042667,
+    "source": "http://127.0.0.1:5562/assets/app-preview/media/friendly-trader-film-landscape.mp4",
+    "time": 3.35,
+    "hidden": true,
+    "overflow": false,
+    "paused": true,
+    "platform": "macos",
+    "screen": "stops",
+    "viewport": [
+      1440,
+      1000
+    ],
+    "pass": true
+  },
+  {
+    "label": "local-landscape",
+    "chapter": "Your plan, your tools",
+    "duration": 72.042667,
+    "source": "http://127.0.0.1:5562/assets/app-preview/media/friendly-trader-film-landscape.mp4",
+    "time": 3.35,
+    "hidden": true,
+    "overflow": false,
+    "paused": true,
+    "platform": "ios",
+    "screen": "aplus",
+    "viewport": [
+      1440,
+      1000
+    ],
+    "pass": true
+  },
+  {
+    "label": "local-landscape",
+    "chapter": "Never trade alone",
+    "duration": 72.042667,
+    "source": "http://127.0.0.1:5562/assets/app-preview/media/friendly-trader-film-landscape.mp4",
+    "time": 3.35,
+    "hidden": true,
+    "overflow": false,
+    "paused": true,
+    "platform": "ios",
+    "screen": "home",
+    "viewport": [
+      1440,
+      1000
+    ],
+    "pass": true
+  },
+  {
+    "label": "local-final-portrait",
+    "chapter": "Now what?",
+    "duration": 72.042667,
+    "source": "http://127.0.0.1:5562/assets/app-preview/media/friendly-trader-film-portrait.mp4",
+    "time": 0,
+    "hidden": true,
+    "overflow": false,
+    "paused": true,
+    "platform": "ios",
+    "screen": "aplus",
+    "viewport": [
+      390,
+      844
+    ],
+    "pass": true
+  },
+  {
+    "label": "local-final-portrait",
+    "chapter": "Still no plan",
+    "duration": 72.042667,
+    "source": "http://127.0.0.1:5562/assets/app-preview/media/friendly-trader-film-portrait.mp4",
+    "time": 3.35,
+    "hidden": true,
+    "overflow": false,
+    "paused": true,
+    "platform": "ios",
+    "screen": "home",
+    "viewport": [
+      390,
+      844
+    ],
+    "pass": true
+  },
+  {
+    "label": "local-final-portrait",
+    "chapter": "Meet Friendly Trader",
+    "duration": 72.042667,
+    "source": "http://127.0.0.1:5562/assets/app-preview/media/friendly-trader-film-portrait.mp4",
+    "time": 7.952,
+    "hidden": true,
+    "overflow": false,
+    "paused": true,
+    "platform": "ios",
+    "screen": "home",
+    "viewport": [
+      390,
+      844
+    ],
+    "pass": true
+  },
+  {
+    "label": "local-final-portrait",
+    "chapter": "Together, on the chart",
+    "duration": 72.042667,
+    "source": "http://127.0.0.1:5562/assets/app-preview/media/friendly-trader-film-portrait.mp4",
+    "time": 12.406,
+    "hidden": true,
+    "overflow": false,
+    "paused": true,
+    "platform": "ios",
+    "screen": "aplus",
+    "viewport": [
+      390,
+      844
+    ],
+    "pass": true
+  },
+  {
+    "label": "local-final-portrait",
+    "chapter": "Size it",
+    "duration": 72.042667,
+    "source": "http://127.0.0.1:5562/assets/app-preview/media/friendly-trader-film-portrait.mp4",
+    "time": 19.489,
+    "hidden": true,
+    "overflow": false,
+    "paused": true,
+    "platform": "ios",
+    "screen": "stops",
+    "viewport": [
+      390,
+      844
+    ],
+    "pass": true
+  },
+  {
+    "label": "local-final-portrait",
+    "chapter": "Meet Pip",
+    "duration": 72.042667,
+    "source": "http://127.0.0.1:5562/assets/app-preview/media/friendly-trader-film-portrait.mp4",
+    "time": 25.503,
+    "hidden": true,
+    "overflow": false,
+    "paused": true,
+    "platform": "ios",
+    "screen": "assistant",
+    "viewport": [
+      390,
+      844
+    ],
+    "pass": true
+  },
+  {
+    "label": "local-final-portrait",
+    "chapter": "Check the signals",
+    "duration": 72.042667,
+    "source": "http://127.0.0.1:5562/assets/app-preview/media/friendly-trader-film-portrait.mp4",
+    "time": 35.72,
+    "hidden": true,
+    "overflow": false,
+    "paused": true,
+    "platform": "ios",
+    "screen": "macd",
+    "viewport": [
+      390,
+      844
+    ],
+    "pass": true
+  },
+  {
+    "label": "local-final-portrait",
+    "chapter": "Talk it through",
+    "duration": 72.042667,
+    "source": "http://127.0.0.1:5562/assets/app-preview/media/friendly-trader-film-portrait.mp4",
+    "time": 41.153,
+    "hidden": true,
+    "overflow": false,
+    "paused": true,
+    "platform": "ios",
+    "screen": "chat",
+    "viewport": [
+      390,
+      844
+    ],
+    "pass": true
+  },
+  {
+    "label": "local-final-portrait",
+    "chapter": "On your Mac",
+    "duration": 72.042667,
+    "source": "http://127.0.0.1:5562/assets/app-preview/media/friendly-trader-film-portrait.mp4",
+    "time": 49.478,
+    "hidden": true,
+    "overflow": false,
+    "paused": true,
+    "platform": "macos",
+    "screen": "stops",
+    "viewport": [
+      390,
+      844
+    ],
+    "pass": true
+  },
+  {
+    "label": "local-final-portrait",
+    "chapter": "Your plan, your tools",
+    "duration": 72.042667,
+    "source": "http://127.0.0.1:5562/assets/app-preview/media/friendly-trader-film-portrait.mp4",
+    "time": 53.506,
+    "hidden": true,
+    "overflow": false,
+    "paused": true,
+    "platform": "ios",
+    "screen": "aplus",
+    "viewport": [
+      390,
+      844
+    ],
+    "pass": true
+  },
+  {
+    "label": "local-final-portrait",
+    "chapter": "Never trade alone",
+    "duration": 72.042667,
+    "source": "http://127.0.0.1:5562/assets/app-preview/media/friendly-trader-film-portrait.mp4",
+    "time": 60.526,
+    "hidden": true,
+    "overflow": false,
+    "paused": true,
+    "platform": "ios",
+    "screen": "home",
+    "viewport": [
+      390,
+      844
+    ],
+    "pass": true
+  },
+  {
+    "label": "local-final-small-phone",
+    "chapter": "Now what?",
+    "duration": 72,
+    "source": "http://127.0.0.1:5562/assets/app-preview/media/friendly-trader-film-portrait.mp4",
+    "time": 0,
+    "hidden": true,
+    "overflow": false,
+    "paused": true,
+    "platform": "ios",
+    "screen": "aplus",
+    "viewport": [
+      320,
+      568
+    ],
+    "pass": true
+  },
+  {
+    "label": "local-final-small-phone",
+    "chapter": "Still no plan",
+    "duration": 72,
+    "source": "http://127.0.0.1:5562/assets/app-preview/media/friendly-trader-film-portrait.mp4",
+    "time": 3.35,
+    "hidden": true,
+    "overflow": false,
+    "paused": true,
+    "platform": "ios",
+    "screen": "home",
+    "viewport": [
+      320,
+      568
+    ],
+    "pass": true
+  },
+  {
+    "label": "local-final-small-phone",
+    "chapter": "Meet Friendly Trader",
+    "duration": 72,
+    "source": "http://127.0.0.1:5562/assets/app-preview/media/friendly-trader-film-portrait.mp4",
+    "time": 7.952,
+    "hidden": true,
+    "overflow": false,
+    "paused": true,
+    "platform": "ios",
+    "screen": "home",
+    "viewport": [
+      320,
+      568
+    ],
+    "pass": true
+  },
+  {
+    "label": "local-final-small-phone",
+    "chapter": "Together, on the chart",
+    "duration": 72,
+    "source": "http://127.0.0.1:5562/assets/app-preview/media/friendly-trader-film-portrait.mp4",
+    "time": 12.406,
+    "hidden": true,
+    "overflow": false,
+    "paused": true,
+    "platform": "ios",
+    "screen": "aplus",
+    "viewport": [
+      320,
+      568
+    ],
+    "pass": true
+  },
+  {
+    "label": "local-final-small-phone",
+    "chapter": "Size it",
+    "duration": 72,
+    "source": "http://127.0.0.1:5562/assets/app-preview/media/friendly-trader-film-portrait.mp4",
+    "time": 19.489,
+    "hidden": true,
+    "overflow": false,
+    "paused": true,
+    "platform": "ios",
+    "screen": "stops",
+    "viewport": [
+      320,
+      568
+    ],
+    "pass": true
+  },
+  {
+    "label": "local-final-small-phone",
+    "chapter": "Meet Pip",
+    "duration": 72,
+    "source": "http://127.0.0.1:5562/assets/app-preview/media/friendly-trader-film-portrait.mp4",
+    "time": 25.503,
+    "hidden": true,
+    "overflow": false,
+    "paused": true,
+    "platform": "ios",
+    "screen": "assistant",
+    "viewport": [
+      320,
+      568
+    ],
+    "pass": true
+  },
+  {
+    "label": "local-final-small-phone",
+    "chapter": "Check the signals",
+    "duration": 72,
+    "source": "http://127.0.0.1:5562/assets/app-preview/media/friendly-trader-film-portrait.mp4",
+    "time": 35.72,
+    "hidden": true,
+    "overflow": false,
+    "paused": true,
+    "platform": "ios",
+    "screen": "macd",
+    "viewport": [
+      320,
+      568
+    ],
+    "pass": true
+  },
+  {
+    "label": "local-final-small-phone",
+    "chapter": "Talk it through",
+    "duration": 72,
+    "source": "http://127.0.0.1:5562/assets/app-preview/media/friendly-trader-film-portrait.mp4",
+    "time": 41.153,
+    "hidden": true,
+    "overflow": false,
+    "paused": true,
+    "platform": "ios",
+    "screen": "chat",
+    "viewport": [
+      320,
+      568
+    ],
+    "pass": true
+  },
+  {
+    "label": "local-final-small-phone",
+    "chapter": "On your Mac",
+    "duration": 72,
+    "source": "http://127.0.0.1:5562/assets/app-preview/media/friendly-trader-film-portrait.mp4",
+    "time": 49.478,
+    "hidden": true,
+    "overflow": false,
+    "paused": true,
+    "platform": "macos",
+    "screen": "stops",
+    "viewport": [
+      320,
+      568
+    ],
+    "pass": true
+  },
+  {
+    "label": "local-final-small-phone",
+    "chapter": "Your plan, your tools",
+    "duration": 72,
+    "source": "http://127.0.0.1:5562/assets/app-preview/media/friendly-trader-film-portrait.mp4",
+    "time": 53.506,
+    "hidden": true,
+    "overflow": false,
+    "paused": true,
+    "platform": "ios",
+    "screen": "aplus",
+    "viewport": [
+      320,
+      568
+    ],
+    "pass": true
+  },
+  {
+    "label": "local-final-small-phone",
+    "chapter": "Never trade alone",
+    "duration": 72,
+    "source": "http://127.0.0.1:5562/assets/app-preview/media/friendly-trader-film-portrait.mp4",
+    "time": 60.526,
+    "hidden": true,
+    "overflow": false,
+    "paused": true,
+    "platform": "ios",
+    "screen": "home",
+    "viewport": [
+      320,
+      568
+    ],
+    "pass": true
+  }
+]

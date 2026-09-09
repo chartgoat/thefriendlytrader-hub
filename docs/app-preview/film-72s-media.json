@@ -1,0 +1,42 @@
+[
+  {
+    "orientation": "landscape",
+    "path": "assets/app-preview/media/friendly-trader-film-landscape.mp4",
+    "sha256": "468ab29689bd94ca38895fb4bda4cfed222e5457d121909d8a5da27067f8c618",
+    "bytes": 25424350,
+    "duration": 72,
+    "video": {
+      "width": 1920,
+      "height": 1080,
+      "nb_frames": "4320",
+      "avg_frame_rate": "60/1",
+      "codec_name": "h264"
+    },
+    "audio": {
+      "codec_name": "aac",
+      "sample_rate": "48000",
+      "channels": 2
+    },
+    "complete_decode": "passed"
+  },
+  {
+    "orientation": "portrait",
+    "path": "assets/app-preview/media/friendly-trader-film-portrait.mp4",
+    "sha256": "47d268f75a856354c814e00a48fbb1db9d0401c24c354b302d71f50445496206",
+    "bytes": 30669561,
+    "duration": 72,
+    "video": {
+      "width": 1080,
+      "height": 1920,
+      "nb_frames": "4320",
+      "avg_frame_rate": "60/1",
+      "codec_name": "h264"
+    },
+    "audio": {
+      "codec_name": "aac",
+      "sample_rate": "48000",
+      "channels": 2
+    },
+    "complete_decode": "passed"
+  }
+]

@@ -5,12 +5,12 @@ Latest verification: September 9, 2026 (Hawaii time). Earlier passes below are r
 ## Deployment
 
 - Review: https://friendly-trader-app-preview.vercel.app/
-- Final deployment: `dpl_HQeJm3njzE38x8r2y6k6hToKtPbV`
-- Immutable URL: https://friendly-trader-app-preview-a21q2qtk4-clancy-bonds-projects.vercel.app
+- Final deployment: `dpl_CwvQBkQBgaoCS4cYCF6bDPweX1yY`
+- Immutable URL: https://friendly-trader-app-preview-jgomv20gx-clancy-bonds-projects.vercel.app
 - Status: READY, production target of the isolated `friendly-trader-app-preview` Vercel project in `clancy-bonds-projects`.
 - The existing `thefriendlytrader.com` site was not deployed by this work.
 - Only index.html, app-preview assets and the explicit review routing configuration were staged. No repository metadata, tests, source docs, native source or unrelated files were uploaded.
-- All 27 public content files, including 8 original animation videos and 2 new product films, returned HTTP 200 and matched local source SHA-256 hashes. See `deployed-files.json`.
+- All 29 public content files, including 8 existing animation videos, 2 finished product films and the caption track, returned HTTP 200 and matched local source SHA-256 hashes. See `deployed-files.json`.
 
 ## Automated checks
 
@@ -18,7 +18,21 @@ Latest verification: September 9, 2026 (Hawaii time). Earlier passes below are r
 
 Coverage includes repeatable candles, OHLC bounds/continuity/current-quote parity, both stop directions and sizing modes, whole-share risk rounding, tour restore while preserving user changes, all 14 roots and the current film destinations, principal detail/empty states, HTML escaping, service-call/storage prohibition, action wiring, exact price extrema and recorded target outcomes, pattern direction/failed-state consistency, calculated sample Wins, and all four reachable native quiz outcomes without routing cycles.
 
-## Interactive marketing film
+## Current narrated marketing film
+
+- A 72-second edit based on a detailed study of seven supplied SWJ ads, with Fable 5.1 creative work, one continuous 138-word narration, original instrumental and UI sound. The source study covers 12,882 extracted native frames and 429.4 seconds of full soundtracks. See `REFERENCE-STUDY.md` and `reference-coverage.json` for methods and limits.
+- Landscape: 1920×1080, 25,424,350 bytes. Portrait: 1080×1920, 30,669,561 bytes. Both are H.264 at 60 fps, 4,320 frames, AAC stereo at 48 kHz, exactly 72.000 seconds, with fast-start metadata. Both decode fully without errors. See `film-72s-media.json`.
+- The final soundtrack is muxed directly from the approved full mix. Correlation exceeds 0.9997 over the whole track and the ending, at zero sample offset. This removed a 42.7 ms encoder offset found in the initial Remotion mux. The complete closing invitation is retained. See `film-72s-audio-integrity.json`.
+- The exact app logo, human portrait crop, native app header visibility, Mac window bounds, short replacing captions, phrase boundaries, spotlight coordinates, final-frame holds and adjacent shot boundaries were reviewed and corrected. The film uses eight recordings of the interactive preview; the iOS/macOS apps themselves were not changed.
+- Full-duration visual review includes 144 sampled frames per orientation, complete video input at 8 fps for an independent audiovisual review, plus detailed full-resolution checks. `film-72s-landscape-00.jpg` through `05` and the matching portrait sheets cover the entire edit. See `film-72s-review-notes.md` for corrections to the model's report.
+- All 11 chapters passed local handoffs at 1440×1000, 390×844 and 320×568: 33 observations. The wide local pass preceded the last audio mux; final hosted verification covers that delivered asset. Every tested handoff opened the expected app/platform, stopped playback, and had no app-content horizontal overflow. Small-phone player controls fit the viewport. See `film-72s-handoffs.json`.
+- All 11 chapters passed on the final hosted version at 390×844 and 1440×1000: 22 observations. Both sources report 72 seconds. Rotation at 34 seconds retained the paused time and mute state, selected the landscape source, and retained the loaded captions. See `film-hosted-checks.json`.
+- Thirty-eight nonoverlapping WebVTT cues end at 69.034 seconds. The server returns `text/vtt; charset=utf-8`, and the hosted track reaches readyState 2. CC was visually checked. Both video files return HTTP 206 for byte-range requests. All 29 public files match local SHA-256 hashes.
+- Changing the example risk budget to $500 gives 147 shares and $498.33 planned risk; it survives returning to the film. Pip answers already entered during exploration are retained. The recorded first-use example remains $250, 73 shares and $247.47 planned risk. See `film-72s-visitor-edits.json`.
+- Playback from the final seconds reached exactly 72, stopped and exposed the end action. Keyboard traversal moves from replay to timeline; Escape closes the film and restores focus to Resume film. See `film-72s-ending-keyboard.json`.
+- Reproducible final composition source and a hashed input manifest are retained in `production/film/`. Production inputs, node_modules, original source ads, study reports and rendering intermediates are excluded from website uploads.
+
+## Earlier 90-second film (superseded)
 
 - The former narrated-by-text screen rotation is replaced by a real 90-second product film: 12 chapters, 21 shots, camera push-ins, 250ms dissolves and an original instrumental score. There is no voiceover; large on-screen copy carries the story. Both MP4s are H.264, 30fps/2,700 frames and AAC 48kHz stereo. Landscape is 1280×720; portrait is 480×800. Both probe at exactly 90.000 seconds. See `film-media-checks.json`.
 - Forty-two captured compositions cover both edits. Copy/device placement and app horizontal overflow were checked, and the rendered landscape contact sheet was visually reviewed. See `film-composition-checks.json`, `film-contact-sheet.jpg` and `film-frames/`.
@@ -26,7 +40,7 @@ Coverage includes repeatable candles, OHLC bounds/continuity/current-quote parit
 - Seeking to 15.5s opened the A+ chart at 42 bars. Zooming changed it to 36 bars; resume returned to the saved film time. Byte-range serving was required for valid local seek QA; `scripts/serve-review.py` supplies it.
 - A $500 risk input recalculated to 147 sample shares; the value and saved plan survived leaving and resuming the film. Risk sizing now responds to input while preserving the input element and focus. See `film-saved-work-check.json`.
 - Changing from portrait to landscape at 46s retained time, mute and paused status. Keyboard traversal cycles through play, timeline, sound, chapters, explore and close; the underlying app is inert. The ending exposes its step-inside/replay controls. No error logs were recorded in the final local flows. See `film-keyboard-checks.json`.
-- Hosted verification repeated all 12 chapters in portrait and landscape: 24 successful handoffs, exact selected times, 90-second duration, paused audio during exploration and visible resume controls. Both MP4s return HTTP 206 for byte-range requests; all 27 public assets match local SHA-256 hashes. No error logs were recorded. See `film-hosted-checks.json`, `film-hosted-range-checks.json`, `film-hosted-desktop.png` and `film-hosted-mobile.png`.
+- Hosted verification repeated all 12 chapters in portrait and landscape: 24 successful handoffs, exact selected times, 90-second duration, paused audio during exploration and visible resume controls. Both MP4s return HTTP 206 for byte-range requests; all 27 public assets match local SHA-256 hashes. No error logs were recorded. See `archive/90-second-film/film-hosted-checks.json`, `archive/90-second-film/film-hosted-range-checks.json`, `archive/90-second-film/film-hosted-desktop.png` and `archive/90-second-film/film-hosted-mobile.png`.
 - Source scenes, score recipe and assembler are retained for future edits. Composition PNGs, scripts, tests, docs and intermediates are excluded from the isolated review upload. No native binary or production service changed.
 
 ## Earlier benefit-first story and typography

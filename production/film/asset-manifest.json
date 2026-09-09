@@ -1,0 +1,230 @@
+{
+  "source": "Friendly Trader September 9 production inputs",
+  "assets": [
+    {
+      "path": "audio/film-mix.wav",
+      "bytes": 13824078,
+      "sha256": "95bf8e28ed55a5cb805a883df830cc23ce0f96a40a6b2b82ecb1321cf0acf34d"
+    },
+    {
+      "path": "audio/music.wav",
+      "bytes": 13811022,
+      "sha256": "1c74f639e5a85a030a101da4816d654e5fa19ce2ba24119cd538dc8beae16538"
+    },
+    {
+      "path": "audio/narration-timing.json",
+      "bytes": 15871,
+      "sha256": "ffa172fd861486631e940b148d4df342f2fdd96fc16ad94c62f78daf9732325c"
+    },
+    {
+      "path": "audio/narration.wav",
+      "bytes": 6772232,
+      "sha256": "45cbe4f294cfc53258a5c20e83ecd81c5e156a8d84fdcc24c99e9bf168cac519"
+    },
+    {
+      "path": "audio/sfx.wav",
+      "bytes": 13824044,
+      "sha256": "9cb5bf62d618fa49741b884d3abdbf2d1fb82b297d47fd33989e59967a7d572e"
+    },
+    {
+      "path": "audio/word-timings.json",
+      "bytes": 15871,
+      "sha256": "ffa172fd861486631e940b148d4df342f2fdd96fc16ad94c62f78daf9732325c"
+    },
+    {
+      "path": "brand/app-icon.png",
+      "bytes": 54713,
+      "sha256": "9541fd96f948e793c2ed952f67479ffe4d34d87fa4488289526032b23fb651c0"
+    },
+    {
+      "path": "captures/home-last.jpg",
+      "bytes": 135223,
+      "sha256": "ca0b31937b6e664a81396c764106c84a2a2ca9886e7b02460e46196ea6f11085"
+    },
+    {
+      "path": "captures/home.mp4",
+      "bytes": 288789,
+      "sha256": "27faeb1fad69c6fbaa183e1b27f34d2e1255cda302823aea6ce1f90cc4ea02dd"
+    },
+    {
+      "path": "captures/ios-home.jpg",
+      "bytes": 40610,
+      "sha256": "83b5bc15330b3a692c481c99c4af2971bcf2097c7ae5e3cd7c2f042fac60447c"
+    },
+    {
+      "path": "captures/ios-macd.jpg",
+      "bytes": 40273,
+      "sha256": "0161ca21acef89349b656af994c4e1ada9337865b5cce1ab7d16623148c0d4b0"
+    },
+    {
+      "path": "captures/ios-patterns.jpg",
+      "bytes": 34728,
+      "sha256": "0a21f3f6df77be13976a32360ff970959476f125c1c7d267c820252d7b203457"
+    },
+    {
+      "path": "captures/ios-pip-empty.jpg",
+      "bytes": 20480,
+      "sha256": "cba57cd689c7cf2f79b2c437ac27cc21124c30db190f367dcdb76330e1632005"
+    },
+    {
+      "path": "captures/ios-pip.jpg",
+      "bytes": 27897,
+      "sha256": "c699967c4c3b662a1d71f8025eca29322a6dce1f167585b71629d84fb0404d6d"
+    },
+    {
+      "path": "captures/ios-plan-chart.jpg",
+      "bytes": 34140,
+      "sha256": "295e83c4a90e6f4cc9423fe939005d11a4c8bf291a4c937f6962b9620fedde4b"
+    },
+    {
+      "path": "captures/ios-plan.jpg",
+      "bytes": 35158,
+      "sha256": "e82bc15748e4ea70e9cf7ae821dc03e133ff577a4f0740f8a15b88f63b075e62"
+    },
+    {
+      "path": "captures/ios-sizing.jpg",
+      "bytes": 33745,
+      "sha256": "4e2580c39b9112c62d6844d3b9fc0d1b24b78bf93551d046c7e484ac5188b7bb"
+    },
+    {
+      "path": "captures/ios-stops.jpg",
+      "bytes": 31511,
+      "sha256": "0eba63f67134e9e52120cb50687e4b761189744bb64c167d4605b23418e492e0"
+    },
+    {
+      "path": "captures/ios-wins.jpg",
+      "bytes": 38936,
+      "sha256": "8943ac76e151683bda1d6be9c88fe7ee00f129be45220a9efee3b892df064364"
+    },
+    {
+      "path": "captures/mac-chat.jpg",
+      "bytes": 59904,
+      "sha256": "fab8ab456ada12a438d967b0f209327b506fb51b29d39568978234bbb73cb580"
+    },
+    {
+      "path": "captures/mac-home.jpg",
+      "bytes": 92477,
+      "sha256": "075e49b7175516f93d227ac8f5cc43ae0dcc11f94c78062e9b3796f9138d2d73"
+    },
+    {
+      "path": "captures/mac-last.jpg",
+      "bytes": 201107,
+      "sha256": "503be6ad706dfcc7245fa1febf1b53d751aca219ed5fc73b09866f04521d45df"
+    },
+    {
+      "path": "captures/mac-plan.jpg",
+      "bytes": 64093,
+      "sha256": "e1b4ebd1a7727cdbf199f047d567d62b0ccf7bfc371072092e638df9f5dc9648"
+    },
+    {
+      "path": "captures/mac-sizing.jpg",
+      "bytes": 58679,
+      "sha256": "f778b38b2790f381c5270b7822457bf7586aa248ec245d9a94ebaae1dfca7793"
+    },
+    {
+      "path": "captures/mac-stops.jpg",
+      "bytes": 60670,
+      "sha256": "09a4efede3d6b6e9439c05db7762634e43e6f00dd350de291b83d1d09b197c85"
+    },
+    {
+      "path": "captures/mac.mp4",
+      "bytes": 141639,
+      "sha256": "86df94531ee93d458cc71ddbfe3eaf63a2b0d133d475d9991b6f2dcf8a407246"
+    },
+    {
+      "path": "captures/macd-last.jpg",
+      "bytes": 135555,
+      "sha256": "4721282f13ddeef5cf6a1d79c08e5dbdb9d951a5bbe944d60b5836ff60cbe939"
+    },
+    {
+      "path": "captures/macd.mp4",
+      "bytes": 361912,
+      "sha256": "668035e52a5d5efbc65bf667f90b5765627122578813b8bc7afc514f58c48b0f"
+    },
+    {
+      "path": "captures/patterns-last.jpg",
+      "bytes": 118247,
+      "sha256": "aa4c5919d7d8a20f81213a589cfcf07174d0991435f90ac996367283c1dc31ad"
+    },
+    {
+      "path": "captures/patterns.mp4",
+      "bytes": 83024,
+      "sha256": "022a91f780344e027ecf0a48e0f3412d9d3184597e312d989470df8c2bfb28bf"
+    },
+    {
+      "path": "captures/pip-last.jpg",
+      "bytes": 96774,
+      "sha256": "7a08d1ceb87112e48ea7e2e2d71810e908323499913de72f898fb24e5f676900"
+    },
+    {
+      "path": "captures/pip.mp4",
+      "bytes": 160189,
+      "sha256": "0d44af40f3f7d6bbc43f650a857f29c3c12f6ca920dfff494da6939598d4c711"
+    },
+    {
+      "path": "captures/plan-last.jpg",
+      "bytes": 117140,
+      "sha256": "c6643bec32c34b25199472c865ebb18962e345cd20eee6ac6e412ac2dca1f0f6"
+    },
+    {
+      "path": "captures/plan.mp4",
+      "bytes": 116966,
+      "sha256": "42bc5820c43685acff989fcd2bf66b8399f3999af73d76ea6db1680c19d7d689"
+    },
+    {
+      "path": "captures/room-last.jpg",
+      "bytes": 127613,
+      "sha256": "9e5d0ff9e34ecf4f331f20ce27ec803c5a33ce69b7efbc5affcd411c945ca85c"
+    },
+    {
+      "path": "captures/room.mp4",
+      "bytes": 221263,
+      "sha256": "7ed8454659103e3f80903b936b35961c022a1da07531ce2f1b716c71dece1f6c"
+    },
+    {
+      "path": "captures/size-last.jpg",
+      "bytes": 118906,
+      "sha256": "de0be91936da2b0efc1c4f5c25145b76bbc2b168b3e50c6be51df633aa63b457"
+    },
+    {
+      "path": "captures/size.mp4",
+      "bytes": 116504,
+      "sha256": "3745389f1fd279e24b4a42add3ff94607efc7b50ea4f250a47767c950ec0b102"
+    },
+    {
+      "path": "footage/another-opinion-last.jpg",
+      "bytes": 80366,
+      "sha256": "499425b5d9bc49c36922855fc91318f386f92817b08222a06f31a5f3d9d85430"
+    },
+    {
+      "path": "footage/another-opinion.mp4",
+      "bytes": 2816097,
+      "sha256": "f56efcad6d9242fabbb0677e15efa4d5713333e1409088f20e678bce771a4185"
+    },
+    {
+      "path": "footage/observer-last.jpg",
+      "bytes": 88546,
+      "sha256": "934a92fd15f8aa627a3ebc11851dfd8cc187fb92d055dba5ccd06a127b579fa3"
+    },
+    {
+      "path": "footage/observer.mp4",
+      "bytes": 3148373,
+      "sha256": "53a1b95905902e0f5b3c7ceb74f120261f1c06a1d78977094f339fb125ee2c10"
+    },
+    {
+      "path": "footage/provenance.json",
+      "bytes": 672,
+      "sha256": "9142c62bad38b95a5196f2be4a0a10dd5c93cbc1135f03443bcdcabfcafced4b"
+    },
+    {
+      "path": "footage/reaction-last.jpg",
+      "bytes": 93752,
+      "sha256": "80df4aaf4a59d805f99b85d08d44634eaa77dee1c2c07de7302a46144381c132"
+    },
+    {
+      "path": "footage/reaction.mp4",
+      "bytes": 1777585,
+      "sha256": "6b51fd0ccff93c670c7ec4b007cf3e90799f4d821b74c49347ffdaa2b02b3753"
+    }
+  ]
+}

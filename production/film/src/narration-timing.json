@@ -1,0 +1,787 @@
+{
+  "voice": "iP95p4xoKVk53GoZ742B",
+  "voice_name": "Chris",
+  "category": "premade",
+  "model": "eleven_multilingual_v2",
+  "duration": 70.543271,
+  "segments": [
+    {
+      "id": "hook",
+      "text": "You find a stock you like. It's moving. Now what?",
+      "start": 0.238,
+      "end": 3.036,
+      "words": [
+        {
+          "text": "You",
+          "start": 0.238,
+          "end": 0.319
+        },
+        {
+          "text": "find",
+          "start": 0.389,
+          "end": 0.517
+        },
+        {
+          "text": "a",
+          "start": 0.563,
+          "end": 0.598
+        },
+        {
+          "text": "stock",
+          "start": 0.656,
+          "end": 0.946
+        },
+        {
+          "text": "you",
+          "start": 0.981,
+          "end": 1.062
+        },
+        {
+          "text": "like.",
+          "start": 1.144,
+          "end": 1.387
+        },
+        {
+          "text": "It's",
+          "start": 1.411,
+          "end": 1.585
+        },
+        {
+          "text": "moving.",
+          "start": 1.654,
+          "end": 2.223
+        },
+        {
+          "text": "Now",
+          "start": 2.398,
+          "end": 2.606
+        },
+        {
+          "text": "what?",
+          "start": 2.665,
+          "end": 3.036
+        }
+      ]
+    },
+    {
+      "id": "noise",
+      "text": "Another chart. Another opinion. Still no plan.",
+      "start": 3.5,
+      "end": 7.703,
+      "words": [
+        {
+          "text": "Another",
+          "start": 3.5,
+          "end": 3.849
+        },
+        {
+          "text": "chart.",
+          "start": 3.907,
+          "end": 4.441
+        },
+        {
+          "text": "Another",
+          "start": 4.87,
+          "end": 5.196
+        },
+        {
+          "text": "opinion.",
+          "start": 5.254,
+          "end": 5.857
+        },
+        {
+          "text": "Still",
+          "start": 6.542,
+          "end": 6.821
+        },
+        {
+          "text": "no",
+          "start": 6.891,
+          "end": 7.018
+        },
+        {
+          "text": "plan.",
+          "start": 7.1,
+          "end": 7.703
+        }
+      ]
+    },
+    {
+      "id": "turn",
+      "text": "Let's make this friendlier. Meet Friendly Trader.",
+      "start": 8.202,
+      "end": 11.953,
+      "words": [
+        {
+          "text": "Let's",
+          "start": 8.202,
+          "end": 8.435
+        },
+        {
+          "text": "make",
+          "start": 8.481,
+          "end": 8.632
+        },
+        {
+          "text": "this",
+          "start": 8.655,
+          "end": 8.783
+        },
+        {
+          "text": "friendlier.",
+          "start": 8.841,
+          "end": 9.398
+        },
+        {
+          "text": "Meet",
+          "start": 9.839,
+          "end": 10.165
+        },
+        {
+          "text": "Friendly",
+          "start": 10.664,
+          "end": 11.198
+        },
+        {
+          "text": "Trader.",
+          "start": 11.349,
+          "end": 11.953
+        }
+      ]
+    },
+    {
+      "id": "plan",
+      "text": "Your entry. Your exit if you're wrong. And your target. Together, on the chart.",
+      "start": 12.556,
+      "end": 19.174,
+      "words": [
+        {
+          "text": "Your",
+          "start": 12.556,
+          "end": 12.754
+        },
+        {
+          "text": "entry.",
+          "start": 12.8,
+          "end": 13.264
+        },
+        {
+          "text": "Your",
+          "start": 13.694,
+          "end": 13.88
+        },
+        {
+          "text": "exit",
+          "start": 13.926,
+          "end": 14.251
+        },
+        {
+          "text": "if",
+          "start": 14.298,
+          "end": 14.437
+        },
+        {
+          "text": "you're",
+          "start": 14.483,
+          "end": 14.658
+        },
+        {
+          "text": "wrong.",
+          "start": 14.681,
+          "end": 15.157
+        },
+        {
+          "text": "And",
+          "start": 15.528,
+          "end": 15.935
+        },
+        {
+          "text": "your",
+          "start": 16.109,
+          "end": 16.283
+        },
+        {
+          "text": "target.",
+          "start": 16.353,
+          "end": 16.98
+        },
+        {
+          "text": "Together,",
+          "start": 17.479,
+          "end": 18.129
+        },
+        {
+          "text": "on",
+          "start": 18.303,
+          "end": 18.466
+        },
+        {
+          "text": "the",
+          "start": 18.512,
+          "end": 18.582
+        },
+        {
+          "text": "chart.",
+          "start": 18.652,
+          "end": 19.174
+        }
+      ]
+    },
+    {
+      "id": "size",
+      "text": "Choose what you're willing to risk. The Stop Finder works out a sample share count before you enter.",
+      "start": 19.639,
+      "end": 25.119,
+      "words": [
+        {
+          "text": "Choose",
+          "start": 19.639,
+          "end": 19.964
+        },
+        {
+          "text": "what",
+          "start": 19.987,
+          "end": 20.092
+        },
+        {
+          "text": "you're",
+          "start": 20.115,
+          "end": 20.3
+        },
+        {
+          "text": "willing",
+          "start": 20.347,
+          "end": 20.626
+        },
+        {
+          "text": "to",
+          "start": 20.672,
+          "end": 20.718
+        },
+        {
+          "text": "risk.",
+          "start": 20.8,
+          "end": 21.311
+        },
+        {
+          "text": "The",
+          "start": 21.821,
+          "end": 21.938
+        },
+        {
+          "text": "Stop",
+          "start": 21.996,
+          "end": 22.263
+        },
+        {
+          "text": "Finder",
+          "start": 22.332,
+          "end": 22.576
+        },
+        {
+          "text": "works",
+          "start": 22.611,
+          "end": 22.82
+        },
+        {
+          "text": "out",
+          "start": 22.843,
+          "end": 22.959
+        },
+        {
+          "text": "a",
+          "start": 22.994,
+          "end": 23.029
+        },
+        {
+          "text": "sample",
+          "start": 23.11,
+          "end": 23.528
+        },
+        {
+          "text": "share",
+          "start": 23.563,
+          "end": 23.818
+        },
+        {
+          "text": "count",
+          "start": 23.876,
+          "end": 24.12
+        },
+        {
+          "text": "before",
+          "start": 24.178,
+          "end": 24.515
+        },
+        {
+          "text": "you",
+          "start": 24.561,
+          "end": 24.643
+        },
+        {
+          "text": "enter.",
+          "start": 24.712,
+          "end": 25.119
+        }
+      ]
+    },
+    {
+      "id": "pip",
+      "text": "And when the chart needs a translator? Meet Pip. Ask the basic question. Get a plain-English explanation. No judgment.",
+      "start": 25.653,
+      "end": 35.394,
+      "words": [
+        {
+          "text": "And",
+          "start": 25.653,
+          "end": 25.792
+        },
+        {
+          "text": "when",
+          "start": 25.838,
+          "end": 25.966
+        },
+        {
+          "text": "the",
+          "start": 26.001,
+          "end": 26.071
+        },
+        {
+          "text": "chart",
+          "start": 26.105,
+          "end": 26.314
+        },
+        {
+          "text": "needs",
+          "start": 26.361,
+          "end": 26.593
+        },
+        {
+          "text": "a",
+          "start": 26.663,
+          "end": 26.744
+        },
+        {
+          "text": "translator?",
+          "start": 26.86,
+          "end": 27.789
+        },
+        {
+          "text": "Meet",
+          "start": 28.602,
+          "end": 28.869
+        },
+        {
+          "text": "Pip.",
+          "start": 28.962,
+          "end": 29.391
+        },
+        {
+          "text": "Ask",
+          "start": 29.832,
+          "end": 30.134
+        },
+        {
+          "text": "the",
+          "start": 30.169,
+          "end": 30.239
+        },
+        {
+          "text": "basic",
+          "start": 30.308,
+          "end": 30.668
+        },
+        {
+          "text": "question.",
+          "start": 30.703,
+          "end": 31.249
+        },
+        {
+          "text": "Get",
+          "start": 31.852,
+          "end": 32.05
+        },
+        {
+          "text": "a",
+          "start": 32.085,
+          "end": 32.108
+        },
+        {
+          "text": "plain-English",
+          "start": 32.189,
+          "end": 32.874
+        },
+        {
+          "text": "explanation.",
+          "start": 32.944,
+          "end": 33.803
+        },
+        {
+          "text": "No",
+          "start": 34.499,
+          "end": 34.662
+        },
+        {
+          "text": "judgment.",
+          "start": 34.778,
+          "end": 35.394
+        }
+      ]
+    },
+    {
+      "id": "checks",
+      "text": "Check the momentum. Explore the pattern. See what the signals mean.",
+      "start": 35.87,
+      "end": 40.839,
+      "words": [
+        {
+          "text": "Check",
+          "start": 35.87,
+          "end": 36.137
+        },
+        {
+          "text": "the",
+          "start": 36.195,
+          "end": 36.264
+        },
+        {
+          "text": "momentum.",
+          "start": 36.311,
+          "end": 36.938
+        },
+        {
+          "text": "Explore",
+          "start": 37.634,
+          "end": 38.099
+        },
+        {
+          "text": "the",
+          "start": 38.122,
+          "end": 38.192
+        },
+        {
+          "text": "pattern.",
+          "start": 38.227,
+          "end": 38.784
+        },
+        {
+          "text": "See",
+          "start": 39.446,
+          "end": 39.678
+        },
+        {
+          "text": "what",
+          "start": 39.701,
+          "end": 39.817
+        },
+        {
+          "text": "the",
+          "start": 39.84,
+          "end": 39.91
+        },
+        {
+          "text": "signals",
+          "start": 40.003,
+          "end": 40.409
+        },
+        {
+          "text": "mean.",
+          "start": 40.467,
+          "end": 40.839
+        }
+      ]
+    },
+    {
+      "id": "room",
+      "text": "Then talk it through with people learning alongside you. Ask. Learn. Celebrate following your plan.",
+      "start": 41.303,
+      "end": 49.152,
+      "words": [
+        {
+          "text": "Then",
+          "start": 41.303,
+          "end": 41.64
+        },
+        {
+          "text": "talk",
+          "start": 41.744,
+          "end": 42.023
+        },
+        {
+          "text": "it",
+          "start": 42.081,
+          "end": 42.139
+        },
+        {
+          "text": "through",
+          "start": 42.186,
+          "end": 42.406
+        },
+        {
+          "text": "with",
+          "start": 42.429,
+          "end": 42.545
+        },
+        {
+          "text": "people",
+          "start": 42.592,
+          "end": 42.905
+        },
+        {
+          "text": "learning",
+          "start": 42.94,
+          "end": 43.207
+        },
+        {
+          "text": "alongside",
+          "start": 43.254,
+          "end": 43.811
+        },
+        {
+          "text": "you.",
+          "start": 43.857,
+          "end": 44.182
+        },
+        {
+          "text": "Ask.",
+          "start": 44.844,
+          "end": 45.483
+        },
+        {
+          "text": "Learn.",
+          "start": 46.052,
+          "end": 46.632
+        },
+        {
+          "text": "Celebrate",
+          "start": 47.41,
+          "end": 47.967
+        },
+        {
+          "text": "following",
+          "start": 48.025,
+          "end": 48.432
+        },
+        {
+          "text": "your",
+          "start": 48.49,
+          "end": 48.583
+        },
+        {
+          "text": "plan.",
+          "start": 48.641,
+          "end": 49.152
+        }
+      ]
+    },
+    {
+      "id": "mac",
+      "text": "On your iPhone. At your desk, on your Mac.",
+      "start": 49.628,
+      "end": 53.215,
+      "words": [
+        {
+          "text": "On",
+          "start": 49.628,
+          "end": 49.778
+        },
+        {
+          "text": "your",
+          "start": 49.825,
+          "end": 49.941
+        },
+        {
+          "text": "iPhone.",
+          "start": 49.987,
+          "end": 50.475
+        },
+        {
+          "text": "At",
+          "start": 51.381,
+          "end": 51.543
+        },
+        {
+          "text": "your",
+          "start": 51.578,
+          "end": 51.694
+        },
+        {
+          "text": "desk,",
+          "start": 51.752,
+          "end": 52.228
+        },
+        {
+          "text": "on",
+          "start": 52.333,
+          "end": 52.484
+        },
+        {
+          "text": "your",
+          "start": 52.53,
+          "end": 52.646
+        },
+        {
+          "text": "Mac.",
+          "start": 52.693,
+          "end": 53.215
+        }
+      ]
+    },
+    {
+      "id": "payoff",
+      "text": "The market will keep moving. You'll have your plan, your tools, and somewhere to ask.",
+      "start": 53.656,
+      "end": 60.25,
+      "words": [
+        {
+          "text": "The",
+          "start": 53.656,
+          "end": 53.783
+        },
+        {
+          "text": "market",
+          "start": 53.841,
+          "end": 54.143
+        },
+        {
+          "text": "will",
+          "start": 54.167,
+          "end": 54.294
+        },
+        {
+          "text": "keep",
+          "start": 54.329,
+          "end": 54.492
+        },
+        {
+          "text": "moving.",
+          "start": 54.538,
+          "end": 55.014
+        },
+        {
+          "text": "You'll",
+          "start": 55.92,
+          "end": 56.14
+        },
+        {
+          "text": "have",
+          "start": 56.175,
+          "end": 56.28
+        },
+        {
+          "text": "your",
+          "start": 56.314,
+          "end": 56.431
+        },
+        {
+          "text": "plan,",
+          "start": 56.489,
+          "end": 57.081
+        },
+        {
+          "text": "your",
+          "start": 57.255,
+          "end": 57.452
+        },
+        {
+          "text": "tools,",
+          "start": 57.51,
+          "end": 58.195
+        },
+        {
+          "text": "and",
+          "start": 58.799,
+          "end": 58.95
+        },
+        {
+          "text": "somewhere",
+          "start": 59.043,
+          "end": 59.438
+        },
+        {
+          "text": "to",
+          "start": 59.484,
+          "end": 59.554
+        },
+        {
+          "text": "ask.",
+          "start": 59.646,
+          "end": 60.25
+        }
+      ]
+    },
+    {
+      "id": "action",
+      "text": "Friendly Trader. Never trade alone. Pause here. Step inside. Try it for yourself.",
+      "start": 60.726,
+      "end": 68.934,
+      "words": [
+        {
+          "text": "Friendly",
+          "start": 60.726,
+          "end": 61.144
+        },
+        {
+          "text": "Trader.",
+          "start": 61.214,
+          "end": 61.783
+        },
+        {
+          "text": "Never",
+          "start": 62.386,
+          "end": 62.712
+        },
+        {
+          "text": "trade",
+          "start": 62.781,
+          "end": 63.06
+        },
+        {
+          "text": "alone.",
+          "start": 63.083,
+          "end": 63.652
+        },
+        {
+          "text": "Pause",
+          "start": 64.349,
+          "end": 64.65
+        },
+        {
+          "text": "here.",
+          "start": 64.685,
+          "end": 65.115
+        },
+        {
+          "text": "Step",
+          "start": 65.811,
+          "end": 66.206
+        },
+        {
+          "text": "inside.",
+          "start": 66.287,
+          "end": 67.054
+        },
+        {
+          "text": "Try",
+          "start": 67.657,
+          "end": 67.982
+        },
+        {
+          "text": "it",
+          "start": 68.04,
+          "end": 68.11
+        },
+        {
+          "text": "for",
+          "start": 68.157,
+          "end": 68.261
+        },
+        {
+          "text": "yourself.",
+          "start": 68.319,
+          "end": 68.934
+        }
+      ]
+    }
+  ]
+}

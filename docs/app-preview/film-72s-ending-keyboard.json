@@ -1,0 +1,14 @@
+{
+  "endingCheck": {
+    "classes": "marketing-film",
+    "endedVisible": true,
+    "paused": true,
+    "playing": "false",
+    "time": 72
+  },
+  "keyboardNext": "Film timeline",
+  "escapeCheck": {
+    "focus": "Resume film ↗",
+    "hidden": true
+  }
+}

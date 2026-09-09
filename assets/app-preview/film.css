@@ -43,3 +43,7 @@ body.film-open{overflow:hidden}
 .marketing-film .native.mac .stop-chart .candlestick-chart{height:250px}
 
 .film-accessible-copy{position:absolute;width:1px;height:1px;padding:0;margin:-1px;overflow:hidden;clip-path:inset(50%);white-space:nowrap;border:0}
+.film-video::cue{font:500 22px/1.4 -apple-system,BlinkMacSystemFont,sans-serif;background:#173b2ae8;color:white}
+.film-transport [data-film=captions][aria-pressed=true]{border-radius:8px;background:#e1eee5;color:#173b2a}
+.film-capture .film-controls{height:auto!important;min-height:0!important}
+.film-capture .film-picture{flex:1!important;height:auto!important}

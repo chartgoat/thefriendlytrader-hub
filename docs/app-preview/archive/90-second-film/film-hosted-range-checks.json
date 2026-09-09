@@ -1,0 +1,14 @@
+[
+  {
+    "edit": "portrait",
+    "status": 206,
+    "bytes": 1024,
+    "content_range": "bytes 0-1023/6496389"
+  },
+  {
+    "edit": "landscape",
+    "status": 206,
+    "bytes": 1024,
+    "content_range": "bytes 0-1023/9803421"
+  }
+]

@@ -31,6 +31,10 @@ await writeFile(
       outputDirectory: ".",
       headers: [
         {
+          source: "/assets/app-preview/media/friendly-trader-film-en.vtt",
+          headers: [{ key: "Content-Type", value: "text/vtt; charset=utf-8" }],
+        },
+        {
           source: "/(.*)",
           headers: [
             { key: "X-Robots-Tag", value: "noindex, nofollow" },

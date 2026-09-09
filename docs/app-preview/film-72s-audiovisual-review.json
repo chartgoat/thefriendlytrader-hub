@@ -1,0 +1,114 @@
+{
+  "full_spoken_transcript": "You find a stock you like. It's moving. Now what? Another chart. Another opinion. Still no plan. Let's make this friendlier. Meet Friendly Trader. Your entry. Your exit if you're wrong. And your target. Together, on the chart. Choose what you're willing to risk. The Stop Finder works out a sample share count before you enter. And when the chart needs a translator? Meet Pip. Ask the basic question. Get a plain-english explanation. No judgment. Check the momentum. Explore the pattern. See what the signals mean. Then talk it through with people learning alongside you. Ask. Learn. Celebrate following your plan. On your iPhone. At your desk, on your Mac. The market will keep moving. You'll have your plan. Your tools. Somewhere to ask. Friendly Trader. Never trade alone.",
+  "chronological_shot_review": [
+    {
+      "start_time": "00:00.000",
+      "end_time": "00:03.375",
+      "description": "Man sitting at desk in dim room looking at a glowing monitor, text overlays appear sequentially."
+    },
+    {
+      "start_time": "00:03.375",
+      "end_time": "00:04.750",
+      "description": "Close-up of mobile phone screen displaying the MACD Analyzer interface."
+    },
+    {
+      "start_time": "00:04.750",
+      "end_time": "00:06.500",
+      "description": "Man at desk looking frustrated, chat bubbles with conflicting advice pop up."
+    },
+    {
+      "start_time": "00:06.500",
+      "end_time": "00:08.000",
+      "description": "Man sighs and looks away from the monitor, text overlay reads 'STILL NO PLAN.'"
+    },
+    {
+      "start_time": "00:08.000",
+      "end_time": "00:12.375",
+      "description": "Transition to Friendly Trader logo and main dashboard on mobile screen."
+    },
+    {
+      "start_time": "00:12.375",
+      "end_time": "00:19.500",
+      "description": "Mobile screen showing interactive trade chart with entry, stop, and target lines."
+    },
+    {
+      "start_time": "00:19.500",
+      "end_time": "00:25.500",
+      "description": "Mobile screen showing Stop Finder tool calculating share size based on risk input."
+    },
+    {
+      "start_time": "00:25.500",
+      "end_time": "00:35.750",
+      "description": "Mobile screen showing Pip AI assistant answering basic trading questions."
+    },
+    {
+      "start_time": "00:35.750",
+      "end_time": "00:41.125",
+      "description": "Mobile screen demonstrating MACD Analyzer and pattern exploration tools."
+    },
+    {
+      "start_time": "00:41.125",
+      "end_time": "00:49.500",
+      "description": "Mobile screen showing community chat feed with users sharing trade plans."
+    },
+    {
+      "start_time": "00:49.500",
+      "end_time": "00:53.500",
+      "description": "Transition from mobile screen to Mac desktop app layout side-by-side."
+    },
+    {
+      "start_time": "00:53.500",
+      "end_time": "00:55.625",
+      "description": "Man looking at monitor with an excited, happy expression."
+    },
+    {
+      "start_time": "00:55.625",
+      "end_time": "01:00.625",
+      "description": "Multi-screen layout showing iPhone, Mac, and Chat interfaces together."
+    },
+    {
+      "start_time": "01:00.625",
+      "end_time": "01:12.000",
+      "description": "Final end-card with logo, tagline 'Never trade alone', and app store CTAs."
+    }
+  ],
+  "sound_picture_sync": {
+    "rating": 4,
+    "rationale": "Voiceover matches the visual transitions and text overlays closely throughout both versions."
+  },
+  "readability_landscape": {
+    "rating": 4,
+    "rationale": "Text overlays are clean, high-contrast, and well-positioned on the left side of the screen."
+  },
+  "readability_portrait": {
+    "rating": 3,
+    "rationale": "Text is legible, but vertical cropping occasionally pushes text close to the frame edges."
+  },
+  "missing_or_frozen_product_screens": {
+    "has_issue": false,
+    "details": "All simulated product screens animate correctly; static holds at the end are intentional."
+  },
+  "clipped_faces_or_controls": {
+    "has_issue": true,
+    "details": "In the portrait version, the man's face and some UI elements on the Mac desktop screen are slightly clipped due to the tight 9:16 crop."
+  },
+  "caption_collisions": {
+    "has_issue": false,
+    "details": "No overlapping text or caption collisions detected."
+  },
+  "invented_or_unsupported_financial_claims": {
+    "has_issue": false,
+    "details": "The 'Simulated example' disclaimer is clearly visible on all trading screens."
+  },
+  "final_CTA_audibility": {
+    "rating": 4,
+    "rationale": "The final voiceover line 'Never trade alone' is clear and well-balanced with the background music."
+  },
+  "exact_required_fixes": [
+    {
+      "timestamp": "00:52.000",
+      "description": "Adjust the horizontal framing of the Mac desktop UI in the portrait version to prevent edge clipping of the right-hand panel."
+    }
+  ],
+  "usable_for_preview_review": true
+}

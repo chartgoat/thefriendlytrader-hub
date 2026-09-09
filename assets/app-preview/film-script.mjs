@@ -1,26 +1,162 @@
-// The film and interactive handoff share this edit. All app data is simulated.
+// Conformed to the continuous narrator take and the 72-second Fable edit.
+// All app data is simulated. The same timeline drives playback and app handoff.
 export const FILM = [
-  {id:'noise',start:0,end:6,screen:'home',kind:'title',chapter:'The feeling',title:'So much market.\nWhere do you start?',body:'Another chart. Another opinion. Another open tab.',beats:[{at:0,title:'Another chart.',body:'Another opinion. Another open tab.'},{at:2,title:'So much market.',body:'And you’re still wondering…'},{at:4,title:'What’s my\nnext step?',body:'Let’s make that feel a little clearer.'}]},
-  {id:'friendly',start:6,end:12,screen:'home',kind:'brand',chapter:'Meet Friendly Trader',title:'Big market.\nFriendly company.',body:'Meet Friendly Trader.',beats:[{at:0,title:'Meet Friendly\nTrader.',body:'Your tools. Your plan. Your people.'},{at:3,title:'A clearer way\nto approach your day.',body:'On iPhone and Mac.'}]},
-  {id:'plan',start:12,end:22,screen:'aplus',detail:'setup',kind:'product',chapter:'See the whole plan',title:'An idea is good.\nA plan is better.',body:'Your entry. Your stop. Your targets.',cue:'One chart. The whole plan.',beats:[{at:0,cue:'Entry · where you start'},{at:3,cue:'Stop · your planned exit'},{at:6,cue:'Targets · what you’re aiming for'}]},
-  {id:'risk',start:22,end:30,screen:'stops',kind:'product',chapter:'Think through your risk',title:'Think it through.\nBefore you’re in.',body:'Choose your risk. See a sample trade size.',cue:'Your risk belongs in the plan.',beats:[{at:0},{at:4,focal:'size',cue:'A sample size. Built around your risk.'}]},
-  {id:'pip',start:30,end:38,screen:'assistant',kind:'pip',chapter:'Meet Pip',title:'No question\ntoo basic.',body:'Pip helps the chart make sense.',cue:'A friendly explanation, right here.',beats:[{at:0,cue:'“What does a stop mean?”'},{at:4,cue:'Plain words. A clearer picture.'}]},
-  {id:'momentum',start:38,end:46,screen:'macd',kind:'product',chapter:'Get some context',title:'See the move.\nGet the context.',body:'Read momentum with the chart beside you.',cue:'Start with context.'},
-  {id:'patterns',start:46,end:54,screen:'patterns',detail:'pattern',kind:'product',chapter:'Make the chart click',title:'Those shapes?\nThey tell a story.',body:'See the pattern. Take a closer look.',cue:'Zoom in. Get curious.'},
-  {id:'discover',start:54,end:61,screen:'screener',kind:'product',chapter:'Find your starting point',title:'Find your focus.',body:'Bring the day’s moving stocks into one view.',cue:'Less hunting. A place to start.'},
-  {id:'calendar',start:61,end:68,screen:'earnings',kind:'product',chapter:'Keep the bigger picture',title:'Keep the bigger\npicture close.',body:'Earnings. Economic reports. The dates that matter.',cue:'Make room for what’s coming.',beats:[{at:0,screen:'earnings',cue:'Company earnings'},{at:3.5,screen:'economy',cue:'The economic calendar'}]},
-  {id:'community',start:68,end:76,screen:'chat',detail:'room',room:'Wins',kind:'product',chapter:'Find your people',title:'Good habits.\nGood company.',body:'Talk it through. Ask. Learn. Celebrate discipline.',cue:'Good habits deserve good company.'},
-  {id:'mac',start:76,end:84,screen:'home',platform:'macos',kind:'desktop',chapter:'Your space, on both devices',title:'In your pocket.\nAt your desk.',body:'Friendly Trader for iPhone and Mac.',cue:'Room for your whole trading day.',beats:[{at:0,screen:'home'},{at:4,screen:'stops',cue:'A wider view. The same friendly feeling.'}]},
-  {id:'invitation',start:84,end:90,screen:'home',kind:'end',chapter:'Make yourself at home',title:'Your next step\nstarts here.',body:'Pause the film. Step inside. Make yourself at home.',cue:'Friendly Trader · iPhone and Mac'}
+  {
+    "id": "hook",
+    "start": 0,
+    "end": 3.35,
+    "screen": "aplus",
+    "kind": "title",
+    "chapter": "Now what?",
+    "title": "Now what?",
+    "body": "You find a stock you like. It’s moving. Now what?",
+    "detail": "setup"
+  },
+  {
+    "id": "noise",
+    "start": 3.35,
+    "end": 7.952,
+    "screen": "home",
+    "kind": "title",
+    "chapter": "Still no plan",
+    "title": "Another chart.\nStill no plan.",
+    "body": "Another opinion. Another question."
+  },
+  {
+    "id": "turn",
+    "start": 7.952,
+    "end": 12.406,
+    "screen": "home",
+    "kind": "brand",
+    "chapter": "Meet Friendly Trader",
+    "title": "Let’s make\nthis friendlier.",
+    "body": "Meet Friendly Trader."
+  },
+  {
+    "id": "plan",
+    "start": 12.406,
+    "end": 19.489,
+    "screen": "aplus",
+    "kind": "product",
+    "chapter": "Together, on the chart",
+    "title": "Together,\non the chart.",
+    "body": "Your entry. Your exit if you’re wrong. Your target.",
+    "detail": "setup",
+    "beats": [
+      {
+        "at": 0,
+        "cue": "Entry · where you start"
+      },
+      {
+        "at": 1.4,
+        "cue": "Stop · your planned exit"
+      },
+      {
+        "at": 3.85,
+        "cue": "Target · what you’re aiming for"
+      }
+    ]
+  },
+  {
+    "id": "size",
+    "start": 19.489,
+    "end": 25.503,
+    "screen": "stops",
+    "kind": "product",
+    "chapter": "Size it",
+    "title": "Choose your risk.",
+    "body": "See a sample share count before you enter.",
+    "focal": "size",
+    "riskBudget": 250
+  },
+  {
+    "id": "pip",
+    "start": 25.503,
+    "end": 35.72,
+    "screen": "assistant",
+    "kind": "pip",
+    "chapter": "Meet Pip",
+    "title": "Meet Pip.",
+    "body": "A plain-English explanation. No judgment."
+  },
+  {
+    "id": "checks",
+    "start": 35.72,
+    "end": 41.153,
+    "screen": "macd",
+    "kind": "product",
+    "chapter": "Check the signals",
+    "title": "Make sense\nof the signals.",
+    "body": "Check the momentum. Explore the pattern.",
+    "beats": [
+      {
+        "at": 0
+      },
+      {
+        "at": 1.814,
+        "screen": "patterns",
+        "detail": "pattern"
+      }
+    ]
+  },
+  {
+    "id": "room",
+    "start": 41.153,
+    "end": 49.478,
+    "screen": "chat",
+    "kind": "product",
+    "chapter": "Talk it through",
+    "title": "Talk it through.",
+    "body": "Ask. Learn. Celebrate following your plan.",
+    "detail": "room",
+    "room": "Wins"
+  },
+  {
+    "id": "mac",
+    "start": 49.478,
+    "end": 53.506,
+    "screen": "stops",
+    "kind": "desktop",
+    "chapter": "On your Mac",
+    "title": "On your iPhone.\nOn your Mac.",
+    "body": "The same tools, with room to think.",
+    "platform": "macos"
+  },
+  {
+    "id": "payoff",
+    "start": 53.506,
+    "end": 60.526,
+    "screen": "aplus",
+    "kind": "product",
+    "chapter": "Your plan, your tools",
+    "title": "Your plan. Your tools.\nSomewhere to ask.",
+    "body": "The market will keep moving. Bring your plan and a little backup.",
+    "detail": "setup",
+    "beats": [
+      {"at": 0},
+      {"at": 4.004, "screen": "stops", "detail": null, "platform": "macos"},
+      {"at": 6.14, "screen": "chat", "detail": "room", "room": "Wins", "focal": "room", "platform": "ios"}
+    ]
+  },
+  {
+    "id": "action",
+    "start": 60.526,
+    "end": 72,
+    "screen": "home",
+    "kind": "end",
+    "chapter": "Never trade alone",
+    "title": "Never trade alone.",
+    "body": "Pause here. Step inside. Try it for yourself."
+  }
 ];
-export const FILM_DURATION=90;
+export const FILM_DURATION=72;
 export function filmFrame(seconds){
   const time=Math.max(0,Math.min(FILM_DURATION,Number(seconds)||0));
   const index=Math.max(0,FILM.findIndex(s=>time<s.end));
   const scene=time===FILM_DURATION?FILM.at(-1):FILM[index];
   const local=time-scene.start;
-  const beat=(scene.beats||[]).filter(b=>b.at<=local).at(-1)||{};
-  return {...scene,...beat,index:FILM.indexOf(scene),time,local,platform:scene.platform||'ios',key:scene.id+':'+(beat.at??0)};
+  const beat=(scene.beats||[]).filter(b=>b.at<=local+1e-9).at(-1)||{};
+  return {...scene,...beat,index:FILM.indexOf(scene),time,local,platform:beat.platform||scene.platform||'ios',key:scene.id+':'+(beat.at??0)};
 }
 export function filmCuts(){return FILM.flatMap(s=>(s.beats||[{at:0}]).map((b,i,a)=>({time:s.start+b.at,duration:(a[i+1]?.at??(s.end-s.start))-b.at,key:s.id+'-'+i})));}
 export function filmTime(seconds){const s=Math.max(0,Math.floor(seconds));return `${Math.floor(s/60)}:${String(s%60).padStart(2,'0')}`;}

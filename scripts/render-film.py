@@ -1,22 +1,22 @@
-"""Render the captured film edit. Requires ffmpeg; run compose-film-score.py first."""
-import subprocess,json,pathlib,sys
-root=pathlib.Path(__file__).resolve().parents[1];work=root/'docs/app-preview/film-frames';cuts=json.loads((work/'cuts.json').read_text());fmt=sys.argv[1];assert fmt in ('landscape','portrait');width,height=(1280,720) if fmt=='landscape' else (480,800)
-# Each shot keeps its editorial duration. A short outgoing dissolve occupies the
-# opening of the next shot, so the time-to-app mapping stays exactly aligned.
-for i,cut in enumerate(cuts):
- seconds=cut['duration']+(.25 if i<len(cuts)-1 else 0);frames=round(seconds*30)
- out=work/fmt/f'{i:02}-{cuts[i]["key"]}.mp4'
- vf=f"crop={width}:{height}:0:0,scale={width*2}:{height*2},zoompan=z='1+0.018*on/{frames}':x='iw/2-iw/zoom/2':y='ih/2-ih/zoom/2':d={frames}:s={width}x{height}:fps=30,format=yuv420p"
- subprocess.run(['ffmpeg','-v','error','-y','-i',str(work/fmt/(cut['key']+'.png')),'-vf',vf,'-frames:v',str(frames),'-c:v','libx264','-preset','fast','-crf','20','-threads','2',str(out)],check=True)
- print(fmt,cut['key'],flush=True)
-inputs=[]
-for i in range(len(cuts)):inputs+=['-i',str(work/fmt/f'{i:02}-{cuts[i]["key"]}.mp4')]
-filters=[];last='0:v'
-for i in range(1,len(cuts)):
- label=f'v{i}';filters.append(f'[{last}][{i}:v]xfade=transition=fade:duration=0.25:offset={cuts[i]["time"]}[{label}]');last=label
-filters.append(f'[{last}]trim=duration=90,format=yuv420p[outv]')
-output=root/'assets/app-preview/media'/f'friendly-trader-film-{fmt}.mp4'
-candidate=work/fmt/'finished.mp4'
-subprocess.run(['ffmpeg','-v','error','-y','-filter_complex_threads','2',*inputs,'-i',str(work/'original-score.wav'),'-filter_complex',';'.join(filters),'-map','[outv]','-map',f'{len(cuts)}:a','-c:v','libx264','-preset','fast','-crf','21','-threads','2','-c:a','aac','-b:a','128k','-ar','48000','-af','loudnorm=I=-20:TP=-2:LRA=7','-t','90','-movflags','+faststart',str(candidate)],check=True)
+"""Render the current 72-second Fable composition. See production/film/README.md."""
+from pathlib import Path
+import argparse,json,subprocess
+root=Path(__file__).resolve().parents[1]
+p=argparse.ArgumentParser()
+p.add_argument('orientation',choices=['landscape','portrait'])
+p.add_argument('--production-root',type=Path,default=root/'production/film')
+a=p.parse_args();work=a.production_root.resolve()
+cli=work/'node_modules/.bin/remotion'
+if not cli.exists():raise SystemExit('Install local production dependencies first: cd production/film && npm ci')
+if not (work/'public/audio/film-mix.wav').exists():raise SystemExit('Stage verified production inputs first; see production/film/README.md')
+subprocess.run(['node','scripts/prepare-assets.mjs'],cwd=work,check=True)
+master=work/'out'/f'friendly-trader-film-{a.orientation}.mp4'
+master.parent.mkdir(exist_ok=True)
+subprocess.run([str(cli),'render','src/index.ts','FriendlyTraderFilm'+a.orientation.title(),str(master),'--codec','h264','--crf','18','--concurrency','4','--audio-codec','aac','--audio-bitrate','192k','--pixel-format','yuv420p'],cwd=work,check=True)
+probe=json.loads(subprocess.check_output(['ffprobe','-v','error','-show_format','-of','json',str(master)]))
+if abs(float(probe['format']['duration'])-72)>.05:raise SystemExit('Unexpected film duration; update the edit and handoff map together.')
+output=root/'assets/app-preview/media'/f'friendly-trader-film-{a.orientation}.mp4'
+candidate=output.with_name(output.stem+'.pending.mp4')
+subprocess.run(['ffmpeg','-v','error','-y','-i',str(master),'-i',str(work/'public/audio/film-mix.wav'),'-map','0:v:0','-map','1:a:0','-c:v','copy','-c:a','aac','-b:a','192k','-ar','48000','-t','72','-movflags','+faststart',str(candidate)],check=True)
 candidate.replace(output)
-print('READY',output,output.stat().st_size,flush=True)
+print('READY',output,output.stat().st_size)

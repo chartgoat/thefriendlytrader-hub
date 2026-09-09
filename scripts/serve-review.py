@@ -3,6 +3,7 @@
 from http.server import SimpleHTTPRequestHandler,ThreadingHTTPServer
 import os,re,sys
 class Handler(SimpleHTTPRequestHandler):
+ extensions_map={**SimpleHTTPRequestHandler.extensions_map,'.vtt':'text/vtt; charset=utf-8'}
  def end_headers(self):
   self.send_header('Cache-Control','no-store');self.send_header('Accept-Ranges','bytes');super().end_headers()
  def send_head(self):

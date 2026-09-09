@@ -1,28 +1,30 @@
-# Friendly Trader interactive product film
+# Friendly Trader marketing film
 
-The requested deliverable is the marketing film inside the preview. The previous website-copy pass did not address that deliverable.
+The new 72-second film leads with a familiar trading question and a human reaction, then shows how Friendly Trader brings a plan, an explanation and community together. Its campaign line is **Never trade alone**. The call to action is to pause and try the full app preview.
 
-## Creative plan
+Fable 5.1 owns the creative treatment and motion composition. Codex owns source acquisition and study, native interface recordings, narration and sound, player integration and verification. The seven supplied SWJ references informed the edit's human opening, empathy turn, caption rhythm, product events and simple invitation. Their conversion performance was not provided; these are craft observations rather than performance conclusions.
 
-A 90-second film opens on the feeling of too many market inputs, then resolves into a clear next step. The actual reconstructed app supplies product proof. The edit moves through a plan, risk, Pip, chart context, discovery, calendar, community and the two devices before inviting the viewer inside. Large, short titles carry the story without requiring narration. An original instrumental bed supplies pace. No profitability promises or invented endorsements.
+## Source study
 
-Palette: forest #0b5d3f, paper #fafbf9, ink #17251e, mint #ddeade, risk #bd5151. Use the existing rounded system display and native app typography. Oversized left-aligned film titles; centered opening and closing cards. Product scenes have a live app on one side and a few words on the other. Native screens remain faithful and examples remain simulated.
+All seven originals were preserved and hashed. Their combined duration is 429.4 seconds and their total is 12,882 native frames at 30 fps. Every frame was extracted and indexed. Complete soundtracks received a separate audio review. Complete audiovisual input was provided as complementary even/odd 15 fps streams, preserving the original frame count. Fable separately reviewed full Whisper transcripts, complete-duration contact sheets, detailed hook strips, selected exact-frame windows, and audio measurements.
 
-```
-Opening:               Product proof:             Finish:
-[one huge thought]     [big benefit] [app]        [Pip + invitation]
-[moving market words] [simple cue ] [app]        [explore / replay]
-[      timeline and play / sound / explore controls       ]
-```
+Complete-frame input is not proof of attention to every pixel. Model timestamps and speaker labels were cross-checked against the picture and independent transcripts. The method, source manifests, individual reviews and corrections are retained in the local study workspace:
 
-The film has a timed edit, camera movement, scene cuts and an original soundtrack. Pause-and-explore transfers to the same scene's full interactive app. Resume restores the film position and scene without erasing the visitor's saved demo changes. A time scrubber, chapter selection and keyboard controls make it behave like a film player. Mobile has its own portrait composition with readable type.
+`/Users/clancybondnalallc/SWJ/planning/friendly-trader-marketing-film-2026-09-09/`
 
-## Review against the request
+## Production
 
-A larger paragraph beneath a phone is still a tool walkthrough. Replace that presentation with a dedicated cinematic stage and an actual encoded film, rather than adding more marketing copy around the old player. Keep all 14 app destinations available after entering the app; the film's edit can concentrate on its strongest product story. Make the passage from film to interactive app explicit and reversible.
+- One continuous 138-word narration, using the premade Chris voice. The generated take lasts 70.543 seconds; the edit runs 72 seconds. No Josh voice clone is used.
+- Word timings drive the edit and optional English captions. The public player uses the same chapter boundaries for the app handoff.
+- Real browser recordings of the native-style preview: Home, A+ plan, Stop Finder sizing, Pip, MACD, Patterns, Wins and Mac. The film draws existing chart lines, changes the risk input, types a question and answer, and introduces existing example messages.
+- Short silent observer shots are sourced from the user's supplied Don't FOMO film. The retained provenance records exact source frames. Old offers, result screenshots and original dialogue are excluded.
+- An instrumental was generated from original musical direction with ElevenLabs Music. Original interface sound effects are timed to the recorded actions. The complete mixed soundtrack was checked for intelligibility, missing words, unwanted vocals and clipping.
+- Portrait and landscape are separately composed. The app interface, captions, and device placement are checked in both.
 
-## Final production
+## App fidelity and honest examples
 
-The film has 12 chapters and 21 edited shots, 90 seconds in both 1280×720 landscape and 480×800 portrait. H.264 picture and AAC 48 kHz stereo audio play as real MP4 media. The original synthesized instrumental score uses a soft keyboard motif and pads; there is no voiceover. Camera push-ins and 250ms dissolves preserve the shared edit timestamps. All on-screen data is simulated.
+The entire interactive app remains available after the handoff. The film's shorter narrative does not remove app destinations. Every displayed plan or community message is labeled simulated.
 
-Rebuild after capturing updated frames with the visible browser capture view (`?film-capture=1`): verify 1280×820 or 480×900 viewport, capture the selected chapter/beat, then crop off the 100px export controls. `python3 scripts/compose-film-score.py` writes the original WAV. `python3 scripts/render-film.py portrait` and `python3 scripts/render-film.py landscape` assemble the videos. Input PNGs and `cuts.json` are retained in `docs/app-preview/film-frames/`; generated intermediate videos and WAV are ignored. The capture view is an authoring surface and never requests the finished film.
+The A+ example and Stop Finder example are different plans, as they are in the app. A+ uses NVDA entry $181.20, stop $179.70 and first target $184.95. The Stop Finder swing example uses entry $188.10, stop $184.71, $3.39 per share of risk and 73 whole shares for a $250 budget. Its planned risk is $247.47. Price rounding now happens before sizing, so the arithmetic matches the cent values on screen.
+
+The site remains on the isolated `friendly-trader-app-preview` deployment. The main Friendly Trader domain is outside this review deployment.

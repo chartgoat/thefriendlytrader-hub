@@ -17,6 +17,7 @@ import { renderNativeView, nativeHeader, nativeIcon as icon, sheetStyle } from "
 import { QUIZ } from "./native-quiz.mjs";
 import { attachChart } from "./chart.mjs";
 import { createFilm } from "./film.mjs";
+import { FILM_DURATION } from "./film-script.mjs";
 import { PLATFORMS, changePlatform, MAC_SHORTCUTS, renderMacFrame } from "./platform.mjs";
 let state = createState(),
   history = [],
@@ -37,21 +38,23 @@ function showFilmFrame(frame) {
     symbol:'NVDA', timeframe:frame.screen==='aplus'?'1m':frame.screen==='patterns'?'1d':'15m',
     direction:'long', mode:'swing', scenario:'Breakout', session:'Morning',
     room:frame.room||'Trading Floor', search:'', lookup:null, levelInfo:null,
-    chart:{offset:0,count:frame.id==='plan'?(frame.local<3?48:frame.local<6?42:36):42}, assistantContext:'stops', day:null, calendarTab:'This week',
+    chart:{offset:0,count:frame.id==='plan'?48:42}, assistantContext:'stops', day:null, calendarTab:'This week',
   });
-  if(frame.id==='pip'){
+  // The initial demo budget already matches the film. Keep edits made while exploring.
+  if(frame.id==='pip' && !state.pipQuestion){
     state.pipQuestion='What does a stop mean?';
     state.pipAnswer='A stop is where you plan to exit if the trade moves against you. Think about it before you enter.';
   }
   history=[];
   render();
+  if (frame.focal === 'size') root.querySelector('.n-size')?.closest('details')?.setAttribute('open','');
   const content=root.querySelector('.app-content');
-  const focalSelector=frame.focal==='size'?'.n-size>div':{plan:'.n-candle-panel',risk:'.n-size',pip:'.n-pip-question',momentum:'.n-story-card',patterns:'.n-chart'}[frame.id];
-  const focal=frame.id==='community'?[...root.querySelectorAll('.n-win-message')].find(el=>el.querySelector('.n-win-kind')?.textContent.includes('FOLLOWED')):focalSelector?root.querySelector(focalSelector):frame.platform==='macos'&&frame.screen==='stops'?root.querySelector('.stop-chart'):null;
+  const focalSelector=frame.focal==='size'?'.n-size':{plan:'.n-candle-panel',risk:'.n-size',pip:'.n-pip-question',momentum:'.n-story-card',patterns:'.n-chart'}[frame.id];
+  const focal=frame.focal==='room'||['community','room'].includes(frame.id)?[...root.querySelectorAll('.n-win-message')].find(el=>el.querySelector('.n-win-kind')?.textContent.includes('FOLLOWED')):focalSelector?root.querySelector(focalSelector):frame.platform==='macos'&&frame.screen==='stops'?root.querySelector('.stop-chart'):null;
   if(content&&focal)content.scrollTop=Math.max(0,content.scrollTop+focal.getBoundingClientRect().top-content.getBoundingClientRect().top-(frame.id==='community'?84:16));
 }
 function renderPlayer() {
-  player.innerHTML=`<button class="film-launch" data-site="tour"><span class="film-launch-play">▶</span><span><strong>Watch the Friendly Trader film</strong><small>90 seconds. Then step inside.</small></span></button><p class="film-launch-note">Pause anywhere to explore the app.</p>${film?.started()?'<button class="film-return" data-site="resume-film">Resume film ↗</button>':''}`;
+  player.innerHTML=`<button class="film-launch" data-site="tour"><span class="film-launch-play">▶</span><span><strong>Watch the Friendly Trader film</strong><small>${FILM_DURATION} seconds. Then step inside.</small></span></button><p class="film-launch-note">Pause anywhere to explore the app.</p>${film?.started()?'<button class="film-return" data-site="resume-film">Resume film ↗</button>':''}`;
 }
 function label(screen) {
   return META[screen]?.[0] || screen;
@@ -807,3 +810,9 @@ film=createFilm({phone,showFrame:showFilmFrame,openApp:()=>fullscreen(true),clos
 }});
 render();
 renderPlayer();
+// A deterministic capture surface uses the same renderer and interactions as
+// the public preview. It never loads a live feed or writes to an account.
+if (new URLSearchParams(location.search).has('product-capture')) {
+  const { prepareCapture } = await import('./capture.mjs');
+  prepareCapture({ state, render, showFilmFrame, fullscreen, root, phone, stage });
+}

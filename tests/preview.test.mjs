@@ -45,7 +45,9 @@ test("long and short demo plans invert risk and reward correctly in both modes",
         const p = plan(t, direction, mode);
         assert.ok(p.risk > 0);
         assert.ok(Math.abs(Math.abs(p.entry - p.stop) - p.risk) < 1e-8);
-        assert.ok(Math.abs(Math.abs(p.target - p.entry) / p.risk - 2.5) < 1e-8);
+        assert.ok(Math.abs(Math.abs(p.target - p.entry) - p.risk * 2.5) <= .005000001);
+        for (const value of [p.entry, p.stop, p.target, p.target2, p.target3, p.risk])
+          assert.ok(Math.abs(value * 100 - Math.round(value * 100)) < 1e-8);
         assert.ok(
           direction === "long"
             ? p.stop < p.entry && p.entry < p.target
@@ -58,6 +60,11 @@ test("long and short demo plans invert risk and reward correctly in both modes",
   assert.equal(positionSize(-1, 3), 0);
   assert.equal(positionSize(NaN, 3), 0);
   assert.equal(positionSize(100, 0), 0);
+  const nvda = plan('NVDA');
+  assert.equal(nvda.stop, 184.71);
+  assert.equal(nvda.risk, 3.39);
+  assert.equal(positionSize(250, nvda.risk), 73);
+  assert.equal(Math.round(73 * nvda.risk * 100), 24747);
 });
 test("tour resume restores navigation and chart position while retaining visitor changes", () => {
   const s = createState();

@@ -1,314 +1,396 @@
-[
-  {
-    "appOverflow": false,
-    "duration": 90,
-    "height": 874,
-    "media": "friendly-trader-film-portrait.mp4",
+{
+  "checks": [
+    {
+      "label": "hosted-portrait",
+      "chapter": "Now what?",
+      "duration": null,
+      "source": "https://friendly-trader-app-preview.vercel.app/assets/app-preview/media/friendly-trader-film-portrait.mp4",
+      "time": 0,
+      "hidden": true,
+      "overflow": false,
+      "paused": true,
+      "platform": "ios",
+      "screen": "aplus",
+      "viewport": [
+        390,
+        844
+      ],
+      "pass": true
+    },
+    {
+      "label": "hosted-portrait",
+      "chapter": "Still no plan",
+      "duration": 72,
+      "source": "https://friendly-trader-app-preview.vercel.app/assets/app-preview/media/friendly-trader-film-portrait.mp4",
+      "time": 3.35,
+      "hidden": true,
+      "overflow": false,
+      "paused": true,
+      "platform": "ios",
+      "screen": "home",
+      "viewport": [
+        390,
+        844
+      ],
+      "pass": true
+    },
+    {
+      "label": "hosted-portrait",
+      "chapter": "Meet Friendly Trader",
+      "duration": 72,
+      "source": "https://friendly-trader-app-preview.vercel.app/assets/app-preview/media/friendly-trader-film-portrait.mp4",
+      "time": 7.952,
+      "hidden": true,
+      "overflow": false,
+      "paused": true,
+      "platform": "ios",
+      "screen": "home",
+      "viewport": [
+        390,
+        844
+      ],
+      "pass": true
+    },
+    {
+      "label": "hosted-portrait",
+      "chapter": "Together, on the chart",
+      "duration": 72,
+      "source": "https://friendly-trader-app-preview.vercel.app/assets/app-preview/media/friendly-trader-film-portrait.mp4",
+      "time": 12.406,
+      "hidden": true,
+      "overflow": false,
+      "paused": true,
+      "platform": "ios",
+      "screen": "aplus",
+      "viewport": [
+        390,
+        844
+      ],
+      "pass": true
+    },
+    {
+      "label": "hosted-portrait",
+      "chapter": "Size it",
+      "duration": 72,
+      "source": "https://friendly-trader-app-preview.vercel.app/assets/app-preview/media/friendly-trader-film-portrait.mp4",
+      "time": 19.489,
+      "hidden": true,
+      "overflow": false,
+      "paused": true,
+      "platform": "ios",
+      "screen": "stops",
+      "viewport": [
+        390,
+        844
+      ],
+      "pass": true
+    },
+    {
+      "label": "hosted-portrait",
+      "chapter": "Meet Pip",
+      "duration": 72,
+      "source": "https://friendly-trader-app-preview.vercel.app/assets/app-preview/media/friendly-trader-film-portrait.mp4",
+      "time": 25.503,
+      "hidden": true,
+      "overflow": false,
+      "paused": true,
+      "platform": "ios",
+      "screen": "assistant",
+      "viewport": [
+        390,
+        844
+      ],
+      "pass": true
+    },
+    {
+      "label": "hosted-portrait",
+      "chapter": "Check the signals",
+      "duration": 72,
+      "source": "https://friendly-trader-app-preview.vercel.app/assets/app-preview/media/friendly-trader-film-portrait.mp4",
+      "time": 35.72,
+      "hidden": true,
+      "overflow": false,
+      "paused": true,
+      "platform": "ios",
+      "screen": "macd",
+      "viewport": [
+        390,
+        844
+      ],
+      "pass": true
+    },
+    {
+      "label": "hosted-portrait",
+      "chapter": "Talk it through",
+      "duration": 72,
+      "source": "https://friendly-trader-app-preview.vercel.app/assets/app-preview/media/friendly-trader-film-portrait.mp4",
+      "time": 41.153,
+      "hidden": true,
+      "overflow": false,
+      "paused": true,
+      "platform": "ios",
+      "screen": "chat",
+      "viewport": [
+        390,
+        844
+      ],
+      "pass": true
+    },
+    {
+      "label": "hosted-portrait",
+      "chapter": "On your Mac",
+      "duration": 72,
+      "source": "https://friendly-trader-app-preview.vercel.app/assets/app-preview/media/friendly-trader-film-portrait.mp4",
+      "time": 49.478,
+      "hidden": true,
+      "overflow": false,
+      "paused": true,
+      "platform": "macos",
+      "screen": "stops",
+      "viewport": [
+        390,
+        844
+      ],
+      "pass": true
+    },
+    {
+      "label": "hosted-portrait",
+      "chapter": "Your plan, your tools",
+      "duration": 72,
+      "source": "https://friendly-trader-app-preview.vercel.app/assets/app-preview/media/friendly-trader-film-portrait.mp4",
+      "time": 53.506,
+      "hidden": true,
+      "overflow": false,
+      "paused": true,
+      "platform": "ios",
+      "screen": "aplus",
+      "viewport": [
+        390,
+        844
+      ],
+      "pass": true
+    },
+    {
+      "label": "hosted-portrait",
+      "chapter": "Never trade alone",
+      "duration": 72,
+      "source": "https://friendly-trader-app-preview.vercel.app/assets/app-preview/media/friendly-trader-film-portrait.mp4",
+      "time": 60.526,
+      "hidden": true,
+      "overflow": false,
+      "paused": true,
+      "platform": "ios",
+      "screen": "home",
+      "viewport": [
+        390,
+        844
+      ],
+      "pass": true
+    },
+    {
+      "label": "hosted-landscape",
+      "chapter": "Now what?",
+      "duration": 72,
+      "source": "https://friendly-trader-app-preview.vercel.app/assets/app-preview/media/friendly-trader-film-landscape.mp4",
+      "time": 0,
+      "hidden": true,
+      "overflow": false,
+      "paused": true,
+      "platform": "ios",
+      "screen": "aplus",
+      "viewport": [
+        1440,
+        1000
+      ],
+      "pass": true
+    },
+    {
+      "label": "hosted-landscape",
+      "chapter": "Still no plan",
+      "duration": 72,
+      "source": "https://friendly-trader-app-preview.vercel.app/assets/app-preview/media/friendly-trader-film-landscape.mp4",
+      "time": 3.35,
+      "hidden": true,
+      "overflow": false,
+      "paused": true,
+      "platform": "ios",
+      "screen": "home",
+      "viewport": [
+        1440,
+        1000
+      ],
+      "pass": true
+    },
+    {
+      "label": "hosted-landscape",
+      "chapter": "Meet Friendly Trader",
+      "duration": 72,
+      "source": "https://friendly-trader-app-preview.vercel.app/assets/app-preview/media/friendly-trader-film-landscape.mp4",
+      "time": 7.952,
+      "hidden": true,
+      "overflow": false,
+      "paused": true,
+      "platform": "ios",
+      "screen": "home",
+      "viewport": [
+        1440,
+        1000
+      ],
+      "pass": true
+    },
+    {
+      "label": "hosted-landscape",
+      "chapter": "Together, on the chart",
+      "duration": 72,
+      "source": "https://friendly-trader-app-preview.vercel.app/assets/app-preview/media/friendly-trader-film-landscape.mp4",
+      "time": 12.406,
+      "hidden": true,
+      "overflow": false,
+      "paused": true,
+      "platform": "ios",
+      "screen": "aplus",
+      "viewport": [
+        1440,
+        1000
+      ],
+      "pass": true
+    },
+    {
+      "label": "hosted-landscape",
+      "chapter": "Size it",
+      "duration": 72,
+      "source": "https://friendly-trader-app-preview.vercel.app/assets/app-preview/media/friendly-trader-film-landscape.mp4",
+      "time": 19.489,
+      "hidden": true,
+      "overflow": false,
+      "paused": true,
+      "platform": "ios",
+      "screen": "stops",
+      "viewport": [
+        1440,
+        1000
+      ],
+      "pass": true
+    },
+    {
+      "label": "hosted-landscape",
+      "chapter": "Meet Pip",
+      "duration": 72,
+      "source": "https://friendly-trader-app-preview.vercel.app/assets/app-preview/media/friendly-trader-film-landscape.mp4",
+      "time": 25.503,
+      "hidden": true,
+      "overflow": false,
+      "paused": true,
+      "platform": "ios",
+      "screen": "assistant",
+      "viewport": [
+        1440,
+        1000
+      ],
+      "pass": true
+    },
+    {
+      "label": "hosted-landscape",
+      "chapter": "Check the signals",
+      "duration": 72,
+      "source": "https://friendly-trader-app-preview.vercel.app/assets/app-preview/media/friendly-trader-film-landscape.mp4",
+      "time": 35.72,
+      "hidden": true,
+      "overflow": false,
+      "paused": true,
+      "platform": "ios",
+      "screen": "macd",
+      "viewport": [
+        1440,
+        1000
+      ],
+      "pass": true
+    },
+    {
+      "label": "hosted-landscape",
+      "chapter": "Talk it through",
+      "duration": 72,
+      "source": "https://friendly-trader-app-preview.vercel.app/assets/app-preview/media/friendly-trader-film-landscape.mp4",
+      "time": 41.153,
+      "hidden": true,
+      "overflow": false,
+      "paused": true,
+      "platform": "ios",
+      "screen": "chat",
+      "viewport": [
+        1440,
+        1000
+      ],
+      "pass": true
+    },
+    {
+      "label": "hosted-landscape",
+      "chapter": "On your Mac",
+      "duration": 72,
+      "source": "https://friendly-trader-app-preview.vercel.app/assets/app-preview/media/friendly-trader-film-landscape.mp4",
+      "time": 49.478,
+      "hidden": true,
+      "overflow": false,
+      "paused": true,
+      "platform": "macos",
+      "screen": "stops",
+      "viewport": [
+        1440,
+        1000
+      ],
+      "pass": true
+    },
+    {
+      "label": "hosted-landscape",
+      "chapter": "Your plan, your tools",
+      "duration": 72,
+      "source": "https://friendly-trader-app-preview.vercel.app/assets/app-preview/media/friendly-trader-film-landscape.mp4",
+      "time": 53.506,
+      "hidden": true,
+      "overflow": false,
+      "paused": true,
+      "platform": "ios",
+      "screen": "aplus",
+      "viewport": [
+        1440,
+        1000
+      ],
+      "pass": true
+    },
+    {
+      "label": "hosted-landscape",
+      "chapter": "Never trade alone",
+      "duration": 72,
+      "source": "https://friendly-trader-app-preview.vercel.app/assets/app-preview/media/friendly-trader-film-landscape.mp4",
+      "time": 60.526,
+      "hidden": true,
+      "overflow": false,
+      "paused": true,
+      "platform": "ios",
+      "screen": "home",
+      "viewport": [
+        1440,
+        1000
+      ],
+      "pass": true
+    }
+  ],
+  "beforeRotate": {
+    "captionReady": 2,
+    "muted": true,
     "paused": true,
-    "platform": "ios",
-    "ready": 4,
-    "resumeVisible": true,
-    "screen": "home",
-    "time": 0,
-    "width": 402
+    "time": 34
   },
-  {
-    "appOverflow": false,
-    "duration": 90,
-    "height": 874,
-    "media": "friendly-trader-film-portrait.mp4",
+  "afterRotate": {
+    "captionReady": 2,
+    "classes": "marketing-film",
+    "dimensions": [
+      1920,
+      1080
+    ],
+    "muted": true,
     "paused": true,
-    "platform": "ios",
-    "ready": 4,
-    "resumeVisible": true,
-    "screen": "home",
-    "time": 6,
-    "width": 402
-  },
-  {
-    "appOverflow": false,
-    "duration": 90,
-    "height": 874,
-    "media": "friendly-trader-film-portrait.mp4",
-    "paused": true,
-    "platform": "ios",
-    "ready": 4,
-    "resumeVisible": true,
-    "screen": "aplus",
-    "time": 12,
-    "width": 402
-  },
-  {
-    "appOverflow": false,
-    "duration": 90,
-    "height": 874,
-    "media": "friendly-trader-film-portrait.mp4",
-    "paused": true,
-    "platform": "ios",
-    "ready": 4,
-    "resumeVisible": true,
-    "screen": "stops",
-    "time": 22,
-    "width": 402
-  },
-  {
-    "appOverflow": false,
-    "duration": 90,
-    "height": 874,
-    "media": "friendly-trader-film-portrait.mp4",
-    "paused": true,
-    "platform": "ios",
-    "ready": 4,
-    "resumeVisible": true,
-    "screen": "assistant",
-    "time": 30,
-    "width": 402
-  },
-  {
-    "appOverflow": false,
-    "duration": 90,
-    "height": 874,
-    "media": "friendly-trader-film-portrait.mp4",
-    "paused": true,
-    "platform": "ios",
-    "ready": 4,
-    "resumeVisible": true,
-    "screen": "macd",
-    "time": 38,
-    "width": 402
-  },
-  {
-    "appOverflow": false,
-    "duration": 90,
-    "height": 874,
-    "media": "friendly-trader-film-portrait.mp4",
-    "paused": true,
-    "platform": "ios",
-    "ready": 4,
-    "resumeVisible": true,
-    "screen": "patterns",
-    "time": 46,
-    "width": 402
-  },
-  {
-    "appOverflow": false,
-    "duration": 90,
-    "height": 874,
-    "media": "friendly-trader-film-portrait.mp4",
-    "paused": true,
-    "platform": "ios",
-    "ready": 4,
-    "resumeVisible": true,
-    "screen": "screener",
-    "time": 54,
-    "width": 402
-  },
-  {
-    "appOverflow": false,
-    "duration": 90,
-    "height": 874,
-    "media": "friendly-trader-film-portrait.mp4",
-    "paused": true,
-    "platform": "ios",
-    "ready": 4,
-    "resumeVisible": true,
-    "screen": "earnings",
-    "time": 61,
-    "width": 402
-  },
-  {
-    "appOverflow": false,
-    "duration": 90,
-    "height": 874,
-    "media": "friendly-trader-film-portrait.mp4",
-    "paused": true,
-    "platform": "ios",
-    "ready": 4,
-    "resumeVisible": true,
-    "screen": "chat",
-    "time": 68,
-    "width": 402
-  },
-  {
-    "appOverflow": false,
-    "duration": 90,
-    "height": 874,
-    "media": "friendly-trader-film-portrait.mp4",
-    "paused": true,
-    "platform": "macos",
-    "ready": 4,
-    "resumeVisible": true,
-    "screen": "home",
-    "time": 76,
-    "width": 402
-  },
-  {
-    "appOverflow": false,
-    "duration": 90,
-    "height": 874,
-    "media": "friendly-trader-film-portrait.mp4",
-    "paused": true,
-    "platform": "ios",
-    "ready": 4,
-    "resumeVisible": true,
-    "screen": "home",
-    "time": 84,
-    "width": 402
-  },
-  {
-    "appOverflow": false,
-    "duration": 90,
-    "height": 900,
-    "media": "friendly-trader-film-landscape.mp4",
-    "paused": true,
-    "platform": "ios",
-    "ready": 4,
-    "resumeVisible": true,
-    "screen": "home",
-    "time": 0,
-    "width": 1280
-  },
-  {
-    "appOverflow": false,
-    "duration": 90,
-    "height": 900,
-    "media": "friendly-trader-film-landscape.mp4",
-    "paused": true,
-    "platform": "ios",
-    "ready": 4,
-    "resumeVisible": true,
-    "screen": "home",
-    "time": 6,
-    "width": 1280
-  },
-  {
-    "appOverflow": false,
-    "duration": 90,
-    "height": 900,
-    "media": "friendly-trader-film-landscape.mp4",
-    "paused": true,
-    "platform": "ios",
-    "ready": 4,
-    "resumeVisible": true,
-    "screen": "aplus",
-    "time": 12,
-    "width": 1280
-  },
-  {
-    "appOverflow": false,
-    "duration": 90,
-    "height": 900,
-    "media": "friendly-trader-film-landscape.mp4",
-    "paused": true,
-    "platform": "ios",
-    "ready": 4,
-    "resumeVisible": true,
-    "screen": "stops",
-    "time": 22,
-    "width": 1280
-  },
-  {
-    "appOverflow": false,
-    "duration": 90,
-    "height": 900,
-    "media": "friendly-trader-film-landscape.mp4",
-    "paused": true,
-    "platform": "ios",
-    "ready": 4,
-    "resumeVisible": true,
-    "screen": "assistant",
-    "time": 30,
-    "width": 1280
-  },
-  {
-    "appOverflow": false,
-    "duration": 90,
-    "height": 900,
-    "media": "friendly-trader-film-landscape.mp4",
-    "paused": true,
-    "platform": "ios",
-    "ready": 4,
-    "resumeVisible": true,
-    "screen": "macd",
-    "time": 38,
-    "width": 1280
-  },
-  {
-    "appOverflow": false,
-    "duration": 90,
-    "height": 900,
-    "media": "friendly-trader-film-landscape.mp4",
-    "paused": true,
-    "platform": "ios",
-    "ready": 4,
-    "resumeVisible": true,
-    "screen": "patterns",
-    "time": 46,
-    "width": 1280
-  },
-  {
-    "appOverflow": false,
-    "duration": 90,
-    "height": 900,
-    "media": "friendly-trader-film-landscape.mp4",
-    "paused": true,
-    "platform": "ios",
-    "ready": 4,
-    "resumeVisible": true,
-    "screen": "screener",
-    "time": 54,
-    "width": 1280
-  },
-  {
-    "appOverflow": false,
-    "duration": 90,
-    "height": 900,
-    "media": "friendly-trader-film-landscape.mp4",
-    "paused": true,
-    "platform": "ios",
-    "ready": 4,
-    "resumeVisible": true,
-    "screen": "earnings",
-    "time": 61,
-    "width": 1280
-  },
-  {
-    "appOverflow": false,
-    "duration": 90,
-    "height": 900,
-    "media": "friendly-trader-film-landscape.mp4",
-    "paused": true,
-    "platform": "ios",
-    "ready": 4,
-    "resumeVisible": true,
-    "screen": "chat",
-    "time": 68,
-    "width": 1280
-  },
-  {
-    "appOverflow": false,
-    "duration": 90,
-    "height": 900,
-    "media": "friendly-trader-film-landscape.mp4",
-    "paused": true,
-    "platform": "macos",
-    "ready": 4,
-    "resumeVisible": true,
-    "screen": "home",
-    "time": 76,
-    "width": 1280
-  },
-  {
-    "appOverflow": false,
-    "duration": 90,
-    "height": 900,
-    "media": "friendly-trader-film-landscape.mp4",
-    "paused": true,
-    "platform": "ios",
-    "ready": 4,
-    "resumeVisible": true,
-    "screen": "home",
-    "time": 84,
-    "width": 1280
+    "src": "https://friendly-trader-app-preview.vercel.app/assets/app-preview/media/friendly-trader-film-landscape.mp4",
+    "time": 34
   }
-]
+}

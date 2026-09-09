@@ -1,0 +1,91 @@
+{
+  "source_count": 7,
+  "source_seconds": 429.399999,
+  "native_frames": 12882,
+  "all_parity_counts_match": true,
+  "files": [
+    {
+      "source": "2K to 10K Challenge NEW.mp4",
+      "duration": 50.866667,
+      "frames": 1526,
+      "parity_frames": [
+        763,
+        763
+      ],
+      "audio": "complete",
+      "audiovisual": "complete"
+    },
+    {
+      "source": "4th of July Promo.mp4",
+      "duration": 57.733333,
+      "frames": 1732,
+      "parity_frames": [
+        866,
+        866
+      ],
+      "audio": "complete",
+      "audiovisual": "complete"
+    },
+    {
+      "source": "A+ Scalp Levels Promo.mp4",
+      "duration": 78.033333,
+      "frames": 2341,
+      "parity_frames": [
+        1171,
+        1170
+      ],
+      "audio": "complete",
+      "audiovisual": "complete"
+    },
+    {
+      "source": "Don't FOMO.mp4",
+      "duration": 63.633333,
+      "frames": 1909,
+      "parity_frames": [
+        955,
+        954
+      ],
+      "audio": "complete",
+      "audiovisual": "complete"
+    },
+    {
+      "source": "New Marketing Video Sept 8th.mp4",
+      "duration": 48.266667,
+      "frames": 1448,
+      "parity_frames": [
+        724,
+        724
+      ],
+      "audio": "complete",
+      "audiovisual": "complete"
+    },
+    {
+      "source": "No Stink Non Copywright Music.mp4",
+      "duration": 47.833333,
+      "frames": 1435,
+      "parity_frames": [
+        718,
+        717
+      ],
+      "audio": "complete",
+      "audiovisual": "complete"
+    },
+    {
+      "source": "Stock Screener (Cryptocrew) Gambling Short En.mp4",
+      "duration": 83.033333,
+      "frames": 2491,
+      "parity_frames": [
+        1246,
+        1245
+      ],
+      "audio": "complete",
+      "audiovisual": "complete"
+    }
+  ],
+  "method": "Every native 30fps frame extracted to indexed JPEGs and measured. Complete soundtracks reviewed independently. Complementary even/odd 15fps streams preserve every native frame for audiovisual model input, with full sound on one stream. Fable independently reviewed timed visual strips and full local Whisper transcripts.",
+  "limits": [
+    "Supplying every frame to a model does not prove attention to every pixel. Detailed manual visual cross-checks cover selected sequences, not every frame.",
+    "Model-generated timestamps and speaker labels need cross-checks. Audio-only 2K timestamps drift.",
+    "No conversion metrics or validation of legacy performance claims were supplied."
+  ]
+}

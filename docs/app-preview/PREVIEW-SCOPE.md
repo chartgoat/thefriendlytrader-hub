@@ -4,7 +4,7 @@
 
 The iOS and Mac apps are the design references. The earlier approximation is superseded by source-derived screen hierarchy, typography, colors and behavior. Reference checkout: `swj-macd-ios`, HEAD `93a19e6`, inspected September 8, 2026. Its concurrent native work was not edited.
 
-The website has an iOS/Mac platform switch, a readable phone or desktop window, a 90-second interactive marketing film and a directory of all 14 destinations. The browser implementation remains dependency-free, with deterministic simulated data and no production services.
+The website has an iOS/Mac platform switch, a readable phone or desktop window, a 72-second narrated interactive marketing film and a directory of all 14 destinations. The browser implementation remains dependency-free, with deterministic simulated data and no production services.
 
 | Preview surface | Native reference | Browser implementation |
 | --- | --- | --- |
@@ -54,7 +54,7 @@ Stop Finder creates a new prospective plan from the current sample quote. Its le
 
 ## Interaction and boundaries
 
-The preview now includes an actual 90-second H.264/AAC marketing film, with 12 chapters, 21 edited shots, gentle camera movement, short dissolves and an original instrumental score. Landscape (1280×720) and portrait (480×800) files have the same timing and choose automatically for the viewport. The opening moves from market overwhelm to a friendly starting point; the product edit shows planning, sizing risk, Pip, chart context, discovery, calendars, community and Mac before an invitation to explore. There is no voiceover: large on-screen copy tells the story with or without sound.
+The preview now includes a narrated 72-second marketing film shaped with Fable 5.1 after studying seven supplied SWJ ads. It combines human reaction footage, recorded app actions, large captions, an original instrumental and timed sound effects. Landscape and portrait versions share a single edit and chapter map. Viewers can pause and step into the corresponding app screen, explore every destination, then resume at the saved time. Optional English captions follow the full narration. See FILM-DIRECTION.md for source coverage, production details and the simulated example boundaries.
 
 “Pause and explore” pauses the media and opens the matching native-style app screen. Visitors can use every destination and save simulated work. “Resume film” returns to the saved video time and restores the edited screen and camera position. Personal demo changes such as saved plans, watchlists, posted messages and Wins remain; the edit controls its navigation, chart view and platform. Closing the film, switching away from the tab or exploring stops playback. The time scrubber, chapter selector, mute control and end card are keyboard reachable. Underlying app controls are inert during video playback.
 

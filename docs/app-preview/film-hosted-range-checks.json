@@ -1,14 +1,14 @@
 [
   {
-    "edit": "portrait",
+    "path": "assets/app-preview/media/friendly-trader-film-landscape.mp4",
     "status": 206,
-    "bytes": 1024,
-    "content_range": "bytes 0-1023/6496389"
+    "content_range": "bytes 1024-2047/25424350",
+    "bytes": 1024
   },
   {
-    "edit": "landscape",
+    "path": "assets/app-preview/media/friendly-trader-film-portrait.mp4",
     "status": 206,
-    "bytes": 1024,
-    "content_range": "bytes 0-1023/9803421"
+    "content_range": "bytes 1024-2047/30669561",
+    "bytes": 1024
   }
 ]

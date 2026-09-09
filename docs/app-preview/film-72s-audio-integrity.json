@@ -1,0 +1,54 @@
+[
+  {
+    "orientation": "landscape",
+    "alignment_offset_samples": 0,
+    "windows": [
+      {
+        "start": 0,
+        "end": 72,
+        "correlation_to_approved_mix": 0.9998718044601524
+      },
+      {
+        "start": 60,
+        "end": 64,
+        "correlation_to_approved_mix": 0.9999706492851884
+      },
+      {
+        "start": 64,
+        "end": 69.5,
+        "correlation_to_approved_mix": 0.9997449971629642
+      },
+      {
+        "start": 69.5,
+        "end": 72,
+        "correlation_to_approved_mix": 0.9999161164696565
+      }
+    ]
+  },
+  {
+    "orientation": "portrait",
+    "alignment_offset_samples": 0,
+    "windows": [
+      {
+        "start": 0,
+        "end": 72,
+        "correlation_to_approved_mix": 0.9998718044601524
+      },
+      {
+        "start": 60,
+        "end": 64,
+        "correlation_to_approved_mix": 0.9999706492851884
+      },
+      {
+        "start": 64,
+        "end": 69.5,
+        "correlation_to_approved_mix": 0.9997449971629642
+      },
+      {
+        "start": 69.5,
+        "end": 72,
+        "correlation_to_approved_mix": 0.9999161164696565
+      }
+    ]
+  }
+]
