@@ -1,14 +1,14 @@
 {
-  "deployment": "dpl_32MoQh7kt2CQ7yVR4uiJ9P24zXyi",
+  "deployment": "dpl_3cEznLeL5c2xV1LK87HtbWztf5Hd",
   "url": "https://friendly-trader-app-preview.vercel.app/",
-  "checked_utc": "2026-09-09T09:42:54.658181+00:00",
+  "checked_utc": "2026-09-09T19:36:32.268853+00:00",
   "files": [
     {
       "file": "index.html",
       "status": 200,
-      "sha256": "b0dbfcc5a4a7bcd20db44c22f2b8ab457de9ecf2d7cc8c6ee057e8d5d4fde039",
+      "sha256": "9b984d91bfb60a87d20f19208f4e101d6e8dfaab168ead3f457dd4392063212a",
       "matches_source": true,
-      "bytes": 13060
+      "bytes": 14433
     },
     {
       "file": "assets/app-preview/native.css",
@@ -34,9 +34,9 @@
     {
       "file": "assets/app-preview/core.mjs",
       "status": 200,
-      "sha256": "fccbb885827d25aac0dc2382e90ae1df5605961cd462b08c5ad6a9c8c5638e4b",
+      "sha256": "2e7b5fdd9939d8f18b1fbd90743bb4497b7ef55f0b7372b274d137667f41ac4c",
       "matches_source": true,
-      "bytes": 9798
+      "bytes": 10185
     },
     {
       "file": "assets/app-preview/app-icon.png",
@@ -44,6 +44,13 @@
       "sha256": "9541fd96f948e793c2ed952f67479ffe4d34d87fa4488289526032b23fb651c0",
       "matches_source": true,
       "bytes": 54713
+    },
+    {
+      "file": "assets/app-preview/story.css",
+      "status": 200,
+      "sha256": "222d4c28247bee7e24bb4c54a2637cff83685ff6362d426a7c5f9cbdbd39d673",
+      "matches_source": true,
+      "bytes": 14351
     },
     {
       "file": "assets/app-preview/site.css",
@@ -76,9 +83,9 @@
     {
       "file": "assets/app-preview/app.js",
       "status": 200,
-      "sha256": "7a72326037f7175e6e8fc8b741aac43486c2c31e4c109795afb26eee02ac68b0",
+      "sha256": "48476574e9963eabc5c9a900cdbea2187a6c7db940d69e27b9c12258a2ec50b5",
       "matches_source": true,
-      "bytes": 35367
+      "bytes": 35170
     },
     {
       "file": "assets/app-preview/platform.mjs",
@@ -90,9 +97,9 @@
     {
       "file": "assets/app-preview/chart.mjs",
       "status": 200,
-      "sha256": "b3ea2509b80c655a5ff2e1d2761ab08c7f648baf79d1cfb5d806aa699b05a7fd",
+      "sha256": "d23653b39116794491cff1e4b868c78fb6cfa89d6df8deddfecb8ea5f5c4d426",
       "matches_source": true,
-      "bytes": 8443
+      "bytes": 8301
     },
     {
       "file": "assets/app-preview/media/bear_strong.mp4",

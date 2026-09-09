@@ -158,22 +158,22 @@ export function createState() {
 }
 export const TOUR_STEP_MS = 7500;
 export const TOUR = [
-  {screen: "home", title: "Start here.", text: "Your tools, calendar and community are all one tap away."},
-  {screen: "stream", title: "Catch up in a glance.", text: "See the day’s market updates in one place."},
-  {screen: "aplus", title: "Find a trade idea.", text: "See possible trades and whether they are ready, waiting or finished."},
-  {screen: "aplus", detail: "setup", title: "See the plan.", text: "Entry: where you start. Stop: where you plan to exit. Targets: your profit goals."},
-  {screen: "stops", title: "Know your risk first.", text: "Choose an amount to risk. See a sample trade size and exit price."},
-  {screen: "macd", title: "Read the direction.", text: "See whether a stock is gaining or losing strength."},
-  {screen: "patterns", title: "Spot a familiar shape.", text: "Patterns point out shapes in a chart that may be worth a closer look."},
-  {screen: "patterns", detail: "pattern", title: "Take a closer look.", text: "Each candle shows a price move. Zoom in or drag to look back."},
-  {screen: "screener", title: "See what’s moving.", text: "Find stocks making bigger moves, then tap one to learn more."},
-  {screen: "earnings", title: "Know when companies report.", text: "Check when a company shares its results. These days can move its stock."},
-  {screen: "economy", title: "Keep an eye on big events.", text: "See upcoming reports on jobs, prices and interest rates."},
-  {screen: "live", title: "Learn with others.", text: "Find a live session and set a reminder for it."},
-  {screen: "chat", detail: "room", room: "Wins", title: "Celebrate your progress.", text: "Share a trade, a lesson or a day you followed your plan."},
-  {screen: "assistant", title: "Need a hand? Ask Pip.", text: "Pip explains what you’re looking at in plain language."},
-  {screen: "profile", title: "Make yourself at home.", text: "Change your name, choose light or dark, and set your preferences."},
-  {screen: "home", title: "Now it’s your turn.", text: "Tap anything to explore. Every number and trade here is a sample."},
+  {screen: "home", title: "Trading can feel like a lot.", text: "Charts. Headlines. Opinions. Bring your tools and people together in one friendly place."},
+  {screen: "aplus", detail: "setup", title: "One idea. A clearer plan.", text: "See the entry, stop and targets together. Think through the trade before you take it."},
+  {screen: "stops", title: "Know your risk before you act.", text: "Choose what you’re prepared to risk. See a sample trade size and planned exit."},
+  {screen: "assistant", title: "A little help goes a long way.", text: "Meet Pip. A friendly explanation is right here when a chart leaves you wondering."},
+  {screen: "chat", detail: "room", room: "Wins", title: "Good habits deserve company.", text: "Share a lesson, a win or a day you stuck to your plan."},
+  {screen: "aplus", title: "Find an idea worth a look.", text: "See possible trades and whether they are ready, waiting or finished."},
+  {screen: "macd", title: "Get a feel for the direction.", text: "See whether a stock is gaining or losing strength, with the chart beside the explanation."},
+  {screen: "patterns", title: "Start recognizing the shapes.", text: "Patterns highlight shapes in a chart, so you know where to take a closer look."},
+  {screen: "patterns", detail: "pattern", title: "Make the chart make sense.", text: "Each candle shows a price move. Zoom in or drag to look back."},
+  {screen: "screener", title: "Spend less time searching.", text: "Bring the day’s moving stocks into one list. Tap an idea to explore it."},
+  {screen: "earnings", title: "Have the important dates handy.", text: "See when companies share their results. Put upcoming events beside your research."},
+  {screen: "economy", title: "Keep the bigger picture close.", text: "See upcoming reports on jobs, prices and interest rates in one calendar."},
+  {screen: "live", title: "Keep learning, together.", text: "Find a live session and set a reminder. Make room for the next thing you’ll learn."},
+  {screen: "stream", title: "Catch up, then carry on.", text: "Your day’s market updates are together here. Find your starting point without opening every tool."},
+  {screen: "profile", title: "Make it feel like your space.", text: "Choose light or dark, change your name and make yourself at home."},
+  {screen: "home", title: "Your next step can be clearer.", text: "Try a plan. Ask Pip. Explore the community. Every example here is simulated."},
 ];
 export function tourPosition(state) {
   return Object.fromEntries(

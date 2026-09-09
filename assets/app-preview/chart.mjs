@@ -15,7 +15,7 @@ export function attachChart(svg, state, onTakeover, onLevel) {
     // Mac charts use the available window width without scaling up axis text.
     W = state.platform === "macos" ? Math.max(340, Math.round(svg.clientWidth)) : 340;
     H = Math.max(235, Math.round(svg.clientHeight / Math.max(1, svg.clientWidth) * W));
-    axisWidth = state.platform === "macos" ? 78 : 58;
+    axisWidth = 84;
     plot = { x: 8, y: 13, w: W - axisWidth - 16, h: H - 45 };
     const count = clamp(Math.round(state.chart.count), 16, 100);
     state.chart.count = count;
@@ -49,7 +49,7 @@ export function attachChart(svg, state, onTakeover, onLevel) {
         );
       out += `<line x1="8" y1="${cy}" x2="${W - axisWidth - 6}" y2="${cy}" stroke="var(--app-elev)" stroke-width="1"/>`;
       if (!nearLevel)
-        out += `<text x="${W - axisWidth}" y="${cy + 3}" fill="var(--app-dim)" font-size="${state.platform === "macos" ? 11 : 9}">${v.toFixed(2)}</text>`;
+        out += `<text x="${W - axisWidth}" y="${cy + 3}" fill="var(--app-dim)" font-size="12">${v.toFixed(2)}</text>`;
     }
     if (showLevels) {
       out += `<rect x="8" y="${Math.min(y(p.entry), y(p.target))}" width="${plot.w}" height="${Math.abs(y(p.target) - y(p.entry))}" fill="#16875f" opacity=".045"/><rect x="8" y="${Math.min(y(p.entry), y(p.stop))}" width="${plot.w}" height="${Math.abs(y(p.stop) - y(p.entry))}" fill="#cd343c" opacity=".06"/>`;
@@ -70,7 +70,7 @@ export function attachChart(svg, state, onTakeover, onLevel) {
         [p.entry, "Entry", "var(--app-text)"],
         [p.stop, "Stop", "#cd343c"],
       ].forEach(([v, label, c]) => {
-        out += `<line x1="8" x2="${W - axisWidth - 6}" y1="${y(v)}" y2="${y(v)}" stroke="${c}" stroke-width="1" stroke-dasharray="${label === "Stop" ? "" : "4 3"}" opacity=".8"/><rect x="${W - axisWidth}" y="${y(v) - 7}" width="${axisWidth-1}" height="16" rx="3" fill="${label === "Entry" ? "var(--app-elev)" : c}"/><text x="${W - axisWidth + 3}" y="${y(v) + 3}" fill="${label === "Entry" ? "var(--app-text)" : "white"}" font-size="${state.platform === "macos" ? 10 : 8}">${label} ${v.toFixed(2)}</text>`;
+        out += `<line x1="8" x2="${W - axisWidth - 6}" y1="${y(v)}" y2="${y(v)}" stroke="${c}" stroke-width="1" stroke-dasharray="${label === "Stop" ? "" : "4 3"}" opacity=".8"/><rect x="${W - axisWidth}" y="${y(v) - 7}" width="${axisWidth-1}" height="16" rx="3" fill="${label === "Entry" ? "var(--app-elev)" : c}"/><text x="${W - axisWidth + 3}" y="${y(v) + 3}" fill="${label === "Entry" ? "var(--app-text)" : "white"}" font-size="11">${label} ${v.toFixed(2)}</text>`;
       });
     }
     if(state.screen==="stops")for(const [key,value,name] of [["stop",p.stop,"stop"],["target",p.target,"first target"],["target2",p.target2,"second target"],["entry",p.entry,"entry"]]){
@@ -78,7 +78,7 @@ export function attachChart(svg, state, onTakeover, onLevel) {
     }
     [0, Math.floor(count / 2), count - 1].forEach(
       (i) =>
-        (out += `<text x="${plot.x + mapping.dx * (i + 0.5)}" y="${H - 14}" text-anchor="${i === 0 ? "start" : i === count - 1 ? "end" : "middle"}" fill="var(--app-dim)" font-size="${state.platform === "macos" ? 11 : 9}">Bar ${visible[i].time + 1}</text>`),
+        (out += `<text x="${plot.x + mapping.dx * (i + 0.5)}" y="${H - 14}" text-anchor="${i === 0 ? "start" : i === count - 1 ? "end" : "middle"}" fill="var(--app-dim)" font-size="12">Bar ${visible[i].time + 1}</text>`),
     );
     svg.setAttribute("viewBox", `0 0 ${W} ${H}`);
     svg.innerHTML = out;

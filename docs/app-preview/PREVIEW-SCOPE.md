@@ -34,6 +34,14 @@ Both versions use the same 14 pages, 16 tour chapters and simulated session. Swi
 
 Availability remains explicit: the dated September 8 iOS public-beta check reported closed enrollment; the Mac release ledger records invited internal TestFlight access, with public beta not open. Mac requires macOS 14 or later. The Mac TestFlight link points to Apple's verified [TestFlight listing](https://apps.apple.com/us/app/testflight/id899247664), not an invented Friendly Trader download or public invitation. Native binary release holds do not authorize or imply a native release from this website work.
 
+## Benefit-first story and reading sizes
+
+The September 9 creative pass leads with “Turn ‘what now?’ into a plan.” The page shows why the product matters through a plan illustration, Pip explanation and community habits before the feature directory. The first five tour chapters show the problem, a plan, risk, Pip and community; the remaining chapters explain the tools. All 16 chapters and 14 independently accessible roots remain.
+
+Primary design references and their interpretation are recorded in `CREATIVE-DIRECTION.md`. They informed the message structure and friendly personality, not performance claims or imitation branding.
+
+Desktop introductory and expanded-tour text is 22px; the inline tour is 20px. Expanded mobile captions are 18px (17px at 320px). Controls and secondary website copy are generally 16px or larger. The inline phone retains its compact proportions, but opening a feature now uses the expanded view with unscaled app text. Chart price labels are larger with a wider reserved axis area. Native source and binaries remain untouched.
+
 ## Demo data and plan behavior
 
 Eight fictional trade records drive current quotes, recorded entries/stops, target outcomes, price extrema and example Wins. Completed examples include multiple targets, a short plan and a pullback after a target hit. Moving and invalidated plans remain available. Pattern direction and failed states agree with the corresponding sample trade.

@@ -141,8 +141,8 @@ function back() {
 }
 function renderPlayer() {
   const step = TOUR[tour.index];
-  const status = !tour.hasStarted ? "Quick walkthrough" : tour.playing ? "Walkthrough" : tour.completed ? "All done" : "Paused";
-  player.innerHTML = `<div class="tour-explainer" aria-live="polite" aria-atomic="true"><div class="tour-heading"><span class="tour-status">${status}</span><span class="tour-count">${tour.index + 1} / ${TOUR.length}</span></div><h3>${tour.hasStarted ? step.title : "See how it works."}</h3><p>${tour.hasStarted ? step.text : "A quick look around. Pause anytime to try it yourself."}</p></div><div class="tour-controls"><button class="tour-toggle" data-tour="toggle" aria-label="${tour.playing ? "Pause tour" : tour.hasStarted && !tour.completed ? "Resume tour" : "Play tour"}">${icon(tour.playing ? "pause" : "play")}</button><button data-tour="previous" aria-label="Previous tour chapter" ${tour.index === 0 ? "disabled" : ""}>${icon("back")}</button><input type="range" aria-label="Tour chapter" aria-valuetext="${tour.index + 1} of ${TOUR.length}: ${step.title}" min="0" max="${TOUR.length - 1}" value="${tour.index}" step="1"><button data-tour="next" aria-label="Next tour chapter" ${tour.index === TOUR.length - 1 ? "disabled" : ""}>${icon("next")}</button><button class="replay" data-tour="restart" aria-label="Restart tour">↺</button></div><div class="tour-progress" aria-hidden="true"><span></span></div>`;
+  const status = !tour.hasStarted ? "Meet Friendly Trader" : tour.playing ? "Walkthrough" : tour.completed ? "All done" : "Paused";
+  player.innerHTML = `<div class="tour-explainer" aria-live="polite" aria-atomic="true"><div class="tour-heading"><span class="tour-status">${status}</span><span class="tour-count">${tour.index + 1} / ${TOUR.length}</span></div><h3>${tour.hasStarted ? step.title : "A clearer day starts here."}</h3><p>${tour.hasStarted ? step.text : "See what a plan, a guide and a community can bring to your trading day."}</p></div><div class="tour-controls"><button class="tour-toggle" data-tour="toggle" aria-label="${tour.playing ? "Pause tour" : tour.hasStarted && !tour.completed ? "Resume tour" : "Play tour"}">${icon(tour.playing ? "pause" : "play")}</button><button data-tour="previous" aria-label="Previous tour chapter" ${tour.index === 0 ? "disabled" : ""}>${icon("back")}</button><input type="range" aria-label="Tour chapter" aria-valuetext="${tour.index + 1} of ${TOUR.length}: ${step.title}" min="0" max="${TOUR.length - 1}" value="${tour.index}" step="1"><button data-tour="next" aria-label="Next tour chapter" ${tour.index === TOUR.length - 1 ? "disabled" : ""}>${icon("next")}</button><button class="replay" data-tour="restart" aria-label="Restart tour">↺</button></div><div class="tour-progress" aria-hidden="true"><span></span></div>`;
 }
 function loadStep(index, keepPlayer = false) {
   tour.index = Math.max(0, Math.min(TOUR.length - 1, index));
@@ -248,13 +248,7 @@ function fullscreen(open = true) {
   }
 }
 function bringPreview() {
-  if (matchMedia("(max-width:800px)").matches) fullscreen(true);
-  else
-    document.querySelector("#try-app").scrollIntoView({
-      behavior: matchMedia("(prefers-reduced-motion:reduce)").matches
-        ? "instant"
-        : "smooth",
-    });
+  fullscreen(true);
 }
 function openExternalSection(id) {
   takeOver();

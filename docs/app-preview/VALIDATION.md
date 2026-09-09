@@ -1,16 +1,16 @@
 # iOS and macOS app preview validation
 
-Verified September 8, 2026 (Hawaii time).
+Latest verification: September 9, 2026 (Hawaii time). Earlier passes below are retained with their own evidence.
 
 ## Deployment
 
 - Review: https://friendly-trader-app-preview.vercel.app/
-- Final deployment: `dpl_32MoQh7kt2CQ7yVR4uiJ9P24zXyi`
-- Immutable URL: https://friendly-trader-app-preview-1osegpmhc-clancy-bonds-projects.vercel.app
+- Final deployment: `dpl_3cEznLeL5c2xV1LK87HtbWztf5Hd`
+- Immutable URL: https://friendly-trader-app-preview-nn7zj2vaq-clancy-bonds-projects.vercel.app
 - Status: READY, production target of the isolated `friendly-trader-app-preview` Vercel project in `clancy-bonds-projects`.
 - The existing `thefriendlytrader.com` site was not deployed by this work.
 - Only index.html, app-preview assets and the explicit review routing configuration were staged. No repository metadata, tests, source docs, native source or unrelated files were uploaded.
-- All 21 public content files, including 8 original animation videos, returned HTTP 200 and matched local source SHA-256 hashes. See `deployed-files.json`.
+- All 22 public content files, including 8 original animation videos, returned HTTP 200 and matched local source SHA-256 hashes. See `deployed-files.json`.
 
 ## Automated checks
 
@@ -18,7 +18,17 @@ Verified September 8, 2026 (Hawaii time).
 
 Coverage includes repeatable candles, OHLC bounds/continuity/current-quote parity, both stop directions and sizing modes, whole-share risk rounding, tour restore while preserving user changes, all 14 roots and 16 chapters, principal detail/empty states, HTML escaping, service-call/storage prohibition, action wiring, exact price extrema and recorded target outcomes, pattern direction/failed-state consistency, calculated sample Wins, and all four reachable native quiz outcomes without routing cycles.
 
-## Compact phone and simple walkthrough
+## Benefit-first story and typography
+
+- At 1440×1000 the introduction is 22px, inline explanation is 20px, and compact phone remains 257px wide. At 320×568 the main introduction is 18px; page, header, benefit stories and directory have no horizontal overflow.
+- All 16 chapters in both platforms passed at 1440×1000, 402×874 and 320×568: 96 observations with captions and controls inside the viewport, no app-content/page horizontal overflow, and no caption scrolling required. Expanded captions measure 22px for desktop iOS, 20px for desktop Mac, 18px at 402px and 17px at 320px. See `story-browser-checks.json`.
+- The first five chapters demonstrate the problem, plan, risk, friendly help and community before the how-to. All 14 automated groups continue to pass.
+- At 1280×720 the opened iOS preview uses zoom 1. Chart interaction pauses the tour at 36 bars; resume restores 42 bars. A benefit link opens the full reading view directly. Chart labels measure 12px on the SVG axis with 11px level labels and reserved label space.
+- No warning/error logs were recorded in the tested local flows. Browser checks do not constitute native Dynamic Type or VoiceOver acceptance.
+- The deployed version repeated all 16 chapters on both platforms at 402×874: 32 passing observations with 18px captions, visible controls, no caption scrolling and no page horizontal overflow. Hosted desktop introduction is 22px and the compact phone remains 257px wide. No warning/error logs appeared. See `story-hosted-checks.json`. All 22 deployed public files match source SHA-256 hashes.
+- New visual references: `story-hero.png`, `story-benefits.png`, `story-desktop-tour.png`, `story-mobile-tour.png`.
+
+## Earlier compact phone and simple walkthrough
 
 - The inline desktop phone scales from the same native proportions: 257×556 at 1440×1000, compared with the prior 414×896. Shorter desktop viewports scale it further. Inline mobile previews remain compact, and expanded mobile app content stays unscaled.
 - All 16 explanations in both platforms passed checks at 1440×1000, 402×874 and 320×568 (96 observations): captions and controls visible, no horizontal app-content overflow, and range focus retained. Each viewport/platform combination traversed chapters 1–16. See `walkthrough-browser-checks.json`.

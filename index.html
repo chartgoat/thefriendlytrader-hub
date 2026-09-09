@@ -8,12 +8,12 @@
     />
     <meta
       name="description"
-      content="Meet Friendly Trader for iPhone and Mac. Explore the interactive app demo: setups, charts, stop plans, calendars and community, all in one friendly place."
+      content="Turn “what now?” into a plan. Friendly Trader brings trade ideas, risk planning, Pip and your community together on iPhone and Mac. Try the interactive preview."
     />
     <meta name="theme-color" content="#0b5d3f" />
     <meta
       property="og:title"
-      content="Friendly Trader. Your trading day, made friendly."
+      content="Friendly Trader. Turn “what now?” into a plan."
     />
     <meta
       property="og:description"
@@ -34,7 +34,8 @@
     <link rel="stylesheet" href="assets/app-preview/site.css" />
     <link rel="stylesheet" href="assets/app-preview/native.css" />
     <link rel="stylesheet" href="assets/app-preview/platform.css" />
-    <title>Friendly Trader | Your trading day, made friendly</title>
+    <link rel="stylesheet" href="assets/app-preview/story.css" />
+    <title>Friendly Trader | Turn “what now?” into a plan</title>
   </head>
   <body>
     <a class="skip-link" href="#main">Skip to content</a>
@@ -48,7 +49,7 @@
         /><span>Friendly Trader</span></a
       >
       <nav aria-label="Main navigation">
-        <a href="#inside">Inside the app</a><a href="#membership">Membership</a
+        <a href="#why-friendly">Why Friendly Trader</a><a href="#inside">Inside the app</a><a href="#membership">Membership</a
         ><a href="#web-tools">Web tools</a>
       </nav>
       <a class="button small" href="#get-app"
@@ -59,18 +60,14 @@
       <section class="hero" id="try-app">
         <div class="hero-copy">
           <p class="availability">Friendly Trader for iPhone and Mac</p>
-          <h1>Your trading day,<br />made friendly.</h1>
-          <p class="hero-description">
-            Your charts, your plan, your people.<br />
-            At your desk or on the go.
-          </p>
+          <h1>Turn “what now?”<br>into a plan.</h1>
+          <p class="hero-description">Bring your trade idea, your risk and your next step together. With a friendly guide to help it click.</p>
           <div class="hero-actions">
-            <button class="button" data-site="explore">Explore the app</button
-            ><button class="button secondary" data-site="tour">
-              <span aria-hidden="true">▷</span> Watch the tour
-            </button>
+            <button class="button" data-site="tour"><span aria-hidden="true">▷</span> See why it feels different</button>
+            <button class="button secondary" data-site="explore">Explore the app</button>
           </div>
-          <p class="quiet">The whole app to explore. No account needed.</p>
+          <p class="quiet">Try the full preview. No account needed.</p>
+          <button class="hero-guide" data-open="assistant"><img src="assets/app-preview/pip.png" width="64" height="64" alt=""><span><strong>Meet your friendly sidekick.</strong><small>Ask Pip to make a chart make sense.</small></span></button>
         </div>
         <div class="preview-stage" id="preview-stage">
           <div class="platform-picker" role="group" aria-label="Choose app platform">
@@ -109,65 +106,31 @@
           </button>
         </div>
       </section>
-      <section class="inside section-wrap" id="inside">
-        <div class="section-heading">
-          <h2>A whole trading day.<br />One friendly place.</h2>
-          <p>Start anywhere. Each screen opens in the interactive preview.</p>
-        </div>
-        <div id="screen-directory" class="screen-directory"></div>
+      <section class="why-friendly section-wrap" id="why-friendly">
+        <div class="section-heading"><h2>This is where<br>things start to click.</h2><p>Your idea, your plan and a little backup. All in one place.</p></div>
+        <article class="benefit-story">
+          <div class="benefit-copy"><h3>Have a plan before<br>you have a position.</h3><p>Put the entry, stop and targets on the same chart. See the trade you’re considering—and what would change your mind.</p><button class="text-button" data-open="stops">See a sample plan <span aria-hidden="true">↗</span></button></div>
+          <div class="plan-illustration" aria-label="A plan brings your entry, stop and target together"><p>Your idea, thought through.</p><div class="plan-path"><div><span class="plan-dot entry"></span><strong>Entry</strong><small>Where you start</small></div><div><span class="plan-dot stop"></span><strong>Stop</strong><small>Where you plan to exit</small></div><div><span class="plan-dot target"></span><strong>Target</strong><small>Your profit goal</small></div></div><span class="plan-footnote">One view. A clearer decision.</span></div>
+        </article>
+        <article class="benefit-story">
+          <div class="benefit-copy"><h3>No question<br>too basic.</h3><p>Charts come with a lot of new words. Pip helps explain what you’re looking at, in language that feels familiar.</p><button class="text-button" data-open="assistant">Ask Pip a question <span aria-hidden="true">↗</span></button></div>
+          <div class="pip-illustration"><p class="example-question">“What’s a stop?”</p><div class="pip-reply"><img src="assets/app-preview/pip.png" width="80" height="80" alt="Pip"><div><strong>Let’s make it simple.</strong><p>It’s the price where you plan to exit if the trade moves against you.</p></div></div><small>A sample explanation from your friendly guide.</small></div>
+        </article>
+        <article class="benefit-story">
+          <div class="benefit-copy"><h3>Good habits grow<br>in good company.</h3><p>Talk it through. Learn from other traders. Celebrate a clear plan as much as a win.</p><button class="text-button" data-open="chat">Explore the community <span aria-hidden="true">↗</span></button></div>
+          <div class="community-illustration"><div><span aria-hidden="true">✓</span><p><strong>Followed my plan.</strong><small>That’s a win worth sharing.</small></p></div><div><span aria-hidden="true">?</span><p><strong>Asked the question.</strong><small>That’s how learning starts.</small></p></div><small>Illustrative community moments.</small></div>
+        </article>
       </section>
-      <section class="explain section-wrap">
-        <div class="explain-intro">
-          <img src="assets/app-preview/pip.png" alt="" width="80" height="80" />
-          <h2>Less figuring out.<br />More understanding.</h2>
-          <p>
-            Pip helps explain the screen you’re looking at, one plain-English
-            answer at a time.
-          </p>
-          <button class="text-button" data-open="assistant">
-            Say hello to Pip ↗
-          </button>
-        </div>
-        <div class="explain-steps">
-          <article>
-            <span class="step-symbol">⌁</span>
-            <div>
-              <h3>See the setup</h3>
-              <p>
-                Explore momentum, patterns and the day’s movers without piecing
-                together a dozen different tabs.
-              </p>
-            </div>
-          </article>
-          <article>
-            <span class="step-symbol">⏣</span>
-            <div>
-              <h3>Know your plan</h3>
-              <p>
-                See the entry, stop and targets on the chart. Understand what
-                would invalidate the idea.
-              </p>
-            </div>
-          </article>
-          <article>
-            <span class="step-symbol">☷</span>
-            <div>
-              <h3>Stay in the loop</h3>
-              <p>
-                Keep earnings, economic events, sessions and your trading
-                community close at hand.
-              </p>
-            </div>
-          </article>
-        </div>
+      <section class="inside section-wrap" id="inside">
+        <div class="section-heading"><h2>Now, make<br>yourself at home.</h2><p>Open any screen. Try a plan. Ask a question. See how it fits your day.</p></div>
+        <div id="screen-directory" class="screen-directory"></div>
       </section>
       <section class="membership section-wrap" id="membership">
         <div>
-          <h2>Get to know it.<br />Then make it yours.</h2>
+          <h2>Make room for<br>a clearer trading day.</h2>
           <p>
-            Explore the app here for free. Membership opens the connected tools
-            and community. Review current plans and access details before
-            joining.
+            Bring your tools and community together. Explore the app first, then
+            choose the membership that fits.
           </p>
           <a
             class="button"
@@ -182,7 +145,7 @@
         </div>
       </section>
       <section class="platform-access section-wrap" id="get-app">
-        <div class="section-heading"><h2>One Friendly Trader.<br>iPhone and Mac.</h2><p>Choose your device. Explore the full preview before you join.</p></div>
+        <div class="section-heading"><h2>Your trading day.<br>On iPhone and Mac.</h2><p>Choose your device. Explore the full preview before you join.</p></div>
         <div class="platform-access-grid">
           <article class="access-card" id="get-ios">
             <div class="access-platform-heading"><img src="assets/app-preview/app-icon.png" alt="Friendly Trader app icon" width="60" height="60"><div><span>iOS</span><h3>Friendly Trader for iPhone</h3></div></div>
@@ -277,7 +240,7 @@
           height="36"
         /><span>Friendly Trader</span></a
       >
-      <p>Markets, made friendly.</p>
+      <p>Big market. Friendly company.</p>
       <div>
         <a href="/faq/">Help &amp; FAQ</a
         ><a
