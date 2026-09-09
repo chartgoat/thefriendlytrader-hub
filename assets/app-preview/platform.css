@@ -67,3 +67,46 @@ body[data-platform=macos] .hero{padding:0 20px;gap:26px}body[data-platform=macos
 @media(max-width:360px){.platform-picker button{font-size:11px;padding:8px 11px;gap:5px}.platform-picker svg{width:16px;height:16px}.platform-access{padding-left:16px;padding-right:16px}.platform-access .access-card{padding:22px}.access-platform-heading{gap:12px}.access-platform-heading img{width:46px;height:46px}.platform-access .access-platform-heading h3{font-size:19px}body[data-platform=macos] .hero h1{font-size:39px}.native.mac .mac-traffic{display:none}.native.mac .mac-titlebar>strong{left:50%}.native.mac .mac-surface>.app-content{padding-left:12px;padding-right:12px}.native.mac .n-header.home-header h2{font-size:24px!important;transform:none}.native.mac .n-home-hero>.pip-mark{width:50px;flex-basis:50px}.native.mac .n-home-tile small{font-size:9px}.native.mac .n-home-calendars small{font-size:9px}.native.mac .n-home-live small{font-size:9px}.native.mac .n-home-live>b{font-size:9px}.native.mac .n-scenario-card .n-segment button{font-size:10px}.native.mac .n-journey-labels{font-size:9px}.native.mac .n-search input{font-size:13px}.native.mac .n-search button{padding:0 13px}.native.mac .mac-workspace.has-sheet{padding:5px}.native.mac .n-win-message{gap:7px}.native.mac .n-trade-win>div>b{font-size:19px}.native.mac .n-win-trade-values strong{font-size:12px}.native.mac .n-stats strong{font-size:15px}.native.mac .n-stats small{font-size:9px}}
 
 .membership{display:block;text-align:center}.membership>div{max-width:720px;margin:auto}.membership>div>p:not(.quiet){max-width:550px;margin:24px auto}
+
+/* The website shows a smaller device; opening it restores a readable workspace. */
+body:not(.preview-open)[data-platform=ios] .hero{grid-template-columns:minmax(0,1fr) 360px;gap:80px;align-items:center}
+body:not(.preview-open)[data-platform=ios] .hero-copy{padding-bottom:70px}
+body:not(.preview-open)[data-platform=ios] .preview-stage{max-width:360px}
+body:not(.preview-open)[data-platform=ios] .phone.native{width:414px;height:896px;max-width:none;zoom:.62}
+body:not(.preview-open)[data-platform=ios] .platform-description{margin-bottom:10px}
+body:not(.preview-open)[data-platform=ios] .stage-top{max-width:290px;margin:0 auto 8px}
+body:not(.preview-open)[data-platform=ios] .platform-picker{padding:4px;margin-bottom:6px}
+body:not(.preview-open)[data-platform=ios] .platform-picker button{padding:8px 13px;min-height:36px}
+body:not(.preview-open)[data-platform=ios] .preview-disclosure{margin-top:10px}
+.tour-player{padding:14px 4px 0;margin-top:6px}
+.tour-explainer{text-align:left;min-height:105px}
+.tour-status{font-size:10px;font-weight:650;color:var(--forest);letter-spacing:1px;text-transform:uppercase}
+.tour-count{font-size:11px}
+.tour-explainer h3{font-size:21px;line-height:1.2;letter-spacing:-.5px;margin:10px 0 6px;font-weight:650;color:var(--ink)}
+.tour-explainer p{font-size:14px;line-height:1.5;margin:0;color:#59665d;max-width:520px}
+.tour-controls{margin-top:10px}.tour-controls button{min-height:36px}
+.preview-open .tour-player{flex:none;padding-top:10px}
+.preview-open .tour-explainer{min-height:90px}
+.preview-open .phone.native{height:calc(100dvh - 305px)}
+.preview-open[data-platform=macos] .phone.native.mac{height:calc(100dvh - 305px)}
+.preview-open[data-platform=macos] .tour-player{padding-top:10px}
+@media(min-width:801px) and (max-height:900px){body:not(.preview-open)[data-platform=ios] .phone.native{zoom:.58}body:not(.preview-open)[data-platform=ios] .hero{margin-top:12px}}
+@media(min-width:801px) and (max-height:760px){body:not(.preview-open)[data-platform=ios] .phone.native{zoom:.54}}
+@media(max-width:1000px) and (min-width:801px){body:not(.preview-open)[data-platform=ios] .hero{gap:36px;padding:0 32px;grid-template-columns:minmax(0,1fr) 330px}}
+@media(max-width:800px){body:not(.preview-open)[data-platform=ios] .hero{grid-template-columns:1fr;gap:32px}body:not(.preview-open)[data-platform=ios] .hero-copy{padding:0}body:not(.preview-open)[data-platform=ios] .phone.native{zoom:.7}.tour-player{padding-left:6px;padding-right:6px}.tour-explainer{min-height:95px}.tour-explainer h3{font-size:20px}.preview-open .tour-player,.preview-open[data-platform=macos] .tour-player{padding:10px 16px 8px}.preview-open .tour-explainer{min-height:94px}.preview-open .tour-explainer h3{font-size:18px;margin:7px 0 5px}.preview-open .tour-explainer p{font-size:13px;line-height:1.4}.preview-open .phone.native,.preview-open[data-platform=macos] .phone.native.mac{height:auto;min-height:0}.preview-open .tour-controls{margin-top:5px}.preview-open .tour-progress{margin-top:5px}}
+@media(max-width:360px){body:not(.preview-open)[data-platform=ios] .phone.native{zoom:.62}body:not(.preview-open)[data-platform=ios] .stage-top{max-width:257px}.preview-open .tour-explainer h3{font-size:17px}.preview-open .tour-explainer p{font-size:12px}.preview-open .tour-explainer{min-height:94px}}
+
+@media(min-width:801px){
+  .preview-open[data-platform=ios] .preview-stage{display:grid;grid-template-columns:minmax(0,350px) 310px;grid-template-rows:auto minmax(0,1fr) auto;column-gap:64px;row-gap:12px;justify-content:center;align-items:center;padding:58px 32px 24px}
+  .preview-open[data-platform=ios] .platform-picker{grid-column:1/-1;grid-row:1;margin:0 auto}
+  .preview-open[data-platform=ios] .phone.native{grid-column:1;grid-row:2;justify-self:center;align-self:center;width:414px;height:896px;min-height:0;max-height:none;max-width:none;flex:none;zoom:.8;margin:0;border-radius:46px}
+  .preview-open[data-platform=ios] .preview-disclosure{grid-column:1;grid-row:3;margin:0;text-align:center;font-size:9px}
+  .preview-open[data-platform=ios] .tour-player{grid-column:2;grid-row:2;width:310px;max-width:100%;padding:0;margin:0;align-self:center}
+  .preview-open[data-platform=ios] .tour-explainer{min-height:155px}
+  .preview-open[data-platform=ios] .tour-explainer h3{font-size:30px;line-height:1.12;letter-spacing:-.9px;margin:16px 0 12px}
+  .preview-open[data-platform=ios] .tour-explainer p{font-size:16px;line-height:1.55}
+  .preview-open[data-platform=ios] .tour-controls{margin-top:22px}
+}
+@media(min-width:801px) and (max-height:900px){.preview-open[data-platform=ios] .phone.native{zoom:.72}}
+@media(min-width:801px) and (max-height:760px){.preview-open[data-platform=ios] .phone.native{zoom:.6}.preview-open[data-platform=ios] .preview-stage{padding-top:52px;row-gap:8px}}
+@media(min-width:801px) and (max-height:620px){.preview-open[data-platform=ios] .phone.native{zoom:.46}.preview-open[data-platform=ios] .preview-stage{padding-bottom:12px}}

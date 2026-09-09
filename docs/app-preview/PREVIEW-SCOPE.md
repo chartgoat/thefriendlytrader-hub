@@ -46,7 +46,7 @@ Stop Finder creates a new prospective plan from the current sample quote. Its le
 
 ## Interaction and boundaries
 
-The 16-chapter guided tour can be paused, scrubbed and taken over at any point. Resuming restores its screen and chart position while retaining visitor profile, watchlist, drafts, saved messages and Wins changes. All 14 main destinations are independently accessible.
+The 16-chapter guided tour uses plain-language explanations and 7.5 seconds per chapter. It can be paused, scrubbed and taken over at any point. On desktop, the iOS walkthrough places the explanation beside a proportionally scaled phone; mobile and Mac keep readable captions beneath the preview. The website phone is smaller, with further reductions on shorter desktop screens, while opening the preview restores its interactive workspace. Resuming restores its screen and chart position while retaining visitor profile, watchlist, drafts, saved messages and Wins changes. All 14 main destinations are independently accessible.
 
 No live API, AI service, notification request, camera upload, membership mutation, trading action or real community post occurs in the preview. State remains in tab memory and resets on reload. Pip answers are prewritten. The lesson is an illustrative slideshow. Membership/TestFlight links remain explicit external destinations. The page states that public beta enrollment was closed when checked September 8, 2026.
 

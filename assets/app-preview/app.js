@@ -5,6 +5,7 @@ import {
   NAMES,
   BASE,
   TOUR,
+  TOUR_STEP_MS,
   tourPosition,
   restoreTour,
   escapeHTML as esc,
@@ -28,7 +29,7 @@ const tour = {
   playing: false,
   index: 0,
   snapshot: null,
-  remaining: 5500,
+  remaining: TOUR_STEP_MS,
   started: 0,
   timer: null,
   hasStarted: false,
@@ -51,11 +52,11 @@ function tickProgress() {
     const elapsed = tour.playing
       ? Math.min(tour.remaining, performance.now() - tour.started)
       : 0;
-    const within = 5500 - tour.remaining + elapsed;
+    const within = TOUR_STEP_MS - tour.remaining + elapsed;
     const fill = player.querySelector(".tour-progress>span");
     if (fill)
       fill.style.width =
-        ((tour.index * 5500 + within) / (TOUR.length * 5500)) * 100 + "%";
+        ((tour.index * TOUR_STEP_MS + within) / (TOUR.length * TOUR_STEP_MS)) * 100 + "%";
     if (tour.playing) progressFrame = requestAnimationFrame(update);
   };
   update();
@@ -140,7 +141,8 @@ function back() {
 }
 function renderPlayer() {
   const step = TOUR[tour.index];
-  player.innerHTML = `<div class="tour-heading"><p class="tour-caption"><strong>${tour.hasStarted ? (tour.playing ? "" : tour.completed ? "Complete · " : "Paused · ") + step.title : "Take a look around"}</strong></p><span class="tour-count">${tour.index + 1}/${TOUR.length}</span></div><div class="tour-controls"><button class="tour-toggle" data-tour="toggle" aria-label="${tour.playing ? "Pause tour" : tour.hasStarted && !tour.completed ? "Resume tour" : "Play tour"}">${icon(tour.playing ? "pause" : "play")}</button><button data-tour="previous" aria-label="Previous tour chapter" ${tour.index === 0 ? "disabled" : ""}>${icon("back")}</button><input type="range" aria-label="Tour chapter" min="0" max="${TOUR.length - 1}" value="${tour.index}" step="1"><button data-tour="next" aria-label="Next tour chapter" ${tour.index === TOUR.length - 1 ? "disabled" : ""}>${icon("next")}</button><button class="replay" data-tour="restart" aria-label="Restart tour">↺</button></div><div class="tour-progress" aria-hidden="true"><span></span></div><p class="tour-hint">${tour.hasStarted ? step.text : "Play the tour. Tap inside the app to take over."}</p>`;
+  const status = !tour.hasStarted ? "Quick walkthrough" : tour.playing ? "Walkthrough" : tour.completed ? "All done" : "Paused";
+  player.innerHTML = `<div class="tour-explainer" aria-live="polite" aria-atomic="true"><div class="tour-heading"><span class="tour-status">${status}</span><span class="tour-count">${tour.index + 1} / ${TOUR.length}</span></div><h3>${tour.hasStarted ? step.title : "See how it works."}</h3><p>${tour.hasStarted ? step.text : "A quick look around. Pause anytime to try it yourself."}</p></div><div class="tour-controls"><button class="tour-toggle" data-tour="toggle" aria-label="${tour.playing ? "Pause tour" : tour.hasStarted && !tour.completed ? "Resume tour" : "Play tour"}">${icon(tour.playing ? "pause" : "play")}</button><button data-tour="previous" aria-label="Previous tour chapter" ${tour.index === 0 ? "disabled" : ""}>${icon("back")}</button><input type="range" aria-label="Tour chapter" aria-valuetext="${tour.index + 1} of ${TOUR.length}: ${step.title}" min="0" max="${TOUR.length - 1}" value="${tour.index}" step="1"><button data-tour="next" aria-label="Next tour chapter" ${tour.index === TOUR.length - 1 ? "disabled" : ""}>${icon("next")}</button><button class="replay" data-tour="restart" aria-label="Restart tour">↺</button></div><div class="tour-progress" aria-hidden="true"><span></span></div>`;
 }
 function loadStep(index, keepPlayer = false) {
   tour.index = Math.max(0, Math.min(TOUR.length - 1, index));
@@ -166,7 +168,7 @@ function loadStep(index, keepPlayer = false) {
   });
   if (step.screen === "assistant") state.assistantContext = "stops";
   history = [];
-  tour.remaining = 5500;
+  tour.remaining = TOUR_STEP_MS;
   tour.snapshot = tourPosition(state);
   tour.hasStarted = true;
   render();
@@ -674,7 +676,7 @@ root.addEventListener("click", (event) => {
         playing: false,
         index: 0,
         snapshot: null,
-        remaining: 5500,
+        remaining: TOUR_STEP_MS,
         hasStarted: false,
         completed: false,
       });
@@ -822,17 +824,18 @@ player.addEventListener("input", (e) => {
     tour.completed = false;
     loadStep(Number(e.target.value), true);
     const step = TOUR[tour.index];
-    player.querySelector(".tour-caption").innerHTML =
-      `<strong>Paused · ${step.title}</strong>`;
+    player.querySelector(".tour-status").textContent = "Paused";
+    player.querySelector(".tour-explainer h3").textContent = step.title;
+    player.querySelector(".tour-explainer p").textContent = step.text;
+    e.target.setAttribute("aria-valuetext", `${tour.index + 1} of ${TOUR.length}: ${step.title}`);
     const toggle = player.querySelector(".tour-toggle");
     toggle.setAttribute("aria-label", "Resume tour");
     toggle.innerHTML = icon("play");
     player.querySelector(".tour-count").textContent =
-      `${tour.index + 1}/${TOUR.length}`;
+      `${tour.index + 1} / ${TOUR.length}`;
     player.querySelector('[data-tour="previous"]').disabled = tour.index === 0;
     player.querySelector('[data-tour="next"]').disabled =
       tour.index === TOUR.length - 1;
-    player.querySelector(".tour-hint").textContent = step.text;
     tickProgress();
   }
 });
@@ -873,7 +876,7 @@ document.addEventListener("click", (e) => {
       break;
     case "tour":
       play();
-      bringPreview();
+      fullscreen(true);
       break;
     case "fullscreen":
       fullscreen();

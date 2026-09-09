@@ -5,8 +5,8 @@ Verified September 8, 2026 (Hawaii time).
 ## Deployment
 
 - Review: https://friendly-trader-app-preview.vercel.app/
-- Final deployment: `dpl_HfLnhfi3VLga3jotsfBLhJB5jWoB`
-- Immutable URL: https://friendly-trader-app-preview-g26m18fvr-clancy-bonds-projects.vercel.app
+- Final deployment: `dpl_32MoQh7kt2CQ7yVR4uiJ9P24zXyi`
+- Immutable URL: https://friendly-trader-app-preview-1osegpmhc-clancy-bonds-projects.vercel.app
 - Status: READY, production target of the isolated `friendly-trader-app-preview` Vercel project in `clancy-bonds-projects`.
 - The existing `thefriendlytrader.com` site was not deployed by this work.
 - Only index.html, app-preview assets and the explicit review routing configuration were staged. No repository metadata, tests, source docs, native source or unrelated files were uploaded.
@@ -17,6 +17,15 @@ Verified September 8, 2026 (Hawaii time).
 `npm test`: 14 passing groups. JS syntax and `git diff --check` pass.
 
 Coverage includes repeatable candles, OHLC bounds/continuity/current-quote parity, both stop directions and sizing modes, whole-share risk rounding, tour restore while preserving user changes, all 14 roots and 16 chapters, principal detail/empty states, HTML escaping, service-call/storage prohibition, action wiring, exact price extrema and recorded target outcomes, pattern direction/failed-state consistency, calculated sample Wins, and all four reachable native quiz outcomes without routing cycles.
+
+## Compact phone and simple walkthrough
+
+- The inline desktop phone scales from the same native proportions: 257×556 at 1440×1000, compared with the prior 414×896. Shorter desktop viewports scale it further. Inline mobile previews remain compact, and expanded mobile app content stays unscaled.
+- All 16 explanations in both platforms passed checks at 1440×1000, 402×874 and 320×568 (96 observations): captions and controls visible, no horizontal app-content overflow, and range focus retained. Each viewport/platform combination traversed chapters 1–16. See `walkthrough-browser-checks.json`.
+- Watch the tour now opens the expanded walkthrough. Desktop iOS places plain-language explanation beside the device; other layouts show it below. Mobile no longer hides the explanation. Each chapter runs for 7.5 seconds, and the progress bar uses the same duration.
+- At 1280×720 the expanded iOS phone measured 248×538 with the explanation beside it. Zooming took over the tour at 36 bars; resume restored the chapter at 42 bars. Previous/next/range captions update with the corresponding chapter, and scrubbing retains keyboard focus.
+- The 14 automated test groups and JS syntax/diff checks pass. The final hosted version repeated all 16 steps in both platforms at 402×874 (32 observations, all captions and controls visible). The hosted inline phone matched 257×556 at 1440×1000, and all 21 public files matched source hashes. No browser warnings or errors appeared in the tested local or hosted flows. See `walkthrough-hosted-checks.json`.
+- Current visual references: `compact-phone.png`, `walkthrough-desktop.png`, `walkthrough-mobile.png`.
 
 ## iOS/macOS platform verification
 

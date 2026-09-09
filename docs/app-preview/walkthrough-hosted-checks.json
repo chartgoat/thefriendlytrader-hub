@@ -1,0 +1,290 @@
+[
+  {
+    "copy": "Your tools, calendar and community are all one tap away.",
+    "height": 1000,
+    "platform": "ios",
+    "step": "1 / 16",
+    "title": "Start here.",
+    "visible": true,
+    "width": 1440
+  },
+  {
+    "copy": "See the day’s market updates in one place.",
+    "height": 1000,
+    "platform": "ios",
+    "step": "2 / 16",
+    "title": "Catch up in a glance.",
+    "visible": true,
+    "width": 1440
+  },
+  {
+    "copy": "See possible trades and whether they are ready, waiting or finished.",
+    "height": 1000,
+    "platform": "ios",
+    "step": "3 / 16",
+    "title": "Find a trade idea.",
+    "visible": true,
+    "width": 1440
+  },
+  {
+    "copy": "Entry: where you start. Stop: where you plan to exit. Targets: your profit goals.",
+    "height": 1000,
+    "platform": "ios",
+    "step": "4 / 16",
+    "title": "See the plan.",
+    "visible": true,
+    "width": 1440
+  },
+  {
+    "copy": "Choose an amount to risk. See a sample trade size and exit price.",
+    "height": 1000,
+    "platform": "ios",
+    "step": "5 / 16",
+    "title": "Know your risk first.",
+    "visible": true,
+    "width": 1440
+  },
+  {
+    "copy": "See whether a stock is gaining or losing strength.",
+    "height": 1000,
+    "platform": "ios",
+    "step": "6 / 16",
+    "title": "Read the direction.",
+    "visible": true,
+    "width": 1440
+  },
+  {
+    "copy": "Patterns point out shapes in a chart that may be worth a closer look.",
+    "height": 1000,
+    "platform": "ios",
+    "step": "7 / 16",
+    "title": "Spot a familiar shape.",
+    "visible": true,
+    "width": 1440
+  },
+  {
+    "copy": "Each candle shows a price move. Zoom in or drag to look back.",
+    "height": 1000,
+    "platform": "ios",
+    "step": "8 / 16",
+    "title": "Take a closer look.",
+    "visible": true,
+    "width": 1440
+  },
+  {
+    "copy": "Find stocks making bigger moves, then tap one to learn more.",
+    "height": 1000,
+    "platform": "ios",
+    "step": "9 / 16",
+    "title": "See what’s moving.",
+    "visible": true,
+    "width": 1440
+  },
+  {
+    "copy": "Check when a company shares its results. These days can move its stock.",
+    "height": 1000,
+    "platform": "ios",
+    "step": "10 / 16",
+    "title": "Know when companies report.",
+    "visible": true,
+    "width": 1440
+  },
+  {
+    "copy": "See upcoming reports on jobs, prices and interest rates.",
+    "height": 1000,
+    "platform": "ios",
+    "step": "11 / 16",
+    "title": "Keep an eye on big events.",
+    "visible": true,
+    "width": 1440
+  },
+  {
+    "copy": "Find a live session and set a reminder for it.",
+    "height": 1000,
+    "platform": "ios",
+    "step": "12 / 16",
+    "title": "Learn with others.",
+    "visible": true,
+    "width": 1440
+  },
+  {
+    "copy": "Share a trade, a lesson or a day you followed your plan.",
+    "height": 1000,
+    "platform": "ios",
+    "step": "13 / 16",
+    "title": "Celebrate your progress.",
+    "visible": true,
+    "width": 1440
+  },
+  {
+    "copy": "Pip explains what you’re looking at in plain language.",
+    "height": 1000,
+    "platform": "ios",
+    "step": "14 / 16",
+    "title": "Need a hand? Ask Pip.",
+    "visible": true,
+    "width": 1440
+  },
+  {
+    "copy": "Change your name, choose light or dark, and set your preferences.",
+    "height": 1000,
+    "platform": "ios",
+    "step": "15 / 16",
+    "title": "Make yourself at home.",
+    "visible": true,
+    "width": 1440
+  },
+  {
+    "copy": "Tap anything to explore. Every number and trade here is a sample.",
+    "height": 1000,
+    "platform": "ios",
+    "step": "16 / 16",
+    "title": "Now it’s your turn.",
+    "visible": true,
+    "width": 1440
+  },
+  {
+    "copy": "Your tools, calendar and community are all one tap away.",
+    "height": 1000,
+    "platform": "macos",
+    "step": "1 / 16",
+    "title": "Start here.",
+    "visible": true,
+    "width": 1440
+  },
+  {
+    "copy": "See the day’s market updates in one place.",
+    "height": 1000,
+    "platform": "macos",
+    "step": "2 / 16",
+    "title": "Catch up in a glance.",
+    "visible": true,
+    "width": 1440
+  },
+  {
+    "copy": "See possible trades and whether they are ready, waiting or finished.",
+    "height": 1000,
+    "platform": "macos",
+    "step": "3 / 16",
+    "title": "Find a trade idea.",
+    "visible": true,
+    "width": 1440
+  },
+  {
+    "copy": "Entry: where you start. Stop: where you plan to exit. Targets: your profit goals.",
+    "height": 1000,
+    "platform": "macos",
+    "step": "4 / 16",
+    "title": "See the plan.",
+    "visible": true,
+    "width": 1440
+  },
+  {
+    "copy": "Choose an amount to risk. See a sample trade size and exit price.",
+    "height": 1000,
+    "platform": "macos",
+    "step": "5 / 16",
+    "title": "Know your risk first.",
+    "visible": true,
+    "width": 1440
+  },
+  {
+    "copy": "See whether a stock is gaining or losing strength.",
+    "height": 1000,
+    "platform": "macos",
+    "step": "6 / 16",
+    "title": "Read the direction.",
+    "visible": true,
+    "width": 1440
+  },
+  {
+    "copy": "Patterns point out shapes in a chart that may be worth a closer look.",
+    "height": 1000,
+    "platform": "macos",
+    "step": "7 / 16",
+    "title": "Spot a familiar shape.",
+    "visible": true,
+    "width": 1440
+  },
+  {
+    "copy": "Each candle shows a price move. Zoom in or drag to look back.",
+    "height": 1000,
+    "platform": "macos",
+    "step": "8 / 16",
+    "title": "Take a closer look.",
+    "visible": true,
+    "width": 1440
+  },
+  {
+    "copy": "Find stocks making bigger moves, then tap one to learn more.",
+    "height": 1000,
+    "platform": "macos",
+    "step": "9 / 16",
+    "title": "See what’s moving.",
+    "visible": true,
+    "width": 1440
+  },
+  {
+    "copy": "Check when a company shares its results. These days can move its stock.",
+    "height": 1000,
+    "platform": "macos",
+    "step": "10 / 16",
+    "title": "Know when companies report.",
+    "visible": true,
+    "width": 1440
+  },
+  {
+    "copy": "See upcoming reports on jobs, prices and interest rates.",
+    "height": 1000,
+    "platform": "macos",
+    "step": "11 / 16",
+    "title": "Keep an eye on big events.",
+    "visible": true,
+    "width": 1440
+  },
+  {
+    "copy": "Find a live session and set a reminder for it.",
+    "height": 1000,
+    "platform": "macos",
+    "step": "12 / 16",
+    "title": "Learn with others.",
+    "visible": true,
+    "width": 1440
+  },
+  {
+    "copy": "Share a trade, a lesson or a day you followed your plan.",
+    "height": 1000,
+    "platform": "macos",
+    "step": "13 / 16",
+    "title": "Celebrate your progress.",
+    "visible": true,
+    "width": 1440
+  },
+  {
+    "copy": "Pip explains what you’re looking at in plain language.",
+    "height": 1000,
+    "platform": "macos",
+    "step": "14 / 16",
+    "title": "Need a hand? Ask Pip.",
+    "visible": true,
+    "width": 1440
+  },
+  {
+    "copy": "Change your name, choose light or dark, and set your preferences.",
+    "height": 1000,
+    "platform": "macos",
+    "step": "15 / 16",
+    "title": "Make yourself at home.",
+    "visible": true,
+    "width": 1440
+  },
+  {
+    "copy": "Tap anything to explore. Every number and trade here is a sample.",
+    "height": 1000,
+    "platform": "macos",
+    "step": "16 / 16",
+    "title": "Now it’s your turn.",
+    "visible": true,
+    "width": 1440
+  }
+]

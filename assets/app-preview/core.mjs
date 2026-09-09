@@ -156,91 +156,24 @@ export function createState() {
     persona: null,
   };
 }
+export const TOUR_STEP_MS = 7500;
 export const TOUR = [
-  {
-    screen: "home",
-    title: "Make yourself at home",
-    text: "Five trading tools, your calendars and your community. Tap anything to take over.",
-  },
-  {
-    screen: "stream",
-    title: "Catch up with Today",
-    text: "Pip brings the day’s market moments into one easy-to-follow stream.",
-  },
-  {
-    screen: "aplus",
-    title: "Find a setup",
-    text: "A+ Scalps puts the levels and their current state together. These are simulated examples.",
-  },
-  {
-    screen: "aplus",
-    detail: "setup",
-    title: "Look inside the plan",
-    text: "Open the chart, inspect the candles and choose the scenario you want to watch.",
-  },
-  {
-    screen: "stops",
-    title: "Plan the exit",
-    text: "Switch long or short, explore the stop and targets, and size a sample position.",
-  },
-  {
-    screen: "macd",
-    title: "Read the momentum",
-    text: "Explore the board, change the timeframe and save a ticker to your watchlist.",
-  },
-  {
-    screen: "patterns",
-    title: "See what is forming",
-    text: "Browse forming, confirmed and failed examples, then open a pattern’s chart.",
-  },
-  {
-    screen: "patterns",
-    detail: "pattern",
-    title: "Understand the structure",
-    text: "Pan and zoom the candles. The chart and its explanation stay together.",
-  },
-  {
-    screen: "screener",
-    title: "Explore the movers",
-    text: "Open a board, sort its sample stocks and take a closer look at a ticker.",
-  },
-  {
-    screen: "earnings",
-    title: "Know what is ahead",
-    text: "Browse the week’s sample earnings and open an event for the details.",
-  },
-  {
-    screen: "economy",
-    title: "See the bigger picture",
-    text: "Economic releases sit in their own calendar, with the terms explained simply.",
-  },
-  {
-    screen: "live",
-    title: "Make time to learn",
-    text: "Browse sessions and save a demo reminder. Nothing leaves this preview.",
-  },
-  {
-    screen: "chat",
-    title: "Find your community",
-    detail: "room",
-    room: "Wins",
-    text: "Explore rooms, open threads and write a demo message. Every person here is fictional.",
-  },
-  {
-    screen: "assistant",
-    title: "Ask Pip",
-    text: "Try a suggested question for a contextual explanation. Demo answers are prewritten.",
-  },
-  {
-    screen: "profile",
-    title: "Make it yours",
-    text: "Try dark mode, edit your demo profile and choose your quick-menu shortcuts.",
-  },
-  {
-    screen: "home",
-    title: "Your turn",
-    text: "You have the whole preview. Explore any screen, replay the tour or check iPhone access.",
-  },
+  {screen: "home", title: "Start here.", text: "Your tools, calendar and community are all one tap away."},
+  {screen: "stream", title: "Catch up in a glance.", text: "See the day’s market updates in one place."},
+  {screen: "aplus", title: "Find a trade idea.", text: "See possible trades and whether they are ready, waiting or finished."},
+  {screen: "aplus", detail: "setup", title: "See the plan.", text: "Entry: where you start. Stop: where you plan to exit. Targets: your profit goals."},
+  {screen: "stops", title: "Know your risk first.", text: "Choose an amount to risk. See a sample trade size and exit price."},
+  {screen: "macd", title: "Read the direction.", text: "See whether a stock is gaining or losing strength."},
+  {screen: "patterns", title: "Spot a familiar shape.", text: "Patterns point out shapes in a chart that may be worth a closer look."},
+  {screen: "patterns", detail: "pattern", title: "Take a closer look.", text: "Each candle shows a price move. Zoom in or drag to look back."},
+  {screen: "screener", title: "See what’s moving.", text: "Find stocks making bigger moves, then tap one to learn more."},
+  {screen: "earnings", title: "Know when companies report.", text: "Check when a company shares its results. These days can move its stock."},
+  {screen: "economy", title: "Keep an eye on big events.", text: "See upcoming reports on jobs, prices and interest rates."},
+  {screen: "live", title: "Learn with others.", text: "Find a live session and set a reminder for it."},
+  {screen: "chat", detail: "room", room: "Wins", title: "Celebrate your progress.", text: "Share a trade, a lesson or a day you followed your plan."},
+  {screen: "assistant", title: "Need a hand? Ask Pip.", text: "Pip explains what you’re looking at in plain language."},
+  {screen: "profile", title: "Make yourself at home.", text: "Change your name, choose light or dark, and set your preferences."},
+  {screen: "home", title: "Now it’s your turn.", text: "Tap anything to explore. Every number and trade here is a sample."},
 ];
 export function tourPosition(state) {
   return Object.fromEntries(

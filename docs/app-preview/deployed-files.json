@@ -1,7 +1,7 @@
 {
-  "deployment": "dpl_HfLnhfi3VLga3jotsfBLhJB5jWoB",
+  "deployment": "dpl_32MoQh7kt2CQ7yVR4uiJ9P24zXyi",
   "url": "https://friendly-trader-app-preview.vercel.app/",
-  "checked_utc": "2026-09-09T06:44:02.090707+00:00",
+  "checked_utc": "2026-09-09T09:42:54.658181+00:00",
   "files": [
     {
       "file": "index.html",
@@ -20,9 +20,9 @@
     {
       "file": "assets/app-preview/platform.css",
       "status": 200,
-      "sha256": "8e4236b1bc0e8f6e39d7ed1fb73cd3f0bf4288c74aaba8c7914a040c61778dbb",
+      "sha256": "123ec731b80a090c0aca65911aeab68d3a9954c184098619a0a4ce0980815b18",
       "matches_source": true,
-      "bytes": 22047
+      "bytes": 27023
     },
     {
       "file": "assets/app-preview/ui.mjs",
@@ -34,9 +34,9 @@
     {
       "file": "assets/app-preview/core.mjs",
       "status": 200,
-      "sha256": "eb359572330573c5534b7c5c8378f3b5c3959fe186e2f0699d9d3d33dd187def",
+      "sha256": "fccbb885827d25aac0dc2382e90ae1df5605961cd462b08c5ad6a9c8c5638e4b",
       "matches_source": true,
-      "bytes": 10267
+      "bytes": 9798
     },
     {
       "file": "assets/app-preview/app-icon.png",
@@ -76,9 +76,9 @@
     {
       "file": "assets/app-preview/app.js",
       "status": 200,
-      "sha256": "39f4893ef89231b1f2d7b73bd1ad7490081da4fa9b07c9135358852d606b65bb",
+      "sha256": "7a72326037f7175e6e8fc8b741aac43486c2c31e4c109795afb26eee02ac68b0",
       "matches_source": true,
-      "bytes": 34965
+      "bytes": 35367
     },
     {
       "file": "assets/app-preview/platform.mjs",
