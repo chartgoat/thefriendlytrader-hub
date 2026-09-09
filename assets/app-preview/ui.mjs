@@ -97,18 +97,18 @@ export const fixtures = {
       text: "The example has closed above the flag. Confirmation describes the structure, not a guaranteed outcome.",
     },
     {
-      symbol: "TSLA",
-      name: "Double top",
+      symbol: "GOOGL",
+      name: "Bull flag",
       status: "Failed",
-      bias: "Bearish",
-      text: "Price moved back above the example’s invalidation level. A failed idea is part of the story.",
+      bias: "Bullish",
+      text: "Price closed below the example’s invalidation level. A failed idea is part of the story.",
     },
     {
       symbol: "MSFT",
-      name: "Bullish engulfing",
+      name: "Bearish engulfing",
       status: "Confirmed",
-      bias: "Bullish",
-      text: "The green candle’s body covers the prior red body in this illustrative example.",
+      bias: "Bearish",
+      text: "The red candle’s body covers the prior green body in this illustrative example.",
     },
     {
       symbol: "META",
@@ -116,6 +116,10 @@ export const fixtures = {
       status: "Forming",
       bias: "Bullish",
       text: "Price is testing support. A bounce has not yet been confirmed.",
+    },
+    {
+      symbol: "TSLA", name: "Resistance breakout", status: "Confirmed", bias: "Bullish",
+      text: "The example has closed above resistance. Its first target was reached before price pulled back.",
     },
   ],
   events: [
@@ -500,7 +504,7 @@ function live(s) {
     .join("")}`;
 }
 export function messageHTML(m, s, thread = false) {
-  return `<article class="message"><button class="avatar" data-action="member" data-name="${esc(m.name)}" aria-label="View ${esc(m.name)} demo profile">${esc(m.avatar)}</button><div class="message-body"><div class="message-meta"><strong>${esc(m.name)}</strong><time>${m.time}</time></div><p>${esc(m.text)}</p><div class="message-actions">${btn(`${s.reactions.includes(m.id) ? "♥ 1" : "♡"}`, "reaction", `data-id="${m.id}" aria-label="React to message by ${esc(m.name)}" aria-pressed="${s.reactions.includes(m.id)}"`, "")}${thread ? "" : btn(`${(m.replies || 0) + s.messages.filter((x) => x.parent === m.id).length} replies`, "thread", `data-id="${m.id}"`, "")}${m.id === "m4" ? btn("Open setup", "alert-setup", "", "") : ""}</div></div></article>`;
+  return `<article class="message"><button class="avatar" data-action="member" data-name="${esc(m.name)}" aria-label="View ${esc(m.name)} demo profile">${esc(m.avatar)}</button><div class="message-body"><div class="message-meta"><strong>${esc(m.name)}</strong><time>${m.time}</time></div><p>${esc(m.text)}</p><div class="message-actions">${btn(`${s.reactions.includes(m.id) ? "♥ 1" : "♡"}`, "reaction", `data-id="${m.id}" aria-label="React to message by ${esc(m.name)}" aria-pressed="${s.reactions.includes(m.id)}"`, "")}${btn(s.savedMessages?.includes(m.id)?"Saved ✓":"Save","save-message",`data-id="${m.id}" aria-pressed="${s.savedMessages?.includes(m.id)||false}"`,"")}${thread ? "" : btn(`${(m.replies || 0) + s.messages.filter((x) => x.parent === m.id).length} replies`, "thread", `data-id="${m.id}"`, "")}${m.id === "m4" ? btn("Open setup", "alert-setup", "", "") : ""}</div></div></article>`;
 }
 function chat(s) {
   if (s.detail === "member")

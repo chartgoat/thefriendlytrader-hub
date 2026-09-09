@@ -1,64 +1,47 @@
-# App preview validation
+# Native app preview validation
 
 Verified September 8, 2026 (Hawaii time).
 
-## Review deployment
+## Deployment
 
-- URL: https://friendly-trader-app-preview.vercel.app/
-- Deployment: dpl_9fYozcNB2ZjH8GVoA9cLFfAjtF88
-- Isolated Vercel project: friendly-trader-app-preview, clancy-bonds-projects
-- Status: READY
-- Vercel target: production for the independent review project. This does not publish to thefriendlytrader.com or alter its GitHub Pages deployment.
-- Only the homepage, its app-preview assets and review routing configuration were uploaded. Source docs, tests, repository metadata and unrelated files were excluded.
-- Six served HTML/JS/CSS files returned HTTP 200 and matched the local source byte-for-byte. Evidence: deployed-files.json.
-
-## Clean layout revision
-
-The hosted review now uses a quieter app-first layout: native-sized phone without CSS zoom, six app shortcuts, contextual Pip in the header, profile editing in a disclosure, simpler chart labels, compact playback and a three-group directory. All fourteen destinations remain accessible.
-
-This revision was checked in the browser at 1440×1000, 375×812 and 320×568. All fourteen app destinations had equal content/client widths at both mobile sizes (no horizontal content overflow). At 320×568, Close preview remained within x=209–308 and y=8–38; the app navigation remained within x=5–315 and y=394–456. The mobile preview fills the viewport without a nested decorative phone border.
-
-Verified profile editing and dark appearance, continuous keyboard tour scrubbing with slider focus retained, chart-interaction takeover, navigation into Pip, and resume to the original chapter and chart viewport with profile appearance retained. Stop Finder Short selection, zoom from 42 to 36 bars and pan to Earlier worked. The hosted revision also passed fullscreen entry, six-shortcut navigation, manual takeover and resume back to Home. No warning/error logs appeared locally or on the hosted revision. Eight automated groups, syntax checks and diff whitespace checks passed again after the final code changes.
-
-Current screenshots: desktop.png, mobile.png, mobile-chart.png. The checks below also describe the broader initial implementation regression coverage; the clean revision changes presentation and preserves those workflows.
+- Review: https://friendly-trader-app-preview.vercel.app/
+- Final deployment: `dpl_2vXK1NDfnbGNdp5qwgka4E7VW2ho`
+- Immutable URL: https://friendly-trader-app-preview-9xdaumq26-clancy-bonds-projects.vercel.app
+- Status: READY, production target of the isolated `friendly-trader-app-preview` Vercel project in `clancy-bonds-projects`.
+- The existing `thefriendlytrader.com` site was not deployed by this work.
+- Only index.html, app-preview assets and the explicit review routing configuration were staged. No repository metadata, tests, source docs, native source or unrelated files were uploaded.
+- All 19 public content files, including 8 original animation videos, returned HTTP 200 and matched local source SHA-256 hashes. See `deployed-files.json`.
 
 ## Automated checks
 
-`npm test`: 8 passing test groups covering:
+`npm test`: 11 passing groups. JS syntax and `git diff --check` pass.
 
-1. 8 tickers across 4 candle sizes: repeatable candles, high/low bounds, positive prices, candle-to-candle continuity and final-price parity with the cards.
-2. Long and short stops/targets in both modes, risk distances and whole-share risk rounding.
-3. Resume restores the tour's screen, ticker and viewport while retaining visitor profile, watchlist and message changes.
-4. All 14 main destinations and all 16 tour chapters render.
-5. 16 detail combinations, missing calendar events, missing search results and onboarding outcomes render.
-6. Escaping of visitor input in chat, profile, Home and Pip.
-7. No API calls, browser storage, push permission requests or live side effects. CSP prohibits connections and native form navigation.
-8. Declared action handlers and fixture-room coverage.
+Coverage includes repeatable candles, OHLC bounds/continuity/current-quote parity, both stop directions and sizing modes, whole-share risk rounding, tour restore while preserving user changes, all 14 roots and 16 chapters, principal detail/empty states, HTML escaping, service-call/storage prohibition, action wiring, exact price extrema and recorded target outcomes, pattern direction/failed-state consistency, calculated sample Wins, and all four reachable native quiz outcomes without routing cycles.
 
-JS syntax checks and `git diff --check` passed.
+## Browser verification
 
-## Browser checks
+- All 14 roots were opened at 402×874 and 320×568 locally. Content scroll width equaled client width on every root; page width stayed within the viewport. Close preview remained within the viewport. `native-browser-checks.json` records all 28 observations.
+- All 14 roots were reopened on the final hosted deployment at 402×874. No missing/NaN content or horizontal content overflow was observed. See `native-hosted-checks.json`.
+- Visual checks cover Home, MACD, A+ detail, Stop Finder, Wins, dark appearance and native sheet navigation. Home scrolls on shorter viewports while the quick menu remains fixed.
+- The native bull/bear animations loaded with readyState 4, no media errors, and playing status. Both light and dark assets are included. Reduced-motion code pauses the videos; OS reduced-motion/device testing was not performed.
+- A+ detail: 1M/2M/5M controls, target progression, entry/stop/three plotted targets, zoom and plan handoff.
+- Tour: keyboard scrubbing retained range focus; chapter 4 opened the 1M A+ detail. Playing then zooming took over and paused at 36 bars. After exploring Stop Finder/Short, Resume returned to the original A+ detail at 42 bars. Closing an independently opened tour detail returns to its tool root.
+- Stop Finder: Long/Short, chart zoom, pointer tap on the stop line and keyboard Enter on the first-target line opened the correct explanation. Transparent level hit areas avoid requiring a pixel-perfect tap on a one-pixel line.
+- Wins: simulated trade card submission, calculated result, milestones and community room navigation. On the hosted version, 100 NVDA shares from $181.20 to $188.10 displayed +$690.00. Saving a Trading Floor message made it appear in Saved messages. Initial cards contain $900, $960 and $720 simulated examples alongside discipline/learning wins.
+- Profile: saved display name, dark appearance, shortcut editing and enforcement of at least three shortcuts. Native onboarding question/answer flow reached The Market Newbie and its Patterns destination.
+- No warning/error logs were captured during the tested local or hosted flows.
 
-The following were exercised through the Codex browser on the served site:
+## Screenshots
 
-- All 14 main destinations locally and on the deployed URL.
-- A+ board → NVDA detail → save watch → Stop Finder → Short → zoom/pan → save plan → share to demo Trading Floor.
-- Tour play, automatic progress through all 16 chapters to completion, pause on chart interaction, manual navigation, and resume to the saved A+ detail and chart viewport. Dark appearance survives resume.
-- Continuous keyboard scrubbing leaves focus on the range input and moves to the selected chapter. Manual next/previous navigation also exercised.
-- Profile name, dark mode and notification preference changes.
-- Onboarding → risk preference → Stop Finder recommendation.
-- Unsupported ticker input produces an explicit sample-ticker message.
-- Demo chat draft survives navigation; sending preserves input as text; thread reply remains in the correct thread and increments its count.
-- Expanded chart navigation.
-- 375×812 mobile fullscreen: no page overflow, Close preview bottom 805px within 812px viewport.
-- 320×568 mobile fullscreen: page width 320px; app content scroll width equals client width (301px); Close preview bottom 561px within 568px viewport. App quick menu remains reachable.
-- Default desktop layout and fullscreen entry/exit. Temporary viewport overrides reset after testing.
-- No captured browser error or warning logs in the tested local and hosted flows.
+- `native-desktop.png`: website hero, 1440×1100.
+- `native-home.png`: Home in desktop expanded preview.
+- `native-macd.png`: current Morning Play/Freshest Signal board.
+- `native-plan.png`: A+ detail and chart.
+- `native-wins.png`: Wins, 402×874.
+- `native-economy.png`: Economy calendar, 402×874.
 
-Screenshots: desktop.png and mobile.png.
+Older `desktop.png`, `mobile.png`, and `mobile-chart.png` show the superseded design and are retained as earlier evidence, not acceptance references.
 
-## Deliberate preview boundaries
+## Limits
 
-This is a browser recreation of the app's main surfaces, not the native SwiftUI binary. Eight sample tickers, fictional people/events and synthetic candles keep the experience deterministic. Pattern names illustrate the interface and do not certify the generated candles as production detector output. Pip has contextual prewritten responses. The session preview is a short interactive lesson, not a live broadcast. Browser gestures were implemented; native-device Safari pinch and screen-reader testing were not performed in this pass.
-
-Profile choices, saved plans, alerts, drafts and posts remain in tab memory and reset on reload. No camera, photo uploads, real membership changes, live notifications, order placement or production community posting occur. iPhone public-beta enrollment was independently checked and closed to new testers; the page states this instead of advertising an available App Store download.
+This is a browser reconstruction informed by current native source and local reference screenshots, not an embedded native app. No simulator or native source was changed for this work. Browser UI checks do not establish real-device Safari pinch, VoiceOver or maximum Dynamic Type acceptance. Synthetic chart shapes are not production pattern-detector output; confirmation-time copy is not a historical bar timeline. Secondary OS/account behaviors, photos, AI responses and live sessions remain explicit simulations. No simulator was booted, so none required cleanup.

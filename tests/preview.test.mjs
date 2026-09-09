@@ -3,6 +3,10 @@ import assert from "node:assert/strict";
 import fs from "node:fs";
 import {
   candles,
+  storyPlan,
+  scenarioPlan,
+  activePlan,
+  demoProfit,
   plan,
   positionSize,
   SYMBOLS,
@@ -14,7 +18,9 @@ import {
   restoreTour,
   escapeHTML,
 } from "../assets/app-preview/core.mjs";
-import { renderView, fixtures } from "../assets/app-preview/ui.mjs";
+import { fixtures } from "../assets/app-preview/ui.mjs";
+import { renderNativeView as renderView, SAMPLE_WINS } from "../assets/app-preview/native.mjs";
+import { QUIZ } from "../assets/app-preview/native-quiz.mjs";
 
 test("sample candles preserve OHLC bounds, session continuity and cross-screen price parity", () => {
   for (const symbol of SYMBOLS)
@@ -39,7 +45,7 @@ test("long and short demo plans invert risk and reward correctly in both modes",
         const p = plan(t, direction, mode);
         assert.ok(p.risk > 0);
         assert.ok(Math.abs(Math.abs(p.entry - p.stop) - p.risk) < 1e-8);
-        assert.ok(Math.abs(Math.abs(p.target - p.entry) / p.risk - 2) < 1e-8);
+        assert.ok(Math.abs(Math.abs(p.target - p.entry) / p.risk - 2.5) < 1e-8);
         assert.ok(
           direction === "long"
             ? p.stop < p.entry && p.entry < p.target
@@ -117,13 +123,18 @@ test("detail branches and empty states render without missing data", () => {
     ["profile", "notifications"],
     ["profile", "quick-menu"],
     ["stops", "chart"],
+    ["chat","win-compose"],
+    ["chat","milestones"],
+    ["macd","watchlist"],
+    ["macd","classic"],
+    ["macd","guide"],
   ];
   for (const [screen, detail] of variants) {
     const s = { ...createState(), screen, detail, thread: "m1" };
     assert.ok(!/undefined|NaN/.test(renderView(s)), screen + "/" + detail);
   }
   assert.match(
-    renderView({ ...createState(), screen: "earnings", day: 0 }),
+    renderView({ ...createState(), screen: "earnings", week: 1 }),
     /No sample events/,
   );
   assert.match(
@@ -139,10 +150,10 @@ test("detail branches and empty states render without missing data", () => {
     renderView({
       ...createState(),
       screen: "onboarding",
-      quizStep: 3,
-      quizAnswers: [0, 1, 0],
+      quizStage:"questions",
+      quizResult:"riskRoulettePlayer",
     }),
-    /Start with Stop Finder/,
+    /Explore Stop Finder/,
   );
 });
 test("visitor-authored content is escaped in chat, profile and Pip", () => {
@@ -171,7 +182,7 @@ test("visitor-authored content is escaped in chat, profile and Pip", () => {
   }
 });
 test("preview cannot make service calls, persist personal data or invoke notification APIs", () => {
-  const code = ["app.js", "core.mjs", "ui.mjs", "chart.mjs"]
+  const code = ["app.js", "core.mjs", "ui.mjs", "chart.mjs", "native.mjs", "native-quiz.mjs"]
     .map((f) =>
       fs.readFileSync(
         new URL("../assets/app-preview/" + f, import.meta.url),
@@ -207,4 +218,38 @@ test("every declared action has a handler and every fixture room is reachable", 
     assert.ok(new RegExp("case\\s*[\"']" + a + "[\"']").test(app), a);
   for (const [room] of fixtures.rooms)
     assert.ok(fixtures.messages.some((m) => m.room === room));
+});
+
+test("recorded targets, price extrema and Wins use one coherent simulated trade",()=>{
+  for(const symbol of SYMBOLS){
+    const p=storyPlan(symbol),bars=candles(symbol,"1m");
+    const favorable=p.side==="long"?Math.max(...bars.map(b=>b.high)):Math.min(...bars.map(b=>b.low));
+    assert.ok(Math.abs(favorable-p.peak)<1e-8,symbol+" peak");
+    assert.equal(p.state==="hit",p.best>=Math.abs(p.target-p.entry)-1e-8,symbol+" target outcome");
+    const direction=p.side==="long"?1:-1;
+    if(p.state!=="invalidated")assert.ok(bars.slice(39).every(b=>direction*(b.close-p.stop)>0),symbol+" remains valid");
+    else assert.ok(direction*(bars.at(-1).close-p.stop)<0,symbol+" invalidation");
+    for(const screen of ["macd","screener","patterns"]){assert.equal(activePlan({...createState(),screen,symbol}).entry,p.entry);}
+    assert.equal(scenarioPlan(symbol,p.side).target,p.target);
+    assert.equal(scenarioPlan(symbol,p.side==="long"?"short":"long").state,"watching");
+  }
+  for(const f of fixtures.patterns){const p=storyPlan(f.symbol);assert.equal(f.bias==="Bullish"?"long":"short",p.side);if(f.status==="Failed")assert.equal(p.state,"invalidated");}
+  for(const win of SAMPLE_WINS.filter(w=>w.symbol)){
+    const p=storyPlan(win.symbol),sign=p.side==="long"?1:-1;
+    assert.ok(sign*(win.exit-p.entry)>0);
+    assert.ok(sign*(win.exit-p.peak)<=1e-8);
+    assert.equal(demoProfit(win.symbol,win.quantity,win.exit),Math.round(sign*(win.exit-p.entry)*win.quantity*100)/100);
+  }
+});
+test("native onboarding branches reach all four outcomes without dead ends",()=>{
+ const outcomes=new Set();
+ function visit(id,seen=[]){assert.ok(!seen.includes(id),"quiz cycle");const q=QUIZ[id];assert.ok(q?.answers.length);for(const a of q.answers){if(a.type==="question")visit(a.to,[...seen,id]);else outcomes.add(a.to);}}
+ visit("q1");assert.deepEqual([...outcomes].sort(),["marketNewbie","emotionalRollerCoaster","riskRoulettePlayer","timeCruncher"].sort());
+});
+test("every native screen action is wired including dynamically declared buttons",()=>{
+ const app=fs.readFileSync(new URL("../assets/app-preview/app.js",import.meta.url),"utf8");
+ const states=SCREENS.map(([screen])=>({...createState(),screen}));
+ for(const [screen,detail] of [["aplus","setup"],["macd","stock"],["macd","guide"],["macd","classic"],["patterns","pattern"],["chat","win-compose"],["chat","milestones"],["profile","quick-menu"],["stops","chart"]])states.push({...createState(),screen,detail});
+ states.push({...createState(),screen:"chat",room:"Wins"},{...createState(),screen:"menu",menuFor:"macd"},{...createState(),screen:"menu",menuFor:"chat"});
+ for(const s of states)for(const [,a] of renderView(s).matchAll(/data-action="([a-z-]+)"/g))assert.ok(app.includes('case "'+a+'"'),a);
 });

@@ -1,17 +1,43 @@
-# App-first website and complete browser preview
+# App-first website and full interactive preview
 
-## Clean design revision
+## Native reference revision
 
-The app is the visual focus. Keep its native system typography, six tool shortcuts, green identity and red Stop Finder. Use white #FFFFFF for the app, soft white #FAFBF9 for the site, ink #17251E, green #078763, subtle line #E1E8E2 and risk red #CD343C. Native text uses the system face; the site uses the same family with a restrained rounded headline. Align the desktop headline left beside one legible, unscaled phone; stack the same elements on mobile. The hierarchy is `headline + two actions | app + compact playback`, followed by three grouped screen lists. Remove the decorative oval, duplicate mascot pitch, redundant Home shortcut and floating assistant. Keep all destinations in the app menu, and place contextual Pip in the header. Use disclosure for supporting explanations, not for core chart controls.
+The iOS app is the design reference. The earlier approximation is superseded by source-derived screen hierarchy, typography, colors and behavior. Reference checkout: `swj-macd-ios`, HEAD `93a19e6`, inspected September 8, 2026. Its concurrent native work was not edited.
 
-Review against the brief: a generic device mockup with miniature content would miss the request. The phone must remain usable at native CSS size. Preserve the complete interactive workflows and pause/takeover behavior; simplify only their presentation. Grouping the directory into Tools, Your day and Your space makes the fourteen areas easier to scan without removing any of them.
+The website keeps an app-first hero, a readable phone, compact tour controls and a directory of all 14 destinations. The browser implementation remains dependency-free, with deterministic simulated data and no production services.
 
-The memorable element is the usable iPhone, with Friendly Trader’s actual icon and app arrangement. The page uses the clean revision’s palette and native typography. The phone remains legible at its CSS dimensions; mobile opens the same preview as a full-height panel.
+| Preview surface | Native reference | Browser implementation |
+| --- | --- | --- |
+| Theme and identity | Theme.swift, Brand.swift | Native light/dark tokens, system typography, vector Pip, original bull/bear MP4 assets |
+| Home | HomeView.swift, HomeLayout.swift | Centered title, Pip/Today hero, A+ first, four tool tiles, calendar cards, Chat and Live |
+| Navigation | HomeChrome.swift, ToolTabBar.swift | Home chevron on tool roots, detail sheets, six shortcuts, 3–6 configurable shortcuts and reordering |
+| MACD | MACDStoryBoard.swift and card/detail views | Morning Play, Freshest Signal, journey rails, completed/ended examples, watchlist, classic board and guide |
+| A+ | AplusView.swift | 1M/2M/5M, four scenarios, entry/T1/T2/T3 track, target-hit states, charts and watches |
+| Patterns | PatternsView.swift | Compact latest setups, forming/confirmed/failed examples, details, levels and history |
+| Screener | Native screener views | Top mover, peak gain, board accordions, sortable board details and sample feed |
+| Stop Finder | Embedded Stop Finder and native handoff reference | Swing/scalp, long/short, tappable chart levels, explanation, risk sizing, saving and sharing |
+| Calendars | Earnings/Economy views | This week/Reported, grouped day cards, event details, fictional reports and reminders |
+| Live | Native live-calendar sheet | Day/time cards, next session and sample lesson |
+| Community | ChatRoomView.swift, WinsChannelView.swift, ChatWins.swift | Persistent scrolling room chips, native Chat header, messages/threads, saved messages, sample profiles, Wins cards, milestones and composer |
+| Profile and Pip | ProfileSheetView.swift, ChatAssistant.swift | Sheets, native Pip, profile identity, appearance, shortcuts and contextual prewritten answers |
+| Onboarding | QuizWelcomeView.swift, QuizData.swift, QuizModels.swift | Native welcome copy, exact question/answer branching and four persona outcomes |
 
-The initial concept was reviewed against the brief: a three-screen demo was explicitly rejected. All ten AppTab destinations, live-calendar entry, profile/settings, onboarding, Pip and their principal child screens must be navigable. Use a screen directory so visitors are not trapped on the tour's route.
+The browser is a recreation of the main app surfaces and principal flows. It is not the SwiftUI binary or a claim of pixel-perfect equivalence. Some secondary sheets reuse the existing browser components, company marks are placeholders, and OS services are simulated.
 
-Implementation is a static, dependency-free browser simulation. One in-memory state holds tickers, scenario, favorites, alerts, drafts, profile, chart viewport and navigation. The tour snapshots its location on takeover and restores that position on resume without deleting visitor changes. Every number is synthetic, deterministic and labeled. No live APIs, notifications, account creation, checkout or community posts occur inside the preview. Marketing links to existing external destinations remain explicit links.
+## Demo data and plan behavior
 
-Native references: Sources/AppTab.swift, HomeLayout.swift, HomeWalkthrough.swift, ProfileSheetView.swift, docs/CONTEXT-LEDGER.md, and docs/macd-story/home-scalps-first.png in swj-macd-ios, inspected 2026-09-08. Preview values do not replicate production calculations or assert historical performance.
+Eight fictional trade records drive current quotes, recorded entries/stops, target outcomes, price extrema and example Wins. Completed examples include multiple targets, a short plan and a pullback after a target hit. Moving and invalidated plans remain available. Pattern direction and failed states agree with the corresponding sample trade.
 
-Scope: Home, Today, A+ board/detail/scenarios/alerts, MACD board/detail/timeframes/watchlist, Patterns/list/detail/history/filter, Screener/boards/detail/sort, Stop Finder/long-short/swing-scalp/risk sizing/saved plans, Earnings/week/detail, Economy/week/detail, live schedule/session preview, Chat/rooms/threads/reactions/search/share/Wins/member, Pip contextual canned replies, profile/name/avatar/appearance/notifications/quick-menu/membership, onboarding and reset.
+Recorded story plans use illustrative target distances of 2.5R, 4R and 5.5R. These demonstrate the UI and do not reproduce production-engine calculations. Chart candles are synthetic sequences, identified by bar number; displayed confirmation times are scenario copy, not historical bar timestamps. Pattern labels are interface examples, not validated detections.
+
+Wins distinguish an underlying price move from a member's reported trade. The three initial trade examples calculate $900, $960 and $720 before fees from their sample entry, exit, direction and quantity. Other wins celebrate following a stop and learning. Visitor-created trade cards calculate their own dollar result. All participants and results are explicitly simulated.
+
+Stop Finder creates a new prospective plan from the current sample quote. Its levels may therefore differ from an earlier recorded signal. Whole-share sizing stays within the entered risk budget under the illustrated stop assumption; fees, slippage and gaps are excluded.
+
+## Interaction and boundaries
+
+The 16-chapter guided tour can be paused, scrubbed and taken over at any point. Resuming restores its screen and chart position while retaining visitor profile, watchlist, drafts, saved messages and Wins changes. All 14 main destinations are independently accessible.
+
+No live API, AI service, notification request, camera upload, membership mutation, trading action or real community post occurs in the preview. State remains in tab memory and resets on reload. Pip answers are prewritten. The lesson is an illustrative slideshow. Membership/TestFlight links remain explicit external destinations. The page states that public beta enrollment was closed when checked September 8, 2026.
+
+The isolated Vercel review project is the deployment destination. The existing `thefriendlytrader.com` production site is outside this release boundary.

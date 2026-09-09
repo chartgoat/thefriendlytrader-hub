@@ -1,6 +1,6 @@
-import { candles, plan, price } from "./core.mjs";
+import { candles, activePlan, price } from "./core.mjs";
 const clamp = (n, min, max) => Math.max(min, Math.min(max, n));
-export function attachChart(svg, state, onTakeover) {
+export function attachChart(svg, state, onTakeover, onLevel) {
   if (!svg) return;
   const W = 340,
     H = Math.max(
@@ -26,14 +26,10 @@ export function attachChart(svg, state, onTakeover) {
     );
     const end = all.length - state.chart.offset;
     visible = all.slice(end - count, end);
-    const p = plan(
-      state.symbol,
-      state.direction,
-      state.screen === "aplus" ? "scalp" : state.mode,
-    );
-    const showLevels = ["stops", "aplus", "macd"].includes(state.screen);
+    const p = activePlan(state);
+    const showLevels = ["stops", "aplus", "macd", "patterns", "screener"].includes(state.screen);
     const values = visible.flatMap((b) => [b.high, b.low]);
-    if (showLevels) values.push(p.stop, p.target, p.entry, p.target2);
+    if (showLevels) values.push(p.stop, p.target, p.entry, p.target2, ...(state.screen==="aplus"?[p.target3]:[]));
     const min = Math.min(...values),
       max = Math.max(...values),
       pad = (max - min) * 0.1;
@@ -68,13 +64,17 @@ export function attachChart(svg, state, onTakeover) {
     out += "</g>";
     if (showLevels) {
       [
-        [p.target2, "T2", "#128463"],
-        [p.target, "T1", "#128463"],
+        ...(state.screen==="aplus"?[[p.target3,"T3","var(--app-green)"]]:[]),
+        [p.target2, "T2", "var(--app-green)"],
+        [p.target, "T1", "var(--app-green)"],
         [p.entry, "Entry", "var(--app-text)"],
         [p.stop, "Stop", "#cd343c"],
       ].forEach(([v, label, c]) => {
         out += `<line x1="8" x2="276" y1="${y(v)}" y2="${y(v)}" stroke="${c}" stroke-width="1" stroke-dasharray="${label === "Stop" ? "" : "4 3"}" opacity=".8"/><rect x="282" y="${y(v) - 7}" width="57" height="14" rx="3" fill="${label === "Entry" ? "var(--app-elev)" : c}"/><text x="285" y="${y(v) + 3}" fill="${label === "Entry" ? "var(--app-text)" : "white"}" font-size="8">${label} ${v.toFixed(2)}</text>`;
       });
+    }
+    if(state.screen==="stops")for(const [key,value,name] of [["stop",p.stop,"stop"],["target",p.target,"first target"],["target2",p.target2,"second target"],["entry",p.entry,"entry"]]){
+      out+=`<rect data-level="${key}" x="8" y="${y(value)-8}" width="266" height="16" fill="transparent" pointer-events="all" role="button" tabindex="0" aria-label="Explain ${name} line"/>`;
     }
     [0, Math.floor(count / 2), count - 1].forEach(
       (i) =>
@@ -132,6 +132,11 @@ export function attachChart(svg, state, onTakeover) {
     move(e);
   });
   const end = (e) => {
+    if(e.type==="pointerup" && state.screen==="stops" && pointers.size===1 && drag && Math.abs(e.clientX-drag.x)<5 && onLevel){
+      const rect=svg.getBoundingClientRect(), cy=(e.clientY-rect.top)/rect.height*H,p=activePlan(state);
+      const near=[["stop",p.stop],["target",p.target],["target2",p.target2],["entry",p.entry]].sort((a,b)=>Math.abs(mapping.y(a[1])-cy)-Math.abs(mapping.y(b[1])-cy))[0];
+      if(Math.abs(mapping.y(near[1])-cy)<12)onLevel(near[0]);
+    }
     pointers.delete(e.pointerId);
     drag = null;
     pinch = null;
@@ -156,6 +161,8 @@ export function attachChart(svg, state, onTakeover) {
     { passive: false },
   );
   svg.addEventListener("keydown", (e) => {
+    if(["Enter"," "].includes(e.key)&&e.target.dataset.level&&onLevel){e.preventDefault();onTakeover();onLevel(e.target.dataset.level);return;}
+
     if (["ArrowLeft", "ArrowRight", "+", "=", "-", "0"].includes(e.key)) {
       e.preventDefault();
       onTakeover();

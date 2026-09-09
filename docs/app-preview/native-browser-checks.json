@@ -1,0 +1,338 @@
+[
+  {
+    "close": {
+      "bottom": 38.09375,
+      "right": 390
+    },
+    "content": 402,
+    "page": 402,
+    "screen": "aplus",
+    "scroll": 402,
+    "text": true,
+    "viewport": 402
+  },
+  {
+    "close": {
+      "bottom": 38.09375,
+      "right": 390
+    },
+    "content": 402,
+    "page": 402,
+    "screen": "macd",
+    "scroll": 402,
+    "text": true,
+    "viewport": 402
+  },
+  {
+    "close": {
+      "bottom": 38.09375,
+      "right": 390
+    },
+    "content": 402,
+    "page": 402,
+    "screen": "patterns",
+    "scroll": 402,
+    "text": true,
+    "viewport": 402
+  },
+  {
+    "close": {
+      "bottom": 38.09375,
+      "right": 390
+    },
+    "content": 402,
+    "page": 402,
+    "screen": "screener",
+    "scroll": 402,
+    "text": true,
+    "viewport": 402
+  },
+  {
+    "close": {
+      "bottom": 38.09375,
+      "right": 390
+    },
+    "content": 402,
+    "page": 402,
+    "screen": "stops",
+    "scroll": 402,
+    "text": true,
+    "viewport": 402
+  },
+  {
+    "close": {
+      "bottom": 38.09375,
+      "right": 390
+    },
+    "content": 402,
+    "page": 402,
+    "screen": "home",
+    "scroll": 402,
+    "text": true,
+    "viewport": 402
+  },
+  {
+    "close": {
+      "bottom": 38.09375,
+      "right": 390
+    },
+    "content": 402,
+    "page": 402,
+    "screen": "stream",
+    "scroll": 402,
+    "text": true,
+    "viewport": 402
+  },
+  {
+    "close": {
+      "bottom": 38.09375,
+      "right": 390
+    },
+    "content": 402,
+    "page": 402,
+    "screen": "earnings",
+    "scroll": 402,
+    "text": true,
+    "viewport": 402
+  },
+  {
+    "close": {
+      "bottom": 38.09375,
+      "right": 390
+    },
+    "content": 402,
+    "page": 402,
+    "screen": "economy",
+    "scroll": 402,
+    "text": true,
+    "viewport": 402
+  },
+  {
+    "close": {
+      "bottom": 38.09375,
+      "right": 390
+    },
+    "content": 402,
+    "page": 402,
+    "screen": "live",
+    "scroll": 402,
+    "text": true,
+    "viewport": 402
+  },
+  {
+    "close": {
+      "bottom": 38.09375,
+      "right": 390
+    },
+    "content": 402,
+    "page": 402,
+    "screen": "chat",
+    "scroll": 402,
+    "text": true,
+    "viewport": 402
+  },
+  {
+    "close": {
+      "bottom": 38.09375,
+      "right": 390
+    },
+    "content": 402,
+    "page": 402,
+    "screen": "assistant",
+    "scroll": 402,
+    "text": true,
+    "viewport": 402
+  },
+  {
+    "close": {
+      "bottom": 38.09375,
+      "right": 390
+    },
+    "content": 402,
+    "page": 402,
+    "screen": "profile",
+    "scroll": 402,
+    "text": true,
+    "viewport": 402
+  },
+  {
+    "close": {
+      "bottom": 38.09375,
+      "right": 390
+    },
+    "content": 402,
+    "page": 402,
+    "screen": "onboarding",
+    "scroll": 402,
+    "text": true,
+    "viewport": 402
+  },
+  {
+    "close": {
+      "bottom": 38.09375,
+      "right": 308
+    },
+    "content": 320,
+    "page": 320,
+    "screen": "aplus",
+    "scroll": 320,
+    "text": true,
+    "viewport": 320
+  },
+  {
+    "close": {
+      "bottom": 38.09375,
+      "right": 308
+    },
+    "content": 320,
+    "page": 320,
+    "screen": "macd",
+    "scroll": 320,
+    "text": true,
+    "viewport": 320
+  },
+  {
+    "close": {
+      "bottom": 38.09375,
+      "right": 308
+    },
+    "content": 320,
+    "page": 320,
+    "screen": "patterns",
+    "scroll": 320,
+    "text": true,
+    "viewport": 320
+  },
+  {
+    "close": {
+      "bottom": 38.09375,
+      "right": 308
+    },
+    "content": 320,
+    "page": 320,
+    "screen": "screener",
+    "scroll": 320,
+    "text": true,
+    "viewport": 320
+  },
+  {
+    "close": {
+      "bottom": 38.09375,
+      "right": 308
+    },
+    "content": 320,
+    "page": 320,
+    "screen": "stops",
+    "scroll": 320,
+    "text": true,
+    "viewport": 320
+  },
+  {
+    "close": {
+      "bottom": 38.09375,
+      "right": 308
+    },
+    "content": 320,
+    "page": 320,
+    "screen": "home",
+    "scroll": 320,
+    "text": true,
+    "viewport": 320
+  },
+  {
+    "close": {
+      "bottom": 38.09375,
+      "right": 308
+    },
+    "content": 320,
+    "page": 320,
+    "screen": "stream",
+    "scroll": 320,
+    "text": true,
+    "viewport": 320
+  },
+  {
+    "close": {
+      "bottom": 38.09375,
+      "right": 308
+    },
+    "content": 320,
+    "page": 320,
+    "screen": "earnings",
+    "scroll": 320,
+    "text": true,
+    "viewport": 320
+  },
+  {
+    "close": {
+      "bottom": 38.09375,
+      "right": 308
+    },
+    "content": 320,
+    "page": 320,
+    "screen": "economy",
+    "scroll": 320,
+    "text": true,
+    "viewport": 320
+  },
+  {
+    "close": {
+      "bottom": 38.09375,
+      "right": 308
+    },
+    "content": 320,
+    "page": 320,
+    "screen": "live",
+    "scroll": 320,
+    "text": true,
+    "viewport": 320
+  },
+  {
+    "close": {
+      "bottom": 38.09375,
+      "right": 308
+    },
+    "content": 320,
+    "page": 320,
+    "screen": "chat",
+    "scroll": 320,
+    "text": true,
+    "viewport": 320
+  },
+  {
+    "close": {
+      "bottom": 38.09375,
+      "right": 308
+    },
+    "content": 320,
+    "page": 320,
+    "screen": "assistant",
+    "scroll": 320,
+    "text": true,
+    "viewport": 320
+  },
+  {
+    "close": {
+      "bottom": 38.09375,
+      "right": 308
+    },
+    "content": 320,
+    "page": 320,
+    "screen": "profile",
+    "scroll": 320,
+    "text": true,
+    "viewport": 320
+  },
+  {
+    "close": {
+      "bottom": 38.09375,
+      "right": 308
+    },
+    "content": 320,
+    "page": 320,
+    "screen": "onboarding",
+    "scroll": 320,
+    "text": true,
+    "viewport": 320
+  }
+]

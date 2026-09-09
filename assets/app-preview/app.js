@@ -9,8 +9,11 @@ import {
   restoreTour,
   escapeHTML as esc,
   price,
+  storyPlan,
 } from "./core.mjs";
-import { renderView, META, icon, fixtures } from "./ui.mjs";
+import { META, fixtures } from "./ui.mjs";
+import { renderNativeView, nativeHeader, nativeIcon as icon, sheetStyle } from "./native.mjs";
+import { QUIZ } from "./native-quiz.mjs";
 import { attachChart } from "./chart.mjs";
 let state = createState(),
   history = [],
@@ -71,25 +74,29 @@ function render({ keepScroll = false } = {}) {
     ? root.querySelector(".app-content")?.scrollTop || 0
     : 0;
   phone.classList.toggle("dark", state.dark);
-  const isHome = state.screen === "home";
-  const contextHelp = ![
-    "home",
-    "assistant",
-    "profile",
-    "onboarding",
-    "menu",
-  ].includes(state.screen);
-  root.innerHTML = `<header class="app-header ${isHome ? "home-header" : ""}">${isHome ? "" : `<button class="icon-button back-button" data-action="back" aria-label="Back">${icon("back")}</button>`}<h2>${isHome ? "Friendly Trader" : state.detail === "chart" ? "Chart" : state.detail === "thread" ? "Thread" : label(state.screen)}</h2>${isHome ? `<button class="avatar" data-screen="profile" aria-label="Open your profile">${esc(state.avatar)}</button>` : `${contextHelp ? `<button class="icon-button pip-help" data-action="open-pip" aria-label="Ask Pip about this screen">${icon("pip")}</button>` : ""}<button class="icon-button" data-screen="menu" aria-label="Open all app screens">${icon("menu")}</button>`}</header><div class="app-content ${isHome ? "home-content" : ""}" data-screen-content="${state.screen}">${renderView(state)}</div><nav class="app-nav" aria-label="App quick menu">${state.quick
-    .map((id) => {
-      const meta = SCREENS.find((x) => x[0] === id);
-      return `<button class="${state.screen === id ? "active" : ""}" data-screen="${id}" aria-label="${label(id)}" ${state.screen === id ? 'aria-current="page"' : ""}>${icon(meta?.[3])}<span>${id === "stops" ? "Stops" : label(id)}</span></button>`;
-    })
-    .join("")}</nav>`;
+  const isHome = state.screen === "home", sheet=sheetStyle(state);
+  phone.classList.add("native");
+  root.classList.toggle("native-sheet",sheet);
+  root.dataset.view=state.screen;
+  const floating= !sheet && !["home","menu","onboarding"].includes(state.screen);
+  root.innerHTML = `${nativeHeader(state)}<div class="app-content ${isHome ? "home-content" : ""}" data-screen-content="${state.screen}">${renderNativeView(state)}</div>${floating?`<div class="n-floating">${["macd","patterns","screener","stops","aplus"].includes(state.screen)?`<button data-action="share" aria-label="Share sample screen">${icon("share")}</button>`:""}<button class="n-float-pip" data-action="open-pip" aria-label="Ask Pip about this screen">${icon("pip")}</button></div>`:""}${!sheet&&state.screen!=="onboarding"?`<nav class="app-nav" aria-label="App quick menu">${state.quick.map(id=>{
+    const meta=SCREENS.find(x=>x[0]===id);
+    return `<button class="${state.screen===id?"active":""}" data-screen="${id}" aria-label="${label(id)}" ${state.screen===id?'aria-current="page"':""}>${icon(meta?.[3])}<span>${id==="stops"?"Stops":label(id)}</span></button>`;
+  }).join("")}</nav>`:""}`;
+  root.querySelectorAll("video").forEach(video=>{
+    video.muted=true;
+    if(matchMedia("(prefers-reduced-motion: reduce)").matches)video.pause();
+    else video.play().catch(()=>{});
+  });
   root.querySelector(".app-content").scrollTop = scroll;
+  const selectedRoom=root.querySelector('.n-chat-tabs [aria-selected="true"]');
+  if(selectedRoom){const strip=selectedRoom.parentElement;strip.scrollLeft=selectedRoom.offsetLeft-strip.clientWidth/2+selectedRoom.offsetWidth/2;}
+
   chartHandle = attachChart(
     root.querySelector(".candlestick-chart"),
     state,
     takeOver,
+    (level)=>{state.levelInfo=state.levelInfo===level?null:level;render({keepScroll:true});},
   );
 }
 function go(screen, detail = null, extra = {}, fromTour = false) {
@@ -98,7 +105,12 @@ function go(screen, detail = null, extra = {}, fromTour = false) {
   if (!fromTour) takeOver();
   history.push(tourPosition(state));
   if (history.length > 50) history.shift();
-  Object.assign(state, { screen, detail, search: "", levelInfo: null }, extra);
+  const switching=screen!==state.screen;
+  Object.assign(state, { screen, detail, search: "", levelInfo: null, lookup:null }, extra);
+  if(switching && screen==="aplus" && !extra.timeframe)state.timeframe="1m";
+  if(switching && screen==="macd" && !extra.timeframe)state.timeframe="15m";
+  if(screen==="patterns" && detail==="pattern")state.timeframe="1d";
+
   if (screen === "assistant" && !extra.assistantContext)
     state.assistantContext =
       history.at(-1)?.screen === "assistant"
@@ -111,7 +123,7 @@ function back() {
   if (history.length) {
     restoreTour(state, history.pop());
     render();
-  } else go("home");
+  } else go(state.detail ? state.screen : "home");
 }
 function renderPlayer() {
   const step = TOUR[tour.index];
@@ -124,12 +136,15 @@ function loadStep(index, keepPlayer = false) {
     screen: step.screen,
     detail: step.detail || null,
     symbol: "NVDA",
-    timeframe: "15m",
+    timeframe: step.screen==="aplus"?"1m":step.screen==="patterns"?"1d":"15m",
     direction: "long",
     mode: "swing",
     scenario: "Breakout",
     session: "Morning",
-    room: "Trading Floor",
+    room: step.room || "Trading Floor",
+    horizon: "Day trades",
+    lookup: null,
+    calendarTab: "This week",
     chart: { offset: 0, count: 42 },
     search: "",
     day: null,
@@ -276,7 +291,7 @@ function askPip(question) {
           "The earnings calendar shows sample company reports. Expected EPS is an estimate, while actual EPS is the reported number. In this preview both are fictional.",
         chat: "These are fictional community rooms. You can open a thread, react, or write a message. It stays inside this browser preview.",
       }[context] ||
-      "Home brings the five trading tools together with Today, calendars, sessions and chat. Tap a card to explore. You can return home at any time from the quick menu.";
+      "Home brings the five trading tools together with Today, calendars, sessions and chat. Tap a card to explore. Use the top-left arrow to return Home.";
   else
     state.pipAnswer =
       "I have a small set of prewritten demo answers here. Try asking about the screen, a stop, confirmation or what to explore next. The actual assistant can use the current app context.";
@@ -295,6 +310,15 @@ root.addEventListener("wheel", () => takeOver(), {
   capture: true,
   passive: true,
 });
+let shortcutHold=null, heldShortcut=false, holdOrigin=null;
+root.addEventListener("pointerdown",e=>{
+  if(!e.target.closest(".app-nav"))return;
+  holdOrigin={x:e.clientX,y:e.clientY};
+  shortcutHold=setTimeout(()=>{heldShortcut=true;go("profile","quick-menu");},550);
+});
+root.addEventListener("pointermove",e=>{if(holdOrigin&&Math.hypot(e.clientX-holdOrigin.x,e.clientY-holdOrigin.y)>8)clearTimeout(shortcutHold);});
+["pointerup","pointercancel"].forEach(type=>root.addEventListener(type,()=>{clearTimeout(shortcutHold);holdOrigin=null;}));
+root.addEventListener("click",e=>{if(heldShortcut){heldShortcut=false;e.stopImmediatePropagation();}},true);
 root.addEventListener("click", (event) => {
   const b = event.target.closest("button");
   if (!b) return;
@@ -308,6 +332,65 @@ root.addEventListener("click", (event) => {
   const v = b.dataset.value,
     t = b.dataset.symbol;
   switch (a) {
+    case "chat-search-toggle":
+      state.showChatSearch=!state.showChatSearch;render();root.querySelector('[name="query"]')?.focus();
+      break;
+    case "chat-option":
+      if(v==="profile")go("profile");
+      else if(v==="notifications")go("profile","notifications");
+      else go("chat",v);
+      break;
+    case "save-message":
+      state.savedMessages=state.savedMessages.includes(b.dataset.id)?state.savedMessages.filter(x=>x!==b.dataset.id):[...state.savedMessages,b.dataset.id];
+      render({keepScroll:true});
+      break;
+    case "home":
+      go("home");
+      break;
+    case "native-menu":
+      go("menu",null,{menuFor:v});
+      break;
+    case "native-detail":
+      go(state.screen,v||null);
+      break;
+    case "macd-option":
+      go("macd",v);
+      break;
+    case "edit-quick":
+      go("profile","quick-menu");
+      break;
+    case "clear-search":
+      state.lookup=null;render();
+      break;
+    case "patterns-all":
+      state.showAllPatterns=!state.showAllPatterns;
+      state.patternFilter="All";render();
+      break;
+    case "toggle-board":
+      state.expandedBoards=state.expandedBoards.includes(v)?state.expandedBoards.filter(x=>x!==v):[...state.expandedBoards,v];
+      render({keepScroll:true});
+      break;
+    case "share-stock":
+      go("chat","share",{symbol:t});
+      break;
+    case "choose-win":
+      go("chat","win-compose",{winKind:v});
+      break;
+    case "milestones":
+      go("chat","milestones");
+      break;
+    case "photo":
+      state.choosePhoto=!state.choosePhoto;render({keepScroll:true});
+      break;
+    case "quick-up": {
+      const i=state.quick.indexOf(v);
+      if(i>0)[state.quick[i-1],state.quick[i]]=[state.quick[i],state.quick[i-1]];
+      render({keepScroll:true});
+      break;
+    }
+    case "quiz-start":
+      state.quizStage="questions";state.quizNode="q1";state.quizAnswers=[];state.quizResult=null;render();
+      break;
     case "back":
       back();
       break;
@@ -316,6 +399,8 @@ root.addEventListener("click", (event) => {
       else if (b.dataset.key === "stopDirection")
         state.direction = v.toLowerCase();
       else state[b.dataset.key] = v;
+      if(b.dataset.key === "profileAppearance")state.dark=v==="Dark"||(v==="System"&&matchMedia("(prefers-color-scheme: dark)").matches);
+      if(b.dataset.key === "horizon")state.timeframe=v==="Longer term"?"1d":"15m";
       if (b.dataset.key === "scenario")
         state.direction = ["Breakdown", "Rejection"].includes(v)
           ? "short"
@@ -336,11 +421,11 @@ root.addEventListener("click", (event) => {
       break;
     case "stock-detail":
     case "open-stock":
-      go(state.screen, "stock", { symbol: t });
+      go(state.screen, "stock", { symbol: t, direction:storyPlan(t).side });
       break;
     case "pattern-detail":
       go("patterns", "pattern", {
-        symbol: t,
+        symbol: t, timeframe:"1d",
         direction:
           fixtures.patterns.find((p) => p.symbol === t)?.bias === "Bearish"
             ? "short"
@@ -495,7 +580,7 @@ root.addEventListener("click", (event) => {
       go("aplus", "setup", { symbol: "NVDA" });
       break;
     case "compose-win":
-      root.querySelector("[name=message]")?.focus();
+      go("chat","win-compose");
       break;
     case "share":
       go("chat", "share");
@@ -527,21 +612,23 @@ root.addEventListener("click", (event) => {
       render({ keepScroll: true });
       break;
     case "quick-toggle":
-      if (state.quick.includes(v))
+      if (state.quick.includes(v) && state.quick.length>3)
         state.quick = state.quick.filter((x) => x !== v);
+      else if(state.quick.includes(v))toast("Keep at least three shortcuts.");
       else if (state.quick.length < 6) state.quick.push(v);
       else toast("Choose up to six shortcuts. Turn one off first.");
       render({ keepScroll: true });
       break;
-    case "quiz-answer":
-      state.quizAnswers[state.quizStep] = Number(v);
-      state.quizStep++;
-      render();
-      break;
+    case "quiz-answer": {
+      const answer=QUIZ[state.quizNode]?.answers[Number(v)];
+      if(!answer)break;
+      state.quizAnswers.push({node:state.quizNode,answer:Number(v)});
+      if(answer.type==="outcome")state.quizResult=answer.to;
+      else state.quizNode=answer.to;
+      render();break;
+    }
     case "quiz-reset":
-      state.quizStep = 0;
-      state.quizAnswers = [];
-      render();
+      state.quizStage="welcome";state.quizResult=null;state.quizNode="q1";state.quizAnswers=[];render();
       break;
     case "membership-site":
       openExternalSection("#membership");
@@ -604,16 +691,26 @@ root.addEventListener("submit", (e) => {
       return;
     }
     state.symbol = t;
+    state.lookup = t;
     state.chart = { offset: 0, count: 42 };
     if (state.screen === "patterns") {
       if (!fixtures.patterns.some((p) => p.symbol === t)) {
         toast(
-          "This sample ticker has no pattern example. Try NVDA, AAPL, TSLA, MSFT or META.",
+          "This sample ticker has no pattern example. Try NVDA, AAPL, TSLA, MSFT, META or GOOGL.",
         );
         return;
       }
       go("patterns", "pattern");
     } else render();
+  }
+  if(kind==="win") {
+    const kind=state.winKind, symbol=String(data.get("symbol")||"NVDA");
+    const note=String(data.get("note")||"").trim();
+    const entry=Number(data.get("entry")),exit=Number(data.get("exit")),quantity=Number(data.get("quantity")),side=String(data.get("side"));
+    if(!note)return toast("Add a short note about your win.");
+    if(kind==="Trade win"&&(!SYMBOLS.includes(symbol)||![entry,exit].every(n=>Number.isFinite(n)&&n>0&&n<=1000000)||!Number.isInteger(quantity)||quantity<1||quantity>100000||!["long","short"].includes(side)))return toast("Use valid sample prices and 1–100,000 whole shares.");
+    state.wins.unshift({id:"win-"+Date.now(),name:state.name,avatar:state.avatar,time:"10:42 AM",kind,note:note.slice(0,500),...(kind==="Trade win"?{symbol,entry,exit,quantity,side}:{})});
+    go("chat","room",{room:"Wins"});toast("Your sample win was added to this preview only.");
   }
   if (kind === "profile") {
     const name = String(data.get("name")).trim();

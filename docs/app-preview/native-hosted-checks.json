@@ -1,0 +1,100 @@
+[
+  {
+    "hasContent": true,
+    "screen": "aplus",
+    "scroll": 402,
+    "valid": true,
+    "width": 402
+  },
+  {
+    "hasContent": true,
+    "screen": "macd",
+    "scroll": 402,
+    "valid": true,
+    "width": 402
+  },
+  {
+    "hasContent": true,
+    "screen": "patterns",
+    "scroll": 402,
+    "valid": true,
+    "width": 402
+  },
+  {
+    "hasContent": true,
+    "screen": "screener",
+    "scroll": 402,
+    "valid": true,
+    "width": 402
+  },
+  {
+    "hasContent": true,
+    "screen": "stops",
+    "scroll": 402,
+    "valid": true,
+    "width": 402
+  },
+  {
+    "hasContent": true,
+    "screen": "home",
+    "scroll": 402,
+    "valid": true,
+    "width": 402
+  },
+  {
+    "hasContent": true,
+    "screen": "stream",
+    "scroll": 402,
+    "valid": true,
+    "width": 402
+  },
+  {
+    "hasContent": true,
+    "screen": "earnings",
+    "scroll": 402,
+    "valid": true,
+    "width": 402
+  },
+  {
+    "hasContent": true,
+    "screen": "economy",
+    "scroll": 402,
+    "valid": true,
+    "width": 402
+  },
+  {
+    "hasContent": true,
+    "screen": "live",
+    "scroll": 402,
+    "valid": true,
+    "width": 402
+  },
+  {
+    "hasContent": true,
+    "screen": "chat",
+    "scroll": 402,
+    "valid": true,
+    "width": 402
+  },
+  {
+    "hasContent": true,
+    "screen": "assistant",
+    "scroll": 402,
+    "valid": true,
+    "width": 402
+  },
+  {
+    "hasContent": true,
+    "screen": "profile",
+    "scroll": 402,
+    "valid": true,
+    "width": 402
+  },
+  {
+    "hasContent": true,
+    "screen": "onboarding",
+    "scroll": 402,
+    "valid": true,
+    "width": 402
+  }
+]
