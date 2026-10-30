@@ -73,10 +73,12 @@ export const META = {
   stops: ["Stop Finder", "Find your exit"],
   earnings: ["Earnings", "Who reports this week?"],
   economy: ["Economy", "What could move the market?"],
+  course: ["Options course", "Lesson 1 of 28 · Calls"],
+  coaching: ["Coaching", "12 coaches"],
   live: ["Sessions", "Learn together"],
   chat: ["Chat", "Your trading community"],
   assistant: ["Pip", "Your Friendly Assistant"],
-  profile: ["Your profile", "Make yourself at home"],
+  profile: ["Settings", "Make yourself at home"],
   onboarding: ["Welcome", "Find your starting point"],
   menu: ["Quick menu", "Every corner of the app"],
 };
@@ -185,7 +187,7 @@ export const fixtures = {
       title: "Federal Reserve remarks",
       time: "2:00 PM ET",
       actual: "Upcoming",
-      expected: "—",
+      expected: "n/a",
       detail:
         "Central-bank commentary can change expectations about interest rates. This is a fictional calendar event.",
     },
@@ -537,7 +539,7 @@ function composer(s) {
   return `<form class="composer" data-form="message"><input name="message" aria-label="Demo message" placeholder="Write a demo message…" value="${esc(s.drafts[key] || "")}" maxlength="1000" autocomplete="off"><button class="app-button" type="submit">Send</button></form><p class="small-muted">Only visible in this preview. Nothing is sent.</p>`;
 }
 function assistant(s) {
-  return `<div class="pip-hero"><img src="assets/app-preview/pip.png" alt="Pip"><div><h3>Hey, I’m Pip.</h3><p>Let’s make this a little clearer.</p></div></div><p class="app-kicker">Demo answers are prewritten. No message is sent to an AI service.</p><div class="card"><h3>${META[s.assistantContext || "home"]?.[0] || "Your app"}, in plain English.</h3><p>Choose a question or try your own. I’ll help explain the sample screen you came from.</p></div>${["What am I looking at?", "How do I use the stop?", "Does confirmed mean a winning trade?", "What should I explore next?"].map((q) => btn(q, "ask-pip", `data-value="${q}"`, "pip-question")).join("")}${s.pipQuestion ? `<p class="small-muted">You asked: ${esc(s.pipQuestion)}</p>` : ""}${s.pipAnswer ? `<div class="pip-answer" role="status">${esc(s.pipAnswer)}</div>` : ""}<form class="composer" data-form="pip"><input name="question" aria-label="Question for Pip" placeholder="Ask about the example…" maxlength="250"><button class="app-button" type="submit">Ask</button></form>${s.assistantContext ? nav(s.assistantContext, "Return to " + META[s.assistantContext][0], "app-button secondary full") : ""}`;
+  return `<div class="pip-hero"><img src="assets/app-preview/pip.png" alt="Pip"><div><h3>Hey, I’m Pip.</h3><p>Let’s make this a little clearer.</p></div></div><p class="app-kicker">Demo answers are prewritten. No message is sent to an AI service.</p><div class="card"><h3>${META[s.assistantContext || "home"]?.[0] || "Your app"}, explained.</h3><p>Choose a question or try your own. I’ll help explain the sample screen you came from.</p></div>${["What am I looking at?", "How do I use the stop?", "Does confirmed mean a winning trade?", "What should I explore next?"].map((q) => btn(q, "ask-pip", `data-value="${q}"`, "pip-question")).join("")}${s.pipQuestion ? `<p class="small-muted">You asked: ${esc(s.pipQuestion)}</p>` : ""}${s.pipAnswer ? `<div class="pip-answer" role="status">${esc(s.pipAnswer)}</div>` : ""}<form class="composer" data-form="pip"><input name="question" aria-label="Question for Pip" placeholder="Ask about the example…" maxlength="250"><button class="app-button" type="submit">Ask</button></form>${s.assistantContext ? nav(s.assistantContext, "Return to " + META[s.assistantContext][0], "app-button secondary full") : ""}`;
 }
 function profile(s) {
   if (s.detail === "membership")

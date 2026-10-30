@@ -13,7 +13,7 @@ export function changePlatform(state, platform) {
 }
 export const MAC_GROUPS = [
   ['', ['home']],
-  ['Tools', ['macd', 'patterns', 'screener', 'stops', 'aplus']],
+  ['Tools', ['macd', 'patterns', 'stops']],
   ['Calendars', ['earnings', 'economy', 'stream']],
   ['Community', ['chat']],
 ];

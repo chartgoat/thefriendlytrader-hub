@@ -52,6 +52,9 @@ export function demoProfit(symbol, quantity, exit=BASE[symbol]) {
   const p=storyPlan(symbol);
   return Math.round((exit-p.entry)*(p.side==="long"?1:-1)*quantity*100)/100;
 }
+// Mirrors the app's live tool switches (the tool-switches function, read 2026-10-30).
+// A tool the owner turns back on comes out of this list, and out of QUICK_DEFAULT's exclusions.
+export const HIDDEN_TOOLS = ["aplus", "screener"];
 export const SCREENS = [
   ["home", "Home", "Your daily starting point", "home"],
   ["stream", "Today", "The day, at a glance", "clock"],
@@ -62,12 +65,15 @@ export const SCREENS = [
   ["stops", "Stop Finder", "Put your exit on the chart", "stop"],
   ["earnings", "Earnings", "Know who is reporting", "calendar"],
   ["economy", "Economy", "Follow the bigger picture", "globe"],
+  ["course", "Options course", "Lesson 1 of 28 · Calls", "mountains"],
+  ["coaching", "Coaching", "12 coaches", "people"],
   ["live", "Live calendar", "Learn alongside the community", "play"],
   ["chat", "Chat", "Talk it through", "chat"],
   ["assistant", "Pip", "A little help on every screen", "pip"],
   ["profile", "Your profile", "Make yourself at home", "person"],
   ["onboarding", "Find your starting point", "A short introduction", "spark"],
 ];
+export const VISIBLE_SCREENS = SCREENS.filter(([id]) => !HIDDEN_TOOLS.includes(id));
 export const price = (n) => "$" + Number(n).toFixed(2);
 export function candles(symbol="NVDA", timeframe="15m") {
   const t=storyPlan(symbol), sign=t.side==="long"?1:-1;
@@ -142,14 +148,14 @@ export function createState() {
     avatar: "A",
     dark: false,
     notifications: true,
-    quick: ["macd", "patterns", "screener", "stops", "aplus", "chat"],
+    quick: ["macd", "patterns", "stops", "chat"],
     riskBudget: 250,
     horizon: "Day trades",
     calendarTab: "This week",
     profileAppearance: "Light",
     expandedBoards: [],
     wins: [],
-    winKind: "Trade win",
+    winKind: "Followed my plan",
     quizStage: "welcome",
     quizNode: "q1",
     quizResult: null,

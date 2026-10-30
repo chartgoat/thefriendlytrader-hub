@@ -109,12 +109,12 @@ export const QUIZ = {
         "to": "riskRoulettePlayer"
       },
       {
-        "text": "5-10%",
+        "text": "5-9%",
         "type": "question",
         "to": "e4"
       },
       {
-        "text": "1-5%",
+        "text": "Under 5%",
         "type": "question",
         "to": "e4"
       },
@@ -144,7 +144,7 @@ export const QUIZ = {
         "to": "e5"
       },
       {
-        "text": "HODL, hope it comes back",
+        "text": "Hold and hope it comes back",
         "type": "outcome",
         "to": "emotionalRollerCoaster"
       }

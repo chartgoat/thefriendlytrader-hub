@@ -10,11 +10,7 @@ body:not(.preview-open) .hero-copy{padding:0;align-self:center}
 .hero .hero-description{font-size:23px;line-height:1.45;max-width:520px;color:var(--ink);margin:0 0 32px}
 .get-app{margin:0 0 20px;gap:12px}
 .get-app .store-badge{min-height:60px;padding:10px 22px 10px 16px;border-radius:14px}
-.get-app .store-badge:not(.soon){background:var(--forest);border-color:var(--forest)}
-.get-app .store-badge:not(.soon):hover{background:#064b32}
 .get-app .store-badge.soon{background:transparent;border:1.5px dashed #9c9a8b;color:var(--ink)}
-.film-link{display:inline-flex;align-items:center;gap:10px;min-height:44px;padding:8px 0;border:0;background:none;color:var(--forest);font-size:18px;font-weight:650}
-.film-link span{font-size:13px}.film-link:hover{text-decoration:underline;text-underline-offset:4px}
 
 /* The phone sits beside the words, and is the demo. */
 body:not(.preview-open) .preview-stage{max-width:400px;display:flex;flex-direction:column;align-items:center}
@@ -65,7 +61,7 @@ body:not(.preview-open) .tour-player{order:4;align-self:center;margin:6px 0 0;pa
 .site-footer nav a{font-size:16px;min-height:32px;display:inline-flex;align-items:center}.site-footer nav a:hover{text-decoration:underline;text-underline-offset:3px}
 .site-footer small{font-size:13px;color:#5d6a60}
 
-:is(.benefit,.pip-hello,.film-link):focus-visible{outline:3px solid var(--forest);outline-offset:4px;border-radius:12px}
+:is(.benefit,.pip-hello,.plan):focus-visible{outline:3px solid var(--forest);outline-offset:4px;border-radius:12px}
 
 @media(max-width:1100px){
   body:not(.preview-open) .hero{grid-template-columns:minmax(0,1fr) 340px;gap:32px;padding:0 32px 56px}
@@ -98,3 +94,86 @@ body:not(.preview-open) .tour-player{order:4;align-self:center;margin:6px 0 0;pa
 }
 @media(max-width:360px){body:not(.preview-open) .phone.native{zoom:.66}.get-app .store-badge{padding:8px}}
 @media(prefers-reduced-motion:reduce){.benefit-art{transition:none}.benefit:hover .benefit-art{transform:none}}
+
+/* Hero: one free thing to start, one thing to try. */
+.hero .hero-actions{display:flex;flex-wrap:wrap;gap:12px;margin:0}
+.hero .hero-actions .button{min-height:58px;padding:16px 26px;font-size:18px}
+.hero .hero-actions .button.secondary{background:transparent;border:1.5px solid var(--forest);color:var(--forest)}
+.hero .hero-actions .button.secondary:hover{background:#0b5d3f14}
+.hero .quiet{margin:14px 0 24px;font-size:15px;color:#4c5a50}
+.hero .get-app{margin:0}
+.hero .get-app .store-badge{min-height:52px;padding:8px 18px 8px 14px}
+body:not(.preview-open) .stage-top{display:none}
+
+/* The opened app's side panel. */
+.preview-next{display:flex;flex-direction:column;align-items:flex-start;gap:12px}
+.preview-next strong{font-size:27px;line-height:1.14;letter-spacing:-.025em}
+.preview-next p{margin:0 0 6px;font-size:18px;color:#536259}
+.preview-next .button{min-height:50px;padding:13px 22px;font-size:16px}
+.preview-next .button.secondary{background:transparent;color:var(--forest)}
+
+/* Home, as the app draws it: the garden, then glass cards over it. */
+.native #app-root[data-view=home],#app-root[data-view=home]{background:#dcd1bf}
+.phone.dark #app-root[data-view=home]{background:#0f1613}
+#app-root[data-view=home] .n-header{background:transparent}
+.native .n-header.home-header h2{font-family:ui-serif,Georgia,"Times New Roman",serif;font-weight:600;letter-spacing:-.4px;color:#12382a;text-align:left}
+.phone.dark .native .n-header.home-header h2,.phone.dark.native .n-header.home-header h2{color:#e7efe9}
+.native .n-header.home-header{justify-content:flex-start;text-align:left}
+.native .n-header.home-header h2{flex:1;width:auto;margin:0;padding-left:2px;text-align:left}
+.native .home-content{gap:10px;background:transparent}
+.native .home-content>*{flex-shrink:0}
+.n-home-scene{position:relative;display:block;margin:0 -16px -44px;height:300px;background:url(garden-day.jpg) 50% 72%/cover no-repeat;-webkit-mask-image:linear-gradient(#000 78%,transparent);mask-image:linear-gradient(#000 78%,transparent)}
+.phone.dark .n-home-scene{background-image:url(garden-night.jpg)}
+.native .n-home-thought{position:absolute;left:53%;top:26%;padding:8px 13px;border:0;border-radius:15px 15px 15px 4px;background:#fffffff0;color:#17251e;font-size:14px;font-weight:600;line-height:1.2;box-shadow:0 4px 14px #0b3d2a24}
+.native .n-home-today,.native .home-content .n-home-tile,.native .home-content .n-home-calendars button,.native .home-content .n-home-row{border:1px solid color-mix(in srgb,#fff 45%,transparent);background:color-mix(in srgb,var(--app-bg) 72%,transparent);-webkit-backdrop-filter:blur(14px);backdrop-filter:blur(14px)}
+.phone.dark .native .n-home-today,.phone.dark.native .n-home-today{border-color:#ffffff1f}
+.native .n-home-today{position:relative;display:flex;align-items:center;gap:14px;width:100%;padding:16px;border-radius:22px;text-align:left;color:var(--app-text)}
+.native .n-home-today>svg:first-child{flex:none;width:28px;height:28px;color:var(--app-green)}
+.native .n-home-today>svg:last-child{flex:none;width:10px;margin-left:auto;color:var(--app-dim)}
+.native .n-home-today>span{display:flex;flex-direction:column;gap:3px;min-width:0}
+.native .n-home-today small{font-size:13px;font-weight:600;color:var(--app-dim)}
+.native .n-home-today strong{font-size:20px;font-weight:800;letter-spacing:-.4px}
+.native .n-home-today .n-hero-text{font-size:15px;font-weight:500;-webkit-line-clamp:none;display:block}
+.native .home-content .n-home-wide{width:100%;min-height:62px;padding:14px 16px}
+.native .home-content .n-home-wide>span{font-size:13px}
+.native .home-content .n-home-grid{display:grid;grid-template-columns:1fr 1fr;grid-template-rows:auto;gap:10px;flex:none;min-height:0}
+.native .home-content .n-home-grid .n-home-tile{min-height:92px}
+.native .home-content .n-home-row{width:100%}
+.native .home-content .n-home-row>svg:first-child{color:var(--app-green)}
+.native .home-content .n-home-live small{font-size:12px}
+.preview-open .native .n-home-scene{height:280px}
+
+/* The two screens added for the app's Options course and Coaching. */
+.native .app-button.full[href]{display:flex;align-items:center;justify-content:center;text-decoration:none;box-sizing:border-box}
+.native .n-lessons{display:grid;gap:2px;border:1px solid var(--app-border);border-radius:18px;overflow:hidden;background:var(--app-border)}
+.native .n-lesson{display:flex;align-items:center;gap:12px;padding:12px 14px;background:var(--app-bg);font-size:15px;font-weight:600}
+.native .n-lesson b{display:grid;place-items:center;width:26px;height:26px;flex:none;border-radius:50%;background:color-mix(in srgb,var(--app-green) 12%,transparent);color:var(--app-green);font-size:12px;font-weight:800}
+.native .n-coach{display:flex;align-items:center;gap:12px;padding:12px 14px;margin-bottom:8px;border:1px solid var(--app-border);border-radius:18px;background:var(--app-bg)}
+.native .n-coach>span:nth-child(2){display:flex;flex-direction:column;gap:2px;min-width:0;flex:1}
+.native .n-coach strong{font-size:16px;font-weight:800}
+.native .n-coach small{font-size:13px;color:var(--app-dim)}
+.native .n-quiz-result h4{margin:4px 0 2px;font-size:18px;font-weight:800}
+
+/* Join: the two plans the app sells, in the app's order. */
+.plans{display:grid;grid-template-columns:repeat(2,minmax(0,330px));gap:16px;justify-content:center;width:100%}
+.plan{display:flex;flex-direction:column;gap:6px;padding:24px;border:1.5px solid #ffffff59;border-radius:22px;color:#fff;text-align:left;text-decoration:none;transition:transform .18s ease,background .18s ease}
+.plan:hover{transform:translateY(-3px);background:#ffffff14}
+.plan.lead{background:#fff;border-color:#fff;color:var(--ink)}
+.plan.lead:hover{background:var(--cream)}
+.plan strong{font-size:20px;letter-spacing:-.02em}
+.plan b{font-size:27px;letter-spacing:-.025em}
+.plan.lead b,.plan.lead span{color:var(--forest)}
+.plan small{flex:1;font-size:16px;line-height:1.4;opacity:.92}
+.plan span{margin-top:8px;font-size:16px;font-weight:700}
+.plan i{font-style:normal}
+.plan-note{margin:0;font-size:14px;opacity:.85}
+.plan-note a{color:inherit;text-decoration:underline;text-underline-offset:3px}
+
+@media(min-width:801px){.preview-open .stage-top .text-button{display:none}}
+@media(max-width:800px){
+  body:not(.preview-open) .stage-top{display:flex}
+  .hero .hero-actions .button{width:100%;justify-content:center}
+  .hero .quiet{margin:12px 0 18px}
+  .plans{grid-template-columns:1fr;max-width:420px}
+}
+@media(prefers-reduced-motion:reduce){.plan{transition:none}.plan:hover{transform:none}}

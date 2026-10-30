@@ -6,6 +6,7 @@ import {
   BASE,
   tourPosition,
   restoreTour,
+  HIDDEN_TOOLS,
   escapeHTML as esc,
   price,
   storyPlan,
@@ -17,7 +18,6 @@ import { renderNativeView, nativeHeader, nativeIcon as icon, sheetStyle } from "
 import { QUIZ } from "./native-quiz.mjs";
 import { attachChart } from "./chart.mjs";
 import { createFilm } from "./film.mjs";
-import { FILM_DURATION } from "./film-script.mjs";
 import { PLATFORMS, changePlatform, MAC_SHORTCUTS, renderMacFrame } from "./platform.mjs";
 let state = createState(),
   history = [],
@@ -54,7 +54,7 @@ function showFilmFrame(frame) {
   if(content&&focal)content.scrollTop=Math.max(0,content.scrollTop+focal.getBoundingClientRect().top-content.getBoundingClientRect().top-(frame.id==='community'?84:16));
 }
 function renderPlayer() {
-  player.innerHTML=`<button class="film-launch" data-site="tour"><span class="film-launch-play">▶</span><span><strong>Watch the Friendly Trader film</strong><small>${FILM_DURATION} seconds. Then step inside.</small></span></button><p class="film-launch-note">Pause anywhere to explore the app.</p>${film?.started()?'<button class="film-return" data-site="resume-film">Resume film ↗</button>':''}`;
+  player.innerHTML=`<div class="preview-next"><strong>Everything here is sample data.</strong><p>Tap anything. Nothing is posted or traded.</p><a class="button" href="https://app.thefriendlytrader.com/learn" target="_blank" rel="noopener">Start the free options course <span aria-hidden="true">↗</span></a><button class="button secondary" data-site="membership">See membership</button></div>`;
 }
 function label(screen) {
   return META[screen]?.[0] || screen;
@@ -104,6 +104,8 @@ function render({ keepScroll = false } = {}) {
   );
 }
 function go(screen, detail = null, extra = {}, fromTour = false) {
+  // A switched-off tool opens Home, as AppNavigation.go does in the app.
+  if (!fromTour && HIDDEN_TOOLS.includes(screen)) { screen = "home"; detail = null; extra = {}; }
   if (!META[screen]) return;
   document.querySelector("#app-toast").classList.remove("visible");
   if (!fromTour) takeOver();
@@ -197,10 +199,10 @@ function askPip(question) {
     state.pipAnswer =
       "Confirmed means a setup met its confirmation rule. It does not mean the trade will win. Price can reverse, and the stop marks where the example stops making sense.";
   else if (/stop|risk|exit|size/.test(q))
-    state.pipAnswer = `The stop is the red line on the ${state.symbol} example. For a long idea it sits below entry; for a short idea it sits above. The sizing box divides your sample risk budget by the entry-to-stop distance and rounds down to whole shares. Fees, slippage and gaps can change the actual risk.`;
+    state.pipAnswer = `The stop is the red line on the ${state.symbol} example. For a long idea it sits below entry; for a short idea it sits above. Gaps can carry price past it.`;
   else if (/next|explore/.test(q))
     state.pipAnswer =
-      "Try opening A+ Scalps, choosing a ticker, and then tapping Plan a stop. You can pan the chart, change long to short, and save the example. After that, check the calendars or say hello in the demo community.";
+      "Try Stop Finder: pick a ticker, then change long to short and tap a line to see why it sits there. After that, check the calendars, start the Options course or say hello in the demo community.";
   else if (/looking|screen|what|explain/.test(q))
     state.pipAnswer =
       {
@@ -748,6 +750,9 @@ document.addEventListener("click", (e) => {
       break;
     case "close-fullscreen":
       fullscreen(false);
+      break;
+    case "membership":
+      openExternalSection("#membership");
       break;
   }
 });

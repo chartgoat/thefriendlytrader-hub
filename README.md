@@ -19,7 +19,9 @@ Open http://127.0.0.1:5539. `npm test` runs the data integrity, navigation, rend
 - `assets/app-preview/home.css`: the public page, loaded last.
 - `assets/app-preview/site.css`: responsive app appearance. It still holds some rules for the old page sections.
 
-All market data, people, events and conversations are simulated. State stays in memory in the browser tab and resets on reload. The preview has no API calls, real community posts, notifications, account actions or orders. Pip uses contextual prewritten answers. Eight sample tickers support consistent data across the tools. The session preview is an interactive lesson, not a live stream.
+Keep the preview true to the app. `HIDDEN_TOOLS` in `core.mjs` mirrors the owner's live tool switches, so a tool turned back on comes out of that list. The film stays in the repo but off the page until it is re-cut: its narration describes a share calculator, a Mac app and A+ Scalps that visitors can't get today.
+
+All market data, people, events and conversations are simulated, except the coach names and specialties, which match the public coaching page. State stays in memory in the browser tab and resets on reload. The preview has no API calls, real community posts, notifications, account actions or orders. Pip uses contextual prewritten answers. Eight sample tickers support consistent data across the tools. The session preview is an interactive lesson, not a live stream.
 
 See `docs/app-preview/PREVIEW-SCOPE.md` and `docs/app-preview/VALIDATION.md` for coverage and verification. App icon and Pip assets come from the existing iOS project.
 

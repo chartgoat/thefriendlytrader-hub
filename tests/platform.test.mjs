@@ -27,7 +27,7 @@ test('switching platforms and resuming a tour retain visitor work and platform p
 });
 
 test('both platforms render every root and tour chapter; Mac uses native destination order', () => {
-  assert.deepEqual(MAC_SHORTCUTS,['home','macd','patterns','screener','stops','aplus','earnings','economy','stream','chat']);
+  assert.deepEqual(MAC_SHORTCUTS,['home','macd','patterns','stops','earnings','economy','stream','chat']);
   for(const platform of ['ios','macos']) for(const destination of [...SCREENS.map(([screen])=>({screen})), ...TOUR]) {
     const state={...createState(),...destination,platform};
     const page=nativeHeader(state)+renderNativeView(state);

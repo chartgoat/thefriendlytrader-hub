@@ -160,7 +160,7 @@ test("detail branches and empty states render without missing data", () => {
       quizStage:"questions",
       quizResult:"riskRoulettePlayer",
     }),
-    /Explore Stop Finder/,
+    /Open Stop Finder/,
   );
 });
 test("visitor-authored content is escaped in chat, profile and Pip", () => {
