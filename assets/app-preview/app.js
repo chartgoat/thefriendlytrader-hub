@@ -78,8 +78,6 @@ function render({ keepScroll = false } = {}) {
   stage.dataset.platform=state.platform;
   phone.setAttribute("aria-label",mac?"Friendly Trader macOS preview":"Friendly Trader iOS preview");
   stage.querySelector('.preview-label').textContent=PLATFORMS[state.platform].previewLabel;
-  document.querySelector('#platform-description').textContent=PLATFORMS[state.platform].description;
-  document.querySelectorAll('button[data-platform]').forEach(b=>b.setAttribute('aria-pressed',b.dataset.platform===state.platform));
   phone.classList.add("native");
   root.classList.toggle("native-sheet",sheet&&!mac);
   root.dataset.view=state.screen;
@@ -149,6 +147,8 @@ function fullscreen(open = true) {
     root.querySelector("button")?.focus();
   } else {
     document.body.classList.remove("preview-open");
+    // The film's Mac shot can open the Mac preview; the page itself only shows the iPhone.
+    if(state.platform==="macos"){changePlatform(state,"ios");render({keepScroll:true});}
     stage.removeAttribute("role");
     stage.removeAttribute("aria-modal");
     stage.removeAttribute("aria-label");
@@ -786,25 +786,6 @@ document.addEventListener("keydown", (e) => {
 document.addEventListener("visibilitychange", () => {
   if (document.hidden) takeOver();
 });
-const directoryGroups = [
-  ["Your tools", ["aplus", "macd", "patterns", "screener", "stops"]],
-  ["Your day", ["home", "stream", "earnings", "economy", "live"]],
-  ["Your space", ["chat", "assistant", "profile", "onboarding"]],
-];
-document.querySelector("#screen-directory").innerHTML = directoryGroups
-  .map(
-    ([group, ids]) =>
-      `<div class="directory-group"><h3>${group}</h3>${ids
-        .map((id) => {
-          const [, title, description, i] = SCREENS.find(
-            (screen) => screen[0] === id,
-          );
-          return `<button data-open="${id}"><span class="directory-icon">${icon(i)}</span><span class="grow"><strong>${title}</strong><small>${description}</small></span>${icon("next")}</button>`;
-        })
-        .join("")}</div>`,
-  )
-  .join("");
-
 film=createFilm({phone,showFrame:showFilmFrame,openApp:()=>fullscreen(true),closeApp:()=>fullscreen(false),onStatus:({started})=>{
   if(started&&!player.querySelector('.film-return')){const button=document.createElement('button');button.className='film-return';button.dataset.site='resume-film';button.textContent='Resume film ↗';player.append(button);}
 }});

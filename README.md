@@ -1,6 +1,6 @@
 # Friendly Trader website
 
-App-first marketing site with a complete interactive browser preview of the main Friendly Trader iOS screens and their primary workflows. The site is static HTML, CSS and JavaScript with no runtime dependencies.
+App-first marketing site: one hero with a live iPhone preview, three benefits and one way to join. The preview covers the main Friendly Trader iOS screens and their primary workflows. The site is static HTML, CSS and JavaScript with no runtime dependencies.
 
 ## Run locally
 
@@ -16,7 +16,8 @@ Open http://127.0.0.1:5539. `npm test` runs the data integrity, navigation, rend
 - `assets/app-preview/ui.mjs`: screen and detail renderers.
 - `assets/app-preview/chart.mjs`: interactive candle charts, mouse/touch gestures and keyboard controls.
 - `assets/app-preview/app.js`: navigation, local demo actions, tour playback and pause/resume.
-- `assets/app-preview/site.css`: responsive website and app appearance.
+- `assets/app-preview/home.css`: the public page, loaded last.
+- `assets/app-preview/site.css`: responsive app appearance. It still holds some rules for the old page sections.
 
 All market data, people, events and conversations are simulated. State stays in memory in the browser tab and resets on reload. The preview has no API calls, real community posts, notifications, account actions or orders. Pip uses contextual prewritten answers. Eight sample tickers support consistent data across the tools. The session preview is an interactive lesson, not a live stream.
 

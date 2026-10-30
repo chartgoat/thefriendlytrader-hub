@@ -8,7 +8,7 @@
     />
     <meta
       name="description"
-      content="Turn “what now?” into a plan. Friendly Trader brings trade ideas, risk planning, Pip and your community together on iPhone and Mac. Try the interactive preview."
+      content="Turn “what now?” into a plan. Your trade idea, your risk and your next step, with a friendly guide to help it click."
     />
     <meta name="theme-color" content="#0b5d3f" />
     <meta
@@ -17,7 +17,7 @@
     />
     <meta
       property="og:description"
-      content="Explore Friendly Trader for iOS and macOS. Try both interactive previews with sample charts, plans and community."
+      content="Your trade idea, your risk and your next step, with a friendly guide to help it click. Try the app right on the page."
     />
     <meta
       property="og:image"
@@ -37,236 +37,78 @@
     <link rel="stylesheet" href="assets/app-preview/story.css" />
     <title>Friendly Trader | Turn “what now?” into a plan</title>
       <link rel="stylesheet" href="/assets/app-preview/film.css" />
+    <link rel="stylesheet" href="assets/app-preview/home.css" />
   </head>
   <body>
     <a class="skip-link" href="#main">Skip to content</a>
     <header class="site-header">
-      <a class="brand" href="#" aria-label="Friendly Trader home"
-        ><img
-          src="assets/app-preview/app-icon.png"
-          alt=""
-          width="42"
-          height="42"
-        /><span>Friendly Trader</span></a
-      >
-      <nav aria-label="Main navigation">
-        <a href="#why-friendly">Why Friendly Trader</a><a href="#inside">Inside the app</a><a href="#membership">Membership</a
-        ><a href="#web-tools">Web tools</a>
-      </nav>
-      <a class="button small" href="https://app.thefriendlytrader.com/"
-        >Open web app <span aria-hidden="true">↗</span></a
-      >
+      <a class="brand" href="#" aria-label="Friendly Trader home"><img src="assets/app-preview/app-icon.png" alt="" width="42" height="42" /><span>Friendly Trader</span></a>
+      <a class="button small" href="https://app.thefriendlytrader.com/">Open web app <span aria-hidden="true">↗</span></a>
     </header>
     <main id="main">
       <section class="hero" id="try-app">
         <div class="hero-copy">
-          <p class="availability">Friendly Trader for iPhone and Mac</p>
-          <h1>Turn “what now?”<br>into a plan.</h1>
-          <p class="hero-description">Bring your trade idea, your risk and your next step together. With a friendly guide to help it click.</p>
-          <div class="hero-actions">
-            <button class="button" data-site="tour"><span aria-hidden="true">▷</span> Watch the film</button>
-            <button class="button secondary" data-site="explore">Explore the app</button>
-          </div>
-          <p class="quiet">Try the full preview. No account needed.</p>
+          <h1>Turn “what&nbsp;now?”<br>into a plan.</h1>
+          <p class="hero-description">Your trade idea, your risk and your next step, with a friendly guide to help it click.</p>
           <div class="get-app" aria-label="Get Friendly Trader">
-            <span class="store-badge soon" role="img" aria-label="Coming soon to the App Store"><svg viewBox="0 0 24 24" aria-hidden="true"><rect x="6" y="2" width="12" height="20" rx="3"/><path d="M10 5h4M10 19h4"/></svg><span><small>Coming soon to the</small><strong>App Store</strong></span></span>
             <a class="store-badge" href="https://app.thefriendlytrader.com/"><svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="9.5"/><path d="M2.5 12h19M12 2.5c3 3.2 3 15.8 0 19M12 2.5c-3 3.2-3 15.8 0 19"/></svg><span><small>Use it now on the</small><strong>Web</strong></span></a>
+            <span class="store-badge soon" role="img" aria-label="Coming soon to the App Store"><svg viewBox="0 0 24 24" aria-hidden="true"><rect x="6" y="2" width="12" height="20" rx="3"/><path d="M10 5h4M10 19h4"/></svg><span><small>Coming soon to the</small><strong>App Store</strong></span></span>
           </div>
-          <button class="hero-guide" data-open="assistant"><img src="assets/app-preview/pip.png" width="64" height="64" alt=""><span><strong>Meet your friendly sidekick.</strong><small>Ask Pip to make a chart make sense.</small></span></button>
+          <button class="film-link" data-site="tour"><span aria-hidden="true">▶</span> Watch the 72-second film</button>
         </div>
         <div class="preview-stage" id="preview-stage">
-          <div class="platform-picker" role="group" aria-label="Choose app platform">
-            <button data-platform="ios" aria-pressed="true"><svg viewBox="0 0 24 24" aria-hidden="true"><rect x="6" y="2" width="12" height="20" rx="3"/><path d="M10 5h4M10 19h4"/></svg>iOS · iPhone</button>
-            <button data-platform="macos" aria-pressed="false"><svg viewBox="0 0 24 24" aria-hidden="true"><rect x="2" y="3" width="20" height="14" rx="2"/><path d="M9 21h6M12 17v4"/></svg>macOS · Mac</button>
-          </div>
-          <p class="platform-description" id="platform-description">Your trading day, in your pocket.</p>
+          <button class="pip-hello" data-open="assistant"><img src="assets/app-preview/pip.png" width="72" height="72" alt=""><span>Ask me about any chart.</span></button>
           <div class="stage-top">
-            <span class="preview-label">iPhone preview · sample data</span
-            ><button
-              class="text-button"
-              data-site="fullscreen"
-              aria-label="Expand app preview"
-            >
-              Expand ↗
-            </button>
+            <span class="preview-label">iPhone preview · sample data</span>
+            <button class="text-button" data-site="fullscreen" aria-label="Open the app preview full size">Open full size ↗</button>
           </div>
           <div class="phone" id="phone">
-            <div class="device-status" aria-hidden="true">
-              <span>10:42</span><span class="island"></span><span>▮▮▮ ◒ ▰</span>
-            </div>
+            <div class="device-status" aria-hidden="true"><span>10:42</span><span class="island"></span><span>▮▮▮ ◒ ▰</span></div>
             <div id="app-root" class="app-root"></div>
-            <div
-              id="app-toast"
-              class="toast"
-              role="status"
-              aria-live="polite"
-            ></div>
+            <div id="app-toast" class="toast" role="status" aria-live="polite"></div>
           </div>
-          <p class="preview-disclosure">
-            All data is simulated. Nothing is posted or traded.
-          </p>
+          <p class="preview-disclosure">All data is simulated. Nothing is posted or traded.</p>
           <div class="tour-player" id="tour-player"></div>
-          <button class="mobile-close button" data-site="close-fullscreen">
-            Close preview
-          </button>
+          <button class="mobile-close button" data-site="close-fullscreen">Close preview</button>
         </div>
       </section>
-      <section class="why-friendly section-wrap" id="why-friendly">
-        <div class="section-heading"><h2>This is where<br>things start to click.</h2><p>Your idea, your plan and a little backup. All in one place.</p></div>
-        <article class="benefit-story">
-          <div class="benefit-copy"><h3>Have a plan before<br>you have a position.</h3><p>Put the entry, stop and targets on the same chart. See the trade you’re considering, and what would change your mind.</p><button class="text-button" data-open="stops">See a sample plan <span aria-hidden="true">↗</span></button></div>
-          <div class="plan-illustration" aria-label="A plan brings your entry, stop and target together"><p>Your idea, thought through.</p><div class="plan-path"><div><span class="plan-dot entry"></span><strong>Entry</strong><small>Where you start</small></div><div><span class="plan-dot stop"></span><strong>Stop</strong><small>Where you plan to exit</small></div><div><span class="plan-dot target"></span><strong>Target</strong><small>Your profit goal</small></div></div><span class="plan-footnote">One view. A clearer decision.</span></div>
-        </article>
-        <article class="benefit-story">
-          <div class="benefit-copy"><h3>No question<br>too basic.</h3><p>Charts come with a lot of new words. Pip helps explain what you’re looking at, in language that feels familiar.</p><button class="text-button" data-open="assistant">Ask Pip a question <span aria-hidden="true">↗</span></button></div>
-          <div class="pip-illustration"><p class="example-question">“What’s a stop?”</p><div class="pip-reply"><img src="assets/app-preview/pip.png" width="80" height="80" alt="Pip"><div><strong>Let’s make it simple.</strong><p>It’s the price where you plan to exit if the trade moves against you.</p></div></div><small>A sample explanation from your friendly guide.</small></div>
-        </article>
-        <article class="benefit-story">
-          <div class="benefit-copy"><h3>Good habits grow<br>in good company.</h3><p>Talk it through. Learn from other traders. Celebrate a clear plan as much as a win.</p><button class="text-button" data-open="chat">Explore the community <span aria-hidden="true">↗</span></button></div>
-          <div class="community-illustration"><div><span aria-hidden="true">✓</span><p><strong>Followed my plan.</strong><small>That’s a win worth sharing.</small></p></div><div><span aria-hidden="true">?</span><p><strong>Asked the question.</strong><small>That’s how learning starts.</small></p></div><small>Illustrative community moments.</small></div>
-        </article>
+      <section class="benefits" aria-label="What you get">
+        <button class="benefit" data-open="stops">
+          <span class="benefit-art art-plan" aria-hidden="true"><svg viewBox="0 0 280 150"><path class="plan-target" d="M0 30h280"/><path class="plan-entry" d="M0 88h280"/><path class="plan-stop" d="M0 122h280"/><g class="plan-candles"><path d="M34 84v30M72 90v24M110 74v30M148 62v32M186 50v30M224 34v30"/><rect x="28" y="92" width="12" height="16"/><rect x="66" y="96" width="12" height="12" class="down"/><rect x="104" y="80" width="12" height="18"/><rect x="142" y="68" width="12" height="20"/><rect x="180" y="56" width="12" height="18"/><rect x="218" y="38" width="12" height="20"/></g><text x="276" y="24">Target</text><text x="276" y="82">Entry</text><text x="276" y="116">Stop</text></svg></span>
+          <strong>Have a plan before you have a position.</strong>
+          <small>Your entry, stop and target on one chart.</small>
+        </button>
+        <button class="benefit" data-open="assistant">
+          <span class="benefit-art art-pip" aria-hidden="true"><span class="bubble ask">“What’s a stop?”</span><span class="art-pip-reply"><img src="assets/app-preview/pip.png" width="52" height="52" alt=""><span class="bubble">Where you plan to exit if the trade goes against you.</span></span></span>
+          <strong>No question too basic.</strong>
+          <small>Pip explains any chart in plain words.</small>
+        </button>
+        <button class="benefit" data-open="chat">
+          <span class="benefit-art art-room" aria-hidden="true"><span class="chip"><i>✓</i>Followed my plan.</span><span class="chip"><i>?</i>Asked the question.</span></span>
+          <strong>Good habits grow in good company.</strong>
+          <small>Celebrate a clear plan as much as a win.</small>
+        </button>
       </section>
-      <section class="inside section-wrap" id="inside">
-        <div class="section-heading"><h2>Now, make<br>yourself at home.</h2><p>Open any screen. Try a plan. Ask a question. See how it fits your day.</p></div>
-        <div id="screen-directory" class="screen-directory"></div>
-      </section>
-      <section class="membership section-wrap" id="membership">
-        <div>
-          <h2>Make room for<br>a clearer trading day.</h2>
-          <p>
-            Bring your tools and community together. Explore the app first, then
-            choose the membership that fits.
-          </p>
-          <a
-            class="button"
-            href="https://whop.com/checkout/plan_qPuvfVGzKgEPW"
-            target="_blank"
-            rel="noopener"
-            >View membership options ↗</a
-          >
-          <p class="quiet">
-            Opens the existing Friendly Trader checkout on Whop.
-          </p>
-        </div>
-      </section>
-      <section class="platform-access section-wrap" id="get-app">
-        <div class="section-heading"><h2>Your trading day.<br>On iPhone and Mac.</h2><p>Choose your device. Explore the full preview before you join.</p></div>
-        <div class="platform-access-grid">
-          <article class="access-card" id="get-ios">
-            <div class="access-platform-heading"><img src="assets/app-preview/app-icon.png" alt="Friendly Trader app icon" width="60" height="60"><div><span>iOS</span><h3>Friendly Trader for iPhone</h3></div></div>
-            <p>Charts, setups and your community, wherever your day takes you.</p>
-            <button class="button" data-preview-platform="ios">Explore the iOS app</button>
-            <div class="platform-beta"><span class="store-badge soon" role="img" aria-label="Coming soon to the App Store"><svg viewBox="0 0 24 24" aria-hidden="true"><rect x="6" y="2" width="12" height="20" rx="3"/><path d="M10 5h4M10 19h4"/></svg><span><small>Coming soon to the</small><strong>App Store</strong></span></span><p>Until then, everything is ready for you in your browser.</p><a href="https://app.thefriendlytrader.com/">Open Friendly Trader on the web ↗</a></div>
-          </article>
-          <article class="access-card" id="get-macos">
-            <div class="access-platform-heading"><img src="assets/app-preview/app-icon.png" alt="Friendly Trader app icon" width="60" height="60"><div><span>macOS</span><h3>Friendly Trader for Mac</h3></div></div>
-            <p>A dedicated workspace with a sidebar, wider charts and room to think.</p>
-            <button class="button" data-preview-platform="macos">Explore the macOS app</button>
-            <div class="platform-beta"><strong>Mac beta · macOS 14 or later</strong><p>Currently available to invited internal testers through TestFlight. Public Mac beta access is not open yet.</p><a href="https://apps.apple.com/us/app/testflight/id899247664" target="_blank" rel="noopener">Get TestFlight for Mac ↗</a><small>TestFlight installation does not grant access to the Friendly Trader beta.</small></div>
-          </article>
-        </div>
-      </section>
-      <section class="web-tools section-wrap" id="web-tools">
-        <div>
-          <h2>Prefer your browser?</h2>
-          <p>Your familiar web tools are still here.</p>
-        </div>
-        <div class="web-links">
-          <a href="https://app.thefriendlytrader.com/">Friendly Trader web app ↗</a
-          ><a href="https://friendlyscreener.com/" target="_blank" rel="noopener"
-            >Friendly Screener ↗</a
-          ><a href="/options/">Friendly Options ↗</a
-          ><a
-            href="https://leaderboard.stockswithjosh.com/"
-            target="_blank"
-            rel="noopener"
-            >Trade Tracker ↗</a
-          ><a
-            href="https://macd.stockswithjosh.com/"
-            target="_blank"
-            rel="noopener"
-            >MACD ↗</a
-          >
-        </div>
-      </section>
-      <section class="faq section-wrap" id="faq">
-        <h2>A few friendly answers.</h2>
-        <div>
-          <details>
-            <summary>Can I try both the iOS and macOS apps?</summary>
-            <p>
-              Yes. Use the iOS / macOS switch to explore the iPhone layout or
-              the Mac workspace. These are interactive browser recreations using
-              simulated data. The native apps connect to the actual services.
-            </p>
-          </details>
-          <details>
-            <summary>Can I pause the film and use the app myself?</summary>
-            <p>
-              Yes. Choose “Pause and explore” to open the app at that moment.
-              “Resume film” takes you back to the same time. You can also open any
-              screen.
-            </p>
-          </details>
-          <details>
-            <summary>
-              Are these live prices or real member conversations?
-            </summary>
-            <p>
-              No. Every market example, event and conversation in the preview is
-              simulated. Your demo posts, plans and alerts stay inside this
-              preview and reset when you reload.
-            </p>
-          </details>
-          <details>
-            <summary>Can I trade through this preview?</summary>
-            <p>
-              No. The preview demonstrates research and planning tools. It does
-              not connect to a brokerage, send alerts or place orders.
-            </p>
-          </details>
-          <details>
-            <summary>Can I switch devices during the preview?</summary>
-            <p>
-              Yes. Your current screen, sample plans and demo changes stay with
-              you when you switch between the iOS and macOS previews. On a small
-              screen, the Mac sidebar opens with its menu button. The native Mac
-              app requires macOS 14 or later.
-            </p>
-          </details>
-        </div>
+      <section class="membership" id="membership">
+        <img src="assets/app-preview/pip.png" width="96" height="96" alt="">
+        <h2>Make room for a clearer trading day.</h2>
+        <a class="button" href="https://whop.com/checkout/plan_qPuvfVGzKgEPW" target="_blank" rel="noopener">See membership <span aria-hidden="true">↗</span></a>
       </section>
     </main>
     <footer class="site-footer">
-      <a class="brand" href="#"
-        ><img
-          src="assets/app-preview/app-icon.png"
-          alt=""
-          width="36"
-          height="36"
-        /><span>Friendly Trader</span></a
-      >
+      <a class="brand" href="#"><img src="assets/app-preview/app-icon.png" alt="" width="36" height="36" /><span>Friendly Trader</span></a>
       <p>Big market. Friendly company.</p>
-      <div>
-        <a href="/faq/">Help &amp; FAQ</a
-        ><a
-          href="https://whop.com/stockswithjosh/"
-          target="_blank"
-          rel="noopener"
-          >Community</a
-        >
-      </div>
-      <small
-        >© 2026 Friendly Trader. Educational tools, not financial advice.
-        Simulated examples are not evidence of trading performance.</small
-      >
+      <nav aria-label="More from Friendly Trader">
+        <a href="/faq/">Help &amp; FAQ</a>
+        <a href="https://whop.com/stockswithjosh/" target="_blank" rel="noopener">Community</a>
+        <a href="https://friendlyscreener.com/" target="_blank" rel="noopener">Friendly Screener</a>
+        <a href="/options/">Friendly Options</a>
+        <a href="https://leaderboard.stockswithjosh.com/" target="_blank" rel="noopener">Trade Tracker</a>
+        <a href="https://macd.stockswithjosh.com/" target="_blank" rel="noopener">MACD</a>
+      </nav>
+      <small>© 2026 Friendly Trader. Educational tools, not financial advice. Simulated examples are not evidence of trading performance.</small>
     </footer>
-    <noscript
-      ><p class="noscript">
-        Enable JavaScript to explore the interactive app preview. Membership and
-        web tool links above work without it.
-      </p></noscript
-    >
+    <noscript><p class="noscript">Enable JavaScript to try the app preview. All links on this page work without it.</p></noscript>
     <script type="module" src="assets/app-preview/app.js"></script>
   </body>
 </html>
