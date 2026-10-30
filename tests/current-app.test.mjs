@@ -68,13 +68,13 @@ test("the quiz uses the app's wording", () => {
   assert.match(result, /Open Stop Finder/);
 });
 
-test("the public pages keep to the copy rules and leave the film off until it is re-cut", () => {
+test("the public pages keep to the copy rules and the old interactive film stays off", () => {
   const home = read("../index.html");
   const faq = read("../faq/index.html");
   for (const html of [home, faq]) {
     assert.doesNotMatch(html, /plain English|plain words|—/);
   }
-  assert.doesNotMatch(home, /data-site="tour"|Watch the/);
+  assert.doesNotMatch(home, /data-site="tour"/);
   assert.match(home, /href="https:\/\/app\.thefriendlytrader\.com\/learn"/);
   assert.match(home, /plan_0jiK0r8Agdru8/);
   assert.match(home, /plan_qPuvfVGzKgEPW/);

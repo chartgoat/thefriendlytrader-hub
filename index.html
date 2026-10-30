@@ -41,6 +41,7 @@
     <title>Friendly Trader | Turn “what now?” into a plan</title>
       <link rel="stylesheet" href="/assets/app-preview/film.css" />
     <link rel="stylesheet" href="assets/app-preview/home.css" />
+    <link rel="stylesheet" href="assets/film/what-now.css" />
   </head>
   <body>
     <a class="skip-link" href="#main">Skip to content</a>
@@ -58,6 +59,7 @@
             <button class="button secondary" data-site="explore">Try the app</button>
           </div>
           <p class="quiet">No account needed for either.</p>
+          <a class="watch-link" href="#watch" data-watch>Watch the film, 1:24</a>
           <div class="get-app" aria-label="Get Friendly Trader">
             <span class="store-badge soon" role="img" aria-label="Coming soon to the App Store"><svg viewBox="0 0 24 24" aria-hidden="true"><rect x="6" y="2" width="12" height="20" rx="3"/><path d="M10 5h4M10 19h4"/></svg><span><small>Coming soon to the</small><strong>App Store</strong></span></span>
           </div>
@@ -76,6 +78,30 @@
           <p class="preview-disclosure">All data is simulated. Nothing is posted or traded.</p>
           <div class="tour-player" id="tour-player"></div>
           <button class="mobile-close button" data-site="close-fullscreen">Close preview</button>
+        </div>
+      </section>
+      <section class="film-watch" id="watch" aria-labelledby="watch-title">
+        <div class="film-watch-head">
+          <h2 id="watch-title">See how it works.</h2>
+          <span>1 minute 24 seconds, sound on</span>
+        </div>
+        <div class="film-frame">
+          <video controls playsinline preload="none" poster="assets/film/what-now-poster-16x9.jpg" data-poster-portrait="assets/film/what-now-poster-9x16.jpg" aria-label="What now? A film about the Friendly Trader app">
+            <source media="(max-width: 700px)" src="assets/film/what-now-9x16.mp4" type="video/mp4" />
+            <source src="assets/film/what-now-16x9.mp4" type="video/mp4" />
+            <track kind="captions" src="assets/film/what-now.en.vtt" srclang="en" label="English" />
+            <a href="assets/film/what-now-16x9.mp4">Download the film</a>
+          </video>
+          <button class="film-play" type="button" hidden aria-label="Play the film, 1 minute 24 seconds"><b>Play the film</b></button>
+          <div class="film-end" hidden>
+            <strong>Now try it.</strong>
+            <div>
+              <button class="button" data-site="explore">Try the app</button>
+              <a class="button secondary" href="https://app.thefriendlytrader.com/learn">Start the free options course <span aria-hidden="true">↗</span></a>
+            </div>
+            <small>No account needed for either.</small>
+            <button class="text-button" type="button" data-film-replay>Watch again</button>
+          </div>
         </div>
       </section>
       <section class="benefits" aria-label="What you get">
@@ -122,5 +148,6 @@
     </footer>
     <noscript><p class="noscript">Enable JavaScript to try the app preview. All links on this page work without it.</p></noscript>
     <script type="module" src="assets/app-preview/app.js"></script>
+    <script type="module" src="assets/film/what-now.mjs"></script>
   </body>
 </html>
