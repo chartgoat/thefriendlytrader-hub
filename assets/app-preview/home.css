@@ -1,4 +1,4 @@
-/* The opened app preview. The public page is in garden.css. */
+/* The opened app preview. The public page is in page.css. */
 /* The opened app's side panel. */
 .preview-next{display:flex;flex-direction:column;align-items:flex-start;gap:12px}
 .preview-next strong{font-size:27px;line-height:1.14;letter-spacing:-.025em}

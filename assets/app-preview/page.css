@@ -1,0 +1,164 @@
+/* The public page: the garden, the app's screens, the film, then the plans at night. It scrolls like any page. */
+@font-face{font-family:"Young Serif";src:url(../fonts/young-serif.woff2) format("woff2");font-weight:400;font-style:normal;font-display:swap}
+@font-face{font-family:Figtree;src:url(../fonts/figtree.woff2) format("woff2");font-weight:500 700;font-style:normal;font-display:swap}
+:root{--g-ink:#123527;--g-paint:#0A3F2C;--g-wall:#D8D4CA;--g-body:#3E4D42;--g-night:#111D22;--g-moon:#F4EFE6;--g-moon-dim:#D8DFDC;
+  --g-sans:Figtree,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;--g-serif:"Young Serif",ui-serif,Georgia,"Times New Roman",serif;
+  --g-gutter:max(clamp(20px,5vw,80px),env(safe-area-inset-left,0px))}
+/* The page color fills the bands Safari leaves around the page, so they read as more wall, or more night. */
+html,body{background:#CFC8BA}
+html.at-night,html.at-night body{background:var(--g-night)}
+html{scroll-behavior:auto;scroll-padding-top:0}
+body{overflow-x:clip}
+.g-hero :focus-visible,.g-inside :focus-visible,.g-close :focus-visible,.site-header :focus-visible{outline:3px solid currentColor;outline-offset:3px;border-radius:8px}
+
+/* top bar: part of the first screen, it scrolls away with it */
+.site-header{position:absolute;inset:0 0 auto;z-index:3;max-width:none;margin:0;justify-content:space-between;gap:14px;color:var(--g-moon);font-family:var(--g-sans);
+  padding:max(14px,env(safe-area-inset-top,0px)) max(clamp(16px,3.4vw,48px),env(safe-area-inset-right,0px)) 14px max(clamp(16px,3.4vw,48px),env(safe-area-inset-left,0px))}
+.site-header a{text-decoration:none}
+.site-header .brand{display:flex;align-items:center;gap:10px;min-height:44px;color:inherit;font-family:var(--g-serif);font-weight:400;font-size:clamp(20px,1.8vw,30px);letter-spacing:-.015em;white-space:nowrap}
+.site-header .brand img{width:clamp(34px,2vw,42px);height:clamp(34px,2vw,42px);border-radius:26%}
+.g-bar-open{display:inline-flex;align-items:center;min-height:44px;color:inherit;font-size:clamp(16px,.95vw,19px);font-weight:600;white-space:nowrap;text-decoration:underline!important;text-underline-offset:4px;text-decoration-thickness:1.5px!important}
+
+/* buttons */
+.g-btn{display:inline-flex;align-items:center;justify-content:center;min-height:clamp(54px,3.4vw,76px);padding:0 clamp(26px,2.3vw,46px);border:0;border-radius:999px;font-family:var(--g-sans);font-size:clamp(17px,1.15vw,23px);font-weight:700;letter-spacing:-.01em;text-decoration:none;white-space:nowrap;cursor:pointer;transition:background .15s ease}
+.g-primary{background:var(--g-ink);color:#fff}.g-primary:hover{background:#0A2A1D}
+.g-plain{background:#fffffff2;color:var(--g-ink)}.g-plain:hover{background:#fff}
+
+/* the working preview waits off stage */
+body:not(.preview-open) .g-preview{display:none}
+.preview-open .preview-stage{background:var(--g-wall) url(../home/wall.jpg) center/cover no-repeat;font-family:var(--g-sans)}
+.preview-open .preview-stage .preview-label,.preview-open .preview-stage .preview-disclosure{color:#3E4D42}
+.preview-open .preview-stage .mobile-close{border-color:#12352766;color:var(--g-ink)}
+.preview-next strong{font-family:var(--g-serif);font-weight:400;font-size:clamp(30px,2.8vw,42px);line-height:1.08;letter-spacing:-.018em;color:#0A3F2C}
+.preview-next p{font-size:19px;color:#3E4D42}
+.preview-next .button{background:var(--g-ink);border-color:var(--g-ink);color:#fff;font-family:var(--g-sans);font-weight:700}
+.preview-next .button:hover{background:#0A2A1D}
+.preview-next .button.secondary{background:#ffffffb8;border-color:transparent;color:var(--g-ink)}
+.preview-next .button.secondary:hover{background:#fff}
+
+/* The first screen: the garden film, framed so Pip stands just above the words. */
+.g-hero{--h:max(100svh,500px);--h1:clamp(44px,min(5.8vw,11.2svh),170px);--words:calc(var(--h1)*1.1 + clamp(210px,8vw + 112px,330px));
+  /* The film only has so much below Pip: on short screens it grows, so it still reaches the bottom with Pip above the words. */
+  --film:max(100vw,calc(var(--h)*1.3),calc(var(--words)/.335));--pip-y:calc(var(--h) - var(--words) - var(--film)*.088);
+  position:relative;height:var(--h);overflow:hidden;isolation:isolate;background:#CFC2AE;color:var(--g-ink);font-family:var(--g-sans)}
+.g-hero-film{position:absolute;z-index:-2;width:var(--film);height:var(--film);left:clamp(calc(100vw - var(--film)),calc(50vw - var(--film)*.465),0px);top:clamp(calc(var(--h) - var(--film)),calc(var(--pip-y) - var(--film)*.577),0px)}
+.g-hero-film img,.g-hero-film video{position:absolute;inset:0;width:100%;height:100%;max-width:none;object-fit:cover;display:block}
+.g-hero::before{content:"";position:absolute;z-index:-1;inset:0 0 auto;height:clamp(90px,16svh,150px);background:linear-gradient(#17261ca6,#17261c00);pointer-events:none}
+/* The stone fades into the wall below, so the page runs on without a seam. */
+.g-hero::after{content:"";position:absolute;z-index:-1;inset:auto 0 0;height:var(--wash,16%);background:linear-gradient(#D8D4CA00,var(--g-wall))}
+.g-hero-copy{position:absolute;left:var(--g-gutter);right:var(--g-gutter);bottom:max(clamp(22px,5svh,54px),env(safe-area-inset-bottom,0px));display:flex;flex-direction:column;align-items:flex-start}
+.g-hero h1{margin:0;font-family:var(--g-serif);font-weight:400;font-size:var(--h1);line-height:1.04;letter-spacing:-.022em;color:var(--g-paint);text-wrap:balance}
+.g-hero-line{margin:clamp(6px,1.2svh,14px) 0 0;max-width:34em;font-size:clamp(18px,1.55vw,40px);line-height:1.34;font-weight:600;letter-spacing:-.008em}
+.g-hero-acts{display:flex;flex-wrap:wrap;gap:12px;margin-top:clamp(14px,2.4svh,26px)}
+.g-hero-soon{margin:clamp(10px,1.4svh,16px) 0 0;font-size:clamp(14px,.95vw,18px);font-weight:600}
+
+/* The app's real screens, all at once. Each one opens that screen in the working preview. */
+.g-inside{position:relative;z-index:3;margin-top:-1px;padding:clamp(44px,8svh,96px) 0 clamp(52px,9svh,104px);background:linear-gradient(var(--g-wall),#D8D4CA00 12%,#D8D4CA00 74%,var(--g-wall)),var(--g-wall) url(../home/wall.jpg) top/cover no-repeat;color:var(--g-ink);font-family:var(--g-sans)}
+.g-inside h2{margin:0 var(--g-gutter) clamp(20px,4svh,44px);font-family:var(--g-serif);font-weight:400;font-size:clamp(34px,min(4.2vw,8.4svh),96px);line-height:1.04;letter-spacing:-.022em;color:var(--g-paint);text-align:center;text-wrap:balance}
+.g-shots{--shot-gap:clamp(20px,2.6vw,56px);--phone-w:min(calc((100vw - var(--g-gutter)*2 - var(--shot-gap)*3)/4),max(200px,calc((100svh - clamp(280px,36svh,420px))*.46)));display:flex;justify-content:center;gap:var(--shot-gap);margin:0;padding:0 var(--g-gutter);list-style:none}
+.g-shots>li{flex:none}
+.g-shot{display:flex;flex-direction:column;gap:clamp(10px,1.8svh,18px);width:var(--phone-w);padding:0;border:0;background:none;color:inherit;font:inherit;text-align:left;cursor:pointer}
+.g-shot-line{display:block;min-height:2.5em;font-size:clamp(17px,1.5vw,30px);line-height:1.25;font-weight:600;letter-spacing:-.01em}
+.g-shot-phone{display:block;width:100%;aspect-ratio:1000/2172;padding:calc(var(--phone-w)*.027);border-radius:calc(var(--phone-w)*.158);background:#0D1210;box-shadow:0 40px 80px #3a2f1f59,0 12px 26px #3a2f1f33;transition:transform .2s ease,box-shadow .2s ease}
+.g-shot-phone img{display:block;width:100%;height:100%;max-width:none;object-fit:cover;border-radius:calc(var(--phone-w)*.132)}
+@media (hover:hover){.g-shot:hover .g-shot-phone{transform:translateY(-6px);box-shadow:0 52px 96px #3a2f1f66,0 14px 30px #3a2f1f33}.g-shot:hover .g-shot-line{text-decoration:underline;text-underline-offset:4px;text-decoration-thickness:2px}}
+
+/* The film. The wall dims around it into the night below. */
+.film-watch,.preview-open .film-watch{position:relative;z-index:2;display:flex;flex-direction:column;justify-content:center;gap:clamp(14px,2.6svh,28px);min-height:100svh;margin:-1px 0 -2px;padding:clamp(28px,6svh,72px) var(--g-gutter) clamp(56px,11svh,120px);background:linear-gradient(var(--g-wall) 8%,#A6A6A0 44%,#4F5656 72%,#111D22 100%),#111D22;box-shadow:inset 0 -3px 0 #111D22;font-family:var(--g-sans)}
+.film-watch-head,.film-frame{width:min(100%,max(122svh,56vw));margin:0 auto}
+.film-watch h2{font-family:var(--g-serif);font-weight:400;font-size:clamp(34px,min(4.2vw,8.4svh),96px);line-height:1.04;letter-spacing:-.022em;color:var(--g-paint)}
+.film-frame{border-radius:clamp(16px,1.6vw,28px);box-shadow:0 40px 90px #0a151a80,0 12px 26px #0a151a40}
+.film-play{font-family:var(--g-sans)}
+.film-play b{background:var(--g-ink);font-weight:700}.film-play:hover b{background:#0A2A1D}
+.film-end{background:var(--g-wall) url(../home/wall.jpg) center/cover no-repeat;font-family:var(--g-sans);color:var(--g-ink)}
+.film-end strong{font-family:var(--g-serif);font-weight:400;font-size:clamp(34px,4.4vw,76px);letter-spacing:-.022em;color:#0A3F2C}
+.film-end small{color:var(--g-body)}
+.film-end .button{min-height:clamp(44px,3.2vw,60px);padding:0 clamp(18px,1.6vw,30px);background:var(--g-ink);border-color:var(--g-ink);color:#fff;font-family:var(--g-sans);font-size:clamp(15px,1.15vw,20px);font-weight:700}
+.film-end .button:hover{background:#0A2A1D}
+.film-end .button.secondary{background:#ffffffb8;border-color:transparent;color:var(--g-ink)}
+.film-end .button.secondary:hover{background:#fff}
+.film-end .text-button{font-weight:700;color:var(--g-ink)}
+
+/* The plans, at night. */
+.g-close{--film:max(100vw,calc(100svh*1.3));position:relative;z-index:1;min-height:100svh;display:flex;flex-direction:column;justify-content:flex-end;overflow:hidden;background:var(--g-night);color:var(--g-moon);font-family:var(--g-sans);padding:clamp(90px,16svh,170px) var(--g-gutter) max(26px,env(safe-area-inset-bottom,0px))}
+/* Pip keeps watch beside the headline; the plans sit below it on clear dark. */
+.g-close>video{position:absolute;left:calc(74vw - var(--film)*.465);top:calc(32svh - var(--film)*.577);width:var(--film);height:var(--film);max-width:none;object-fit:cover;-webkit-mask-image:linear-gradient(90deg,transparent,#000 24%);mask-image:linear-gradient(90deg,transparent,#000 24%)}
+.g-close::after{content:"";position:absolute;inset:0;background:linear-gradient(#0a151a00 42%,#0a151af0 66%)}
+.g-close::before{content:"";position:absolute;z-index:1;inset:0 0 auto;height:clamp(120px,26svh,280px);background:linear-gradient(#111D22,#111D2200);pointer-events:none}
+.g-close>*:not(video){position:relative;z-index:1}
+.g-close h2{margin:0;font-family:var(--g-serif);font-weight:400;font-size:clamp(44px,min(6.4vw,12.6svh),150px);line-height:1;letter-spacing:-.022em;text-wrap:balance}
+.g-close .g-acts{margin-top:clamp(18px,3.4svh,34px)}
+.g-moon{background:var(--g-moon);color:var(--g-ink)}.g-moon:hover{background:#fff}
+.g-plans{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:clamp(20px,4vw,72px);max-width:1320px;margin-top:clamp(34px,6svh,66px)}
+.g-plan{display:flex;flex-direction:column;align-items:flex-start;color:var(--g-moon);text-decoration:none}
+.g-plan strong{font-family:var(--g-serif);font-weight:400;font-size:clamp(25px,2.4vw,44px);line-height:1.1}
+.g-plan b{margin-top:4px;font-size:clamp(17px,1.4vw,26px);font-weight:700}
+.g-plan small{margin-top:7px;font-size:clamp(15px,1.15vw,20px);line-height:1.38;color:var(--g-moon-dim);max-width:26em}
+.g-plan span{display:inline-flex;align-items:center;min-height:44px;margin-top:4px;font-size:clamp(16px,1.15vw,20px);font-weight:700;text-decoration:underline;text-underline-offset:4px;text-decoration-thickness:1.5px}
+.g-plan:hover span{text-decoration-thickness:2.5px}
+.g-fee{margin:clamp(10px,2svh,20px) 0 0;font-size:14px;color:#C8D2CE}
+.g-fee a{color:inherit;text-decoration:underline;text-underline-offset:3px}
+.g-close .site-footer{display:flex;flex-wrap:wrap;align-items:center;gap:6px 20px;max-width:none;margin:clamp(28px,5.4svh,56px) 0 0;padding:0;border:0;font-family:var(--g-sans);font-size:14px;color:#C8D2CE}
+.g-close .site-footer nav{display:flex;flex-wrap:wrap;gap:0 20px;margin:0}
+.g-close .site-footer nav a{display:inline-flex;align-items:center;min-height:32px;font-size:14px;color:var(--g-moon);text-decoration:none}
+.g-close .site-footer nav a:hover{text-decoration:underline;text-underline-offset:3px}
+.g-close .site-footer small{flex-basis:100%;margin:2px 0 0;font-size:13px;line-height:1.5;color:#B7C3BE}
+
+/* Phones and tall windows: Pip on top, the words below, two lines for the headline. */
+@media (max-width:800px),(max-aspect-ratio:1/1){
+  :root{--g-gutter:max(20px,env(safe-area-inset-left,0px))}
+  .site-header{color:var(--g-ink)}
+  .g-hero::before{display:none}
+  .g-hero::after{background:linear-gradient(#D8D4CA00,#D8D4CAd9 46%,var(--g-wall))}
+  .g-hero{--wash:40%;--h1:clamp(36px,min(13vw,7.4svh),110px);--words:calc(var(--h1)*2.2 + clamp(198px,10vw + 134px,260px));--film:max(100vw,calc(var(--h)*1.2),calc(var(--words)/.335))}
+  .g-hero-copy{bottom:max(16px,env(safe-area-inset-bottom,0px))}
+  .g-hero-line{font-size:clamp(17px,2.6vw,26px)}
+  .g-hero-acts{flex-wrap:nowrap;align-self:stretch;gap:8px;margin-top:14px}
+  .g-hero-acts .g-btn{flex:1 1 auto;min-height:52px;padding:0 12px;font-size:16px}
+  .g-hero-soon{align-self:center;margin-top:10px;font-size:14px}
+  /* Night on a phone: Pip first, then the words, then the plans on clear dark. */
+  .g-close{--film:max(118vw,58svh);padding-top:calc(var(--film)*.56)}
+  .g-close>video{left:calc(50vw - var(--film)*.465);top:calc(var(--film)*(.34 - .577));-webkit-mask-image:linear-gradient(#000 72%,transparent 96%);mask-image:linear-gradient(#000 72%,transparent 96%)}
+  .g-close::after{display:none}
+  .g-close h2{font-size:clamp(32px,min(9.8vw,8svh),84px)}
+}
+/* Tablets held upright keep the buttons at their natural size. */
+@media (min-width:600px) and (max-width:800px),(min-width:600px) and (max-aspect-ratio:1/1){
+  .g-hero-acts{flex-wrap:wrap;align-self:flex-start;gap:12px}
+  .g-hero-acts .g-btn{flex:0 0 auto;min-height:58px;padding:0 30px;font-size:18px}
+  .g-hero-soon{align-self:flex-start;font-size:15px}
+}
+/* Four phones stop fitting: they become a row to swipe, with the next one showing at the edge. */
+@media (max-width:1080px){
+  .g-inside h2{text-align:left}
+  /* The row scrolls sideways, so it needs room inside it for the phones' shadows. */
+  .g-shots{--phone-w:min(66vw,320px,max(200px,calc((100svh - 250px)*.46)));justify-content:flex-start;padding-right:0;padding-bottom:76px;margin-bottom:-76px;overflow-x:auto;scroll-snap-type:x proximity;scroll-padding-inline:var(--g-gutter);scrollbar-width:none;-webkit-overflow-scrolling:touch}
+  .g-shots::-webkit-scrollbar{display:none}
+  .g-shots>li{scroll-snap-align:start}
+  .g-shots>li:last-child{padding-right:var(--g-gutter)}
+  .g-shot-line{font-size:clamp(17px,2.2vw,22px)}
+  .g-shot-phone{box-shadow:0 24px 48px #3a2f1f59,0 8px 18px #3a2f1f33}
+}
+@media (max-width:800px){
+  .site-header .brand{font-size:18px;gap:8px}.site-header .brand img{width:30px;height:30px}
+  .g-bar-open{font-size:15px}
+  .g-plans{grid-template-columns:1fr;gap:18px}
+  .g-plan span{margin-top:0}
+}
+@media (max-width:700px){
+  .film-watch,.preview-open .film-watch{padding:clamp(20px,4svh,44px) 16px clamp(44px,9svh,80px)}
+  .film-watch-head{width:100%;margin:0}
+  .film-frame{aspect-ratio:9/16;width:min(100%,calc((100svh - 150px)*.5625));max-height:none;border-radius:18px}
+}
+@media (max-width:360px){
+  .g-hero-acts .g-btn{padding:0 8px;font-size:15px}
+}
+/* No room for the note on the shortest screens. */
+@media (max-height:480px){.g-hero-soon{display:none}}
+/* Browsers from before small viewport units. */
+@supports not (height:1svh){
+  .g-hero{--h:100vh;--h1:5.8vw}
+  .g-shots{--phone-w:18vw}
+  .g-close{min-height:100vh}
+}
+@media (prefers-reduced-motion:reduce){.g-btn,.g-shot-phone{transition:none}.g-shot:hover .g-shot-phone{transform:none}}

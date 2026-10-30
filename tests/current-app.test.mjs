@@ -85,16 +85,35 @@ test("the public pages keep to the copy rules and the old interactive film stays
   assert.doesNotMatch(read("../assets/app-preview/app.js"), /Try opening A\+ Scalps|film-launch|sizing box/);
 });
 
-test("the garden page ships what it references and keeps the preview's content rules", () => {
+test("the home page ships what it references and keeps the preview's content rules", () => {
   const home = read("../index.html");
-  const js = read("../assets/app-preview/garden.js");
+  const js = read("../assets/app-preview/page.js");
   const refs = [...home.matchAll(/(?:src|href|poster)="(assets\/[^"]+)"/g), ...js.matchAll(/'(assets\/home\/[^']+)'/g)].map((m) => m[1]);
   assert.ok(refs.length > 8);
   for (const ref of refs) assert.ok(fs.existsSync(new URL(`../${ref}`, import.meta.url)), ref);
   assert.match(home, /connect-src 'none'/);
   assert.doesNotMatch(home, /fonts\.googleapis|fonts\.gstatic/);
-  const css = read("../assets/app-preview/garden.css");
+  const css = read("../assets/app-preview/page.css");
   for (const font of ["young-serif", "figtree"]) assert.ok(css.includes(`url(../fonts/${font}.woff2)`), font);
   assert.doesNotMatch(js, /\bfetch\s*\(|XMLHttpRequest|localStorage/);
-  for (const ask of ["Where should", "Where do", "Can I practice", "What does"]) assert.ok(home.includes(ask), ask);
+});
+
+test("the home page stays plain: it says what the app is, offers two things, and scrolls like any page", () => {
+  const home = read("../index.html");
+  const js = read("../assets/app-preview/page.js");
+  const css = read("../assets/app-preview/page.css");
+  const heroAt = home.indexOf('class="g-hero"');
+  const hero = home.slice(heroAt, home.indexOf("</section>", heroAt));
+  assert.match(hero, /<h1[^>]*>The friendly trading&nbsp;app\.<\/h1>/);
+  assert.equal((hero.match(/<(a|button)\b/g) || []).length, 2, "two things to press on the first screen");
+  assert.doesNotMatch(css, /position:\s*(sticky|fixed)/, "nothing pinned to the screen");
+  assert.doesNotMatch(js, /addEventListener\(\s*['"]scroll/, "nothing driven by scrolling");
+});
+
+test("each phone on the home page opens a screen the preview really has", () => {
+  const home = read("../index.html");
+  const opens = [...home.matchAll(/class="g-shot" data-open="([^"]+)"/g)].map((m) => m[1]);
+  assert.deepEqual(opens, ["stops", "course", "assistant"]);
+  for (const name of opens) assert.ok(screen(name).length > 200, name);
+  assert.match(home, /class="g-shot" data-site="explore"/);
 });
