@@ -110,6 +110,23 @@ test("the home page stays plain: it says what the app is, offers two things, and
   assert.doesNotMatch(js, /addEventListener\(\s*['"]scroll/, "nothing driven by scrolling");
 });
 
+test("the plans list every real price with its own checkout, and no plan that isn't sold", () => {
+  const home = read("../index.html");
+  const plans = home.slice(home.indexOf('class="g-plans"'), home.indexOf('class="g-fee"'));
+  const rows = [...plans.matchAll(/checkout\/(plan_\w+)"[^>]*><b>(\$[\d,.]+)<\/b> ([^<]+)</g)].map((m) => m.slice(1));
+  assert.deepEqual(rows, [
+    ["plan_0jiK0r8Agdru8", "$49", "a week"],
+    ["plan_io9G63wKwKbEB", "$160", "a month"],
+    ["plan_GxjiqB1KxtLZ7", "$465", "for 3 months"],
+    ["plan_oQIeiOmUj1yBu", "$1,495", "a year"],
+    ["plan_qPuvfVGzKgEPW", "$79.99", "a month"],
+    ["plan_hGOtlk0pDbrpB", "$197.99", "for 3 months"],
+  ]);
+  assert.deepEqual([...plans.matchAll(/<h3>([^<]+)<\/h3>/g)].map((m) => m[1]), ["Trader Tier", "Friendly Tools"]);
+  const faq = read("../faq/index.html");
+  for (const price of ["$49", "$160", "$465", "$1,495", "$79.99", "$197.99"]) assert.ok(faq.includes(price), `the FAQ states ${price}`);
+});
+
 test("each phone on the home page opens a screen the preview really has", () => {
   const home = read("../index.html");
   const opens = [...home.matchAll(/class="g-shot" data-open="([^"]+)"/g)].map((m) => m[1]);
