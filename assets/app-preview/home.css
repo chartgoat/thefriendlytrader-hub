@@ -24,7 +24,7 @@ body:not(.preview-open) .stage-top{order:3;margin:2px 0 0;max-width:none;justify
 body:not(.preview-open) .stage-top .preview-label{display:none}
 body:not(.preview-open) .stage-top .text-button{font-size:16px;min-height:44px}
 body:not(.preview-open) .tour-player:not(:has(.film-return)),body:not(.preview-open) .tour-player .film-launch,body:not(.preview-open) .tour-player .film-launch-note{display:none}
-body:not(.preview-open) .tour-player{order:4}
+body:not(.preview-open) .tour-player{order:4;align-self:center;margin:6px 0 0;padding:0}
 .pip-hello{position:absolute;z-index:2;left:-64px;top:96px;display:flex;flex-direction:column;align-items:flex-start;gap:6px;width:112px;padding:0;border:0;background:none;text-align:left}
 .pip-hello img{width:72px;height:72px;border-radius:20px;box-shadow:0 8px 20px #0b3d2a26}
 .pip-hello span{padding:8px 11px;border-radius:4px 14px 14px;background:#fff;color:var(--ink);font-size:14px;font-weight:600;line-height:1.25;box-shadow:0 6px 16px #0b3d2a1f}
@@ -93,6 +93,8 @@ body:not(.preview-open) .tour-player{order:4}
   .membership{padding:64px 20px}
   .site-footer{padding:32px 20px;flex-direction:column;align-items:flex-start}
   .site-footer nav{margin-left:0}
+  .preview-open .tour-player:not(:has(.film-return)){display:none}
+  .preview-open .native .home-content>*{flex-shrink:0}
 }
 @media(max-width:360px){body:not(.preview-open) .phone.native{zoom:.66}.get-app .store-badge{padding:8px}}
 @media(prefers-reduced-motion:reduce){.benefit-art{transition:none}.benefit:hover .benefit-art{transform:none}}
