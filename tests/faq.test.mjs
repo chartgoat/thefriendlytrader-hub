@@ -21,5 +21,5 @@ test("old links into the FAQ still land somewhere", () => {
 
 test("the FAQ keeps the brand and house style", () => {
   assert.doesNotMatch(html, /—/);
-  assert.doesNotMatch(html, /ccb167|ffff8a|fonts\.googleapis/);
+  assert.doesNotMatch(html, /ccb167|ffff8a|fonts\.googleapis|fonts\.gstatic/);
 });

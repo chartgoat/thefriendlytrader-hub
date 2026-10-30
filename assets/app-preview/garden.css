@@ -1,0 +1,186 @@
+/* The public page. It opens inside the app's garden, and the camera pulls back to the phone. */
+@font-face{font-family:"Young Serif";src:url(../fonts/young-serif.woff2) format("woff2");font-weight:400;font-style:normal;font-display:swap}
+@font-face{font-family:Figtree;src:url(../fonts/figtree.woff2) format("woff2");font-weight:500 700;font-style:normal;font-display:swap}
+:root{--g-ink:#123527;--g-paint:#0A4630;--g-wall:#E5DCCD;--g-body:#3E4D42;--g-night:#111D22;--g-moon:#F4EFE6;--g-moon-dim:#D8DFDC;
+  --g-sans:Figtree,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;--g-serif:"Young Serif",ui-serif,Georgia,"Times New Roman",serif;
+  --g-gutter:max(clamp(20px,5vw,80px),env(safe-area-inset-left,0px));
+  --phone-h:min(88svh,calc(100svh - 80px),172vw);--phone-w:calc(var(--phone-h)*.4603)}
+/* The page color fills the bands Safari leaves around the page, so they read as more wall, or more night. */
+html,body{background:#CFC8BA}
+html.at-night,html.at-night body{background:var(--g-night)}
+html{scroll-behavior:auto;scroll-padding-top:0}
+body{overflow-x:clip}
+
+/* top bar */
+.site-header{position:fixed;inset:0 0 auto;z-index:30;max-width:none;margin:0;gap:14px;justify-content:space-between;pointer-events:none;color:var(--g-bar,var(--g-ink));font-family:var(--g-sans);
+  padding:max(14px,env(safe-area-inset-top,0px)) max(clamp(16px,3.4vw,48px),env(safe-area-inset-right,0px)) 14px max(clamp(16px,3.4vw,48px),env(safe-area-inset-left,0px));transition:color .25s ease,transform .25s ease,opacity .2s ease}
+.site-header.is-away{transform:translateY(-100%);opacity:0;visibility:hidden;transition:color .25s ease,transform .25s ease,opacity .2s ease,visibility 0s linear .25s}
+.site-header a{pointer-events:auto;text-decoration:none}
+.site-header .brand{display:flex;align-items:center;gap:10px;min-height:44px;color:inherit;font-family:var(--g-serif);font-weight:400;font-size:clamp(20px,1.8vw,30px);letter-spacing:-.015em;white-space:nowrap}
+.site-header .brand img{width:clamp(34px,2vw,42px);height:clamp(34px,2vw,42px);border-radius:26%}
+.g-bar-actions{display:flex;align-items:center}
+.g-bar-open{display:inline-flex;align-items:center;min-height:44px;color:inherit;font-size:clamp(16px,.95vw,19px);font-weight:600;white-space:nowrap;text-decoration:underline!important;text-underline-offset:4px;text-decoration-thickness:1.5px!important}
+.g-bar-start{display:none;align-items:center;min-height:44px;padding:0 1.2em;border-radius:999px;background:var(--g-ink);color:#fff;font-size:clamp(15px,.9vw,18px);font-weight:700;white-space:nowrap}
+.site-header.is-past .g-bar-open{display:none}
+.site-header.is-past .g-bar-start{display:inline-flex;animation:g-pill .2s ease}
+@keyframes g-pill{from{opacity:0;transform:translateY(-6px)}}
+.site-header.on-night{background:linear-gradient(#0a151af2 62%,#0a151a00)}
+.site-header.on-night .g-bar-start{background:var(--g-moon);color:var(--g-ink)}
+
+/* the working preview waits off stage */
+body:not(.preview-open) .g-preview{display:none}
+.preview-open .preview-stage{background:var(--g-wall) url(../home/wall.jpg) center/cover no-repeat;font-family:var(--g-sans)}
+.preview-open .preview-stage .preview-label,.preview-open .preview-stage .preview-disclosure{color:#3E4D42}
+.preview-open .preview-stage .mobile-close{border-color:#12352766;color:var(--g-ink)}
+.preview-next strong{font-family:var(--g-serif);font-weight:400;font-size:clamp(30px,2.8vw,42px);line-height:1.08;letter-spacing:-.018em;color:#0A3F2C}
+.preview-next p{font-size:19px;color:#3E4D42}
+.preview-next .button{background:var(--g-ink);border-color:var(--g-ink);color:#fff;font-family:var(--g-sans);font-weight:700}
+.preview-next .button:hover{background:#0A2A1D}
+.preview-next .button.secondary{background:#ffffffb8;border-color:transparent;color:var(--g-ink)}
+.preview-next .button.secondary:hover{background:#fff}
+
+/* the pinned shot */
+.g-story{position:relative;height:720vh;height:calc(100svh * 7.2)}
+.g-stage{position:sticky;top:0;height:100vh;height:100lvh;overflow:hidden;background:var(--g-wall) url(../home/wall.jpg) center/cover no-repeat;isolation:isolate;font-family:var(--g-sans);color:var(--g-ink)}
+.g-stage h1,.g-stage h2,.g-close h2{margin:0;font-family:var(--g-serif);font-weight:400;letter-spacing:-.022em;line-height:1.02;text-wrap:balance}
+.g-stage p,.g-close p{margin:0}
+
+/* The garden and the real Home screen are one picture. */
+.g-world{position:absolute;left:0;top:0;transform-origin:0 0;will-change:transform}
+.g-clip{position:absolute;inset:0;will-change:clip-path}
+.g-film{position:absolute;overflow:hidden;background:#CFC2AE}
+.g-film video,.g-film img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;display:block}
+.g-shot{position:absolute;inset:0;width:100%;height:100%;max-width:none;object-fit:cover;display:block;opacity:0;will-change:opacity;
+  -webkit-mask-image:linear-gradient(#000 0,#000 13.5%,transparent 19%,transparent 47.4%,#000 48.8%);mask-image:linear-gradient(#000 0,#000 13.5%,transparent 19%,transparent 47.4%,#000 48.8%)}
+.g-bezel{position:absolute;opacity:0;will-change:opacity;pointer-events:none}
+.g-bezel b{position:absolute;inset:0;display:block;border-radius:calc(var(--phone-w)*.158);box-shadow:inset 0 0 0 calc(var(--phone-w)*.027) #0D1210,0 40px 90px #3a2f1f66,0 12px 26px #3a2f1f40}
+.g-island{position:absolute;left:50%;top:calc(var(--phone-w)*.057);width:29%;height:calc(var(--phone-w)*.082);margin-left:-14.5%;border-radius:99px;background:#000}
+.g-scrim{position:absolute;inset:0 0 auto;height:clamp(90px,16svh,150px);background:linear-gradient(#17261ca6,#17261c00);pointer-events:none;will-change:opacity}
+
+/* The headline sits on the stone under Pip and takes the light that falls on it. */
+.g-hero-copy{position:absolute;left:var(--g-gutter);right:var(--g-gutter);bottom:calc(100lvh - 100svh + max(clamp(22px,5svh,50px),env(safe-area-inset-bottom,0px)));display:flex;flex-direction:column;align-items:flex-start;gap:clamp(10px,2.2svh,24px)}
+.g-carved{max-width:min(90vw,1900px);color:var(--g-paint);mix-blend-mode:multiply;will-change:opacity,transform}
+.g-carved h1{font-size:clamp(40px,min(7.9vw,14.5svh),190px)}
+.g-lead{position:relative;display:flex;flex-wrap:wrap;align-items:center;gap:12px 22px;will-change:opacity}
+.g-btn{display:inline-flex;align-items:center;justify-content:center;min-height:clamp(58px,3.4vw,76px);padding:0 clamp(30px,2.3vw,46px);border:0;border-radius:999px;font-family:var(--g-sans);font-size:clamp(17px,1.15vw,23px);font-weight:700;letter-spacing:-.01em;text-decoration:none;white-space:nowrap;cursor:pointer;transition:transform .15s ease,background .15s ease}
+.g-btn:hover{transform:translateY(-2px)}.g-btn:active{transform:none}
+.g-primary{background:var(--g-ink);color:#fff}.g-primary:hover{background:#0A2A1D}
+.g-plain{background:#ffffffb8;color:var(--g-ink);-webkit-backdrop-filter:blur(10px);backdrop-filter:blur(10px)}.g-plain:hover{background:#fff}
+.g-soon{font-size:clamp(15px,.9vw,18px);font-weight:600;color:var(--g-ink)}
+.g-lead .g-soon{padding:.35em .85em;border-radius:99px;background:#ffffffd1}
+.g-watch{display:inline-flex;align-items:center;min-height:44px;padding:0 1em 0 .85em;border-radius:99px;background:#ffffffd1;color:var(--g-ink);font-size:clamp(15px,.95vw,19px);font-weight:700;white-space:nowrap;text-decoration:none}
+.g-watch::before{content:"";flex:none;margin-right:.5em;border-left:.62em solid currentColor;border-top:.38em solid transparent;border-bottom:.38em solid transparent}
+.g-watch:hover{background:#fff}
+
+/* the questions, on the garden wall */
+.g-copy{--g-copy-w:calc(71vw - var(--phone-w)/2 - 24px - clamp(20px,6vw,100px));position:absolute;z-index:6;left:clamp(20px,6vw,100px);top:50%;width:var(--g-copy-w);opacity:0;visibility:hidden;transform:translateY(-50%);will-change:opacity,transform}
+/* "Friendly company." is 8.8 em wide, so the longest line always stops short of the phone. */
+.g-copy h2{font-size:clamp(44px,min(calc(var(--g-copy-w)/8.85),11.5svh),136px);color:#0A3F2C;mix-blend-mode:multiply}
+.g-copy p{margin-top:clamp(14px,2.6svh,26px);font-size:clamp(19px,1.65vw,32px);line-height:1.34;font-weight:500;letter-spacing:-.008em;color:var(--g-body);max-width:22em}
+.g-go{display:inline-flex;align-items:center;min-height:44px;margin-top:clamp(8px,1.6svh,16px);padding:0;border:0;background:none;color:var(--g-ink);font-family:var(--g-sans);font-size:clamp(17px,1.35vw,26px);font-weight:700;text-decoration:underline;text-underline-offset:5px;text-decoration-thickness:2px;cursor:pointer}
+.g-go:hover{color:#0A2A1D;text-decoration-thickness:3px}
+.g-device{position:absolute;z-index:7;left:0;top:0;width:var(--phone-w);height:var(--phone-h);visibility:hidden;pointer-events:none;will-change:transform}
+.g-screens{position:absolute;inset:calc(var(--phone-w)*.027);overflow:hidden;border-radius:calc(var(--phone-w)*.132);isolation:isolate}
+.g-screens img{position:absolute;inset:0;width:100%;height:100%;max-width:none;object-fit:cover;display:block;visibility:hidden;clip-path:inset(6% 0 0);transition:clip-path .18s ease;will-change:transform}
+.g-edge{position:absolute;left:0;right:0;top:calc(var(--phone-w)*-.09);height:calc(var(--phone-w)*.09);background:linear-gradient(#00000000,#00000024);opacity:0;pointer-events:none;will-change:transform,opacity}
+.g-device .g-island{z-index:9}
+.g-lift{position:absolute;z-index:10;border-radius:calc(var(--phone-w)*.05);background-repeat:no-repeat;opacity:0;box-shadow:0 24px 54px #3a2f1f70,0 4px 12px #3a2f1f33;will-change:transform,opacity}
+
+/* The film. The wall dims around it into the night below. */
+.film-watch,.preview-open .film-watch{position:relative;z-index:1;display:flex;flex-direction:column;justify-content:center;gap:clamp(14px,2.4svh,24px);min-height:100svh;margin:-1px 0;padding:clamp(40px,8svh,88px) var(--g-gutter) clamp(56px,11svh,120px);background:linear-gradient(#111D2200 16%,#111D2226 38%,#111D2290 66%,#111D22 100%),var(--g-wall) url(../home/wall.jpg) top/cover no-repeat;box-shadow:inset 0 -3px 0 #111D22,0 -14px 40px #3a2f1f2e;font-family:var(--g-sans)}
+.film-watch-head,.film-frame{width:min(100%,max(122svh,56vw));margin:0 auto}
+.film-watch-head{flex-wrap:wrap;align-items:baseline;gap:2px 24px}
+.film-watch h2{font-family:var(--g-serif);font-weight:400;font-size:clamp(38px,min(4.6vw,9svh),96px);line-height:1.02;letter-spacing:-.022em;color:#0A3F2C}
+.film-watch-head span{font-size:clamp(16px,1.2vw,22px);font-weight:500;color:var(--g-body)}
+.film-frame{border-radius:clamp(16px,1.6vw,28px);box-shadow:0 40px 90px #0a151a80,0 12px 26px #0a151a40}
+.film-play{font-family:var(--g-sans)}
+.film-play b{background:var(--g-ink);font-weight:700}.film-play:hover b{background:#0A2A1D}
+.film-end{background:var(--g-wall) url(../home/wall.jpg) center/cover no-repeat;font-family:var(--g-sans);color:var(--g-ink)}
+.film-end strong{font-family:var(--g-serif);font-weight:400;font-size:clamp(34px,4.4vw,76px);letter-spacing:-.022em;color:#0A3F2C}
+.film-end small{color:var(--g-body)}
+.film-end .button{min-height:clamp(44px,3.2vw,60px);padding:0 clamp(18px,1.6vw,30px);background:var(--g-ink);border-color:var(--g-ink);color:#fff;font-family:var(--g-sans);font-size:clamp(15px,1.15vw,20px);font-weight:700}
+.film-end .button:hover{background:#0A2A1D}
+.film-end .button.secondary{background:#ffffffb8;border-color:transparent;color:var(--g-ink)}
+.film-end .button.secondary:hover{background:#fff}
+.film-end .text-button{font-weight:700;color:var(--g-ink)}
+
+/* last light */
+.g-close{position:relative;z-index:1;min-height:100svh;display:flex;flex-direction:column;justify-content:flex-end;overflow:hidden;background:var(--g-night);color:var(--g-moon);font-family:var(--g-sans);padding:clamp(90px,16svh,170px) var(--g-gutter) max(26px,env(safe-area-inset-bottom,0px))}
+.g-close>video{position:absolute;inset:0;width:100%;height:100%;max-width:none;object-fit:cover;object-position:50% 58%;transform:translateX(16%) scale(1.14)}
+.g-close::after{content:"";position:absolute;inset:0;background:linear-gradient(90deg,#0a151ad9 8%,#0a151a26 62%),linear-gradient(#0a151a00 45%,#0a151ae6 92%)}
+.g-close::before{content:"";position:absolute;z-index:1;inset:0 0 auto;height:clamp(120px,26svh,280px);background:linear-gradient(#111D22,#111D2200);pointer-events:none}
+.g-close>*:not(video){position:relative;z-index:1}
+.g-close h2{font-size:clamp(50px,9.4vw,170px);line-height:.98;scroll-margin-top:80px}
+.g-acts{display:flex;flex-wrap:wrap;gap:12px;margin-top:clamp(22px,4svh,40px)}
+.g-close .g-primary{background:var(--g-moon);color:var(--g-ink)}.g-close .g-primary:hover{background:#fff}
+.g-close .g-plain{background:#ffffff26;color:#fff}.g-close .g-plain:hover{background:#ffffff40}
+.g-close .g-soon{margin-top:14px;color:var(--g-moon-dim)}
+.g-plans{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:clamp(20px,4vw,60px);max-width:980px;margin-top:clamp(40px,7svh,74px)}
+.g-plan{display:block;color:var(--g-moon);text-decoration:none}
+.g-plan strong{display:block;font-family:var(--g-serif);font-weight:400;font-size:clamp(25px,2.5vw,36px)}
+.g-plan b{display:block;margin-top:3px;font-size:clamp(17px,1.4vw,20px);font-weight:700}
+.g-plan small{display:block;margin-top:7px;font-size:clamp(15px,1.15vw,17px);line-height:1.38;color:var(--g-moon-dim);max-width:26em}
+.g-plan:hover strong{text-decoration:underline;text-underline-offset:5px;text-decoration-thickness:2px}
+.g-fee{margin-top:18px!important;font-size:14px;color:#C8D2CE}
+.g-fee a{color:inherit;text-decoration:underline;text-underline-offset:3px}
+.g-close .site-footer{display:flex;flex-wrap:wrap;align-items:center;gap:8px 22px;max-width:none;margin:clamp(36px,7svh,70px) 0 0;padding:0;border:0;font-family:var(--g-sans);font-size:14px;color:#C8D2CE}
+.g-close .site-footer>p{margin:0 auto 0 0;font-size:14px;color:inherit}
+.g-close .site-footer nav{display:flex;flex-wrap:wrap;gap:0 20px;margin:0}
+.g-close .site-footer nav a{display:inline-flex;align-items:center;min-height:32px;font-size:14px;color:var(--g-moon);text-decoration:none}
+.g-close .site-footer nav a:hover{text-decoration:underline;text-underline-offset:3px}
+.g-close .site-footer small{flex-basis:100%;margin:4px 0 0;font-size:13px;line-height:1.5;color:#B7C3BE}
+.g-stage :focus-visible,.g-close :focus-visible,.site-header :focus-visible{outline:3px solid currentColor;outline-offset:3px;border-radius:8px}
+
+/* Phones and tall windows: the question on top, the phone below it. */
+@media (max-width:800px),(max-aspect-ratio:1/1){
+  :root{--phone-h:min(150vw,76svh);--g-gutter:max(20px,env(safe-area-inset-left,0px))}
+  .g-hero-copy{bottom:calc(100lvh - 100svh + max(16px,env(safe-area-inset-bottom,0px)));gap:12px}
+  .g-scrim{display:none}
+  .g-carved{max-width:none}
+  .g-carved h1{font-size:clamp(32px,min(12.6vw,6.6svh),110px)}
+  .g-lead{align-self:stretch;justify-content:center;gap:10px}
+  .g-lead .g-btn{flex:1 1 auto;min-height:52px;padding:0 16px;font-size:16px}
+  .g-lead .g-watch{order:3;min-height:40px;font-size:14px}.g-watch span{display:none}
+  .g-lead .g-soon{order:4;font-size:13px}
+  .g-copy{left:20px;right:20px;width:auto;top:clamp(74px,11svh,100px);transform:none}
+  .g-copy h2{font-size:clamp(38px,11.4vw,92px)}
+  .g-copy p{font-size:clamp(18px,2.4vw,24px);margin-top:10px}
+  .g-go{margin-top:4px;font-size:clamp(17px,2.2vw,22px)}
+  .g-close>video{transform:none;object-position:46% 50%}
+  .g-close::after{background:linear-gradient(#0a151a59,#0a151ae6 62%)}
+}
+/* Tablets held upright keep the buttons at their natural size. */
+@media (min-width:600px) and (max-width:800px),(min-width:600px) and (max-aspect-ratio:1/1){
+  .g-lead{align-self:flex-start;justify-content:flex-start;gap:12px 16px}
+  .g-lead .g-btn{flex:0 0 auto;min-height:58px;padding:0 30px;font-size:18px}
+  .g-lead .g-watch{order:0;min-height:44px;font-size:16px}.g-watch span{display:inline}
+  .g-lead .g-soon{order:0;font-size:15px}
+}
+@media (max-width:800px){
+  .site-header .brand{font-size:18px;gap:8px}.site-header .brand img{width:30px;height:30px}
+  .g-bar-open{font-size:15px}
+  .g-bar-start{padding:0 14px;font-size:14px}
+  .g-btn{min-height:50px;padding:0 20px;font-size:16px}
+}
+@media (max-width:700px){
+  .film-watch,.preview-open .film-watch{padding:clamp(28px,6svh,56px) 16px clamp(44px,9svh,80px)}
+  .film-watch-head{width:100%;flex-direction:column;align-items:flex-start;gap:2px;margin:0}
+  .film-frame{aspect-ratio:9/16;width:min(100%,calc((100svh - 190px)*.5625));max-height:none;border-radius:18px}
+}
+@media (max-width:640px){.g-plans{grid-template-columns:1fr}}
+@media (max-width:400px){
+  .g-lead{gap:8px}
+  .g-lead .g-btn{padding:0 10px;font-size:15px}
+}
+/* Too tight for the name and the button together: the icon is the brand. */
+@media (max-width:384px){.site-header.is-past .brand span{display:none}}
+/* No room for the note beside the film link. The closing section says it too. */
+@media (max-width:380px),(max-height:480px){.g-lead .g-soon{display:none}}
+/* Browsers from before small viewport units. */
+@supports not (height:1svh){
+  :root{--phone-h:min(88vh,172vw)}
+  .g-close{min-height:100vh}
+  .g-carved h1{font-size:7.9vw}.g-copy h2{font-size:5.8vw}
+  .g-hero-copy{bottom:40px}
+}
+@media (prefers-reduced-motion:reduce){.g-btn,.site-header,.g-screens img{transition:none}.g-btn:hover{transform:none}.site-header.is-past .g-bar-start{animation:none}}

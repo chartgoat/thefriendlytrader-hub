@@ -143,7 +143,7 @@ function fullscreen(open = true) {
     stage.setAttribute("aria-label", "Full interactive app preview");
     document.querySelector(".site-header").inert = true;
     document
-      .querySelectorAll("main>section:not(.hero),.site-footer,.hero-copy")
+      .querySelectorAll("main>section:not(.g-preview),.site-footer")
       .forEach((e) => (e.inert = true));
     chartHandle?.draw();
     root.querySelector("button")?.focus();
@@ -156,7 +156,7 @@ function fullscreen(open = true) {
     stage.removeAttribute("aria-label");
     document.querySelector(".site-header").inert = false;
     document
-      .querySelectorAll("main>section:not(.hero),.site-footer,.hero-copy")
+      .querySelectorAll("main>section:not(.g-preview),.site-footer")
       .forEach((e) => (e.inert = false));
     chartHandle?.draw();
     focusBeforeFullscreen?.focus();
@@ -737,6 +737,7 @@ document.addEventListener("click", (e) => {
   switch (b.dataset.site) {
     case "explore":
       takeOver();
+      if (state.screen !== "home") go("home");
       fullscreen(true);
       break;
     case "tour":

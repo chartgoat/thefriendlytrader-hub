@@ -68,15 +68,33 @@ test("the quiz uses the app's wording", () => {
   assert.match(result, /Open Stop Finder/);
 });
 
-test("the public pages keep to the copy rules and leave the film off until it is re-cut", () => {
+test("the public pages keep to the copy rules and the old interactive film stays off", () => {
   const home = read("../index.html");
   const faq = read("../faq/index.html");
   for (const html of [home, faq]) {
     assert.doesNotMatch(html, /plain English|plain words|—/);
   }
-  assert.doesNotMatch(home, /data-site="tour"|Watch the/);
+  assert.doesNotMatch(home, /data-site="tour"/);
   assert.match(home, /href="https:\/\/app\.thefriendlytrader\.com\/learn"/);
   assert.match(home, /plan_0jiK0r8Agdru8/);
   assert.match(home, /plan_qPuvfVGzKgEPW/);
+  assert.match(home, /id="membership"/, "the app's profile action scrolls here");
+  assert.match(home, /data-site="explore"/, "Try the app must open the real preview");
+  assert.match(home, /id="preview-stage"/);
+  assert.doesNotMatch(home, /A\+ Scalps/);
   assert.doesNotMatch(read("../assets/app-preview/app.js"), /Try opening A\+ Scalps|film-launch|sizing box/);
+});
+
+test("the garden page ships what it references and keeps the preview's content rules", () => {
+  const home = read("../index.html");
+  const js = read("../assets/app-preview/garden.js");
+  const refs = [...home.matchAll(/(?:src|href|poster)="(assets\/[^"]+)"/g), ...js.matchAll(/'(assets\/home\/[^']+)'/g)].map((m) => m[1]);
+  assert.ok(refs.length > 8);
+  for (const ref of refs) assert.ok(fs.existsSync(new URL(`../${ref}`, import.meta.url)), ref);
+  assert.match(home, /connect-src 'none'/);
+  assert.doesNotMatch(home, /fonts\.googleapis|fonts\.gstatic/);
+  const css = read("../assets/app-preview/garden.css");
+  for (const font of ["young-serif", "figtree"]) assert.ok(css.includes(`url(../fonts/${font}.woff2)`), font);
+  assert.doesNotMatch(js, /\bfetch\s*\(|XMLHttpRequest|localStorage/);
+  for (const ask of ["Where should", "Where do", "Can I practice", "What does"]) assert.ok(home.includes(ask), ask);
 });

@@ -2,74 +2,59 @@
 <html lang="en">
   <head>
     <meta charset="utf-8" />
-    <meta
-      name="viewport"
-      content="width=device-width,initial-scale=1,viewport-fit=cover"
-    />
-    <meta
-      name="description"
-      content="Turn “what now?” into a plan. See your stop and your targets on the chart before you buy, with Pip to explain anything on the screen."
-    />
-    <meta name="theme-color" content="#0b5d3f" />
-    <meta
-      property="og:title"
-      content="Friendly Trader. Turn “what now?” into a plan."
-    />
-    <meta
-      property="og:description"
-      content="See your stop and your targets on the chart before you buy. Try the app on the page, or start the free options course."
-    />
-    <meta
-      property="og:image"
-      content="https://thefriendlytrader.com/assets/og.png"
-    />
+    <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover" />
+    <meta name="description" content="Turn “what now?” into a plan. See your stop and your targets on the chart before you buy, with Pip to explain anything on the screen." />
+    <meta name="theme-color" content="#CFC8BA" />
+    <meta property="og:title" content="Friendly Trader. Turn “what now?” into a plan." />
+    <meta property="og:description" content="See your stop and your targets on the chart before you buy. Try the app on the page, or start the free options course." />
+    <meta property="og:image" content="https://thefriendlytrader.com/assets/og.jpg" />
     <meta property="og:image:width" content="1200" />
     <meta property="og:image:height" content="630" />
     <meta name="twitter:card" content="summary_large_image" />
     <meta property="og:type" content="website" />
-    <meta
-      http-equiv="Content-Security-Policy"
-      content="default-src 'self'; script-src 'self'; style-src 'self' 'unsafe-inline'; img-src 'self' data: blob:; media-src 'self'; connect-src 'none'; font-src 'self'; object-src 'none'; base-uri 'self'; form-action 'none'"
-    />
+    <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self'; style-src 'self' 'unsafe-inline'; img-src 'self' data: blob:; media-src 'self'; connect-src 'none'; font-src 'self'; object-src 'none'; base-uri 'self'; form-action 'none'" />
     <link rel="canonical" href="https://thefriendlytrader.com/" />
     <link rel="icon" href="assets/app-preview/app-icon.png" />
     <link rel="apple-touch-icon" href="assets/app-preview/app-icon.png" />
+    <link rel="preload" as="image" href="assets/home/garden.jpg" fetchpriority="high" />
+    <link rel="preload" as="font" type="font/woff2" href="assets/fonts/young-serif.woff2" crossorigin />
+    <link rel="preload" as="font" type="font/woff2" href="assets/fonts/figtree.woff2" crossorigin />
     <link rel="stylesheet" href="assets/app-preview/site.css" />
     <link rel="stylesheet" href="assets/app-preview/native.css" />
     <link rel="stylesheet" href="assets/app-preview/platform.css" />
     <link rel="stylesheet" href="assets/app-preview/story.css" />
-    <title>Friendly Trader | Turn “what now?” into a plan</title>
-      <link rel="stylesheet" href="/assets/app-preview/film.css" />
+    <link rel="stylesheet" href="assets/app-preview/film.css" />
     <link rel="stylesheet" href="assets/app-preview/home.css" />
+    <link rel="stylesheet" href="assets/film/what-now.css" />
+    <link rel="stylesheet" href="assets/app-preview/garden.css" />
+    <noscript><style>
+      .g-story{height:auto}.g-stage{position:static;height:auto;overflow:visible;padding:96px 20px 40px}
+      .g-world,.g-scrim,.g-device{display:none}
+      .g-hero-copy,.g-carved,.g-lead,.g-copy{position:static;opacity:1;visibility:visible;transform:none;width:auto;max-width:none;margin-bottom:32px}
+      [data-site],[data-open]{display:none}
+    </style></noscript>
+    <title>Friendly Trader | Turn “what now?” into a plan</title>
   </head>
   <body>
     <a class="skip-link" href="#main">Skip to content</a>
-    <header class="site-header">
-      <a class="brand" href="#" aria-label="Friendly Trader home"><img src="assets/app-preview/app-icon.png" alt="" width="42" height="42" /><span>Friendly Trader</span></a>
-      <a class="button small" href="https://app.thefriendlytrader.com/">Open web app <span aria-hidden="true">↗</span></a>
+    <header class="site-header" id="g-bar">
+      <a class="brand" href="#main" aria-label="Friendly Trader home"><img src="assets/app-preview/app-icon.png" alt="" width="34" height="34" /><span>Friendly Trader</span></a>
+      <div class="g-bar-actions">
+        <a class="g-bar-open" href="https://app.thefriendlytrader.com/">Open web app</a>
+        <a class="g-bar-start" href="https://app.thefriendlytrader.com/learn">Start the free course</a>
+      </div>
     </header>
     <main id="main">
-      <section class="hero" id="try-app">
-        <div class="hero-copy">
-          <h1>Turn “what&nbsp;now?”<br>into a plan.</h1>
-          <p class="hero-description">See your stop and your targets on the chart before you buy, with Pip to explain anything on the screen.</p>
-          <div class="hero-actions">
-            <a class="button" href="https://app.thefriendlytrader.com/learn">Start the free options course <span aria-hidden="true">↗</span></a>
-            <button class="button secondary" data-site="explore">Try the app</button>
-          </div>
-          <p class="quiet">No account needed for either.</p>
-          <div class="get-app" aria-label="Get Friendly Trader">
-            <span class="store-badge soon" role="img" aria-label="Coming soon to the App Store"><svg viewBox="0 0 24 24" aria-hidden="true"><rect x="6" y="2" width="12" height="20" rx="3"/><path d="M10 5h4M10 19h4"/></svg><span><small>Coming soon to the</small><strong>App Store</strong></span></span>
-          </div>
-        </div>
+      <!-- The working app preview. It stays out of sight until someone asks to try the app. -->
+      <section class="g-preview" id="try-app" aria-label="Try the app">
         <div class="preview-stage" id="preview-stage">
-          <button class="pip-hello" data-open="assistant"><img src="assets/app-preview/pip.png" width="72" height="72" alt=""><span>Ask me about this screen.</span></button>
           <div class="stage-top">
             <span class="preview-label">iPhone preview · sample data</span>
-            <button class="text-button" data-site="fullscreen" aria-label="Open the app preview full size">Open full size ↗</button>
           </div>
           <div class="phone" id="phone">
-            <div class="device-status" aria-hidden="true"><span>10:42</span><span class="island"></span><span>▮▮▮ ◒ ▰</span></div>
+            <div class="device-status" aria-hidden="true">
+              <span>10:42</span><span class="island"></span><span>▮▮▮ ◒ ▰</span>
+            </div>
             <div id="app-root" class="app-root"></div>
             <div id="app-toast" class="toast" role="status" aria-live="polite"></div>
           </div>
@@ -78,49 +63,111 @@
           <button class="mobile-close button" data-site="close-fullscreen">Close preview</button>
         </div>
       </section>
-      <section class="benefits" aria-label="What you get">
-        <button class="benefit" data-open="stops">
-          <span class="benefit-art art-plan" aria-hidden="true"><svg viewBox="0 0 280 150"><path class="plan-target" d="M0 30h280"/><path class="plan-entry" d="M0 88h280"/><path class="plan-stop" d="M0 122h280"/><g class="plan-candles"><path d="M34 84v30M72 90v24M110 74v30M148 62v32M186 50v30M224 34v30"/><rect x="28" y="92" width="12" height="16"/><rect x="66" y="96" width="12" height="12" class="down"/><rect x="104" y="80" width="12" height="18"/><rect x="142" y="68" width="12" height="20"/><rect x="180" y="56" width="12" height="18"/><rect x="218" y="38" width="12" height="20"/></g><text x="276" y="24">Target</text><text x="276" y="82">Entry</text><text x="276" y="116">Stop</text></svg></span>
-          <strong>Have a plan before you have a position.</strong>
-          <small>Your entry, stop and target on one chart.</small>
-        </button>
-        <button class="benefit" data-open="assistant">
-          <span class="benefit-art art-pip" aria-hidden="true"><span class="bubble ask">“What’s a stop?”</span><span class="art-pip-reply"><img src="assets/app-preview/pip.png" width="52" height="52" alt=""><span class="bubble">Where you plan to exit if the trade goes against you.</span></span></span>
-          <strong>No question too basic.</strong>
-          <small>Ask Pip what anything on the screen means.</small>
-        </button>
-        <button class="benefit" data-open="chat">
-          <span class="benefit-art art-room" aria-hidden="true"><span class="chip"><i>✓</i>Followed my plan.</span><span class="chip"><i>?</i>Asked the question.</span></span>
-          <strong>Good habits grow in good company.</strong>
-          <small>Celebrate a clear plan as much as a win.</small>
-        </button>
-      </section>
-      <section class="membership" id="membership">
-        <img src="assets/app-preview/pip.png" width="96" height="96" alt="">
-        <h2>Make room for a clearer trading day.</h2>
-        <div class="plans">
-          <a class="plan lead" href="https://whop.com/checkout/plan_0jiK0r8Agdru8" target="_blank" rel="noopener"><strong>Trader Tier</strong><b>From $49 a week</b><small>Every tool, plus live trading with Josh and every live room.</small><span>Start Trader Tier <i aria-hidden="true">↗</i></span></a>
-          <a class="plan" href="https://whop.com/checkout/plan_qPuvfVGzKgEPW" target="_blank" rel="noopener"><strong>Friendly Tools</strong><b>$79.99 a month</b><small>Every tool, the Tools live room and alerts from the tools.</small><span>Join Friendly Tools <i aria-hidden="true">↗</i></span></a>
+
+      <!-- One continuous shot: the page opens inside the app's garden and the camera pulls back to the phone. -->
+      <section class="g-story" id="g-story" aria-label="What the app does">
+        <div class="g-stage" id="g-stage">
+          <div class="g-world" id="g-world" aria-hidden="true">
+            <div class="g-clip" id="g-clip">
+              <div class="g-film" id="g-film">
+                <img src="assets/home/garden.jpg" alt="" />
+                <video id="g-loop" muted loop playsinline preload="auto" poster="assets/home/garden.jpg"></video>
+              </div>
+              <img class="g-shot" id="g-shot" src="assets/home/home.jpg" alt="" decoding="async" />
+            </div>
+            <div class="g-bezel" id="g-bezel"><b></b><i class="g-island"></i></div>
+          </div>
+          <div class="g-scrim" id="g-scrim"></div>
+
+          <div class="g-hero-copy" id="g-hero-copy">
+          <div class="g-carved" id="g-carved"><h1>Turn “what&nbsp;now?” into&nbsp;a&nbsp;plan.</h1></div>
+          <div class="g-lead" id="g-lead">
+            <a class="g-btn g-primary" href="https://app.thefriendlytrader.com/learn">Start the free course</a>
+            <button class="g-btn g-plain" data-site="explore">Try the app</button>
+            <a class="g-watch" href="#watch" data-watch>Watch the film<span>, 1:24</span></a>
+            <span class="g-soon">Coming soon to the App Store</span>
+          </div>
+          </div>
+
+          <div class="g-copy" data-c="0"><h2>Big market.<br />Friendly company.</h2><button class="g-go" data-site="explore">Try the app</button></div>
+          <div class="g-copy" data-c="1"><h2>Where should<br />I get out?</h2><p>See your stop and your targets on the chart before you buy.</p><button class="g-go" data-open="stops">Try Stop Finder</button></div>
+          <div class="g-copy" data-c="2"><h2>Where do<br />I start?</h2><p>28 free options lessons, from Main Street to Wall Street.</p><a class="g-go" href="https://app.thefriendlytrader.com/learn">Start lesson 1</a></div>
+          <div class="g-copy" data-c="3"><h2>Can I practice first?</h2><p>Every lesson has a practice trade. No real money.</p><a class="g-go" href="https://app.thefriendlytrader.com/learn">Start lesson 1</a></div>
+          <div class="g-copy" data-c="4"><h2>What does<br />that mean?</h2><p>No question too basic. Ask Pip about anything on the screen.</p><button class="g-go" data-open="assistant">Ask Pip</button></div>
+
+          <div class="g-device" id="g-device">
+            <div class="g-screens">
+              <img src="assets/home/stop.jpg" alt="Stop Finder showing NVDA with its stop and two targets on the chart" data-s="1" loading="lazy" decoding="async" />
+              <img src="assets/home/map.jpg" alt="The options course map, starting on Main Street" data-s="2" loading="lazy" decoding="async" />
+              <img src="assets/home/lesson.jpg" alt="A practice trade inside an options lesson" data-s="3" loading="lazy" decoding="async" />
+              <img src="assets/home/pip.jpg" alt="Pip answering a question about the screen" data-s="4" loading="lazy" decoding="async" />
+              <i class="g-edge" id="g-edge"></i>
+            </div>
+            <i class="g-island"></i>
+            <div class="g-lift" id="g-lift" aria-hidden="true"></div>
+          </div>
         </div>
-        <p class="plan-note">Whop adds a 5% fee at checkout. <a href="/faq/#billing">Billing answers</a></p>
+      </section>
+
+      <!-- The film, at last light. The wall dims from here into the night below. -->
+      <section class="film-watch" id="watch" aria-labelledby="watch-title">
+        <div class="film-watch-head">
+          <h2 id="watch-title">See how it works.</h2>
+          <span>1 minute 24 seconds, sound on</span>
+        </div>
+        <div class="film-frame">
+          <video controls playsinline preload="none" poster="assets/film/what-now-poster-16x9.jpg" data-poster-portrait="assets/film/what-now-poster-9x16.jpg" aria-label="What now? A film about the Friendly Trader app">
+            <source media="(max-width: 700px)" src="assets/film/what-now-9x16.mp4" type="video/mp4" />
+            <source src="assets/film/what-now-16x9.mp4" type="video/mp4" />
+            <track kind="captions" src="assets/film/what-now.en.vtt" srclang="en" label="English" />
+            <a href="assets/film/what-now-16x9.mp4">Download the film</a>
+          </video>
+          <button class="film-play" type="button" hidden aria-label="Play the film, 1 minute 24 seconds"><b>Play the film</b></button>
+          <div class="film-end" hidden>
+            <strong>Now try it.</strong>
+            <div>
+              <button class="button" data-site="explore">Try the app</button>
+              <a class="button secondary" href="https://app.thefriendlytrader.com/learn">Start the free options course <span aria-hidden="true">↗</span></a>
+            </div>
+            <small>No account needed for either.</small>
+            <button class="text-button" type="button" data-film-replay>Watch again</button>
+          </div>
+        </div>
+      </section>
+
+      <section class="g-close" id="membership">
+        <video id="g-night" muted loop playsinline preload="none" poster="assets/home/garden-night-poster.jpg" aria-hidden="true"></video>
+        <h2>Turn “what&nbsp;now?” into&nbsp;a&nbsp;plan.</h2>
+        <div class="g-acts">
+          <a class="g-btn g-primary" href="https://app.thefriendlytrader.com/learn">Start the free course</a>
+          <button class="g-btn g-plain" data-site="explore">Try the app</button>
+        </div>
+        <p class="g-soon">Coming soon to the App Store</p>
+        <div class="g-plans">
+          <a class="g-plan" href="https://whop.com/checkout/plan_0jiK0r8Agdru8" target="_blank" rel="noopener"><strong>Trader Tier</strong><b>From $49 a week</b><small>Every tool, plus live trading with Josh and every live room.</small></a>
+          <a class="g-plan" href="https://whop.com/checkout/plan_qPuvfVGzKgEPW" target="_blank" rel="noopener"><strong>Friendly Tools</strong><b>$79.99 a month</b><small>Every tool, the Tools live room and alerts from the tools.</small></a>
+        </div>
+        <p class="g-fee">Whop adds a 5% fee at checkout. <a href="/faq/#billing">Billing answers</a></p>
+        <footer class="site-footer">
+          <p>Big market. Friendly company.</p>
+          <nav aria-label="More from Friendly Trader">
+            <a href="https://app.thefriendlytrader.com/">Open web app</a>
+            <a href="/faq/">Help &amp; FAQ</a>
+            <a href="https://whop.com/stockswithjosh/" target="_blank" rel="noopener">Community</a>
+            <a href="https://friendlyscreener.com/" target="_blank" rel="noopener">Friendly Screener</a>
+            <a href="/options/">Friendly Options</a>
+            <a href="https://leaderboard.stockswithjosh.com/" target="_blank" rel="noopener">Trade Tracker</a>
+            <a href="https://macd.stockswithjosh.com/" target="_blank" rel="noopener">MACD</a>
+            <a href="https://www.stockswithjosh.com/terms" target="_blank" rel="noopener">Terms</a>
+            <a href="https://www.stockswithjosh.com/privacy" target="_blank" rel="noopener">Privacy</a>
+          </nav>
+          <small>© 2026 Friendly Trader. Educational tools, not financial advice. Simulated examples are not evidence of trading performance.</small>
+        </footer>
       </section>
     </main>
-    <footer class="site-footer">
-      <a class="brand" href="#"><img src="assets/app-preview/app-icon.png" alt="" width="36" height="36" /><span>Friendly Trader</span></a>
-      <p>Big market. Friendly company.</p>
-      <nav aria-label="More from Friendly Trader">
-        <a href="/faq/">Help &amp; FAQ</a>
-        <a href="https://whop.com/stockswithjosh/" target="_blank" rel="noopener">Community</a>
-        <a href="https://friendlyscreener.com/" target="_blank" rel="noopener">Friendly Screener</a>
-        <a href="/options/">Friendly Options</a>
-        <a href="https://leaderboard.stockswithjosh.com/" target="_blank" rel="noopener">Trade Tracker</a>
-        <a href="https://macd.stockswithjosh.com/" target="_blank" rel="noopener">MACD</a>
-        <a href="https://www.stockswithjosh.com/terms" target="_blank" rel="noopener">Terms</a>
-        <a href="https://www.stockswithjosh.com/privacy" target="_blank" rel="noopener">Privacy</a>
-      </nav>
-      <small>© 2026 Friendly Trader. Educational tools, not financial advice. Simulated examples are not evidence of trading performance.</small>
-    </footer>
     <noscript><p class="noscript">Enable JavaScript to try the app preview. All links on this page work without it.</p></noscript>
+    <script src="assets/app-preview/garden.js" defer></script>
     <script type="module" src="assets/app-preview/app.js"></script>
+    <script type="module" src="assets/film/what-now.mjs"></script>
   </body>
 </html>
