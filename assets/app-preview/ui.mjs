@@ -74,7 +74,7 @@ export const META = {
   earnings: ["Earnings", "Who reports this week?"],
   economy: ["Economy", "What could move the market?"],
   course: ["Options course", "Lesson 1 of 28 · Calls"],
-  coaching: ["Coaching", "12 coaches"],
+  coaching: ["Coaching", "10 coaches"],
   live: ["Sessions", "Learn together"],
   chat: ["Chat", "Your trading community"],
   assistant: ["Pip", "Your Friendly Assistant"],

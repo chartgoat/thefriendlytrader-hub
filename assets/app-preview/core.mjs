@@ -66,7 +66,7 @@ export const SCREENS = [
   ["earnings", "Earnings", "Know who is reporting", "calendar"],
   ["economy", "Economy", "Follow the bigger picture", "globe"],
   ["course", "Options course", "Lesson 1 of 28 · Calls", "mountains"],
-  ["coaching", "Coaching", "12 coaches", "people"],
+  ["coaching", "Coaching", "10 coaches", "people"],
   ["live", "Live calendar", "Learn alongside the community", "play"],
   ["chat", "Chat", "Talk it through", "chat"],
   ["assistant", "Pip", "A little help on every screen", "pip"],

@@ -50,9 +50,10 @@ test("Coaching opens on a calendar: one row a coach, each with a photo and their
   assert.match(nativeHeader({ ...createState(), screen: "coaching" }), /Coaches/);
 });
 
-test("the Coaches list holds all 12, with Josh, and every photo is on disk", () => {
+test("the Coaches list holds all 10, with Josh, and every photo is on disk", () => {
   const html = screen("coaching", { detail: "coaches" });
-  assert.equal((html.match(/class="n-coach-listed"/g) || []).length, 12);
+  assert.equal((html.match(/class="n-coach-listed"/g) || []).length, 10);
+  assert.doesNotMatch(html, /Tribal Trades|Stock Brotha/);
   assert.match(html, /<strong>Josh<\/strong>/);
   for (const [, id] of html.matchAll(/media\/coaches\/([\w-]+)\.jpg/g)) {
     assert.ok(fs.existsSync(new URL(`../assets/app-preview/media/coaches/${id}.jpg`, import.meta.url)), id);
