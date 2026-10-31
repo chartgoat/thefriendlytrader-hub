@@ -96,3 +96,20 @@
 .phone.native{--app-retest:#6d3fd4}.phone.native.dark{--app-retest:#b79cf7}.native .retest{color:var(--app-retest)}.native .n-tag.retest{background:color-mix(in srgb,var(--app-retest) 12%,transparent)}
 .native .n-segment.n-stages{flex-wrap:wrap;border-radius:18px;margin-top:-8px}.native .n-segment.n-stages button{flex:1 1 auto;white-space:nowrap;padding:9px 10px}.native .n-pattern-row>b{max-width:38%}.native .n-pattern-row>b.failed{color:var(--app-dim)}.native .n-pattern-levels>button:last-child:nth-child(odd){grid-column:1/-1}
 .native .n-stage-road{--road:var(--app-green);list-style:none;display:flex;margin:14px 0 16px;padding:0}.native .n-stage-road.down{--road:var(--app-red)}.native .n-stage-road li{--step:var(--road);flex:1;min-width:0;position:relative;display:flex;flex-direction:column;gap:3px;padding:17px 6px 0 0}.native .n-stage-road li.retest{--step:var(--app-retest)}.native .n-stage-road li.move{--step:var(--app-green)}.native .n-stage-road li.failed{--step:var(--app-dim)}.native .n-stage-road li::before{content:"";position:absolute;top:5px;left:0;right:0;height:2px;background:var(--app-border)}.native .n-stage-road li:last-child::before{display:none}.native .n-stage-road i{position:absolute;top:0;left:0;width:12px;height:12px;box-sizing:border-box;border-radius:50%;background:var(--app-bg);border:2px solid var(--app-border)}.native .n-stage-road li.done i,.native .n-stage-road li.now i{background:var(--step);border-color:var(--step)}.native .n-stage-road li.now i{box-shadow:0 0 0 3px color-mix(in srgb,var(--step) 22%,transparent)}.native .n-stage-road li.passed i{border-style:dashed}.native .n-stage-road b{font-size:11px;font-weight:750;line-height:1.2}.native .n-stage-road small{font-size:10px;line-height:1.2;color:var(--app-dim)}.native .n-stage-road li.next b,.native .n-stage-road li.passed b{color:var(--app-dim)}.native .n-stage-road li.now b{color:var(--step)}
+/* The chat list, as in the app: pictures for the rooms, Talked about now always there, no tabs. */
+.native [data-view=chat]:not(.native-sheet)>.app-content:has(.n-chat-rooms){padding:4px 14px 90px}
+.native .n-talked{margin:6px 0 10px}
+.native .n-talked h3{margin:0 0 7px;font-size:13px;font-weight:600;color:var(--app-dim);letter-spacing:0}
+.native .n-talked-tiles{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:6px}
+.native .n-talked-tile{display:grid;padding:8px;border:0;border-radius:12px;background:var(--app-card);color:inherit;font:inherit;text-align:left}
+.native .n-talked-symbol{font-size:14px;font-weight:700;color:#9e7f34}
+.native .n-talked-move{font-size:12.5px;font-weight:600;color:var(--app-green)}
+.native .n-talked-move.is-down,.native .n-talked-spark.is-down{color:#cd343c}
+.native .n-talked-spark{display:block;width:100%;height:20px;margin:4px 0;color:var(--app-green)}
+.native .n-talked-why{font-size:11px;color:var(--app-dim);white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.native .n-chat-rooms{display:grid}
+.native .n-chat-row{display:flex;align-items:center;gap:12px;width:100%;padding:8px 0;border:0;background:none;color:inherit;font:inherit;text-align:left}
+.native .n-chat-row img{flex:none;width:52px;height:52px;border-radius:16px;object-fit:cover}
+.native .n-chat-words{display:grid;gap:2px;min-width:0}
+.native .n-chat-words strong{font-size:16px;font-weight:600}
+.native .n-chat-words small{font-size:14px;color:var(--app-dim);white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
