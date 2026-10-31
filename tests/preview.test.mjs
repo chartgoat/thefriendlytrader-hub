@@ -133,7 +133,6 @@ test("detail branches and empty states render without missing data", () => {
     ["chat","win-compose"],
     ["chat","milestones"],
     ["macd","watchlist"],
-    ["macd","classic"],
     ["macd","guide"],
   ];
   for (const [screen, detail] of variants) {

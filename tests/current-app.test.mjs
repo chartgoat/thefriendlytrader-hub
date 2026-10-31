@@ -84,7 +84,6 @@ test("nothing promises a feature the app does not have", () => {
   }
   assert.doesNotMatch(screen("macd"), /MORNING TRADES/);
   assert.doesNotMatch(screen("macd", { detail: "stock" }), /THE ROAD/);
-  assert.doesNotMatch(screen("menu", { menuFor: "macd" }), /How to read MACD/);
   assert.doesNotMatch(screen("profile"), /Watch the film|Your trading profile/);
   assert.doesNotMatch(screen("economy"), /—/);
 });
@@ -166,4 +165,20 @@ test("each phone on the home page opens a screen the preview really has", () => 
   assert.deepEqual(opens, ["stops", "course", "assistant"]);
   for (const name of opens) assert.ok(screen(name).length > 200, name);
   assert.match(home, /class="g-shot" data-site="explore"/);
+});
+
+test("MACD: Scalp, Day and Long term, no menu and no All signals, as the app is", () => {
+  const macd = (horizon) => screen("macd", { horizon });
+  assert.equal(createState().horizon, "Day");
+  for (const style of ["Scalp", "Day", "Long term"]) {
+    for (const word of ["Scalp", "Day", "Long term"]) assert.match(macd(style), new RegExp(`>${word}<`));
+    assert.doesNotMatch(macd(style), /All signals|Day trades|Longer term/);
+  }
+  assert.match(macd("Scalp"), />5M</);
+  assert.match(macd("Day"), />15M</);
+  assert.match(macd("Long term"), />1D</);
+  assert.match(macd("Day"), /Trading window/);
+  assert.doesNotMatch(macd("Scalp"), /Trading window/);
+  const header = nativeHeader({ ...createState(), screen: "macd" });
+  assert.doesNotMatch(header, /options|native-menu/);
 });

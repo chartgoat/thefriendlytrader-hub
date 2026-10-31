@@ -310,9 +310,6 @@ root.addEventListener("click", (event) => {
     case "native-detail":
       go(state.screen,v||null);
       break;
-    case "macd-option":
-      go("macd",v);
-      break;
     case "edit-quick":
       go("profile","quick-menu");
       break;
@@ -357,7 +354,7 @@ root.addEventListener("click", (event) => {
         state.direction = v.toLowerCase();
       else state[b.dataset.key] = v;
       if(b.dataset.key === "profileAppearance")state.dark=v==="Dark"||(v==="System"&&matchMedia("(prefers-color-scheme: dark)").matches);
-      if(b.dataset.key === "horizon")state.timeframe=v==="Longer term"?"1d":"15m";
+      if(b.dataset.key === "horizon")state.timeframe=v==="Long term"?"1d":v==="Scalp"?"5m":"15m";
       if (b.dataset.key === "scenario")
         state.direction = ["Breakdown", "Rejection"].includes(v)
           ? "short"

@@ -150,7 +150,7 @@ export function createState() {
     notifications: true,
     quick: ["macd", "patterns", "stops", "chat"],
     riskBudget: 250,
-    horizon: "Day trades",
+    horizon: "Day",
     calendarTab: "This week",
     profileAppearance: "Light",
     expandedBoards: [],
