@@ -302,7 +302,7 @@ root.addEventListener("click", (event) => {
       render();
       break;
     case "coach-time":
-      toast("Booking opens soon.");
+      toast("Sample times. Members book in the app.");
       break;
     case "native-menu":
       go("menu",null,{menuFor:v});
