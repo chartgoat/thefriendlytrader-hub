@@ -218,7 +218,7 @@ function askPip(question) {
           "A+ Scalps brings a ticker’s levels, scenario and candle size together. Open an example, inspect the chart, then tap the bell to try saving a watch.",
         macd: "MACD describes momentum. This board lets you compare sample signals across timeframes. A changing signal is information, not a guarantee of a future price.",
         patterns:
-          "Patterns shows a setup once it signals. Then it can confirm, retest, reach its measured move or fail. These demo charts teach the interface; they are not historical detector results.",
+          "Patterns shows a setup once it forms. Then it can confirm, retest, reach its measured move or fail. These demo charts teach the interface; they are not historical detector results.",
         screener:
           "The screener groups movers into overnight gappers, session runners and breakouts. Open a board and sort the fictional examples by move or relative volume.",
         economy:

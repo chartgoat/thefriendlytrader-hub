@@ -56,7 +56,7 @@ export function activePlan(state) {
 // The lines a setup still has on Patterns, as in the app: after the measured move nothing fails it, and a failed setup has no move left.
 export function patternLevels(status,p) {
   return ({
-    Signal:[[p.target,"Move"],[p.peak,"Confirm"],[p.entry,"Line"],[p.stop,"Fail"]],
+    Formed:[[p.target,"Move"],[p.peak,"Confirm"],[p.entry,"Line"],[p.stop,"Fail"]],
     Confirmed:[[p.target,"Move"],[p.entry,"Entry"],[p.stop,"Fail"]],
     Retest:[[p.target,"Move"],[p.entry,"Retest"],[p.stop,"Fail"]],
     "Measured move":[[p.target,"Move"],[p.entry,"Entry"]],

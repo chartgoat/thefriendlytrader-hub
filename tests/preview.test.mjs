@@ -262,11 +262,11 @@ test("every native screen action is wired including dynamically declared buttons
 });
 test("patterns shows the five stages with no Forming, as the app does",()=>{
   const list=renderView({...createState(),screen:"patterns"});
-  for(const stage of ["SIGNAL","CONFIRMED","RETEST","MEASURED MOVE","FAILED"])assert.match(list,new RegExp(stage+" · 1<"));
+  for(const stage of ["FORMED","CONFIRMED","RETEST","MEASURED MOVE","FAILED"])assert.match(list,new RegExp(stage+" · 1<"));
   assert.match(list,/1,000 stocks scanned/);
   assert.match(renderView({...createState(),screen:"patterns",patternBoard:"Everything"}),/MEASURED MOVE · 4</);
   // A filter saved before the stages changed shows the board, not an empty page.
-  assert.match(renderView({...createState(),screen:"patterns",patternFilter:"Forming"}),/SIGNAL · 1</);
+  for(const before of ["Forming","Signal"])assert.match(renderView({...createState(),screen:"patterns",patternFilter:before}),/FORMED · 1</,before);
   for(const f of fixtures.patterns){
     const html=renderView({...createState(),screen:"patterns",detail:"pattern",symbol:f.symbol,timeframe:"1d",patternTab:"History"});
     assert.doesNotMatch(html.replace(/<[^>]*>/g," "),/forming|target|goal|neutral/i,f.symbol);
@@ -277,7 +277,7 @@ test("patterns shows the five stages with no Forming, as the app does",()=>{
 });
 test("a setup keeps only the lines the app keeps at its stage",()=>{
   const p=storyPlan("NVDA"),names=status=>patternLevels(status,p).map(([,name])=>name);
-  assert.deepEqual(names("Signal"),["Move","Confirm","Line","Fail"]);
+  assert.deepEqual(names("Formed"),["Move","Confirm","Line","Fail"]);
   assert.deepEqual(names("Retest"),["Move","Retest","Fail"]);
   assert.ok(!names("Measured move").includes("Fail"));
   assert.ok(!names("Failed").includes("Move"));
