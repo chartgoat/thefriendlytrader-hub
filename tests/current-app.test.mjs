@@ -2,7 +2,7 @@ import test from "node:test";
 import assert from "node:assert/strict";
 import fs from "node:fs";
 import { createState } from "../assets/app-preview/core.mjs";
-import { renderNativeView as render } from "../assets/app-preview/native.mjs";
+import { renderNativeView as render, nativeHeader } from "../assets/app-preview/native.mjs";
 import { QUIZ } from "../assets/app-preview/native-quiz.mjs";
 
 const read = (path) => fs.readFileSync(new URL(path, import.meta.url), "utf8");
@@ -33,6 +33,39 @@ test("the Options course and Coaching screens open, and the course leads to the 
   assert.match(course, /href="https:\/\/app\.thefriendlytrader\.com\/learn"/);
   assert.equal((course.match(/class="n-lesson"/g) || []).length, 28);
   assert.match(screen("coaching"), /Money Mike/);
+});
+
+test("Coaching opens on a calendar: one row a coach, each with a photo and their own times", () => {
+  const html = screen("coaching");
+  const rows = html.match(/class="n-coach-row"/g) || [];
+  assert.ok(rows.length > 3, "several coaches on a day");
+  const names = [...html.matchAll(/n-coach-who"[^>]*>.*?<strong>(.*?)<\/strong>/g)].map((m) => m[1]);
+  assert.equal(new Set(names).size, names.length, "each coach once");
+  assert.equal((html.match(/class="n-coach-photo /g) || []).length, rows.length);
+  assert.match(html, /class="n-day selected"/);
+  assert.match(html, /All topics/);
+  assert.match(html, /1-on-1, 1 hr, \$200/);
+  assert.match(html, /class="n-coach-time"/);
+  assert.doesNotMatch(html, /Spin|Giveaway|Opens soon/i, "no giveaway while its legal hold stands");
+  assert.match(nativeHeader({ ...createState(), screen: "coaching" }), /Coaches/);
+});
+
+test("the Coaches list holds all 12, with Josh, and every photo is on disk", () => {
+  const html = screen("coaching", { detail: "coaches" });
+  assert.equal((html.match(/class="n-coach-listed"/g) || []).length, 12);
+  assert.match(html, /<strong>Josh<\/strong>/);
+  for (const [, id] of html.matchAll(/media\/coaches\/([\w-]+)\.jpg/g)) {
+    assert.ok(fs.existsSync(new URL(`../assets/app-preview/media/coaches/${id}.jpg`, import.meta.url)), id);
+  }
+  assert.doesNotMatch(screen("coaching"), /<strong>Josh<\/strong>/, "prize-only, so not on the calendar");
+  assert.match(screen("coaching", { detail: "coach-money-mike" }), /Money Mike/);
+});
+
+test("a topic narrows the calendar and a Sunday can't be chosen", () => {
+  const options = screen("coaching", { coachTopic: "Options", coachDay: 0 }) + screen("coaching", { coachTopic: "Options", coachDay: 1 });
+  assert.match(options, /AirTuan/);
+  assert.doesNotMatch(options, /Money Mike/);
+  assert.match(screen("coaching", { coachMenu: true }), /Risk &amp; discipline|Risk & discipline/);
 });
 
 test("the preview shows no invented trade results", () => {

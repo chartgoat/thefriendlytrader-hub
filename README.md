@@ -23,7 +23,7 @@ Open http://127.0.0.1:5539. `npm test` runs the data integrity, navigation, rend
 
 Keep the preview true to the app. `HIDDEN_TOOLS` in `core.mjs` mirrors the owner's live tool switches, so a tool turned back on comes out of that list. The film "What now?" lives in `assets/film/` and is self-contained (`what-now.css`, `what-now.mjs`, two encodes, posters, captions, and the `#watch` section in `index.html`); `page.css` sets its look on this page. Its source is the local project `~/SWJ/projects/ft-app-ads`, ad `whatnow`. The older interactive film in `assets/app-preview/film*` stays off.
 
-All market data, people, events and conversations are simulated, except the coach names and specialties, which match the public coaching page. State stays in memory in the browser tab and resets on reload. The preview has no API calls, real community posts, notifications, account actions or orders. Pip uses contextual prewritten answers. Eight sample tickers support consistent data across the tools. The session preview is an interactive lesson, not a live stream.
+All market data, people, events and conversations are simulated, except the coach names, photos and specialties, which match the public coaching page. State stays in memory in the browser tab and resets on reload. The preview has no API calls, real community posts, notifications, account actions or orders. Pip uses contextual prewritten answers. Eight sample tickers support consistent data across the tools. The session preview is an interactive lesson, not a live stream.
 
 See `docs/app-preview/PREVIEW-SCOPE.md` and `docs/app-preview/VALIDATION.md` for coverage and verification. App icon and Pip assets come from the existing iOS project.
 

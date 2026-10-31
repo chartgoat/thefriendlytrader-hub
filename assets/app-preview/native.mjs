@@ -3,7 +3,7 @@ import { icon as oldIcon, fixtures, renderView as fallback, messageHTML, btn, na
 
 // Layout, labels and component hierarchy ported from the current SwiftUI views.
 // Every price, person, event and outcome below is part of the simulated session,
-// except the coach names and specialties, which match the public coaching page.
+// except the coach names, photos and specialties, which match the public coaching page.
 export function nativeIcon(name, cls='') {
   if(name==='pip') return pipMark(cls);
   if(name==='bolt') return `<svg class="${cls}" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M14.5 1 3 14h7l-1 9L21 9h-8Z"/></svg>`;
@@ -47,6 +47,7 @@ export function sheetStyle(s) {
 }
 export function nativeHeader(s) {
   const home=s.screen==='home',sheet=sheetStyle(s),title=nativeTitle(s);
+  if(s.screen==='coaching')return coachingHeader(s);
   if(s.screen==='chat'&&!sheet&&s.detail!=='thread')return `<header class="app-header n-header n-chat-header">${btn(I('back'),'home','aria-label="Home"','icon-button n-home')}<h2>Chat</h2>${btn(I('search'),'chat-search-toggle','aria-label="Search messages"','icon-button n-chat-search-button')}${btn(I('more'),'native-menu','data-value="chat" aria-label="Chat options"','icon-button n-more')}</header>`;
   if(s.screen==='onboarding') return `<header class="n-onboard-header">${btn(I('back'),'back','aria-label="Back"','icon-button')}${nav('home','Skip','app-link')}</header>`;
   if(sheet && !title) return `<div class="sheet-handle" aria-hidden="true"></div><button class="n-sheet-close" data-action="back" aria-label="Close detail">${I('close')}</button>`;
@@ -61,8 +62,64 @@ function course() {
   let number=0;
   return `<p class="n-subtitle">0 of 28 lessons done</p><a class="app-button full" href="https://app.thefriendlytrader.com/learn" target="_blank" rel="noopener">Start lesson 1 ↗</a>${COURSE.map(([level,lessons])=>`${label(level.toUpperCase())}<div class="n-lessons">${lessons.map(title=>`<div class="n-lesson"><b>${++number}</b><span>${title}</span></div>`).join('')}</div>`).join('')}`;
 }
-function coaching() {
-  return `${[['Josh','Day trader, 17+ years'],['Money Mike','Discipline and structure'],['Ms. Mary','Patience and clarity'],['AirTuan','Covered calls and puts']].map(([name,line])=>`<div class="n-coach"><span class="avatar">${name[0]}</span><span><strong>${name}</strong><small>${line}</small></span>${tag('Opens soon')}</div>`).join('')}<p class="n-demo-note">Four of the 12 coaches. Booking isn’t open yet.</p>`;
+// The owner's Coaching page (October 30): one row a coach for the chosen day, a small photo, that coach's times.
+// Names, photos and specialties are the public coaching page's; the times are sample data. Josh is prize-only, so he is
+// on the Coaches list and not on the calendar. No giveaway row: that stays off the public site while its legal hold stands.
+const COACHES=[
+  ['josh','Josh','Founder, chart reading, day trading',['Getting started','Chart reading'],[]],
+  ['money-mike','Money Mike','Discipline, structure, swing trading',['Swing trading','Risk & discipline'],['8:00 AM','1:00 PM','2:00 PM']],
+  ['ms-mary','Ms. Mary','Scalping, Fibonacci, levels and stops',['Scalping','Chart reading'],['4:00 AM','5:00 AM','6:00 AM','9:00 AM','10:00 AM']],
+  ['airtuan','AirTuan','Premium selling, covered calls and puts',['Options'],['4:00 AM','6:00 AM','8:00 AM','10:00 AM']],
+  ['charles','Charles','Chart clarity, stewardship, patience',['Chart reading','Risk & discipline'],['7:00 AM','9:00 AM','11:00 AM']],
+  ['guppy','Turbo Trader Guppy','Entries and exits, risk, psychology',['Risk & discipline','Getting started'],['12:00 PM','1:00 PM','2:00 PM']],
+  ['tribal-trades','Tribal Trades','Momentum, capital protection',['Risk & discipline'],['7:30 AM','9:30 AM']],
+  ['parker','Profits with Parker','Clean setups, live trading, consistency',['Chart reading','Getting started'],['6:30 AM','7:30 AM','8:30 AM']],
+  ['tom','Turtle Trader Tom','Watchlists, triggers, risk management',['Swing trading','Risk & discipline'],['5:30 AM','11:00 AM']],
+  ['wolf-of-gatsby','Wolf of Gatsby','Mechanical system, indicators, structure',['Chart reading'],['3:00 PM','4:00 PM']],
+  ['stock-brotha','Stock Brotha','Penny stocks, small caps, biotech',['Small caps'],['5:00 AM','7:00 AM']],
+  ['daniel','Daniel','Trader tools, scalping, Alpha indicator',['Scalping'],['4:30 AM','6:00 AM','12:30 PM']],
+].map(([id,name,line,topics,hours])=>({id,name,line,topics,hours}));
+const COACH_TOPICS=['All topics','Getting started','Scalping','Swing trading','Options','Chart reading','Risk & discipline','Small caps'];
+const coachPhoto=(c,cls='')=>`<img class="n-coach-photo ${cls}" src="assets/app-preview/media/coaches/${c.id}.jpg" alt="" loading="lazy" decoding="async">`;
+const coachOf=s=>String(s.detail||'').startsWith('coach-')?COACHES.find(c=>c.id===s.detail.slice(6)):null;
+function coachDays(from=new Date()) {
+  return Array.from({length:7},(_,i)=>{
+    const d=new Date(from.getFullYear(),from.getMonth(),from.getDate()+i);
+    return {index:i,open:d.getDay()!==0,name:i?d.toLocaleDateString('en-US',{weekday:'short'}).toUpperCase():'TODAY',date:d.getDate()};
+  });
+}
+const coachTimes=(c,day)=>c.hours.filter((_,k)=>c.hours.length<3||(k+day)%3!==2);
+const coachOnDay=(c,i,day)=>c.hours.length>0&&(i+day)%4!==3;
+const coachChips=(c,day)=>`<div class="n-coach-times">${coachTimes(c,day).map(t=>btn(t,'coach-time',`aria-label="${esc(c.name)}, ${t}"`,'n-coach-time')).join('')}</div>`;
+function coachZone() {
+  try { return new Intl.DateTimeFormat('en-US',{timeZoneName:'long'}).formatToParts(new Date()).find(p=>p.type==='timeZoneName')?.value||'your time zone'; }
+  catch { return 'your time zone'; }
+}
+function coachingCalendar(s) {
+  const days=coachDays(),first=days.find(d=>d.open).index,shown=days[s.coachDay??first]?.open?(s.coachDay??first):first;
+  const topic=s.coachTopic||'All topics',all=topic==='All topics';
+  const rows=COACHES.filter((c,i)=>coachOnDay(c,i,shown)&&(all||c.topics.includes(topic)));
+  return `<div class="n-days" role="group" aria-label="Day">${days.map(d=>`<button class="n-day ${d.index===shown?'selected':''}" data-action="coach-day" data-value="${d.index}" aria-pressed="${d.index===shown}" ${d.open?'':'disabled'}><small>${d.name}</small><strong>${d.date}</strong><i></i></button>`).join('')}</div>
+  <div class="n-topic-wrap">${btn(`${esc(topic)}<svg viewBox="0 0 12 8" aria-hidden="true"><path d="M1.500 1.500 6 6l4.500-4.500" fill="none" stroke="currentColor" stroke-width="1.800" stroke-linecap="round" stroke-linejoin="round"/></svg>`,'coach-topic-menu',`aria-expanded="${!!s.coachMenu}"`,`n-topic ${all?'':'on'}`)}${s.coachMenu?`<button class="n-topic-scrim" data-action="coach-topic-menu" aria-label="Close topics"></button><div class="n-topic-menu">${COACH_TOPICS.map(t=>btn(t,'coach-topic',`data-value="${esc(t)}" aria-pressed="${t===topic}"`,t===topic?'on':'')).join('')}</div>`:''}</div>
+  <p class="n-coach-kind">1-on-1, 1 hr, $200</p>
+  ${rows.length?rows.map(c=>`<article class="n-coach-row"><button class="n-coach-who" data-action="native-detail" data-value="coach-${c.id}">${coachPhoto(c)}<strong>${esc(c.name)}</strong>${I('next')}</button>${coachChips(c,shown)}</article>`).join(''):'<p class="n-coach-none">No times this day</p>'}
+  <p class="n-coach-zone">Times in ${esc(coachZone())}</p>`;
+}
+function coachesList() {
+  return COACHES.map(c=>`<button class="n-coach-listed" data-action="native-detail" data-value="coach-${c.id}">${coachPhoto(c)}<span><strong>${esc(c.name)}</strong><small>${esc(c.line)}</small></span>${I('next')}</button>`).join('');
+}
+function coachPage(c) {
+  const days=coachDays(),i=COACHES.indexOf(c),next=days.find(d=>d.open&&coachOnDay(c,i,d.index));
+  return `<div class="n-coach-page">${coachPhoto(c,'large')}<h3>${esc(c.name)}</h3><p>${esc(c.line)}</p>${next?`<p class="n-coach-kind">1-on-1, 1 hr, $200</p><h4>${next.index?`${next.name[0]}${next.name.slice(1).toLowerCase()} ${next.date}`:'Today'}</h4>${coachChips(c,next.index)}`:''}</div>`;
+}
+function coaching(s) {
+  const coach=coachOf(s);
+  return coach?coachPage(coach):s.detail==='coaches'?coachesList():coachingCalendar(s);
+}
+function coachingHeader(s) {
+  const coach=coachOf(s);
+  if(coach||s.detail==='coaches')return `<header class="app-header n-header n-coaching-header">${btn(I('back'),'back','aria-label="Back"','icon-button n-home')}<h2>${coach?esc(coach.name):'Coaches'}</h2></header>`;
+  return `<header class="app-header n-header n-coaching-header">${btn(I('close'),'home','aria-label="Close Coaching"','icon-button n-home')}<h2>Coaching</h2>${btn('Coaches','native-detail','data-value="coaches"','n-coaches-open')}</header>`;
 }
 function stream(s) {
  return `<p class="n-subtitle">MARKET OPEN</p><div class="n-now"><div class="n-now-hello">${pipMark()}<div><h3>Morning${s.name==='Alex'?'':', '+esc(s.name)}.</h3><p>Market’s open, and buyers are leaning in.</p></div></div><div class="n-chip-row">${tag('SPY +1.2%','up')}${tag('CPI reported')}</div></div>${label('COMING UP')}<button class="n-stream-row" data-screen="live"><span class="n-time">12:00 PM<br><b>in 1h 18m</b></span><span><strong>Chart Reading Workshop</strong><p>Structure, stops and the next move.</p></span>${I('next')}</button>${label('EARLIER')}<div class="n-stream-list">${[['10:14 AM','AAPL pattern confirmed','Patterns · bullish structure held','patterns'],['9:35 AM','NVDA: new MACD BUY cross confirmed','MACD · on the 15 minute','macd'],['8:30 AM','CPI came in below expectations','Economy · actual 2.8%, expected 2.9%','economy']].map(([time,title,desc,screen])=>`<button class="n-stream-row" data-screen="${screen}"><span class="n-time">${time}</span><span><strong>${title}</strong><p>${desc}</p></span>${I('next')}</button>`).join('')}</div>`;

@@ -81,8 +81,8 @@ function render({ keepScroll = false } = {}) {
   phone.classList.add("native");
   root.classList.toggle("native-sheet",sheet&&!mac);
   root.dataset.view=state.screen;
-  const floating= !sheet && !["home","menu","onboarding"].includes(state.screen);
-  const pageHTML = `${nativeHeader(state)}<div class="app-content ${isHome ? "home-content" : ""}" data-screen-content="${state.screen}">${renderNativeView(state)}</div>${floating?`<div class="n-floating">${["macd","patterns","screener","stops","aplus"].includes(state.screen)?`<button data-action="share" aria-label="Share sample screen">${icon("share")}</button>`:""}<button class="n-float-pip" data-action="open-pip" aria-label="Ask Pip about this screen">${icon("pip")}</button></div>`:""}${!mac&&!sheet&&state.screen!=="onboarding"?`<nav class="app-nav" aria-label="App quick menu">${state.quick.map(id=>{
+  const floating= !sheet && !["home","menu","onboarding","coaching"].includes(state.screen);
+  const pageHTML = `${nativeHeader(state)}<div class="app-content ${isHome ? "home-content" : ""}" data-screen-content="${state.screen}">${renderNativeView(state)}</div>${floating?`<div class="n-floating">${["macd","patterns","screener","stops","aplus"].includes(state.screen)?`<button data-action="share" aria-label="Share sample screen">${icon("share")}</button>`:""}<button class="n-float-pip" data-action="open-pip" aria-label="Ask Pip about this screen">${icon("pip")}</button></div>`:""}${!mac&&!sheet&&!["onboarding","coaching"].includes(state.screen)?`<nav class="app-nav" aria-label="App quick menu">${state.quick.map(id=>{
     const meta=SCREENS.find(x=>x[0]===id);
     return `<button class="${state.screen===id?"active":""}" data-screen="${id}" aria-label="${label(id)}" ${state.screen===id?'aria-current="page"':""}>${icon(meta?.[3])}<span>${id==="stops"?"Stops":label(id)}</span></button>`;
   }).join("")}</nav>`:""}`;
@@ -95,6 +95,8 @@ function render({ keepScroll = false } = {}) {
   root.querySelector(".app-content").scrollTop = scroll;
   const selectedRoom=root.querySelector('.n-chat-tabs [aria-selected="true"]');
   if(selectedRoom){const strip=selectedRoom.parentElement;strip.scrollLeft=selectedRoom.offsetLeft-strip.clientWidth/2+selectedRoom.offsetWidth/2;}
+  const selectedDay=root.querySelector('.n-day.selected');
+  if(selectedDay){const strip=selectedDay.parentElement;strip.scrollLeft=selectedDay.offsetLeft-strip.clientWidth/2+selectedDay.offsetWidth/2;}
 
   chartHandle = attachChart(
     root.querySelector(".candlestick-chart"),
@@ -285,6 +287,22 @@ root.addEventListener("click", (event) => {
       break;
     case "home":
       go("home");
+      break;
+    case "coach-day":
+      state.coachDay=Number(v);
+      render();
+      break;
+    case "coach-topic-menu":
+      state.coachMenu=!state.coachMenu;
+      render({ keepScroll: true });
+      break;
+    case "coach-topic":
+      state.coachTopic=v;
+      state.coachMenu=false;
+      render();
+      break;
+    case "coach-time":
+      toast("Booking opens soon.");
       break;
     case "native-menu":
       go("menu",null,{menuFor:v});

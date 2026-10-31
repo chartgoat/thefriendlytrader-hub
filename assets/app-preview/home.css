@@ -42,13 +42,57 @@
 .native .n-lessons{display:grid;gap:2px;border:1px solid var(--app-border);border-radius:18px;overflow:hidden;background:var(--app-border)}
 .native .n-lesson{display:flex;align-items:center;gap:12px;padding:12px 14px;background:var(--app-bg);font-size:15px;font-weight:600}
 .native .n-lesson b{display:grid;place-items:center;width:26px;height:26px;flex:none;border-radius:50%;background:color-mix(in srgb,var(--app-green) 12%,transparent);color:var(--app-green);font-size:12px;font-weight:800}
-.native .n-coach{display:flex;align-items:center;gap:12px;padding:12px 14px;margin-bottom:8px;border:1px solid var(--app-border);border-radius:18px;background:var(--app-bg)}
-.native .n-coach>span:nth-child(2){display:flex;flex-direction:column;gap:2px;min-width:0;flex:1}
-.native .n-coach strong{font-size:16px;font-weight:800}
-.native .n-coach small{font-size:13px;color:var(--app-dim)}
 .native .n-quiz-result h4{margin:4px 0 2px;font-size:18px;font-weight:800}
 
 @media(min-width:801px){.preview-open .stage-top .text-button{display:none}}
 @media(max-width:800px){
   .preview-open .tour-player:not(:has(.film-return)){display:none}
 }
+
+/* Coaching: the calendar, one row a coach (the iPhone's CoachingOpenTimesView). */
+.native [data-view=coaching]{--coach-gold:#8a6a23;--coach-gold-ink:#fff;--coach-gold-line:#d6c49a;--coach-closed:#f2f4f3;--coach-closed-ink:#7b8580}
+.native.dark [data-view=coaching]{--coach-gold:#d3b56a;--coach-gold-ink:#1a1710;--coach-gold-line:#3a3628;--coach-closed:#191e20;--coach-closed-ink:#747d78}
+.native .n-coaching-header{height:54px;min-height:54px;padding:0 16px}
+.native .n-coaching-header h2{font-size:17px;font-weight:700;letter-spacing:-.2px}
+.native .n-coaching-header .n-home{top:9px}
+.native .n-coaching-header .n-coaches-open{position:absolute;right:8px;top:7px;min-height:40px;padding:0 8px;border:0;background:none;color:var(--app-green);font-size:16px;font-weight:600;cursor:pointer}
+.native [data-view=coaching] .app-content{padding:4px 16px 28px}
+.native .n-days{display:flex;gap:8px;margin:0 -16px;padding:2px 16px 4px;overflow-x:auto;scrollbar-width:none}
+.native .n-days::-webkit-scrollbar{display:none}
+.native .n-day{flex:none;width:58px;height:70px;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:1px;padding:0;border:1px solid var(--coach-gold-line);border-radius:14px;background:var(--app-bg);color:var(--app-text);cursor:pointer}
+.native .n-day small{font-size:10.500px;font-weight:700;letter-spacing:.3px}
+.native .n-day strong{font-size:21px;line-height:1.15;font-weight:700}
+.native .n-day i{width:5px;height:5px;margin-top:2px;border-radius:50%;background:var(--app-green)}
+.native .n-day.selected{background:var(--coach-gold);border-color:var(--coach-gold);color:var(--coach-gold-ink)}
+.native .n-day.selected i{background:var(--coach-gold-ink)}
+.native .n-day:disabled{background:var(--coach-closed);border-color:transparent;color:var(--coach-closed-ink);cursor:default}
+.native .n-day:disabled i{visibility:hidden}
+.native .n-topic-wrap{position:relative;margin:12px 0 0}
+.native .n-topic{display:inline-flex;align-items:center;gap:8px;min-height:36px;padding:0 14px;border:0;border-radius:18px;background:var(--app-card);color:var(--app-text);font-size:15px;font-weight:500;cursor:pointer}
+.native .n-topic svg{width:11px;height:8px}
+.native .n-topic.on{background:var(--app-green);color:var(--app-bg)}
+.native .n-topic-scrim{position:fixed;inset:0;z-index:4;border:0;background:none}
+.native .n-topic-menu{position:absolute;left:0;top:42px;z-index:5;width:210px;padding:6px;border:1px solid var(--app-border);border-radius:16px;background:var(--app-bg);box-shadow:0 12px 30px rgba(0,0,0,.18)}
+.native .n-topic-menu button{display:block;width:100%;min-height:36px;padding:0 10px;border:0;border-radius:10px;background:none;color:var(--app-text);font-size:15px;text-align:left;cursor:pointer}
+.native .n-topic-menu button.on{background:var(--app-card);font-weight:600}
+.native .n-coach-kind{margin:14px 0 8px;font-size:14px;color:var(--app-dim)}
+.native .n-coach-row{padding:10px 0 14px;border-top:1px solid var(--app-border)}
+.native .n-coach-who{display:grid;grid-template-columns:48px 1fr 14px;align-items:center;column-gap:12px;width:100%;padding:0;border:0;background:none;color:var(--app-text);text-align:left;cursor:pointer}
+.native .n-coach-who strong{font-size:17px;font-weight:600;letter-spacing:-.2px;min-width:0}
+.native .n-coach-who svg,.native .n-coach-listed>svg{width:14px;height:14px;color:var(--app-dim)}
+.native .n-coach-photo{display:block;width:48px;height:48px;border-radius:50%;object-fit:cover;background:var(--app-card)}
+.native .n-coach-times{display:flex;flex-wrap:wrap;gap:8px;margin:-8px 0 0 60px}
+.native .n-coach-time{min-height:36px;padding:0 12px;border:1.500px solid var(--app-green);border-radius:18px;background:var(--app-bg);color:var(--app-text);font-size:14px;font-weight:500;white-space:nowrap;cursor:pointer}
+.native .n-coach-none{margin:24px 0;font-size:15px;color:var(--app-dim);text-align:center}
+.native .n-coach-zone{margin:6px 0 0;font-size:12px;color:var(--app-dim)}
+.native .n-coach-listed{display:grid;grid-template-columns:48px 1fr 14px;align-items:center;column-gap:12px;width:100%;padding:10px 0;border:0;border-bottom:1px solid var(--app-border);background:none;color:var(--app-text);text-align:left;cursor:pointer}
+.native .n-coach-listed span{display:flex;flex-direction:column;gap:2px;min-width:0}
+.native .n-coach-listed strong{font-size:16px;font-weight:600}
+.native .n-coach-listed small{font-size:13px;line-height:1.3;color:var(--app-dim)}
+.native .n-coach-page{padding-top:10px}
+.native .n-coach-page .n-coach-photo.large{width:132px;height:132px;margin:0 auto 12px}
+.native .n-coach-page h3{margin:0;font-size:24px;font-weight:700;letter-spacing:-.5px;text-align:center}
+.native .n-coach-page>p:not(.n-coach-kind){margin:4px 0 22px;font-size:14px;line-height:1.35;color:var(--app-dim);text-align:center}
+.native .n-coach-page h4{margin:0 0 10px;font-size:16px;font-weight:600}
+.native .n-coach-page .n-coach-times{margin:0}
+@media(max-width:340px){.native .n-coach-times{margin-left:0;margin-top:8px}}
