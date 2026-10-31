@@ -8,6 +8,7 @@ import {
   activePlan,
   demoProfit,
   plan,
+  patternLevels,
   positionSize,
   SYMBOLS,
   BASE,
@@ -259,3 +260,31 @@ test("every native screen action is wired including dynamically declared buttons
  states.push({...createState(),screen:"chat",room:"Wins"},{...createState(),screen:"menu",menuFor:"macd"},{...createState(),screen:"menu",menuFor:"chat"});
  for(const s of states)for(const [,a] of renderView(s).matchAll(/data-action="([a-z-]+)"/g))assert.ok(app.includes('case "'+a+'"'),a);
 });
+test("patterns shows the five stages with no Forming, as the app does",()=>{
+  const list=renderView({...createState(),screen:"patterns"});
+  for(const stage of ["SIGNAL","CONFIRMED","RETEST","MEASURED MOVE","FAILED"])assert.match(list,new RegExp(stage+" · 1<"));
+  assert.match(list,/1,000 stocks scanned/);
+  assert.match(renderView({...createState(),screen:"patterns",patternBoard:"Everything"}),/MEASURED MOVE · 4</);
+  // A filter saved before the stages changed shows the board, not an empty page.
+  assert.match(renderView({...createState(),screen:"patterns",patternFilter:"Forming"}),/SIGNAL · 1</);
+  for(const f of fixtures.patterns){
+    const html=renderView({...createState(),screen:"patterns",detail:"pattern",symbol:f.symbol,timeframe:"1d",patternTab:"History"});
+    assert.doesNotMatch(html.replace(/<[^>]*>/g," "),/forming|target|goal|neutral/i,f.symbol);
+    assert.doesNotMatch(html,/undefined|NaN/,f.symbol);
+    assert.match(html,new RegExp(f.status.toUpperCase()));
+  }
+  for(const file of ["app.js","chart.mjs","core.mjs","native.mjs","ui.mjs"])assert.doesNotMatch(fs.readFileSync("assets/app-preview/"+file,"utf8"),/forming/i,file);
+});
+test("a setup keeps only the lines the app keeps at its stage",()=>{
+  const p=storyPlan("NVDA"),names=status=>patternLevels(status,p).map(([,name])=>name);
+  assert.deepEqual(names("Signal"),["Move","Confirm","Line","Fail"]);
+  assert.deepEqual(names("Retest"),["Move","Retest","Fail"]);
+  assert.ok(!names("Measured move").includes("Fail"));
+  assert.ok(!names("Failed").includes("Move"));
+  const pltr=storyPlan("PLTR"),last=candles("PLTR","1d").at(-1);
+  assert.equal(last.close,pltr.current);assert.equal(last.high,pltr.peak);
+  assert.ok(candles("PLTR","1d").slice(0,-1).every(b=>b.close<pltr.entry),"PLTR closes through its line on the last candle");
+  const amd=storyPlan("AMD");
+  assert.ok(amd.current>amd.entry&&amd.peak<amd.target&&candles("AMD","1d").slice(39).every(b=>b.close>amd.stop));
+});
+

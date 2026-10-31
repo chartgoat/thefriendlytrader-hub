@@ -1,4 +1,6 @@
-import { candles, activePlan, price } from "./core.mjs";
+import { candles, activePlan, patternLevels, price } from "./core.mjs";
+import { fixtures } from "./ui.mjs";
+const PATTERN_LINE = { Move: "var(--app-green)", Confirm: "var(--app-text)", Line: "var(--app-text)", Entry: "var(--app-text)", Retest: "var(--app-retest)", Fail: "#cd343c" };
 const clamp = (n, min, max) => Math.max(min, Math.min(max, n));
 export function attachChart(svg, state, onTakeover, onLevel) {
   if (!svg) return;
@@ -29,7 +31,16 @@ export function attachChart(svg, state, onTakeover, onLevel) {
     const p = activePlan(state);
     const showLevels = ["stops", "aplus", "macd", "patterns", "screener"].includes(state.screen);
     const values = visible.flatMap((b) => [b.high, b.low]);
-    if (showLevels) values.push(p.stop, p.target, p.entry, p.target2, ...(state.screen==="aplus"?[p.target3]:[]));
+    const levels = state.screen === "patterns"
+      ? patternLevels(fixtures.patterns.find((f) => f.symbol === state.symbol)?.status, p).map(([v, label]) => [v, label, PATTERN_LINE[label]])
+      : [
+        ...(state.screen==="aplus"?[[p.target3,"T3","var(--app-green)"]]:[]),
+        [p.target2, "T2", "var(--app-green)"],
+        [p.target, "T1", "var(--app-green)"],
+        [p.entry, "Entry", "var(--app-text)"],
+        [p.stop, "Stop", "#cd343c"],
+      ];
+    if (showLevels) values.push(...levels.map(([v]) => v));
     const min = Math.min(...values),
       max = Math.max(...values),
       pad = (max - min) * 0.1;
@@ -44,15 +55,17 @@ export function attachChart(svg, state, onTakeover, onLevel) {
         cy = y(v);
       const nearLevel =
         showLevels &&
-        [p.stop, p.entry, p.target, p.target2].some(
-          (level) => Math.abs(y(level) - cy) < 15,
-        );
+        levels.some(([level]) => Math.abs(y(level) - cy) < 15);
       out += `<line x1="8" y1="${cy}" x2="${W - axisWidth - 6}" y2="${cy}" stroke="var(--app-elev)" stroke-width="1"/>`;
       if (!nearLevel)
         out += `<text x="${W - axisWidth}" y="${cy + 3}" fill="var(--app-dim)" font-size="12">${v.toFixed(2)}</text>`;
     }
     if (showLevels) {
-      out += `<rect x="8" y="${Math.min(y(p.entry), y(p.target))}" width="${plot.w}" height="${Math.abs(y(p.target) - y(p.entry))}" fill="#16875f" opacity=".045"/><rect x="8" y="${Math.min(y(p.entry), y(p.stop))}" width="${plot.w}" height="${Math.abs(y(p.stop) - y(p.entry))}" fill="#cd343c" opacity=".06"/>`;
+      const zones = levels.map(([, label]) => label);
+      if (zones.some((label) => label === "T1" || label === "Move"))
+        out += `<rect x="8" y="${Math.min(y(p.entry), y(p.target))}" width="${plot.w}" height="${Math.abs(y(p.target) - y(p.entry))}" fill="#16875f" opacity=".045"/>`;
+      if (zones.some((label) => label === "Stop" || label === "Fail"))
+        out += `<rect x="8" y="${Math.min(y(p.entry), y(p.stop))}" width="${plot.w}" height="${Math.abs(y(p.stop) - y(p.entry))}" fill="#cd343c" opacity=".06"/>`;
     }
     out += '<g clip-path="url(#plot-area)">';
     visible.forEach((b, i) => {
@@ -63,14 +76,9 @@ export function attachChart(svg, state, onTakeover, onLevel) {
     });
     out += "</g>";
     if (showLevels) {
-      [
-        ...(state.screen==="aplus"?[[p.target3,"T3","var(--app-green)"]]:[]),
-        [p.target2, "T2", "var(--app-green)"],
-        [p.target, "T1", "var(--app-green)"],
-        [p.entry, "Entry", "var(--app-text)"],
-        [p.stop, "Stop", "#cd343c"],
-      ].forEach(([v, label, c]) => {
-        out += `<line x1="8" x2="${W - axisWidth - 6}" y1="${y(v)}" y2="${y(v)}" stroke="${c}" stroke-width="1" stroke-dasharray="${label === "Stop" ? "" : "4 3"}" opacity=".8"/><rect x="${W - axisWidth}" y="${y(v) - 7}" width="${axisWidth-1}" height="16" rx="3" fill="${label === "Entry" ? "var(--app-elev)" : c}"/><text x="${W - axisWidth + 3}" y="${y(v) + 3}" fill="${label === "Entry" ? "var(--app-text)" : "white"}" font-size="11">${label} ${v.toFixed(2)}</text>`;
+      levels.forEach(([v, label, c]) => {
+        const quiet = ["Entry", "Confirm", "Line"].includes(label);
+        out += `<line x1="8" x2="${W - axisWidth - 6}" y1="${y(v)}" y2="${y(v)}" stroke="${c}" stroke-width="1" stroke-dasharray="${label === "Stop" || label === "Fail" ? "" : "4 3"}" opacity=".8"/><rect x="${W - axisWidth}" y="${y(v) - 7}" width="${axisWidth-1}" height="16" rx="3" fill="${quiet ? "var(--app-elev)" : c}"/><text x="${W - axisWidth + 3}" y="${y(v) + 3}" fill="${quiet ? "var(--app-text)" : label === "Retest" ? "var(--app-bg)" : "white"}" font-size="11">${label} ${v.toFixed(2)}</text>`;
       });
     }
     if(state.screen==="stops")for(const [key,value,name] of [["stop",p.stop,"stop"],["target",p.target,"first target"],["target2",p.target2,"second target"],["entry",p.entry,"entry"]]){

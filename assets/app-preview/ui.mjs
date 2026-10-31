@@ -85,43 +85,36 @@ export const META = {
 export const fixtures = {
   patterns: [
     {
-      symbol: "NVDA",
-      name: "Ascending triangle",
-      status: "Forming",
-      bias: "Bullish",
-      text: "Higher lows are approaching a resistance area. This example is still forming.",
+      symbol: "NVDA", name: "Ascending triangle", status: "Measured move", bias: "Bullish", recent: true,
+      text: "Closed above the triangle, confirmed, and reached its measured move.",
     },
     {
-      symbol: "AAPL",
-      name: "Bull flag",
-      status: "Confirmed",
-      bias: "Bullish",
-      text: "The example has closed above the flag. Confirmation describes the structure, not a guaranteed outcome.",
+      symbol: "PLTR", name: "Bull pennant", status: "Signal", bias: "Bullish", recent: true,
+      text: "First close through the line. A close above $89.30 confirms it.",
     },
     {
-      symbol: "GOOGL",
-      name: "Bull flag",
-      status: "Failed",
-      bias: "Bullish",
-      text: "Price closed below the example’s invalidation level. A failed idea is part of the story.",
+      symbol: "META", name: "Falling wedge", status: "Confirmed", bias: "Bullish", recent: true,
+      text: "A second close above the wedge confirmed the break. The measured move is still ahead.",
     },
     {
-      symbol: "MSFT",
-      name: "Bearish engulfing",
-      status: "Confirmed",
-      bias: "Bearish",
-      text: "The red candle’s body covers the prior green body in this illustrative example.",
+      symbol: "AMD", name: "Rising channel", status: "Retest", bias: "Bullish", recent: true,
+      text: "Came back to the channel line and held. The measured move is still ahead.",
     },
     {
-      symbol: "META",
-      name: "Support bounce",
-      status: "Forming",
-      bias: "Bullish",
-      text: "Price is testing support. A bounce has not yet been confirmed.",
+      symbol: "GOOGL", name: "Bull flag", status: "Failed", bias: "Bullish", recent: true,
+      text: "A close below the fail price ended this one. A failed setup stays on the record.",
     },
     {
-      symbol: "TSLA", name: "Resistance breakout", status: "Confirmed", bias: "Bullish",
-      text: "The example has closed above resistance. Its first target was reached before price pulled back.",
+      symbol: "AAPL", name: "Bull flag", status: "Measured move", bias: "Bullish",
+      text: "Closed above the flag, confirmed, and reached its measured move.",
+    },
+    {
+      symbol: "MSFT", name: "Bearish engulfing", status: "Measured move", bias: "Bearish",
+      text: "The red body covered the green one, the next close confirmed it, and the move played out.",
+    },
+    {
+      symbol: "TSLA", name: "Inverse head and shoulders", status: "Measured move", bias: "Bullish",
+      text: "Closed above the neckline, confirmed, and reached its measured move.",
     },
   ],
   events: [
@@ -278,7 +271,7 @@ export const fixtures = {
 function home(s) {
   return `<button class="home-greeting" data-screen="stream"><img src="assets/app-preview/pip.png" alt="Pip"><span class="greeting-copy"><span class="greeting-title">Morning, ${esc(s.name)}.<span class="today-chip">Today ›</span></span><p>Your morning, at a glance. Setups, movers and what’s ahead.</p></span></button><div class="home-tools"><button class="tool-tile wide" data-screen="aplus">${icon("bolt")}<strong>A+ Scalps</strong><small>NVDA · Breakout</small></button>${[
     ["macd", "MACD", "trend", "Read the momentum"],
-    ["patterns", "Patterns", "pulse", "NVDA · Forming"],
+    ["patterns", "Patterns", "pulse", "PLTR · Signal"],
     ["screener", "Screener", "list", "Find today’s movers"],
     ["stops", "Stop Finder", "stop", "Find your exit"],
   ]
@@ -427,13 +420,13 @@ function patterns(s) {
     const f =
       fixtures.patterns.find((x) => x.symbol === s.symbol) ||
       fixtures.patterns[0];
-    return `<div class="row"><div><h3 style="font-size:25px;margin-bottom:5px">${s.symbol}</h3><p class="app-kicker">Illustrative ${f.name.toLowerCase()}</p></div>${pill(f.status, f.status === "Confirmed" ? "up" : f.status === "Failed" ? "down" : "gray")}</div>${seg(["15m", "1h", "1d"], "timeframe", s.timeframe)}${chart()}<div class="card"><h3>What you’re looking for</h3><p>${f.text} The preview chart illustrates interaction, not a validated historical detection.</p></div>${seg(["Overview", "History"], "patternTab", s.patternTab || "Overview")}${s.patternTab === "History" ? `<p class="app-kicker">Fictional examples. Not a backtest or a win rate.</p>${["Target reached", "Invalidated", "Still forming"].map((x, i) => `<button class="list-row" data-action="history-example" data-value="${i}"><span class="grow"><strong>Example ${i + 1}</strong><small>Explore a different chart window</small></span>${pill(x, ["gold", "down", "gray"][i])}</button>`).join("")}` : `<div class="stats">${stat("Bias", f.bias)}${stat("State", f.status)}${stat("Sample", s.timeframe)}</div>`}<div class="detail-actions">${btn("Plan a stop", "to-stops")}${btn("Share example", "share", "", "app-button secondary")}</div>`;
+    return `<div class="row"><div><h3 style="font-size:25px;margin-bottom:5px">${s.symbol}</h3><p class="app-kicker">Illustrative ${f.name.toLowerCase()}</p></div>${pill(f.status, f.status === "Confirmed" || f.status === "Measured move" ? "up" : "gray")}</div>${seg(["15m", "1h", "1d"], "timeframe", s.timeframe)}${chart()}<div class="card"><h3>What you’re looking for</h3><p>${f.text} The preview chart illustrates interaction, not a validated historical detection.</p></div>${seg(["Overview", "History"], "patternTab", s.patternTab || "Overview")}${s.patternTab === "History" ? `<p class="app-kicker">Fictional examples. Not a backtest or a win rate.</p>${["Measured move", "Failed", "Expired"].map((x, i) => `<button class="list-row" data-action="history-example" data-value="${i}"><span class="grow"><strong>Example ${i + 1}</strong><small>Explore a different chart window</small></span>${pill(x, ["gold", "down", "gray"][i])}</button>`).join("")}` : `<div class="stats">${stat("Bias", f.bias)}${stat("State", f.status)}${stat("Sample", s.timeframe)}</div>`}<div class="detail-actions">${btn("Plan a stop", "to-stops")}${btn("Share example", "share", "", "app-button secondary")}</div>`;
   }
-  return `${ticker(s)}${seg(["All", "Forming", "Confirmed", "Failed"], "patternFilter", s.patternFilter)}${fixtures.patterns
+  return `${ticker(s)}${seg(["All", "Signal", "Confirmed", "Retest", "Measured move", "Failed"], "patternFilter", s.patternFilter)}${fixtures.patterns
     .filter((f) => s.patternFilter === "All" || s.patternFilter === f.status)
     .map(
       (f) =>
-        `<button class="card clickable" data-action="pattern-detail" data-symbol="${f.symbol}"><div class="row"><strong>${f.symbol}</strong>${pill(f.status, f.status === "Confirmed" ? "up" : f.status === "Failed" ? "down" : "gray")}</div><h3 class="pattern-name">${f.name}</h3><div class="row"><span class="small-muted">${f.bias} example</span>${icon("next")}</div></button>`,
+        `<button class="card clickable" data-action="pattern-detail" data-symbol="${f.symbol}"><div class="row"><strong>${f.symbol}</strong>${pill(f.status, f.status === "Confirmed" || f.status === "Measured move" ? "up" : "gray")}</div><h3 class="pattern-name">${f.name}</h3><div class="row"><span class="small-muted">${f.bias} example</span>${icon("next")}</div></button>`,
     )
     .join(
       "",

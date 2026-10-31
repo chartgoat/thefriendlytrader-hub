@@ -13,7 +13,7 @@ The website has an iOS/Mac platform switch, a readable phone or desktop window, 
 | Navigation | HomeChrome.swift, ToolTabBar.swift | Home chevron on tool roots, detail sheets, six shortcuts, 3–6 configurable shortcuts and reordering |
 | MACD | MACDStoryBoard.swift and card/detail views | Morning Play, Freshest Signal, journey rails, completed/ended examples, watchlist, classic board and guide |
 | A+ | AplusView.swift | 1M/2M/5M, four scenarios, entry/T1/T2/T3 track, target-hit states, charts and watches |
-| Patterns | PatternsView.swift | Compact latest setups, forming/confirmed/failed examples, details, levels and history |
+| Patterns | PatternsView.swift | Recent and Everything, 1,000 stocks scanned, the five stages (Signal, Confirmed, Retest, Measured move, Failed), the road, levels and history |
 | Screener | Native screener views | Top mover, peak gain, board accordions, sortable board details and sample feed |
 | Stop Finder | Embedded Stop Finder and native handoff reference | Swing/scalp, long/short, tappable chart levels, explanation, risk sizing, saving and sharing |
 | Calendars | Earnings/Economy views | This week/Reported, grouped day cards, event details, fictional reports and reminders |
