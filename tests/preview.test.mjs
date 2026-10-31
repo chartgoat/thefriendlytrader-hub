@@ -284,7 +284,17 @@ test("a setup keeps only the lines the app keeps at its stage",()=>{
   const pltr=storyPlan("PLTR"),last=candles("PLTR","1d").at(-1);
   assert.equal(last.close,pltr.current);assert.equal(last.high,pltr.peak);
   assert.ok(candles("PLTR","1d").slice(0,-1).every(b=>b.close<pltr.entry),"PLTR closes through its line on the last candle");
-  const amd=storyPlan("AMD");
+  const amd=storyPlan("AMD"),afterPeak=candles("AMD","1d").slice(100);
   assert.ok(amd.current>amd.entry&&amd.peak<amd.target&&candles("AMD","1d").slice(39).every(b=>b.close>amd.stop));
+  assert.ok(Math.min(...afterPeak.map(b=>b.low))<=amd.entry+.25,"AMD comes back to its line");
+  const detail=symbol=>renderView({...createState(),screen:"patterns",detail:"pattern",symbol,timeframe:"1d"});
+  assert.doesNotMatch(detail("MSFT"),/Retest/,"a candle setup has no retest");
+  assert.match(detail("MSFT"),/CONFIRMED BELOW/);
+  assert.match(detail("PLTR"),/CONFIRM ABOVE/);
+  assert.match(detail("AAPL"),/REACHED/);
+  assert.match(detail("AMD"),/INVALIDATION/);
+  // A finished setup plans no stop, as in the app; a live one does.
+  for(const symbol of ["NVDA","GOOGL"])assert.match(detail(symbol),/data-action="to-stops"[^>]*disabled|disabled[^>]*data-action="to-stops"/,symbol);
+  for(const symbol of ["PLTR","META","AMD"])assert.doesNotMatch(detail(symbol),/disabled/,symbol);
 });
 

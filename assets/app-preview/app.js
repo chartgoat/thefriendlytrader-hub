@@ -105,6 +105,12 @@ function render({ keepScroll = false } = {}) {
     (level)=>{state.levelInfo=state.levelInfo===level?null:level;render({keepScroll:true});},
   );
 }
+function openSetup(symbol) {
+  go("patterns", "pattern", {
+    symbol, timeframe:"1d", chart:{offset:0,count:42},
+    direction: fixtures.patterns.find((p) => p.symbol === symbol)?.bias === "Bearish" ? "short" : "long",
+  });
+}
 function go(screen, detail = null, extra = {}, fromTour = false) {
   // A switched-off tool opens Home, as AppNavigation.go does in the app.
   if (!fromTour && HIDDEN_TOOLS.includes(screen)) { screen = "home"; detail = null; extra = {}; }
@@ -374,13 +380,7 @@ root.addEventListener("click", (event) => {
       go(state.screen, "stock", { symbol: t, direction:storyPlan(t).side });
       break;
     case "pattern-detail":
-      go("patterns", "pattern", {
-        symbol: t, timeframe:"1d", chart:{offset:0,count:42},
-        direction:
-          fixtures.patterns.find((p) => p.symbol === t)?.bias === "Bearish"
-            ? "short"
-            : "long",
-      });
+      openSetup(t);
       break;
     case "screener-board":
       go("screener", "board", { screenerBoard: v });
@@ -635,22 +635,16 @@ root.addEventListener("submit", (e) => {
     data = new FormData(form);
   if (kind === "ticker") {
     const t = String(data.get("symbol")).trim().toUpperCase();
-    if (!SYMBOLS.includes(t)) {
-      toast("Choose a sample ticker: " + SYMBOLS.join(", ") + ".");
+    const samples = state.screen === "patterns" ? fixtures.patterns.map((p) => p.symbol) : SYMBOLS;
+    if (!samples.includes(t)) {
+      toast("Choose a sample ticker: " + samples.join(", ") + ".");
       return;
     }
     state.symbol = t;
     state.lookup = t;
     state.chart = { offset: 0, count: 42 };
-    if (state.screen === "patterns") {
-      if (!fixtures.patterns.some((p) => p.symbol === t)) {
-        toast(
-          "This sample ticker has no pattern example. Try NVDA, PLTR, META, AMD or GOOGL.",
-        );
-        return;
-      }
-      go("patterns", "pattern");
-    } else render();
+    if (state.screen === "patterns") openSetup(t);
+    else render();
   }
   if(kind==="win") {
     const kind=state.winKind, symbol=String(data.get("symbol")||"NVDA");

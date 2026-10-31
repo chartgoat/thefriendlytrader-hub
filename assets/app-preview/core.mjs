@@ -33,7 +33,7 @@ export const DEMO_TRADES = {
   GOOGL: {entry:208.60, stop:207.60, current:207.20, peak:209.50, side:"long", state:"invalidated", at:"9:55 AM", open:206.50},
   SPY: {entry:559.80, stop:558.60, current:562.80, peak:563.40, side:"long", state:"hit", at:"9:40 AM", hitAt:"10:25 AM", open:555.90},
   // Patterns' live stages. AMD ran, came back to its line and held. PLTR just closed through its line, and its peak is that candle's high.
-  AMD: {entry:142.00, stop:139.60, current:143.10, peak:146.80, side:"long", state:"moving", at:"10:05 AM", open:136.40},
+  AMD: {entry:142.00, stop:139.60, current:142.25, peak:146.80, side:"long", state:"moving", at:"10:05 AM", open:136.40},
   PLTR: {entry:88.40, stop:86.90, current:88.95, peak:89.30, side:"long", state:"moving", at:"10:10 AM", open:85.20, anchors:[[0,85.10],[60,87.30],[116,87.95],[118,88.15],[119,88.95]]},
 };
 export const BASE = Object.fromEntries(Object.entries(DEMO_TRADES).map(([symbol, trade]) => [symbol, trade.current]));

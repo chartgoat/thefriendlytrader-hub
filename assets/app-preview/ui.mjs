@@ -85,35 +85,35 @@ export const META = {
 export const fixtures = {
   patterns: [
     {
-      symbol: "NVDA", name: "Ascending triangle", status: "Measured move", bias: "Bullish", recent: true,
+      symbol: "NVDA", name: "Symmetrical Triangle", status: "Measured move", bias: "Bullish", recent: true,
       text: "Closed above the triangle, confirmed, and reached its measured move.",
     },
     {
-      symbol: "PLTR", name: "Bull pennant", status: "Signal", bias: "Bullish", recent: true,
+      symbol: "PLTR", name: "Double Bottom", status: "Signal", bias: "Bullish", recent: true,
       text: "First close through the line. A close above $89.30 confirms it.",
     },
     {
-      symbol: "META", name: "Falling wedge", status: "Confirmed", bias: "Bullish", recent: true,
+      symbol: "META", name: "Falling Wedge", status: "Confirmed", bias: "Bullish", recent: true,
       text: "A second close above the wedge confirmed the break. The measured move is still ahead.",
     },
     {
-      symbol: "AMD", name: "Rising channel", status: "Retest", bias: "Bullish", recent: true,
+      symbol: "AMD", name: "Ascending Channel", status: "Retest", bias: "Bullish", recent: true,
       text: "Came back to the channel line and held. The measured move is still ahead.",
     },
     {
-      symbol: "GOOGL", name: "Bull flag", status: "Failed", bias: "Bullish", recent: true,
+      symbol: "GOOGL", name: "Bull Flag", status: "Failed", bias: "Bullish", recent: true,
       text: "A close below the fail price ended this one. A failed setup stays on the record.",
     },
     {
-      symbol: "AAPL", name: "Bull flag", status: "Measured move", bias: "Bullish",
+      symbol: "AAPL", name: "Bull Flag", status: "Measured move", bias: "Bullish",
       text: "Closed above the flag, confirmed, and reached its measured move.",
     },
     {
-      symbol: "MSFT", name: "Bearish engulfing", status: "Measured move", bias: "Bearish",
-      text: "The red body covered the green one, the next close confirmed it, and the move played out.",
+      symbol: "MSFT", name: "Evening Star", status: "Measured move", bias: "Bearish", candle: true,
+      text: "The evening star closed, the next close confirmed it, and it reached its measured move.",
     },
     {
-      symbol: "TSLA", name: "Inverse head and shoulders", status: "Measured move", bias: "Bullish",
+      symbol: "TSLA", name: "Inverse Head & Shoulders", status: "Measured move", bias: "Bullish",
       text: "Closed above the neckline, confirmed, and reached its measured move.",
     },
   ],
