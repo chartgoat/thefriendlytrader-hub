@@ -11,6 +11,7 @@ test("only the home page loads the Meta Pixel, and it may reach Meta and nothing
   assert.match(csp, /connect-src https:\/\/www\.facebook\.com https:\/\/connect\.facebook\.net;/);
   assert.match(csp, /img-src 'self' data: blob: https:\/\/www\.facebook\.com;/);
   assert.match(home, /<script src="assets\/meta-pixel\.js" defer><\/script>/);
+  assert.match(home.slice(0, home.indexOf("</head>")), /<meta name="facebook-domain-verification" content="qm5mkzmefy6w80w81k5eafgqnjt7pn" \/>/);
   for (const page of ["../faq/index.html", "../privacy/index.html"]) {
     const html = read(page);
     assert.match(html, /script-src 'none'/, page);
