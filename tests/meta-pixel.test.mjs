@@ -22,6 +22,7 @@ test("the Pixel stays off under Global Privacy Control and never reads what peop
   const js = read("../assets/meta-pixel.js");
   assert.match(js, /navigator\.globalPrivacyControl === true\) return;/);
   assert.match(js, /fbq\("track", "PageView"\)/);
+  assert.match(js, /fbq\("set", "autoConfig", false, PIXEL_ID\);\s*\n\s*w\.fbq\("init"/, "automatic button events stay off and are set before init");
   assert.doesNotMatch(js, /\.value\b|input\[|textarea|localStorage|document\.cookie/);
   assert.match(js, /PIXEL_ID = "\d{10,20}"/, "the real Pixel ID must be filled in before publishing");
 });
