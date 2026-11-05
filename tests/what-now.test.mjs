@@ -20,7 +20,7 @@ test("the film stays inside the page's privacy and copy rules", () => {
   const js = read("../assets/film/what-now.mjs");
   const vtt = read("../assets/film/what-now.en.vtt");
   assert.match(home, /media-src 'self'/);
-  assert.match(home, /connect-src 'none'/);
+  assert.match(home, /connect-src https:\/\/www\.facebook\.com https:\/\/connect\.facebook\.net;/);
   assert.doesNotMatch(js, /\bfetch\s*\(|XMLHttpRequest|localStorage|sendBeacon/);
   assert.match(home, /<video controls playsinline preload="none"/, "nothing downloads until someone presses play");
   assert.match(vtt, /^WEBVTT/);

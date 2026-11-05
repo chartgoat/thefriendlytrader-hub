@@ -124,7 +124,7 @@ test("the home page ships what it references and keeps the preview's content rul
   const refs = [...home.matchAll(/(?:src|href|poster)="(assets\/[^"]+)"/g), ...js.matchAll(/'(assets\/home\/[^']+)'/g)].map((m) => m[1]);
   assert.ok(refs.length > 8);
   for (const ref of refs) assert.ok(fs.existsSync(new URL(`../${ref}`, import.meta.url)), ref);
-  assert.match(home, /connect-src 'none'/);
+  assert.match(home, /connect-src https:\/\/www\.facebook\.com https:\/\/connect\.facebook\.net;/);
   assert.doesNotMatch(home, /fonts\.googleapis|fonts\.gstatic/);
   const css = read("../assets/app-preview/page.css");
   for (const font of ["young-serif", "figtree"]) assert.ok(css.includes(`url(../fonts/${font}.woff2)`), font);

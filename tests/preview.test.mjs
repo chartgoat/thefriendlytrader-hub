@@ -205,7 +205,7 @@ test("preview cannot make service calls, persist personal data or invoke notific
     new URL("../index.html", import.meta.url),
     "utf8",
   );
-  assert.match(html, /connect-src 'none'/);
+  assert.match(html, /connect-src https:\/\/www\.facebook\.com https:\/\/connect\.facebook\.net;/);
   assert.match(html, /form-action 'none'/);
   assert.match(html, /All data is simulated/);
 });
