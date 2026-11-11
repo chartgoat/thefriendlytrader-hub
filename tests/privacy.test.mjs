@@ -48,3 +48,7 @@ test("a published policy carries no draft notes", () => {
   assert.doesNotMatch(html, /noindex|class="open"|Open question|Draft for attorney|data-draft/);
   assert.match(fs.readFileSync(new URL("../sitemap.xml", import.meta.url), "utf8"), /thefriendlytrader\.com\/privacy\//);
 });
+
+test("the policy says the app tells support when something blocks you", () => {
+  assert.ok(text.includes("tell our support team when something blocks you, such as a failed sign-in, so we can fix it without you having to ask."));
+});
