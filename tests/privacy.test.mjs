@@ -52,3 +52,12 @@ test("a published policy carries no draft notes", () => {
 test("the policy says the app tells support when something blocks you", () => {
   assert.ok(text.includes("tell our support team when something blocks you, such as a failed sign-in, so we can fix it without you having to ask."));
 });
+
+test("the policy covers the Help chat: what is stored with a message and who can open it", () => {
+  assert.ok(html.includes('<h3 id="help">Help chat</h3>'));
+  assert.ok(text.includes("When you write to us in Help, we store your messages and any photos you send"));
+  for (const sent of ["the screen you were on", "device model", "system version", "app version", "language", "App Store country", "whether notifications are on", "your plan and account state"]) {
+    assert.ok(text.includes(sent), sent);
+  }
+  assert.ok(text.includes("Only you and our support admins can open that conversation and its photos."));
+});
