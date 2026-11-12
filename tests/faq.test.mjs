@@ -23,3 +23,13 @@ test("the FAQ keeps the brand and house style", () => {
   assert.doesNotMatch(html, /—/);
   assert.doesNotMatch(html, /ccb167|ffff8a|fonts\.googleapis|fonts\.gstatic/);
 });
+
+// Owner, Nov 11 2026: "we want people to really only use the in app support and really we will not
+// use the email". Nov 12, about the older support@stockswithjosh.com mentions: "Yes, switch them".
+test("the FAQ sends people to Support in the app and offers no mail link", () => {
+  assert.ok(html.includes('href="https://app.thefriendlytrader.com/help"'));
+  assert.ok(html.includes("Support in the Friendly Trader app"));
+  assert.doesNotMatch(html, /mailto:/);
+  assert.doesNotMatch(html, /support@stockswithjosh\.com/);
+  assert.doesNotMatch(html, /Email support/i);
+});

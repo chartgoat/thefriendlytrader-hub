@@ -17,7 +17,7 @@ test("the policy gives no street address", () => {
 });
 
 test("the policy names its company, contacts and the facts Apple asks for", () => {
-  for (const fact of ["Nala Financial LLC", "legal@thefriendlytrader.com", "support@stockswithjosh.com",
+  for (const fact of ["Nala Financial LLC", "legal@thefriendlytrader.com", "Support in the Friendly Trader app",
     "Whop", "Pip", "voice notes", "30 days", "Delete account", "does not cancel", "six-digit code", "IP address"]) assert.ok(text.includes(fact), fact);
   for (const id of ["signature", "whop", "chat", "pip", "notifications", "email", "deleting-your-account", "how-long-we-keep-it"])
     assert.ok(html.includes(`id="${id}"`), id);
@@ -60,4 +60,11 @@ test("the policy covers the Help chat: what is stored with a message and who can
     assert.ok(text.includes(sent), sent);
   }
   assert.ok(text.includes("Only you and our support admins can open that conversation and its photos."));
+});
+
+// Owner, Nov 11 2026: "we want people to really only use the in app support and really we will not
+// use the email". Privacy requests and legal notices keep their own box; nothing else is a mailbox.
+test("the only address the policy gives is the legal one", () => {
+  const addresses = [...new Set([...html.matchAll(/[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,}/gi)].map((m) => m[0].toLowerCase()))];
+  assert.deepEqual(addresses, ["legal@thefriendlytrader.com"]);
 });

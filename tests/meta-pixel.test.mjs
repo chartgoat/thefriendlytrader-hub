@@ -32,6 +32,6 @@ test("the privacy page says what the Pixel sends and how to stop it", () => {
   const html = read("../privacy/index.html");
   assert.match(html, /uses the Meta Pixel/);
   assert.match(html, /Global Privacy Control/);
-  assert.match(html, /Updated November 11, 2026\./);
+  assert.match(html, /Updated November 12, 2026\./);
   assert.doesNotMatch(html, /The home page and FAQ on thefriendlytrader\.com set no cookies/);
 });
