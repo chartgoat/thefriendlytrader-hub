@@ -26,7 +26,6 @@
     <link rel="stylesheet" href="assets/app-preview/story.css" />
     <link rel="stylesheet" href="assets/app-preview/film.css" />
     <link rel="stylesheet" href="assets/app-preview/home.css" />
-    <link rel="stylesheet" href="assets/film/what-now.css" />
     <link rel="stylesheet" href="assets/app-preview/page.css" />
     <noscript><style>
       [data-site]:not(.g-shot),[data-open]:not(.g-shot),.g-inside h2,.g-early,#early-note{display:none}
@@ -86,73 +85,12 @@
         <ul class="g-shots">
           <li><button class="g-shot" data-site="explore"><span class="g-shot-line">Every tool,<br />one tap away.</span><span class="g-shot-phone"><img src="assets/home/home.jpg" alt="The app's Home screen with its tools" width="1320" height="2868" loading="lazy" decoding="async" /></span></button></li>
           <li><button class="g-shot" data-open="stops"><span class="g-shot-line">See your exit<br />before you buy.</span><span class="g-shot-phone"><img src="assets/home/stop.jpg" alt="Stop Finder showing NVDA with its stop and two targets on the chart" width="1000" height="2172" loading="lazy" decoding="async" /></span></button></li>
-          <li><button class="g-shot" data-open="course"><span class="g-shot-line">28 free lessons,<br />with practice trades.</span><span class="g-shot-phone"><img src="assets/home/map.jpg" alt="The options course map, starting on Main Street" width="999" height="2172" loading="lazy" decoding="async" /></span></button></li>
+          <li><button class="g-shot" data-open="course"><span class="g-shot-line">28 options lessons,<br />with practice trades.</span><span class="g-shot-phone"><img src="assets/home/map.jpg" alt="The options course map, starting on Main Street" width="999" height="2172" loading="lazy" decoding="async" /></span></button></li>
           <li><button class="g-shot" data-open="assistant"><span class="g-shot-line">Ask Pip when<br />you're stuck.</span><span class="g-shot-phone"><img src="assets/home/pip.jpg" alt="Pip answering a question about the screen" width="1000" height="2172" loading="lazy" decoding="async" /></span></button></li>
         </ul>
-      </section>
-
-      <!-- The film. The wall dims around it into the night below. -->
-      <section class="film-watch" id="watch" aria-labelledby="watch-title">
-        <div class="film-watch-head">
-          <h2 id="watch-title">See how it works.</h2>
-        </div>
-        <div class="film-frame">
-          <video controls playsinline preload="none" poster="assets/film/what-now-poster-16x9.jpg" data-poster-portrait="assets/film/what-now-poster-9x16.jpg" aria-label="What now? A film about the Friendly Trader app">
-            <source media="(max-width: 700px)" src="assets/film/what-now-9x16.mp4" type="video/mp4" />
-            <source src="assets/film/what-now-16x9.mp4" type="video/mp4" />
-            <track kind="captions" src="assets/film/what-now.en.vtt" srclang="en" label="English" />
-            <a href="assets/film/what-now-16x9.mp4">Download the film</a>
-          </video>
-          <button class="film-play" type="button" hidden aria-label="Play the film, 1 minute 24 seconds"><b>Play the film, 1:24</b></button>
-          <div class="film-end" hidden>
-            <strong>Now try it.</strong>
-            <div>
-              <button class="button" data-site="explore">Try the app</button>
-              <a class="button secondary" href="https://app.thefriendlytrader.com/learn">Start the free options course <span aria-hidden="true">↗</span></a>
-            </div>
-            <small>No account needed for either.</small>
-            <button class="text-button" type="button" data-film-replay>Watch again</button>
-          </div>
-        </div>
-      </section>
-
-      <section class="g-close" id="membership" aria-labelledby="plans-title">
-        <video id="g-night" muted loop playsinline preload="none" poster="assets/home/garden-night-poster.jpg" aria-hidden="true"></video>
-        <h2 id="plans-title">Big market. Friendly company.</h2>
-        <div class="g-acts">
-          <button class="g-btn g-moon" data-site="explore">Try the app</button>
-          <a class="g-btn g-night-plain" href="https://app.thefriendlytrader.com/learn">Start the free course</a>
-        </div>
-        <div class="g-plans">
-          <div class="g-plan">
-            <h3>Trader Tier</h3>
-            <p>Live trading with Josh, every live room and every tool.</p>
-            <ul>
-              <li><a href="https://whop.com/checkout/plan_0jiK0r8Agdru8" target="_blank" rel="noopener"><b>$49</b> a week<span>Join</span></a></li>
-              <li><a href="https://whop.com/checkout/plan_io9G63wKwKbEB" target="_blank" rel="noopener"><b>$160</b> a month<small>18% off</small><span>Join</span></a></li>
-              <li><a href="https://whop.com/checkout/plan_GxjiqB1KxtLZ7" target="_blank" rel="noopener"><b>$465</b> for 3 months<small>27% off</small><span>Join</span></a></li>
-              <li><a href="https://whop.com/checkout/plan_oQIeiOmUj1yBu" target="_blank" rel="noopener"><b>$1,495</b> a year<small>41% off</small><span>Join</span></a></li>
-            </ul>
-          </div>
-          <div class="g-plan">
-            <h3>Friendly Tools</h3>
-            <p>Every tool, the Tools live room and alerts from the tools.</p>
-            <ul>
-              <li><a href="https://whop.com/checkout/plan_qPuvfVGzKgEPW" target="_blank" rel="noopener"><b>$79.99</b> a month<span>Join</span></a></li>
-              <li><a href="https://whop.com/checkout/plan_hGOtlk0pDbrpB" target="_blank" rel="noopener"><b>$197.99</b> for 3 months<small>17% off</small><span>Join</span></a></li>
-            </ul>
-          </div>
-        </div>
-        <p class="g-fee">Whop adds a 5% fee at checkout, except on the yearly plan. <a href="/faq/#billing">Billing answers</a></p>
-        <footer class="site-footer">
+        <footer class="g-foot">
           <nav aria-label="More from Friendly Trader">
-            <a href="https://app.thefriendlytrader.com/">Open web app</a>
             <a href="/faq/">Help &amp; FAQ</a>
-            <a href="https://whop.com/stockswithjosh/" target="_blank" rel="noopener">Community</a>
-            <a href="https://friendlyscreener.com/" target="_blank" rel="noopener">Friendly Screener</a>
-            <a href="/options/">Friendly Options</a>
-            <a href="https://leaderboard.stockswithjosh.com/" target="_blank" rel="noopener">Trade Tracker</a>
-            <a href="https://macd.stockswithjosh.com/" target="_blank" rel="noopener">MACD</a>
             <a href="https://www.stockswithjosh.com/terms" target="_blank" rel="noopener">Terms</a>
             <a href="/privacy/">Privacy</a>
           </nav>
@@ -165,6 +103,5 @@
     <script src="assets/app-preview/page.js" defer></script>
     <script type="module" src="assets/early-access/form.mjs"></script>
     <script type="module" src="assets/app-preview/app.js"></script>
-    <script type="module" src="assets/film/what-now.mjs"></script>
   </body>
 </html>

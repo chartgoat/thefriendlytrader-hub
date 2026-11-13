@@ -108,14 +108,40 @@ test("the public pages keep to the copy rules and the old interactive film stays
     assert.doesNotMatch(html, /plain English|plain words|—/);
   }
   assert.doesNotMatch(home, /data-site="tour"/);
-  assert.match(home, /href="https:\/\/app\.thefriendlytrader\.com\/learn"/);
-  assert.match(home, /plan_0jiK0r8Agdru8/);
-  assert.match(home, /plan_qPuvfVGzKgEPW/);
-  assert.match(home, /id="membership"/, "the app's profile action scrolls here");
   assert.match(home, /data-site="explore"/, "Try the app must open the real preview");
   assert.match(home, /id="preview-stage"/);
   assert.doesNotMatch(home, /A\+ Scalps/);
   assert.doesNotMatch(read("../assets/app-preview/app.js"), /Try opening A\+ Scalps|film-launch|sizing box/);
+});
+
+// Owner, November 13 2026: "the options course is not free the only 2 parts of this site that I like and want to keep
+// is everything above see how it works ... fully updates to where things are at now with no duplicates".
+test("the home page is the first screen and the app's screens, and nothing else", () => {
+  const home = read("../index.html");
+  const main = home.slice(home.indexOf("<main"), home.indexOf("</main>"));
+  assert.deepEqual([...main.matchAll(/<section class="([\w-]+)"/g)].map((m) => m[1]), ["g-preview", "g-hero", "g-inside"]);
+  assert.doesNotMatch(home, /film-watch|what-now|See how it works|id="membership"|g-plans|whop\.com\/checkout|Big market/);
+  assert.equal(fs.existsSync(new URL("../assets/film", import.meta.url)), false, "the film is off the site, not only off the page");
+});
+
+test("nothing on the public pages calls the options course free", () => {
+  for (const page of ["../index.html", "../faq/index.html"]) {
+    const html = read(page);
+    assert.doesNotMatch(html, /free (options )?(course|lessons)|course is free|Start the free/i, page);
+    assert.doesNotMatch(html, /app\.thefriendlytrader\.com\/learn/, page);
+  }
+  assert.match(read("../index.html"), /28 options lessons,<br \/>with practice trades\./);
+});
+
+test("nothing on the home page is offered twice", () => {
+  const home = read("../index.html");
+  const main = home.slice(home.indexOf('class="g-hero"'), home.indexOf("</main>"));
+  const pressed = [...main.matchAll(/<(?:a|button)\b[^>]*>(?:\s*<[^>]+>)*([^<]+)/g)].map((m) => m[1].trim()).filter((t) => !/,$/.test(t));
+  assert.deepEqual(pressed.filter((t, i) => pressed.indexOf(t) !== i), []);
+  const links = [...home.matchAll(/<a\b[^>]*href="([^"]+)"/g)].map((m) => m[1]).filter((h) => h !== "#main");
+  assert.deepEqual(links.filter((h, i) => links.indexOf(h) !== i), []);
+  assert.deepEqual([...home.matchAll(/<footer class="g-foot">[\s\S]*?<\/footer>/g)].length, 1);
+  assert.deepEqual([...home.slice(home.indexOf('class="g-foot"')).matchAll(/<a href="[^"]+"[^>]*>([^<]+)<\/a>/g)].map((m) => m[1]), ["Help &amp; FAQ", "Terms", "Privacy"]);
 });
 
 test("the home page ships what it references and keeps the preview's content rules", () => {
@@ -124,10 +150,12 @@ test("the home page ships what it references and keeps the preview's content rul
   const refs = [...home.matchAll(/(?:src|href|poster)="(assets\/[^"]+)"/g), ...js.matchAll(/'(assets\/home\/[^']+)'/g)].map((m) => m[1]);
   assert.ok(refs.length > 8);
   for (const ref of refs) assert.ok(fs.existsSync(new URL(`../${ref}`, import.meta.url)), ref);
+  for (const file of fs.readdirSync(new URL("../assets/home/", import.meta.url))) assert.ok(refs.includes(`assets/home/${file}`) || file === "wall.jpg", `assets/home/${file} is used`);
   assert.match(home, /connect-src https:\/\/www\.facebook\.com https:\/\/connect\.facebook\.net https:\/\/grbywbmbiewrxqbfsxpf\.supabase\.co;/);
   assert.doesNotMatch(home, /fonts\.googleapis|fonts\.gstatic/);
   const css = read("../assets/app-preview/page.css");
   for (const font of ["young-serif", "figtree"]) assert.ok(css.includes(`url(../fonts/${font}.woff2)`), font);
+  assert.ok(css.includes("url(../home/wall.jpg)"));
   assert.doesNotMatch(js, /\bfetch\s*\(|XMLHttpRequest|localStorage/);
 });
 
@@ -141,23 +169,6 @@ test("the home page stays plain: it says what the app is, offers two things, and
   assert.equal((hero.match(/<(a|button)\b/g) || []).length, 2, "two things to press on the first screen");
   assert.doesNotMatch(css, /position:\s*(sticky|fixed)/, "nothing pinned to the screen");
   assert.doesNotMatch(js, /addEventListener\(\s*['"]scroll/, "nothing driven by scrolling");
-});
-
-test("the plans list every real price with its own checkout, and no plan that isn't sold", () => {
-  const home = read("../index.html");
-  const plans = home.slice(home.indexOf('class="g-plans"'), home.indexOf('class="g-fee"'));
-  const rows = [...plans.matchAll(/checkout\/(plan_\w+)"[^>]*><b>(\$[\d,.]+)<\/b> ([^<]+)</g)].map((m) => m.slice(1));
-  assert.deepEqual(rows, [
-    ["plan_0jiK0r8Agdru8", "$49", "a week"],
-    ["plan_io9G63wKwKbEB", "$160", "a month"],
-    ["plan_GxjiqB1KxtLZ7", "$465", "for 3 months"],
-    ["plan_oQIeiOmUj1yBu", "$1,495", "a year"],
-    ["plan_qPuvfVGzKgEPW", "$79.99", "a month"],
-    ["plan_hGOtlk0pDbrpB", "$197.99", "for 3 months"],
-  ]);
-  assert.deepEqual([...plans.matchAll(/<h3>([^<]+)<\/h3>/g)].map((m) => m[1]), ["Trader Tier", "Friendly Tools"]);
-  const faq = read("../faq/index.html");
-  for (const price of ["$49", "$160", "$465", "$1,495", "$79.99", "$197.99"]) assert.ok(faq.includes(price), `the FAQ states ${price}`);
 });
 
 test("each phone on the home page opens a screen the preview really has", () => {

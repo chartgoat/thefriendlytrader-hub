@@ -13,7 +13,7 @@ Owner, November 13, 2026: teaser videos run November 15 to 21, the app is on the
 | Privacy policy: "The early access list", the Pixel's sign-up event, who sends the emails | `privacy/index.html` |
 | Tests | `tests/early-access.test.mjs`; four older tests pin the page's allowed connections |
 
-The film, the four screens and the plans are unchanged. "Start the free course" left the first screen (it is still under the film and beside the plans), so the first screen keeps two things to press.
+**Owner, November 13, later the same day:** "the options course is not free the only 2 parts of this site that I like and want to keep is everything above see how it works ... it needs to be fully updates to where things are at now with no duplicates". So the home page is now the first screen, "Tap any screen to try it." and a three-link footer (Help & FAQ, Terms, Privacy). The film and the plans left the page, and the film's files left the site (its captions said the course needed no account). Nothing on the home page or the FAQ calls the options course free or links to the web course, and tests hold all of this (`tests/current-app.test.mjs`). Prices now live in the FAQ only. The Pixel sends a page view, Try the app and the sign-up, nothing else.
 
 ## The server
 

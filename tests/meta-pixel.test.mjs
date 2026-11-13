@@ -26,6 +26,7 @@ test("the Pixel stays off under Global Privacy Control and never reads what peop
   assert.match(js, /fbq\("set", "autoConfig", false, PIXEL_ID\);\s*\n\s*w\.fbq\("init"/, "automatic button events stay off and are set before init");
   assert.doesNotMatch(js, /\.value\b|input\[|textarea|localStorage|document\.cookie/);
   assert.match(js, /PIXEL_ID = "\d{10,20}"/, "the real Pixel ID must be filled in before publishing");
+  assert.deepEqual([...js.matchAll(/fbq\("track", "(\w+)"/g)].map((m) => m[1]), ["PageView", "ViewContent"], "a page view and Try the app; no course or checkout taps, those links left the page");
 });
 
 test("the privacy page says what the Pixel sends and how to stop it", () => {
