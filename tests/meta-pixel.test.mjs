@@ -8,7 +8,7 @@ test("only the home page loads the Meta Pixel, and it may reach Meta and nothing
   const home = read("../index.html");
   const csp = home.match(/http-equiv="Content-Security-Policy" content="([^"]+)"/)[1];
   assert.match(csp, /script-src 'self' https:\/\/connect\.facebook\.net;/);
-  assert.match(csp, /connect-src https:\/\/www\.facebook\.com https:\/\/connect\.facebook\.net;/);
+  assert.match(csp, /connect-src https:\/\/www\.facebook\.com https:\/\/connect\.facebook\.net https:\/\/grbywbmbiewrxqbfsxpf\.supabase\.co;/, "Meta, and our own sign-up server for the early access box");
   assert.match(csp, /img-src 'self' data: blob: https:\/\/www\.facebook\.com;/);
   assert.match(home, /<script src="assets\/meta-pixel\.js" defer><\/script>/);
   assert.match(home.slice(0, home.indexOf("</head>")), /<meta name="facebook-domain-verification" content="qm5mkzmefy6w80w81k5eafgqnjt7pn" \/>/);
@@ -32,6 +32,6 @@ test("the privacy page says what the Pixel sends and how to stop it", () => {
   const html = read("../privacy/index.html");
   assert.match(html, /uses the Meta Pixel/);
   assert.match(html, /Global Privacy Control/);
-  assert.match(html, /Updated November 12, 2026\./);
+  assert.match(html, /Updated November 13, 2026\./);
   assert.doesNotMatch(html, /The home page and FAQ on thefriendlytrader\.com set no cookies/);
 });

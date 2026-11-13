@@ -3,16 +3,16 @@
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover" />
-    <meta name="description" content="See your entry, your stop and your targets before you buy. Learn options in 28 free lessons. Practice with no real money." />
+    <meta name="description" content="Friendly Trader comes to the App Store on Sunday, November 22. Sign up for early access, and try the app on the page now." />
     <meta name="theme-color" content="#CFC8BA" />
     <meta property="og:title" content="Friendly Trader. The friendly trading app." />
-    <meta property="og:description" content="See your entry, your stop and your targets before you buy. Try the app on the page, or start the free options course." />
+    <meta property="og:description" content="On the App Store Sunday, November 22. Sign up for early access and a private live stream with Josh, and try the app on the page now." />
     <meta property="og:image" content="https://thefriendlytrader.com/assets/og.jpg" />
     <meta property="og:image:width" content="1200" />
     <meta property="og:image:height" content="630" />
     <meta name="twitter:card" content="summary_large_image" />
     <meta property="og:type" content="website" />
-    <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' https://connect.facebook.net; style-src 'self' 'unsafe-inline'; img-src 'self' data: blob: https://www.facebook.com; media-src 'self'; connect-src https://www.facebook.com https://connect.facebook.net; font-src 'self'; object-src 'none'; base-uri 'self'; form-action 'none'" />
+    <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' https://connect.facebook.net; style-src 'self' 'unsafe-inline'; img-src 'self' data: blob: https://www.facebook.com; media-src 'self'; connect-src https://www.facebook.com https://connect.facebook.net https://grbywbmbiewrxqbfsxpf.supabase.co; font-src 'self'; object-src 'none'; base-uri 'self'; form-action 'none'" />
     <meta name="facebook-domain-verification" content="qm5mkzmefy6w80w81k5eafgqnjt7pn" />
     <link rel="canonical" href="https://thefriendlytrader.com/" />
     <link rel="icon" href="assets/app-preview/app-icon.png" />
@@ -29,7 +29,7 @@
     <link rel="stylesheet" href="assets/film/what-now.css" />
     <link rel="stylesheet" href="assets/app-preview/page.css" />
     <noscript><style>
-      [data-site]:not(.g-shot),[data-open]:not(.g-shot),.g-inside h2{display:none}
+      [data-site]:not(.g-shot),[data-open]:not(.g-shot),.g-inside h2,.g-early,#early-note{display:none}
       .g-shot{cursor:default}
     </style></noscript>
     <title>Friendly Trader | The friendly trading app</title>
@@ -67,12 +67,17 @@
         </div>
         <div class="g-hero-copy">
           <h1 id="hero-title">The friendly trading&nbsp;app.</h1>
-          <p class="g-hero-line">See your entry, your stop and your targets before you buy.</p>
+          <p class="g-hero-line">On the App Store Sunday, November 22. Get early access and a private live stream with Josh.</p>
           <div class="g-hero-acts">
-            <button class="g-btn g-primary" data-site="explore">Try the app</button>
-            <a class="g-btn g-plain" href="https://app.thefriendlytrader.com/learn">Start the free course</a>
+            <form class="g-early" id="early-access" novalidate>
+              <label class="g-early-label" for="early-email">Your email address</label>
+              <input class="g-early-email" id="early-email" name="email" type="email" inputmode="email" autocomplete="email" autocapitalize="off" spellcheck="false" maxlength="254" placeholder="Your email" aria-describedby="early-note" required />
+              <input class="g-early-trap" name="alt_contact" type="text" tabindex="-1" autocomplete="off" aria-hidden="true" />
+              <button class="g-btn g-primary" type="submit">Get early access</button>
+            </form>
+            <button class="g-btn g-plain" type="button" data-site="explore">Try the app</button>
           </div>
-          <p class="g-hero-soon">Coming soon to the App Store</p>
+          <p class="g-hero-soon" id="early-note" role="status" aria-live="polite">We'll email your links on launch day, plus news and offers now and then. Unsubscribe anytime.</p>
         </div>
       </section>
 
@@ -155,9 +160,10 @@
         </footer>
       </section>
     </main>
-    <noscript><p class="noscript">Enable JavaScript to try the app preview. All links on this page work without it.</p></noscript>
+    <noscript><p class="noscript">Enable JavaScript to sign up for early access and to try the app preview. All links on this page work without it.</p></noscript>
     <script src="assets/meta-pixel.js" defer></script>
     <script src="assets/app-preview/page.js" defer></script>
+    <script type="module" src="assets/early-access/form.mjs"></script>
     <script type="module" src="assets/app-preview/app.js"></script>
     <script type="module" src="assets/film/what-now.mjs"></script>
   </body>

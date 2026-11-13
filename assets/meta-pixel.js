@@ -1,5 +1,6 @@
 // Meta Pixel for the home page of thefriendlytrader.com only (the FAQ and privacy pages run no scripts).
-// It tells Meta about a page view and three taps (Try the app, Start the free course, a Join button)
+// It tells Meta about a page view and three taps (Try the app, Start the free course, a Join button);
+// the early access box (assets/early-access/form.mjs) adds one event when a sign-up succeeds, with no address in it,
 // so we can see whether Facebook and Instagram ads bring visitors. Nothing typed on the page is read.
 // It stays off when the browser sends Global Privacy Control. Described on /privacy/#web.
 (function () {
@@ -21,7 +22,7 @@
   s.src = "https://connect.facebook.net/en_US/fbevents.js";
   document.head.appendChild(s);
   // No automatic events: Meta would otherwise record the text of every button tapped.
-  // Only the four events below are sent, as the privacy page says.
+  // Only the four events below, and the sign-up event from the early access box, are sent, as the privacy page says.
   w.fbq("set", "autoConfig", false, PIXEL_ID);
   w.fbq("init", PIXEL_ID);
   w.fbq("track", "PageView");
