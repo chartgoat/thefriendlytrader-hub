@@ -130,7 +130,7 @@ test("nothing on the public pages calls the options course free", () => {
     assert.doesNotMatch(html, /free (options )?(course|lessons)|course is free|Start the free/i, page);
     assert.doesNotMatch(html, /app\.thefriendlytrader\.com\/learn/, page);
   }
-  assert.match(read("../index.html"), /28 options lessons,<br \/>with practice trades\./);
+  assert.match(read("../index.html"), /Learn options<br \/>in 28 short levels\./);
 });
 
 test("nothing on the home page is offered twice", () => {
