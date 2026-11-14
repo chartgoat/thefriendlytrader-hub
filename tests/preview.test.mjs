@@ -1,27 +1,22 @@
 import test from "node:test";
 import assert from "node:assert/strict";
 import fs from "node:fs";
-import {
-  candles,
-  storyPlan,
-  scenarioPlan,
-  activePlan,
-  demoProfit,
-  plan,
-  patternLevels,
-  positionSize,
-  SYMBOLS,
-  BASE,
-  createState,
-  SCREENS,
-  TOUR,
-  tourPosition,
-  restoreTour,
-  escapeHTML,
-} from "../assets/app-preview/core.mjs";
-import { fixtures } from "../assets/app-preview/ui.mjs";
-import { renderNativeView as renderView, SAMPLE_WINS } from "../assets/app-preview/native.mjs";
-import { QUIZ } from "../assets/app-preview/native-quiz.mjs";
+import { candles, storyPlan, activePlan, plan, patternLevels, SYMBOLS, BASE, createState, SCREENS, placeOf, returnTo, sampleDay, escapeHTML } from "../assets/app-preview/core.mjs";
+import { fixtures, META } from "../assets/app-preview/ui.mjs";
+import { renderNativeView as renderView, nativeHeader, sheetStyle, coverStyle, SAMPLE_WINS } from "../assets/app-preview/native.mjs";
+
+const CODE = ["app.js", "core.mjs", "ui.mjs", "chart.mjs", "native.mjs"];
+const read = (file) => fs.readFileSync(new URL("../assets/app-preview/" + file, import.meta.url), "utf8");
+const page = (state) => nativeHeader(state) + renderView(state);
+// Every screen and every place inside one that the preview can show.
+const PLACES = [
+  ...SCREENS.map(([screen]) => [screen]),
+  ["stops", "details"], ["stops", "plans"], ["stops", "chart"], ["earnings", "event"], ["economy", "event"], ["aplus", "setup"],
+  ["macd", "add-ticker"], ["patterns", "pattern"], ["screener", "play"], ["pipbrain", "oi"], ["course", "station"], ["course", "lesson"],
+  ["coaching", "coaches"], ["coaching", "coach-money-mike"], ["coaching", "coach-josh"], ["coaching", "book"],
+  ["chat", "room"], ["chat", "thread"], ["chat", "menu"], ["chat", "here"], ["chat", "saved"], ["chat", "win-compose"],
+  ["profile", "account"], ["profile", "appearance"], ["profile", "notifications"], ["profile", "help"], ["profile", "support"], ["profile", "signout"],
+].map(([screen, detail = null]) => ({ ...createState(), screen, detail, thread: "m1" }));
 
 test("sample candles preserve OHLC bounds, session continuity and cross-screen price parity", () => {
   for (const symbol of SYMBOLS)
@@ -39,262 +34,158 @@ test("sample candles preserve OHLC bounds, session continuity and cross-screen p
       assert.ok(Math.abs(bars.at(-1).close - BASE[symbol]) < 1e-8);
     }
 });
-test("long and short demo plans invert risk and reward correctly in both modes", () => {
+
+test("long and short Stop Finder plans put the stop and targets on the right sides, in whole cents", () => {
   for (const t of SYMBOLS)
     for (const mode of ["swing", "scalp"])
       for (const direction of ["long", "short"]) {
         const p = plan(t, direction, mode);
         assert.ok(p.risk > 0);
         assert.ok(Math.abs(Math.abs(p.entry - p.stop) - p.risk) < 1e-8);
-        assert.ok(Math.abs(Math.abs(p.target - p.entry) - p.risk * 2.5) <= .005000001);
-        for (const value of [p.entry, p.stop, p.target, p.target2, p.target3, p.risk])
-          assert.ok(Math.abs(value * 100 - Math.round(value * 100)) < 1e-8);
-        assert.ok(
-          direction === "long"
-            ? p.stop < p.entry && p.entry < p.target
-            : p.target < p.entry && p.entry < p.stop,
-        );
-        const shares = positionSize(100, p.risk);
-        assert.ok(shares * p.risk <= 100);
-        assert.ok((shares + 1) * p.risk > 100);
+        assert.ok(Math.abs(Math.abs(p.target - p.entry) - p.risk * 2.5) <= 0.005000001);
+        for (const value of [p.entry, p.stop, p.target, p.target2, p.risk]) assert.ok(Math.abs(value * 100 - Math.round(value * 100)) < 1e-8);
+        assert.ok(direction === "long" ? p.stop < p.entry && p.entry < p.target : p.target < p.entry && p.entry < p.stop);
       }
-  assert.equal(positionSize(-1, 3), 0);
-  assert.equal(positionSize(NaN, 3), 0);
-  assert.equal(positionSize(100, 0), 0);
-  const nvda = plan('NVDA');
-  assert.equal(nvda.stop, 184.71);
-  assert.equal(nvda.risk, 3.39);
-  assert.equal(positionSize(250, nvda.risk), 73);
-  assert.equal(Math.round(73 * nvda.risk * 100), 24747);
+  assert.equal(plan("NVDA").stop, 184.71);
+  assert.match(renderView({ ...createState(), screen: "stops" }), /2\.5x reward to risk/);
 });
-test("tour resume restores navigation and chart position while retaining visitor changes", () => {
+
+test("one made-up session a ticker: every tool reads the same prices, and the candles agree with it", () => {
+  for (const symbol of SYMBOLS) {
+    const p = storyPlan(symbol), bars = candles(symbol, "1m");
+    const favorable = p.side === "long" ? Math.max(...bars.map((b) => b.high)) : Math.min(...bars.map((b) => b.low));
+    assert.ok(Math.abs(favorable - p.peak) < 1e-8, symbol + " peak");
+    assert.equal(p.state === "hit", p.best >= Math.abs(p.target - p.entry) - 1e-8, symbol + " target");
+    for (const screen of ["macd", "screener", "patterns", "aplus"]) assert.equal(activePlan({ ...createState(), screen, symbol }).entry, p.entry);
+  }
+  for (const f of fixtures.patterns) {
+    const p = storyPlan(f.symbol);
+    assert.equal(f.bias === "Bullish" ? "long" : "short", p.side);
+    if (f.status === "Failed") assert.equal(p.state, "invalidated");
+  }
+});
+
+test("Back returns to where the visitor was and keeps what they made", () => {
   const s = createState();
-  Object.assign(s, {
-    screen: "chat",
-    detail: "thread",
-    room: "Wins",
-    thread: "m6",
-    chart: { count: 24, offset: 17 },
-  });
-  const saved = tourPosition(s);
-  Object.assign(s, {
-    screen: "profile",
-    detail: null,
-    room: "Trading Floor",
-    thread: null,
-    dark: true,
-    name: "Tester",
-  });
+  Object.assign(s, { screen: "chat", detail: "thread", room: "Wins", thread: "m1", chart: { count: 24, offset: 17 } });
+  const place = placeOf(s);
+  Object.assign(s, { screen: "profile", detail: null, room: "Trading Floor", thread: null, dark: true, theme: "Dark" });
   s.chart.count = 80;
-  s.watchlist.push("TSLA");
-  s.messages.push({ text: "My demo message" });
-  restoreTour(s, saved);
-  assert.equal(s.screen, "chat");
-  assert.equal(s.thread, "m6");
-  assert.equal(s.room, "Wins");
+  s.quick.pop();
+  s.messages.push({ text: "Mine" });
+  returnTo(s, place);
+  assert.deepEqual([s.screen, s.detail, s.room, s.thread], ["chat", "thread", "Wins", "m1"]);
   assert.deepEqual(s.chart, { count: 24, offset: 17 });
-  assert.equal(s.name, "Tester");
   assert.equal(s.dark, true);
-  assert.ok(s.watchlist.includes("TSLA"));
+  assert.equal(s.quick.length, 5);
   assert.equal(s.messages.length, 1);
   s.chart.count = 40;
-  assert.equal(saved.chart.count, 24);
+  assert.equal(place.chart.count, 24);
 });
-test("all main app destinations and tour destinations render meaningful content", () => {
-  for (const [screen] of SCREENS) {
-    const s = { ...createState(), screen };
-    const html = renderView(s);
-    assert.ok(html.length > 150, screen);
-    assert.ok(!html.includes("undefined"), screen);
-    assert.ok(!html.includes("NaN"), screen);
+
+test("every screen and every place inside one renders, with a name and with no missing data", () => {
+  for (const state of PLACES) {
+    const html = page(state), where = state.screen + "/" + state.detail;
+    assert.ok(html.length > 150, where);
+    assert.doesNotMatch(html, /undefined|NaN|\[object/, where);
+    assert.ok(META[state.screen], where);
   }
-  for (const step of TOUR) {
-    const html = renderView({ ...createState(), ...step });
-    assert.ok(html.length > 150, step.screen);
-  }
+  assert.match(renderView({ ...createState(), screen: "chat", detail: "room", search: "not-found-abc" }), /No matching messages/);
+  assert.match(renderView({ ...createState(), screen: "chat", detail: "room", room: "Dividend Chat" }), /Message Dividend Chat/);
 });
-test("detail branches and empty states render without missing data", () => {
-  const variants = [
-    ["aplus", "setup"],
-    ["macd", "stock"],
-    ["patterns", "pattern"],
-    ["screener", "board"],
-    ["screener", "stock"],
-    ["earnings", "event"],
-    ["economy", "event"],
-    ["live", "session"],
-    ["chat", "room"],
-    ["chat", "thread"],
-    ["chat", "member"],
-    ["chat", "share"],
-    ["profile", "membership"],
-    ["profile", "notifications"],
-    ["profile", "quick-menu"],
-    ["stops", "chart"],
-    ["chat","win-compose"],
-    ["chat","milestones"],
-    ["macd","watchlist"],
-    ["macd","guide"],
-  ];
-  for (const [screen, detail] of variants) {
-    const s = { ...createState(), screen, detail, thread: "m1" };
-    assert.ok(!/undefined|NaN/.test(renderView(s)), screen + "/" + detail);
+
+test("the preview's dates follow the week it is opened in", () => {
+  for (const from of [new Date(2026, 10, 9), new Date(2026, 10, 13), new Date(2026, 10, 15)]) {
+    const d = sampleDay(0, from);
+    assert.equal(d.weekday, "Tuesday");
+    assert.equal(d.day, from.getDay() === 0 ? 17 : 10, String(from));
   }
-  assert.match(
-    renderView({ ...createState(), screen: "earnings", week: 1 }),
-    /No sample events/,
-  );
-  assert.match(
-    renderView({
-      ...createState(),
-      screen: "chat",
-      detail: "room",
-      search: "not-found-abc",
-    }),
-    /No matching messages/,
-  );
-  assert.match(
-    renderView({
-      ...createState(),
-      screen: "onboarding",
-      quizStage:"questions",
-      quizResult:"riskRoulettePlayer",
-    }),
-    /Open Stop Finder/,
-  );
+  assert.equal(sampleDay(-1, new Date(2026, 10, 13)).weekday, "Monday");
 });
-test("visitor-authored content is escaped in chat, profile and Pip", () => {
+
+test("a sheet has a way to close and a full screen has a way out", () => {
+  for (const state of PLACES) {
+    const html = page(state), where = state.screen + "/" + state.detail;
+    if (state.screen === "home") continue;
+    assert.match(html, /data-action="(back|close|home|sign-in|lesson-finish)"|data-screen="home"/, where);
+    if (sheetStyle(state)) assert.match(html, /sheet-handle/, where);
+  }
+  assert.ok(coverStyle({ screen: "coaching" }) && coverStyle({ screen: "course" }) && !coverStyle({ screen: "stops" }));
+});
+
+test("what a visitor types is escaped wherever it is shown", () => {
   const attack = "<img src=x onerror=alert(1)>";
   assert.equal(escapeHTML(attack), "&lt;img src=x onerror=alert(1)&gt;");
-  for (const screen of ["home", "profile", "assistant", "chat"]) {
-    const s = {
-      ...createState(),
-      screen,
-      name: attack,
-      pipAnswer: attack,
-      pipQuestion: attack,
-      detail: screen === "chat" ? "room" : null,
-      messages: [
-        {
-          id: "x",
-          room: "Trading Floor",
-          name: attack,
-          avatar: "X",
-          text: attack,
-          time: "10:42",
-        },
-      ],
-    };
-    assert.ok(!renderView(s).includes(attack), screen);
-  }
+  const mine = { id: "x", room: "Trading Floor", name: "You", avatar: "Y", time: "10:42 AM", text: attack };
+  const states = [
+    { screen: "chat", detail: "room", messages: [mine], drafts: { "Trading Floor": attack }, search: attack, showChatSearch: true },
+    { screen: "chat", messages: [mine] },
+    { screen: "chat", detail: "room", room: "Wins", wins: [{ id: "w", name: "You", avatar: "Y", time: "10:42 AM", kind: "Learned something", note: attack }] },
+    { screen: "assistant", pipQuestion: attack, pipAnswer: attack },
+    { screen: "profile", detail: "support", helpMessages: [attack] },
+    { screen: "patterns", lookup: attack },
+  ];
+  for (const extra of states) assert.ok(!page({ ...createState(), ...extra }).includes(attack), JSON.stringify(extra).slice(0, 60));
 });
-test("preview cannot make service calls, persist personal data or invoke notification APIs", () => {
-  const code = ["app.js", "core.mjs", "ui.mjs", "chart.mjs", "native.mjs", "native-quiz.mjs", "platform.mjs"]
-    .map((f) =>
-      fs.readFileSync(
-        new URL("../assets/app-preview/" + f, import.meta.url),
-        "utf8",
-      ),
-    )
-    .join("\n");
-  assert.doesNotMatch(
-    code,
-    /\bfetch\s*\(|XMLHttpRequest|WebSocket|sendBeacon|localStorage|sessionStorage|Notification\.requestPermission|serviceWorker/,
-  );
-  const html = fs.readFileSync(
-    new URL("../index.html", import.meta.url),
-    "utf8",
-  );
+
+test("the preview calls no service, stores nothing, asks for no notification and links nowhere", () => {
+  const code = CODE.map(read).join("\n");
+  assert.doesNotMatch(code, /\bfetch\s*\(|XMLHttpRequest|WebSocket|sendBeacon|localStorage|sessionStorage|indexedDB|document\.cookie|Notification\.requestPermission|serviceWorker|import\s*\(/);
+  assert.doesNotMatch(code, /https?:\/\/|href=|window\.open|location\.(href|assign|replace)|whop\.com/i);
+  for (const state of PLACES) assert.doesNotMatch(page(state), /<a\b|href=|https?:\/\//, state.screen + "/" + state.detail);
+  const html = fs.readFileSync(new URL("../index.html", import.meta.url), "utf8");
   assert.match(html, /connect-src https:\/\/www\.facebook\.com https:\/\/connect\.facebook\.net https:\/\/grbywbmbiewrxqbfsxpf\.supabase\.co;/);
   assert.match(html, /form-action 'none'/);
   assert.match(html, /All data is simulated/);
 });
-test("every declared action has a handler and every fixture room is reachable", () => {
-  const ui = fs.readFileSync(
-      new URL("../assets/app-preview/ui.mjs", import.meta.url),
-      "utf8",
-    ),
-    app = fs.readFileSync(
-      new URL("../assets/app-preview/app.js", import.meta.url),
-      "utf8",
-    );
-  const actions = new Set(
-    [...ui.matchAll(/data-action="([a-z-]+)"/g)].map((m) => m[1]),
-  );
-  for (const a of actions)
-    assert.ok(new RegExp("case\\s*[\"']" + a + "[\"']").test(app), a);
-  for (const [room] of fixtures.rooms)
-    assert.ok(fixtures.messages.some((m) => m.room === room));
+
+test("every button and form the screens draw is wired, and every shipped file is used", () => {
+  const app = read("app.js");
+  for (const state of [...PLACES, { ...createState(), screen: "quick", quickChanged: true, quick: ["macd", "stops", "chat"] }, { ...createState(), screen: "chat", detail: "menu", chatRead: false }, { ...createState(), screen: "course", detail: "lesson", lessonStep: 1 }, { ...createState(), screen: "course", detail: "lesson", lessonStep: 2 }, { ...createState(), screen: "stops", plans: [{ symbol: "NVDA", direction: "long", mode: "swing" }] }]) {
+    const html = page(state);
+    for (const [, a] of html.matchAll(/data-action="([a-z-]+)"/g)) assert.ok(app.includes(`case "${a}"`), a);
+    for (const [, f] of html.matchAll(/data-form="([a-z-]+)"/g)) assert.ok(app.includes(`"${f}"`), f);
+    for (const [, id] of html.matchAll(/data-screen="([a-z]+)"/g)) assert.ok(META[id], id);
+    for (const [, key] of html.matchAll(/data-action="set"[^>]*data-key="(\w+)"/g)) assert.ok(key in createState() || /stopMode|stopDirection|aplusFrame/.test(key), key);
+    for (const [, src] of html.matchAll(/src="(assets\/[^"]+)"/g)) assert.ok(fs.existsSync(new URL("../" + src, import.meta.url)), src);
+  }
+  const used = CODE.map(read).join("\n") + read("home.css") + read("native.css") + fs.readFileSync(new URL("../index.html", import.meta.url), "utf8");
+  const walk = (dir) => fs.readdirSync(new URL(dir, import.meta.url), { withFileTypes: true }).flatMap((e) => (e.isDirectory() ? walk(dir + e.name + "/") : [dir + e.name]));
+  for (const file of walk("../assets/app-preview/")) {
+    const name = file.split("/").pop();
+    if (name === "LICENSE.txt") continue;
+    const stem = name.replace(/^chat-room-/, "").replace(/\.jpg$/, "");
+    assert.ok(used.includes(name) || /media\/(coaches|rooms)\//.test(file) && used.includes(stem), file + " is used");
+  }
 });
 
-test("recorded targets, price extrema and Wins use one coherent simulated trade",()=>{
-  for(const symbol of SYMBOLS){
-    const p=storyPlan(symbol),bars=candles(symbol,"1m");
-    const favorable=p.side==="long"?Math.max(...bars.map(b=>b.high)):Math.min(...bars.map(b=>b.low));
-    assert.ok(Math.abs(favorable-p.peak)<1e-8,symbol+" peak");
-    assert.equal(p.state==="hit",p.best>=Math.abs(p.target-p.entry)-1e-8,symbol+" target outcome");
-    const direction=p.side==="long"?1:-1;
-    if(p.state!=="invalidated")assert.ok(bars.slice(39).every(b=>direction*(b.close-p.stop)>0),symbol+" remains valid");
-    else assert.ok(direction*(bars.at(-1).close-p.stop)<0,symbol+" invalidation");
-    for(const screen of ["macd","screener","patterns"]){assert.equal(activePlan({...createState(),screen,symbol}).entry,p.entry);}
-    assert.equal(scenarioPlan(symbol,p.side).target,p.target);
-    assert.equal(scenarioPlan(symbol,p.side==="long"?"short":"long").state,"watching");
-  }
-  for(const f of fixtures.patterns){const p=storyPlan(f.symbol);assert.equal(f.bias==="Bullish"?"long":"short",p.side);if(f.status==="Failed")assert.equal(p.state,"invalidated");}
-  for(const win of SAMPLE_WINS.filter(w=>w.symbol)){
-    const p=storyPlan(win.symbol),sign=p.side==="long"?1:-1;
-    assert.ok(sign*(win.exit-p.entry)>0);
-    assert.ok(sign*(win.exit-p.peak)<=1e-8);
-    assert.equal(demoProfit(win.symbol,win.quantity,win.exit),Math.round(sign*(win.exit-p.entry)*win.quantity*100)/100);
-  }
-});
-test("native onboarding branches reach all four outcomes without dead ends",()=>{
- const outcomes=new Set();
- function visit(id,seen=[]){assert.ok(!seen.includes(id),"quiz cycle");const q=QUIZ[id];assert.ok(q?.answers.length);for(const a of q.answers){if(a.type==="question")visit(a.to,[...seen,id]);else outcomes.add(a.to);}}
- visit("q1");assert.deepEqual([...outcomes].sort(),["marketNewbie","emotionalRollerCoaster","riskRoulettePlayer","timeCruncher"].sort());
-});
-test("every native screen action is wired including dynamically declared buttons",()=>{
- const app=fs.readFileSync(new URL("../assets/app-preview/app.js",import.meta.url),"utf8");
- const states=SCREENS.map(([screen])=>({...createState(),screen}));
- for(const [screen,detail] of [["aplus","setup"],["macd","stock"],["macd","guide"],["macd","classic"],["patterns","pattern"],["chat","win-compose"],["chat","milestones"],["profile","quick-menu"],["stops","chart"]])states.push({...createState(),screen,detail});
- states.push({...createState(),screen:"chat",room:"Wins"},{...createState(),screen:"menu",menuFor:"macd"},{...createState(),screen:"menu",menuFor:"chat"});
- for(const s of states)for(const [,a] of renderView(s).matchAll(/data-action="([a-z-]+)"/g))assert.ok(app.includes('case "'+a+'"'),a);
-});
-test("patterns shows the five stages with no Forming, as the app does",()=>{
-  const list=renderView({...createState(),screen:"patterns"});
-  for(const stage of ["FORMED","CONFIRMED","RETEST","MEASURED MOVE","FAILED"])assert.match(list,new RegExp(stage+" · 1<"));
-  assert.match(list,/1,000 stocks scanned/);
-  assert.match(renderView({...createState(),screen:"patterns",patternBoard:"Everything"}),/MEASURED MOVE · 4</);
-  // A filter saved before the stages changed shows the board, not an empty page.
-  for(const before of ["Forming","Signal"])assert.match(renderView({...createState(),screen:"patterns",patternFilter:before}),/FORMED · 1</,before);
-  for(const f of fixtures.patterns){
-    const html=renderView({...createState(),screen:"patterns",detail:"pattern",symbol:f.symbol,timeframe:"1d",patternTab:"History"});
-    assert.doesNotMatch(html.replace(/<[^>]*>/g," "),/forming|target|goal|neutral/i,f.symbol);
-    assert.doesNotMatch(html,/undefined|NaN/,f.symbol);
-    assert.match(html,new RegExp(f.status.toUpperCase()));
-  }
-  for(const file of ["app.js","chart.mjs","core.mjs","native.mjs","ui.mjs"])assert.doesNotMatch(fs.readFileSync("assets/app-preview/"+file,"utf8"),/forming/i,file);
-});
-test("a setup keeps only the lines the app keeps at its stage",()=>{
-  const p=storyPlan("NVDA"),names=status=>patternLevels(status,p).map(([,name])=>name);
-  assert.deepEqual(names("Formed"),["Move","Confirm","Line","Fail"]);
-  assert.deepEqual(names("Retest"),["Move","Retest","Fail"]);
+test("Patterns shows the app's stages and a setup keeps only the lines the app keeps at its stage", () => {
+  const p = storyPlan("NVDA"), names = (status) => patternLevels(status, p).map(([, name]) => name);
+  assert.deepEqual(names("Formed"), ["Move", "Confirm", "Line", "Fail"]);
+  assert.deepEqual(names("Retest"), ["Move", "Retest", "Fail"]);
   assert.ok(!names("Measured move").includes("Fail"));
   assert.ok(!names("Failed").includes("Move"));
-  const pltr=storyPlan("PLTR"),last=candles("PLTR","1d").at(-1);
-  assert.equal(last.close,pltr.current);assert.equal(last.high,pltr.peak);
-  assert.ok(candles("PLTR","1d").slice(0,-1).every(b=>b.close<pltr.entry),"PLTR closes through its line on the last candle");
-  const amd=storyPlan("AMD"),afterPeak=candles("AMD","1d").slice(100);
-  assert.ok(amd.current>amd.entry&&amd.peak<amd.target&&candles("AMD","1d").slice(39).every(b=>b.close>amd.stop));
-  assert.ok(Math.min(...afterPeak.map(b=>b.low))<=amd.entry+.25,"AMD comes back to its line");
-  const detail=symbol=>renderView({...createState(),screen:"patterns",detail:"pattern",symbol,timeframe:"1d"});
-  assert.doesNotMatch(detail("MSFT"),/Retest/,"a candle setup has no retest");
-  assert.match(detail("MSFT"),/CONFIRMED BELOW/);
-  assert.match(detail("PLTR"),/CONFIRM ABOVE/);
-  assert.match(detail("AAPL"),/REACHED/);
-  assert.match(detail("AMD"),/INVALIDATION/);
+  const pltr = storyPlan("PLTR"), last = candles("PLTR", "1d").at(-1);
+  assert.equal(last.close, pltr.current);
+  assert.equal(last.high, pltr.peak);
+  const detail = (symbol, extra = {}) => renderView({ ...createState(), screen: "patterns", detail: "pattern", symbol, ...extra });
+  assert.match(detail("META"), /✓ Upward break confirmed/);
+  assert.match(detail("PLTR"), /Formed · awaiting confirmation/);
+  assert.match(detail("AMD"), /Retest held/);
+  assert.match(detail("GOOGL"), /Setup failed/);
+  assert.match(detail("MSFT", { rules: true }), /CONFIRMED BELOW/);
+  assert.match(detail("AAPL", { rules: true }), /REACHED/);
+  assert.match(detail("AMD", { rules: true }), /INVALIDATION/);
+  assert.doesNotMatch(detail("MSFT"), /Retest/, "a candle setup has no retest");
   // A finished setup plans no stop, as in the app; a live one does.
-  for(const symbol of ["NVDA","GOOGL"])assert.match(detail(symbol),/data-action="to-stops"[^>]*disabled|disabled[^>]*data-action="to-stops"/,symbol);
-  for(const symbol of ["PLTR","META","AMD"])assert.doesNotMatch(detail(symbol),/disabled/,symbol);
+  for (const symbol of ["NVDA", "GOOGL"]) assert.match(detail(symbol), /data-action="to-stops" disabled/, symbol);
+  for (const symbol of ["PLTR", "META", "AMD"]) assert.doesNotMatch(detail(symbol), /disabled/, symbol);
+  for (const file of CODE) assert.doesNotMatch(read(file), /forming/i, file);
 });
 
+test("the sample wins claim no trade", () => {
+  for (const win of SAMPLE_WINS) {
+    assert.ok(["Followed my plan", "Learned something"].includes(win.kind));
+    assert.doesNotMatch(win.note, /\$\d|%|profit|gain/i);
+  }
+});
