@@ -29,11 +29,8 @@ body:not(.preview-open) .g-preview{display:none}
 .preview-open .preview-stage .preview-label,.preview-open .preview-stage .preview-disclosure{color:#3E4D42}
 .preview-open .preview-stage .mobile-close{border-color:#12352766;color:var(--g-ink)}
 .preview-next strong{font-family:var(--g-serif);font-weight:400;font-size:clamp(30px,2.8vw,42px);line-height:1.08;letter-spacing:-.018em;color:#0A3F2C}
-.preview-next p{font-size:19px;color:#3E4D42}
 .preview-next .button{background:var(--g-ink);border-color:var(--g-ink);color:#fff;font-family:var(--g-sans);font-weight:700}
 .preview-next .button:hover{background:#0A2A1D}
-.preview-next .button.secondary{background:#ffffffb8;border-color:transparent;color:var(--g-ink)}
-.preview-next .button.secondary:hover{background:#fff}
 
 /* The first screen: the garden film, framed so Pip stands just above the words. */
 .g-hero{--h:max(100svh,500px);--h1:clamp(44px,min(5.8vw,11.2svh),170px);--words:calc(var(--h1)*1.1 + clamp(224px,8vw + 124px,344px));

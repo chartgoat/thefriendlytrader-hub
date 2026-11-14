@@ -17,6 +17,8 @@ Owner, November 13, 2026: teaser videos run November 15 to 21, the app is on the
 
 The four phone pictures were retaken on November 13 from TestFlight 202611132217 (source `f4a0db230`); how, and what each shows, is in `~/SWJ/operations/early-access-20261113/captures/CAPTURES.md`. They are unedited apart from one thing: on `pip.jpg` the small line "AI assistant · Private" under the sheet's name is covered in white, as it was on the October picture (owner, October 30: no AI descriptors in marketing). Retake them when Home, Stop Finder, the course map or Pip's sheet changes.
 
+The demo behind Try the app was ported again on November 13 from the same build (iOS source `f4a0db230`): Home in the owner's published layout, the new MACD, A+ Scalps, Screener, Big Money (made-up funds only), Pip Brain, the 28-level course with no link out, Coaching, Chat, the Live calendar, Settings and Help. The old tour, the Mac variant and the old film's records and scripts were removed. `HIDDEN_TOOLS` in `assets/app-preview/core.mjs` hides a tool everywhere when the owner switches it off. 194 pictures of its screens are in `~/SWJ/operations/early-access-20261113/demo-screens/`.
+
 ## The server
 
 The box posts JSON to `https://grbywbmbiewrxqbfsxpf.supabase.co/functions/v1/email-signup/early-access` (repo `swj-chat`, branch `claude/early-access-20261113`, `docs/email-signups/README.md`). It sends the address, the exact words under the box with their version (`web-early-access-v1`), the hidden trap field, the time since the page opened, and `ref` when the link had `?ref=name`. Give each teaser its own link, such as `https://thefriendlytrader.com/?ref=reel-1`, to see which one brought people.
@@ -37,8 +39,9 @@ It serves the site at http://127.0.0.1:5540 with a stand-in for the server (same
 
 1. In `index.html`, replace the `<form class="g-early">…</form>` with `<a class="g-btn g-primary" href="APP_STORE_LINK">Download on the App Store</a>`, change the line above it to say the app is on the App Store, and remove the `#early-note` paragraph and the `form.mjs` script tag. The first screen still has two things to press.
 2. In `assets/app-preview/page.css`, the `.g-early*` rules can go; the first screen's `--words` heights can return to `clamp(210px,8vw + 112px,330px)` and `clamp(198px,10vw + 134px,260px)`.
-3. Update `tests/early-access.test.mjs` to the new first screen, and keep the unsubscribe page, its script and `core.mjs`: emails already sent link to it.
-4. Leave the privacy page's early access section in place while the list exists.
+3. The button beside the demo (`assets/app-preview/app.js`, "Get early access", action `early-access`) becomes the same App Store link, and its test in `tests/preview.test.mjs` changes with it.
+4. Update `tests/early-access.test.mjs` to the new first screen, and keep the unsubscribe page, its script and `core.mjs`: emails already sent link to it.
+5. Leave the privacy page's early access section in place while the list exists.
 
 ## Not done here
 
