@@ -21,8 +21,8 @@ export const NAMES = {
   AMD: "Advanced Micro Devices",
   PLTR: "Palantir",
 };
-// Curated fictional sessions. Entry, stop, targets, candles and Wins all use
-// these same records. They are interface examples, never production results.
+// Curated fictional sessions. Entry, stop, targets and candles all use these same records on every screen.
+// They are interface examples, never production results.
 export const DEMO_TRADES = {
   NVDA: {entry:181.20, stop:179.70, current:188.10, peak:188.80, side:"long", state:"hit", at:"9:35 AM", hitAt:"10:06 AM", open:160.00},
   AAPL: {entry:228.40, stop:226.90, current:234.85, peak:235.10, side:"long", state:"hit", at:"9:40 AM", hitAt:"10:14 AM", open:221.80},
@@ -42,15 +42,8 @@ export function storyPlan(symbol="NVDA") {
   const sign=t.side==="long"?1:-1, risk=Math.abs(t.entry-t.stop);
   return {...t, risk, target:t.entry+sign*risk*2.5, target2:t.entry+sign*risk*4, target3:t.entry+sign*risk*5.5, rr:2.5, progress:sign*(t.current-t.entry), best:sign*(t.peak-t.entry)};
 }
-export function scenarioPlan(symbol="NVDA", direction="long") {
-  const p=storyPlan(symbol);
-  if(p.side===direction) return p;
-  const sign=direction==="long"?1:-1, entry=BASE[symbol]+sign*p.risk*.5;
-  return {...p,side:direction,state:"watching",entry,stop:entry-sign*p.risk,target:entry+sign*p.risk*2.5,target2:entry+sign*p.risk*4,target3:entry+sign*p.risk*5.5,progress:sign*(p.current-entry),best:0};
-}
 export function activePlan(state) {
-  if(["macd","patterns","screener"].includes(state.screen)) return storyPlan(state.symbol);
-  if(state.screen==="aplus") return scenarioPlan(state.symbol,state.direction);
+  if(["macd","patterns","screener","aplus"].includes(state.screen)) return storyPlan(state.symbol);
   return plan(state.symbol,state.direction,state.mode);
 }
 // The lines a setup still has on Patterns, as in the app: after the measured move nothing fails it, and a failed setup has no move left.
@@ -63,32 +56,41 @@ export function patternLevels(status,p) {
     Failed:[[p.entry,"Entry"],[p.stop,"Fail"]],
   })[status]||[];
 }
-export function demoProfit(symbol, quantity, exit=BASE[symbol]) {
-  const p=storyPlan(symbol);
-  return Math.round((exit-p.entry)*(p.side==="long"?1:-1)*quantity*100)/100;
-}
-// Mirrors the app's live tool switches (the tool-switches function, read 2026-10-30).
-// A tool the owner turns back on comes out of this list, and out of QUICK_DEFAULT's exclusions.
-export const HIDDEN_TOOLS = ["aplus", "screener"];
+// Mirrors the app's live tool switches (the tool-switches function, read 2026-11-13: A+ Scalps, Screener, Big Money and
+// Pip Brain are on; the older course, the old MACD and the New Screener are off and have no screen here).
+// A tool the owner turns off goes in this list: it leaves Home, the quick menu and every route.
+export const HIDDEN_TOOLS = [];
+// id, the door's name, the quick menu's word, its mark. Home's order is in native.mjs, as the owner published it.
 export const SCREENS = [
-  ["home", "Home", "Your daily starting point", "home"],
-  ["stream", "Today", "The day, at a glance", "clock"],
-  ["aplus", "A+ Scalps", "Levels and confirmed breaks", "bolt"],
-  ["macd", "MACD", "Read the momentum", "trend"],
-  ["patterns", "Patterns", "What’s setting up?", "pulse"],
-  ["screener", "Screener", "Find the day’s movers", "list"],
-  ["stops", "Stop Finder", "Put your exit on the chart", "stop"],
-  ["earnings", "Earnings", "Know who is reporting", "calendar"],
-  ["economy", "Economy", "Follow the bigger picture", "globe"],
-  ["course", "Options course", "Lesson 1 of 28 · Calls", "mountains"],
-  ["coaching", "Coaching", "10 coaches", "people"],
-  ["live", "Live calendar", "Learn alongside the community", "play"],
-  ["chat", "Chat", "Talk it through", "chat"],
-  ["assistant", "Pip", "A little help on every screen", "pip"],
-  ["profile", "Your profile", "Make yourself at home", "person"],
-  ["onboarding", "Find your starting point", "A short introduction", "spark"],
+  ["home", "Home", "Home", "home"],
+  ["stream", "Today", "Today", "clock"],
+  ["earnings", "Earnings", "Earnings", "calendar"],
+  ["stops", "Stop Finder", "Stops", "stop"],
+  ["economy", "Economy", "Economy", "globe"],
+  ["aplus", "A+ Scalps", "A+ Scalps", "bolt"],
+  ["macd", "MACD", "MACD", "trend"],
+  ["patterns", "Patterns", "Patterns", "pulse"],
+  ["bigmoney", "Big Money", "Big Money", "columns"],
+  ["pipbrain", "Pip Brain", "Pip Brain", "brain"],
+  ["screener", "Screener", "Screener", "list"],
+  ["course", "Options Course", "Course", "map"],
+  ["coaching", "Coaching", "Coaching", "people"],
+  ["chat", "Chat", "Chat", "chat"],
+  ["live", "Live calendar", "Live", "live"],
+  ["assistant", "Pip", "Pip", "pip"],
+  ["profile", "Settings", "Settings", "person"],
+  ["quick", "Quick menu", "Quick menu", "menu"],
+  ["welcome", "Welcome", "Welcome", "spark"],
 ];
-export const VISIBLE_SCREENS = SCREENS.filter(([id]) => !HIDDEN_TOOLS.includes(id));
+// The quick menu, as a member first has it, and what may go in it.
+export const QUICK_DEFAULT = ["macd", "patterns", "screener", "stops", "aplus", "chat"];
+export const QUICK_CHOICES = ["macd", "patterns", "screener", "stops", "aplus", "chat", "earnings", "economy", "stream"];
+// The preview's day is a sample Tuesday at 10:42 AM ET: the Tuesday of the week (from its Sunday) it is opened in, so dates never look old.
+export function sampleDay(offset = 0, from = new Date()) {
+  const d = new Date(from.getFullYear(), from.getMonth(), from.getDate() - from.getDay() + 2 + offset);
+  return { date: d, weekday: d.toLocaleDateString("en-US", { weekday: "long" }), short: d.toLocaleDateString("en-US", { weekday: "short" }),
+    month: d.toLocaleDateString("en-US", { month: "short" }), monthLong: d.toLocaleDateString("en-US", { month: "long" }), day: d.getDate(), year: d.getFullYear() };
+}
 export const price = (n) => "$" + Number(n).toFixed(2);
 export function candles(symbol="NVDA", timeframe="15m") {
   const t=storyPlan(symbol), sign=t.side==="long"?1:-1;
@@ -123,98 +125,52 @@ export function plan(symbol = "NVDA", direction = "long", mode = "swing") {
     rr: Math.abs(target - entry) / risk,
   };
 }
-export function positionSize(budget, risk) {
-  return Number.isFinite(budget) && budget > 0 && risk > 0
-    ? Math.floor(budget / risk)
-    : 0;
-}
 export function createState() {
   return {
     screen: "home",
-    platform: "ios",
-    macSection: "home",
-    macSidebarCollapsed: false,
-    macMenuOpen: false,
     detail: null,
     symbol: "NVDA",
     timeframe: "15m",
     direction: "long",
     mode: "swing",
     scenario: "Breakout",
-    session: "Morning",
-    patternFilter: "All",
     patternBoard: "Recent",
-    screenerBoard: "Overnight gappers",
-    sort: "move",
-    week: 0,
+    patternFrame: "Daily",
+    calendarTab: "This week",
+    macdFrame: "1 min",
+    oiSide: "Calls",
+    moneyTab: "Latest",
     room: "Trading Floor",
     thread: null,
     search: "",
     chart: { offset: 0, count: 42 },
-    watchlist: ["NVDA", "AAPL"],
-    alerts: [],
     plans: [],
     messages: [],
     savedMessages: [],
-    showChatSearch:false,
+    showChatSearch: false,
+    chatRead: false,
     drafts: {},
     reactions: [],
-    reminders: [],
-    name: "Alex",
-    avatar: "A",
     dark: false,
-    notifications: true,
-    quick: ["macd", "patterns", "stops", "chat"],
-    riskBudget: 250,
-    horizon: "Day",
-    calendarTab: "This week",
-    profileAppearance: "Light",
+    theme: "Light",
+    quick: [...QUICK_DEFAULT],
     expandedBoards: [],
     wins: [],
     winKind: "Followed my plan",
-    quizStage: "welcome",
-    quizNode: "q1",
-    quizResult: null,
-    menuFor: null,
-    quizStep: 0,
-    quizAnswers: [],
-    persona: null,
+    courseLevel: null,
+    lessonStep: 0,
+    coachSpan: 14,
   };
 }
-export { FILM as TOUR } from "./film-script.mjs";
-export function tourPosition(state) {
-  return Object.fromEntries(
-    [
-      "screen",
-      "detail",
-      "symbol",
-      "timeframe",
-      "direction",
-      "mode",
-      "scenario",
-      "session",
-      "room",
-      "chart",
-      "week",
-      "event",
-      "day",
-      "thread",
-      "member",
-      "slide",
-      "screenerBoard",
-      "sort",
-      "patternFilter",
-      "patternBoard",
-      "patternTab",
-      "calendarTab",
-      "horizon",
-      "menuFor",
-      "streamFilter",
-    ].map((k) => [k, structuredClone(state[k])]),
-  );
+// What Back returns to: where the visitor was, never what they made (messages, plans, the quick menu, the theme).
+const PLACE = ["screen", "detail", "symbol", "timeframe", "direction", "mode", "scenario", "room", "chart", "event", "thread", "member",
+  "patternBoard", "patternFrame", "calendarTab", "macdFrame", "oiSide", "moneyTab", "assistantContext", "courseLevel", "lessonStep",
+  "coachDay", "coachTopic", "bookCoach", "bookTime", "openRow"];
+export function placeOf(state) {
+  return Object.fromEntries(PLACE.map((k) => [k, structuredClone(state[k])]));
 }
-export function restoreTour(state, snapshot) {
-  Object.assign(state, structuredClone(snapshot));
+export function returnTo(state, place) {
+  Object.assign(state, structuredClone(place));
   return state;
 }
 export function escapeHTML(value) {

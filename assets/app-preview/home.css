@@ -2,60 +2,27 @@
 /* The opened app's side panel. */
 .preview-next{display:flex;flex-direction:column;align-items:flex-start;gap:12px}
 .preview-next strong{font-size:27px;line-height:1.14;letter-spacing:-.025em}
-.preview-next p{margin:0 0 6px;font-size:18px;color:#536259}
 .preview-next .button{min-height:50px;padding:13px 22px;font-size:16px}
-.preview-next .button.secondary{background:transparent;color:var(--forest)}
 
 /* Home, as the app draws it: the garden, then glass cards over it. */
 .native #app-root[data-view=home],#app-root[data-view=home]{background:#dcd1bf}
 .phone.dark #app-root[data-view=home]{background:#0f1613}
-#app-root[data-view=home] .n-header{background:transparent}
-.native .n-header.home-header h2{font-family:ui-serif,Georgia,"Times New Roman",serif;font-weight:600;letter-spacing:-.4px;color:#12382a;text-align:left}
-.phone.dark .native .n-header.home-header h2,.phone.dark.native .n-header.home-header h2{color:#e7efe9}
-.native .n-header.home-header{justify-content:flex-start;text-align:left}
-.native .n-header.home-header h2{flex:1;width:auto;margin:0;padding-left:2px;text-align:left}
+
 .native .home-content{gap:10px;background:transparent}
 .native .home-content>*{flex-shrink:0}
 .n-home-scene{position:relative;display:block;margin:0 -16px -44px;height:300px;background:url(garden-day.jpg) 50% 72%/cover no-repeat;-webkit-mask-image:linear-gradient(#000 78%,transparent);mask-image:linear-gradient(#000 78%,transparent)}
 .phone.dark .n-home-scene{background-image:url(garden-night.jpg)}
 .native .n-home-thought{position:absolute;left:53%;top:26%;padding:8px 13px;border:0;border-radius:15px 15px 15px 4px;background:#fffffff0;color:#17251e;font-size:14px;font-weight:600;line-height:1.2;box-shadow:0 4px 14px #0b3d2a24}
-.native .n-home-today,.native .home-content .n-home-tile,.native .home-content .n-home-calendars button,.native .home-content .n-home-row{border:1px solid color-mix(in srgb,#fff 45%,transparent);background:color-mix(in srgb,var(--app-bg) 72%,transparent);-webkit-backdrop-filter:blur(14px);backdrop-filter:blur(14px)}
-.phone.dark .native .n-home-today,.phone.dark.native .n-home-today{border-color:#ffffff1f}
-.native .n-home-today{position:relative;display:flex;align-items:center;gap:14px;width:100%;padding:16px;border-radius:22px;text-align:left;color:var(--app-text)}
-.native .n-home-today>svg:first-child{flex:none;width:28px;height:28px;color:var(--app-green)}
-.native .n-home-today>svg:last-child{flex:none;width:10px;margin-left:auto;color:var(--app-dim)}
-.native .n-home-today>span{display:flex;flex-direction:column;gap:3px;min-width:0}
-.native .n-home-today small{font-size:13px;font-weight:600;color:var(--app-dim)}
-.native .n-home-today strong{font-size:20px;font-weight:800;letter-spacing:-.4px}
-.native .n-home-today .n-hero-text{font-size:15px;font-weight:500;-webkit-line-clamp:none;display:block}
-.native .home-content .n-home-wide{width:100%;min-height:62px;padding:14px 16px}
-.native .home-content .n-home-wide>span{font-size:13px}
-.native .home-content .n-home-grid{display:grid;grid-template-columns:1fr 1fr;grid-template-rows:auto;gap:10px;flex:none;min-height:0}
-.native .home-content .n-home-grid .n-home-tile{min-height:92px}
-.native .home-content .n-home-row{width:100%}
-.native .home-content .n-home-row>svg:first-child{color:var(--app-green)}
-.native .home-content .n-home-live small{font-size:12px}
+
 .preview-open .native .n-home-scene{height:280px}
 
 /* The two screens added for the app's Options course and Coaching. */
 .native .app-button.full[href]{display:flex;align-items:center;justify-content:center;text-decoration:none;box-sizing:border-box}
-.native .n-lessons{display:grid;gap:2px;border:1px solid var(--app-border);border-radius:18px;overflow:hidden;background:var(--app-border)}
-.native .n-lesson{display:flex;align-items:center;gap:12px;padding:12px 14px;background:var(--app-bg);font-size:15px;font-weight:600}
-.native .n-lesson b{display:grid;place-items:center;width:26px;height:26px;flex:none;border-radius:50%;background:color-mix(in srgb,var(--app-green) 12%,transparent);color:var(--app-green);font-size:12px;font-weight:800}
-.native .n-quiz-result h4{margin:4px 0 2px;font-size:18px;font-weight:800}
-
-@media(min-width:801px){.preview-open .stage-top .text-button{display:none}}
-@media(max-width:800px){
-  .preview-open .tour-player:not(:has(.film-return)){display:none}
-}
 
 /* Coaching: the calendar, one row a coach (the iPhone's CoachingOpenTimesView). */
 .native [data-view=coaching]{--coach-gold:#8a6a23;--coach-gold-ink:#fff;--coach-gold-line:#d6c49a;--coach-closed:#f2f4f3;--coach-closed-ink:#7b8580}
 .native.dark [data-view=coaching]{--coach-gold:#d3b56a;--coach-gold-ink:#1a1710;--coach-gold-line:#3a3628;--coach-closed:#191e20;--coach-closed-ink:#747d78}
-.native .n-coaching-header{height:54px;min-height:54px;padding:0 16px}
-.native .n-coaching-header h2{font-size:17px;font-weight:700;letter-spacing:-.2px}
-.native .n-coaching-header .n-home{top:9px}
-.native .n-coaching-header .n-coaches-open{position:absolute;right:8px;top:7px;min-height:40px;padding:0 8px;border:0;background:none;color:var(--app-green);font-size:16px;font-weight:600;cursor:pointer}
+
 .native [data-view=coaching] .app-content{padding:4px 16px 28px}
 .native .n-days{display:flex;gap:8px;margin:0 -16px;padding:2px 16px 4px;overflow-x:auto;scrollbar-width:none}
 .native .n-days::-webkit-scrollbar{display:none}
@@ -89,10 +56,58 @@
 .native .n-coach-listed span{display:flex;flex-direction:column;gap:2px;min-width:0}
 .native .n-coach-listed strong{font-size:16px;font-weight:600}
 .native .n-coach-listed small{font-size:13px;line-height:1.3;color:var(--app-dim)}
-.native .n-coach-page{padding-top:10px}
-.native .n-coach-page .n-coach-photo.large{width:132px;height:132px;margin:0 auto 12px}
-.native .n-coach-page h3{margin:0;font-size:24px;font-weight:700;letter-spacing:-.5px;text-align:center}
-.native .n-coach-page>p:not(.n-coach-kind){margin:4px 0 22px;font-size:14px;line-height:1.35;color:var(--app-dim);text-align:center}
-.native .n-coach-page h4{margin:0 0 10px;font-size:16px;font-weight:600}
-.native .n-coach-page .n-coach-times{margin:0}
+
 @media(max-width:340px){.native .n-coach-times{margin-left:0;margin-top:8px}}
+
+/* The opened app: the phone beside its panel on a wide screen, native-sized text. (These rules lived in the Mac variant's
+   and the tour's stylesheets, which are gone; only what the iPhone preview used is kept.) */
+.preview-open .preview-stage{padding-top:52px}
+.preview-open .stage-top{position:absolute;top:17px;left:24px;width:auto!important;margin:0;padding:0!important}
+.preview-open .phone.native{height:calc(100dvh - 245px)}
+@media(max-width:800px){
+  .preview-open .preview-stage{padding-top:46px}
+  .preview-open .stage-top{left:16px;top:10px;height:26px}
+  .preview-open .phone.native{height:auto;min-height:0}
+}
+.preview-open .phone.native{height:calc(100dvh - 305px)}
+@media(max-width:800px){
+  .preview-open .phone.native{height:auto;min-height:0}
+}
+@media(min-width:801px){
+  body.preview-open .preview-stage{display:grid;grid-template-columns:minmax(0,350px) 310px;grid-template-rows:auto minmax(0,1fr) auto;column-gap:64px;row-gap:12px;justify-content:center;align-items:center;padding:58px 32px 24px}
+  body.preview-open .phone.native{grid-column:1;grid-row:2;justify-self:center;align-self:center;width:414px;height:896px;min-height:0;max-height:none;max-width:none;flex:none;zoom:.8;margin:0;border-radius:46px}
+  body.preview-open .preview-disclosure{grid-column:1;grid-row:3;margin:0;text-align:center;font-size:9px}
+  body.preview-open .preview-side{grid-column:2;grid-row:2;width:310px;max-width:100%;padding:0;margin:0;align-self:center}
+}
+@media(min-width:801px) and (max-height:900px){
+  body.preview-open .phone.native{zoom:.72}
+}
+@media(min-width:801px) and (max-height:760px){
+  body.preview-open .phone.native{zoom:.6}
+  body.preview-open .preview-stage{padding-top:52px;row-gap:8px}
+}
+@media(min-width:801px) and (max-height:620px){
+  body.preview-open .phone.native{zoom:.46}
+  body.preview-open .preview-stage{padding-bottom:12px}
+}
+@media(min-width:801px){
+  body.preview-open .preview-stage{grid-template-columns:minmax(0,390px) minmax(0,420px);column-gap:64px;padding-top:60px}
+  body.preview-open .phone.native{zoom:1;width:390px;max-width:100%;height:min(820px,calc(100dvh - 190px));border-radius:36px}
+  body.preview-open .preview-side{width:420px;max-width:100%}
+  body.preview-open .preview-disclosure{font-size:13px}
+}
+.preview-open .native .n-body-copy{font-size:16px}
+.preview-open .native .n-demo-note{font-size:13px;line-height:1.5}
+.preview-open .native .n-chart .chart-readout{font-size:12px}
+@media(min-width:801px) and (max-width:1100px){
+  body.preview-open .preview-stage{grid-template-columns:minmax(0,340px) minmax(0,320px);column-gap:34px}
+  body.preview-open .phone.native{width:340px}
+  body.preview-open .preview-side{width:320px}
+}
+@media(max-width:800px){
+  .preview-open .preview-disclosure{font-size:12px;margin:7px 10px 0}
+  .preview-open .mobile-close{font-size:14px;padding:7px 10px}
+  .preview-open .preview-stage{padding-top:50px}
+  .preview-open .stage-top{max-width:calc(100% - 150px);left:12px;top:12px}
+  .preview-open .stage-top .preview-label{font-size:12px}
+}
