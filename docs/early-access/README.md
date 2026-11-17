@@ -2,6 +2,8 @@
 
 Owner, November 13, 2026: teaser videos run November 15 to 21, the app is on the App Store on Sunday, November 22, and Josh does a live stream only for people who signed up by email. The site collects the addresses; on the 22nd one email goes out from the no-reply box with the stream link, the download link and the steps to get started.
 
+**Live since November 16, 2026.** Owner that day: "yes make it live immediately and get this all updated the best you can and the option course should be able to see the course but only be able to play level 1". The server route was deployed first (swj-chat `21a548a`, function `email-signup`, migration `20261113_email_early_access.sql` applied), then this branch went to `main` with that day's privacy change merged in. In the demo's Options Course every one of the 28 levels is on the map, level 1 plays, and levels 2 to 28 are locked before and after level 1 is finished; a test in `tests/current-app.test.mjs` holds it.
+
 ## What changed on the site
 
 | Piece | Where |

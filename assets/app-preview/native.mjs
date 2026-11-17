@@ -291,6 +291,7 @@ function pipbrain(s) {
 }
 
 // ---------- Options Course: 28 levels in the app's four sections. A member's course; nothing here leaves the preview. ----------
+// Owner, November 16 2026: a visitor sees the whole course and plays level 1 only. Levels 2 to 28 stay locked here.
 export const COURSE=[['Follow along',['Calls','Puts','Strike and date','The price times 100','Sell it back','The most you can lose','Solo: read the alert']],['First trade',['Find the contract','Which strike','Bid and ask','Limit or market','Size to the loss','Solo: first trade']],['Manage it',['A stop on everything','Half at 20%','Stop at your entry','Time decay','Same-day options','Earnings','Solo: manage it']],['Strategies',['The payoff line','A call spread','Covered call','Cash-secured put','A hedge','Straddle','LEAPS','Solo: pick the tool']]];
 const LEVELS=COURSE.flatMap(([,titles])=>titles);
 const PLACES=['Bike Shop','Phone Repair','Corner Store','Bulk Store','Box Office','Arcade','Footbridge'];
@@ -303,14 +304,14 @@ function course(s) {
     return `${bar}<div class="c-lesson"><h3>A call is a bet that the stock goes up.</h3><svg class="c-lesson-art" viewBox="0 0 300 120" aria-hidden="true"><path d="M10 100 80 84l50 6 60-34 50-8 40-28" fill="none" stroke="var(--app-green)" stroke-width="5" stroke-linecap="round" stroke-linejoin="round"/></svg><div class="c-hello-pip">${pipMark()}<p>As the stock rises, the call’s price rises with it.</p></div>${btn('Next','lesson-next','','app-button full')}</div>`;
   }
   // A station's card rises over the map; a tap on the map behind it puts it away.
-  const locked=level>current,station=s.detail==='station'?`${btn('','back','aria-label="Close"','c-scrim')}<div class="c-station"><div class="sheet-handle" aria-hidden="true"></div><h3>${LEVELS[level-1]}</h3><p>Level ${level}${PLACES[level-1]?` · ${PLACES[level-1]}`:''}</p>${locked?`<p class="c-locked">${I('lock')}Opens after level ${level-1}</p>${btn(`Back to level ${current}`,'back','','app-button secondary full')}`:btn(level<current?'Play again':`Play level ${level}`,'play-level',`data-value="${level}"`,'app-button full')}</div>`:'';
+  const again=done?' again':'',locked=level>1,station=s.detail==='station'?`${btn('','back','aria-label="Close"','c-scrim')}<div class="c-station"><div class="sheet-handle" aria-hidden="true"></div><h3>${LEVELS[level-1]}</h3><p>Level ${level}${PLACES[level-1]?` · ${PLACES[level-1]}`:''}</p>${locked?`<p class="c-locked">${I('lock')}Levels 2 to 28 are in the app</p>${btn(`Play level 1${again}`,'play-level','data-value="1"','app-button secondary full')}`:btn(`Play level 1${again}`,'play-level','data-value="1"','app-button full')}</div>`:'';
   let number=0,start=0;
   const sections=COURSE.map(([name,titles],i)=>{const from=start;start+=titles.length;const got=Math.max(0,Math.min(titles.length,done-from));return {name,titles,i,got};});
   const here=sections.find(x=>x.got<x.titles.length)||sections[3];
   return `<header class="c-course-top">${close}<span class="c-course-stars">★ ${done*3}</span></header>
   <div class="c-course-progress"><strong>${done} of 28</strong>${sections.map(x=>`<span><i class="${x===here?'on':''}">${x.i+1}</i><em><b style="width:${x.got/x.titles.length*100}%"></b></em></span>`).join('')}</div>
-  <div class="c-course-map">${done?'':`<p class="c-course-pip">${pipMark()}<span>Learn options in 28 short levels.</span></p>`}${sections.map(x=>`<h3>${x.i+1} · ${x.name}<small>${x.got} of ${x.titles.length}</small></h3><ol>${x.titles.map(title=>{const n=++number,state=n<current?'done':n===current?'now':'ahead';return `<li>${btn(`<b>${n}</b><span>${title}</span>${state==='done'?'<em>★★★</em>':state==='ahead'?I('lock'):''}`,'station',`data-value="${n}" aria-label="Level ${n}, ${title}"`,`c-level ${state}`)}</li>`;}).join('')}</ol>`).join('')}<p class="c-next-course">${I('lock')}Next course</p></div>
-  <footer class="c-course-foot"><div><i>${here.i+1}</i><strong>${here.name}</strong><span>${here.got} of ${here.titles.length}</span></div>${btn(`<strong>Play level ${current}</strong><small>${LEVELS[current-1]}</small>`,'play-level',`data-value="${current}"`,'app-button full')}</footer>${station}`;
+  <div class="c-course-map">${done?'':`<p class="c-course-pip">${pipMark()}<span>Learn options in 28 short levels.</span></p>`}${sections.map(x=>`<h3>${x.i+1} · ${x.name}<small>${x.got} of ${x.titles.length}</small></h3><ol>${x.titles.map(title=>{const n=++number,state=n<=done?'done':n===1?'now':'ahead';return `<li>${btn(`<b>${n}</b><span>${title}</span>${state==='done'?'<em>★★★</em>':state==='ahead'?I('lock'):''}`,'station',`data-value="${n}" aria-label="Level ${n}, ${title}"`,`c-level ${state}`)}</li>`;}).join('')}</ol>`).join('')}<p class="c-next-course">${I('lock')}Next course</p></div>
+  <footer class="c-course-foot"><div><i>${here.i+1}</i><strong>${here.name}</strong><span>${here.got} of ${here.titles.length}</span></div>${btn(`<strong>Play level 1${again}</strong><small>${done?'Levels 2 to 28 are in the app':LEVELS[0]}</small>`,'play-level','data-value="1"','app-button full')}</footer>${station}`;
 }
 
 // ---------- Coaching ----------

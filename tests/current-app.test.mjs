@@ -76,10 +76,29 @@ test("the Options Course is a member's 28 levels: not free, nothing to buy, no w
   assert.match(course, /Play level 1<\/strong><small>Calls</);
   const all = [course, screen("course", { detail: "station", courseLevel: 1 }), screen("course", { detail: "station", courseLevel: 5 }), ...[0, 1, 2].map((lessonStep) => screen("course", { detail: "lesson", lessonStep }))].join("");
   assert.doesNotMatch(all, /free|<a\b|href=|\/learn|Start lesson/i);
-  assert.match(all, /Opens after level 4/);
+  assert.match(all, /Levels 2 to 28 are in the app/);
   assert.match(all, /A call is a bet that the stock goes up\./);
   assert.match(all, /Level 1 done/);
   for (const html of EVERY) assert.doesNotMatch(text(html), /free (options )?(course|lessons|levels)|course is free|Start the free/i);
+});
+
+// Owner, November 16 2026: "the option course should be able to see the course but only be able to play level 1".
+test("a visitor sees all 28 levels and can play level 1 only, before and after finishing it", () => {
+  for (const courseDone of [0, 1]) {
+    const map = screen("course", { courseDone });
+    assert.equal((map.match(/class="c-level /g) || []).length, 28, "every level is on the map");
+    assert.equal((map.match(/class="c-level ahead"/g) || []).length, 27, "levels 2 to 28 are locked");
+    assert.match(map, new RegExp(`class="c-level ${courseDone ? "done" : "now"}"[^>]*data-value="1"|data-value="1"[^>]*class="c-level ${courseDone ? "done" : "now"}"`));
+    for (let level = 1; level <= 28; level++) {
+      const html = map + screen("course", { courseDone, detail: "station", courseLevel: level });
+      const plays = [...html.matchAll(/data-action="play-level"[^>]*data-value="(\d+)"|data-value="(\d+)"[^>]*data-action="play-level"/g)].map((m) => m[1] || m[2]);
+      assert.ok(plays.length >= 1 && plays.every((n) => n === "1"), `level ${level}: the only level to play is 1`);
+      assert.doesNotMatch(html, /Play level (?!1\b)\d+/, `level ${level}: no button names another level`);
+      if (level > 1) assert.match(html, /Levels 2 to 28 are in the app/);
+    }
+  }
+  const app = read("../assets/app-preview/app.js");
+  assert.match(app, /case "play-level":\s*if \(Number\(v\) !== 1\) return/, "the action itself refuses any level but 1");
 });
 
 test("Coaching opens on a calendar: See all coaches, fourteen days, one row a coach with their own hours", () => {
