@@ -43,7 +43,7 @@ test("nothing from Meta loads until the visitor presses Accept", () => {
   const js = read("../assets/consent.js");
   assert.match(home, /<aside class="g-ask" id="ads-ask" aria-label="Ad measurement" hidden>/, "the question is hidden until the script decides to ask");
   assert.match(home, /data-ads="no">No thanks<\/button>\s*<button[^>]*data-ads="yes">Accept<\/button>/);
-  assert.match(home, /<p>We use cookies to measure our ads\. <a href="\/privacy\/#web">Learn more<\/a><\/p>/);
+  assert.match(home, /<p>We use cookies to understand how people find us\. <a href="\/privacy\/#web">Learn more<\/a><\/p>/);
   assert.equal((js.match(/loadPixel\(\)/g) || []).length, 3, "defined once, called for a stored yes and for a press on Accept");
   assert.match(js, /if \(answer === "yes"\) return loadPixel\(\);\s*\n\s*if \(answer === "no"\) return;/);
   assert.match(js, /if \(yes\) loadPixel\(\);/);
