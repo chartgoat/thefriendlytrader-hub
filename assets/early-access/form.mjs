@@ -52,6 +52,8 @@ if (form && note) {
     }
     form.hidden = true;
     say(reply.text, "done");
+    // The demo's own "Get early access" button has nothing left to do for this visitor.
+    document.documentElement.classList.add("g-early-done");
     // One event for our ads, with no address in it. The Pixel is absent under Global Privacy Control.
     if (typeof window.fbq === "function") window.fbq("track", "CompleteRegistration", { content_name: "Early access" });
   });

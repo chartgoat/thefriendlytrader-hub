@@ -16,6 +16,8 @@ body{overflow-x:clip}
 .site-header a{text-decoration:none}
 .site-header .brand{display:flex;align-items:center;gap:10px;min-height:44px;color:inherit;font-family:var(--g-serif);font-weight:400;font-size:clamp(20px,1.8vw,30px);letter-spacing:-.015em;white-space:nowrap}
 .site-header .brand img{width:clamp(34px,2vw,42px);height:clamp(34px,2vw,42px);border-radius:26%}
+/* The name sits over the tree's leaves on a phone: a pale halo keeps it readable there. */
+.site-header .brand span{text-shadow:0 0 3px #f2ede3,0 0 8px #f2ede3,0 0 14px #f2ede3}
 .g-bar-open{display:inline-flex;align-items:center;min-height:44px;color:inherit;font-size:clamp(16px,.95vw,19px);font-weight:600;white-space:nowrap;text-decoration:underline!important;text-underline-offset:4px;text-decoration-thickness:1.5px!important}
 
 /* buttons */
@@ -50,6 +52,7 @@ body:not(.preview-open) .g-preview{display:none}
 /* The early access box: the email field sits in the row with the two buttons. */
 .g-early{display:contents}
 .g-early[hidden]{display:none}
+.g-early-done [data-site="early-access"]{display:none}
 .g-early-label,.g-early-trap{position:absolute;width:1px;height:1px;margin:-1px;padding:0;border:0;overflow:hidden;clip-path:inset(50%);white-space:nowrap}
 .g-early-email{flex:1 1 clamp(240px,22vw,460px);max-width:clamp(300px,26vw,520px);min-width:0;min-height:clamp(54px,3.4vw,76px);box-sizing:border-box;padding:0 clamp(22px,1.9vw,38px);border:0;border-radius:999px;background:#fffffff2;color:var(--g-ink);font-family:var(--g-sans);font-size:clamp(17px,1.15vw,23px);font-weight:600;letter-spacing:-.01em}
 .g-early-email::placeholder{color:#3E4D42;opacity:1}
