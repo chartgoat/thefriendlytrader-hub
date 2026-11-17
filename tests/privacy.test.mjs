@@ -64,6 +64,17 @@ test("the policy covers the Help chat: what is stored with a message and who can
 
 // Owner, Nov 11 2026: "we want people to really only use the in app support and really we will not
 // use the email". Privacy requests and legal notices keep their own box; nothing else is a mailbox.
+test("the policy says what is read from Discord and the one thing sent there", () => {
+  for (const fact of [
+    "Some official posts are imported into the app from Discord: announcements, and the links coaches post when they go live.",
+    "we count how often each stock ticker is named there and show the totals in the app as Talked about now",
+    "Only the ticker and the count reach the app, never your words or your name.",
+    "a Crown Trader's own posts in their channel also appear in that trader's Discord channel",
+  ]) assert.ok(text.includes(fact), fact);
+  // The old sentence said nothing leaves the app for Discord; that stopped being true on November 12 2026.
+  assert.doesNotMatch(text, /does not send your data to Discord\./);
+});
+
 test("the only address the policy gives is the legal one", () => {
   const addresses = [...new Set([...html.matchAll(/[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,}/gi)].map((m) => m[0].toLowerCase()))];
   assert.deepEqual(addresses, ["legal@thefriendlytrader.com"]);
