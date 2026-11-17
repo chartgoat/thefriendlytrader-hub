@@ -32,6 +32,14 @@
   </head>
   <body>
     <a class="skip-link" href="#main">Skip to content</a>
+    <!-- The ad choice. Meta's script is added by assets/consent.js only after Accept. -->
+    <aside class="g-ask" id="ads-ask" aria-label="Ad measurement" hidden>
+      <p>May we use a Meta ad pixel to see if our ads bring people here? <a href="/privacy/#web">What it sends</a></p>
+      <div class="g-ask-acts">
+        <button class="g-ask-btn g-ask-no" type="button" data-ads="no">No thanks</button>
+        <button class="g-ask-btn g-ask-yes" type="button" data-ads="yes">Accept</button>
+      </div>
+    </aside>
     <header class="site-header">
       <a class="brand" href="#main" aria-label="Friendly Trader home"><img src="assets/app-preview/app-icon.png" alt="" width="34" height="34" /><span>Friendly Trader</span></a>
       <a class="g-bar-open" href="https://app.thefriendlytrader.com/">Open web app</a>
@@ -96,7 +104,7 @@
       </section>
     </main>
     <noscript><p class="noscript">Enable JavaScript to sign up for early access and to try the app preview. All links on this page work without it.</p></noscript>
-    <script src="assets/meta-pixel.js" defer></script>
+    <script src="assets/consent.js" defer></script>
     <script src="assets/app-preview/page.js" defer></script>
     <script type="module" src="assets/early-access/form.mjs"></script>
     <script type="module" src="assets/app-preview/app.js"></script>

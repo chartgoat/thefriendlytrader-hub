@@ -2,7 +2,8 @@
 // It tells Meta about a page view and a tap on Try the app; the early access box
 // (assets/early-access/form.mjs) adds one event when a sign-up succeeds, with no address in it,
 // so we can see whether Facebook and Instagram ads bring visitors. Nothing typed on the page is read.
-// It stays off when the browser sends Global Privacy Control. Described on /privacy/#web.
+// It is added to the page by assets/consent.js only after the visitor presses Accept, and it
+// stays off when the browser sends Global Privacy Control. Described on /privacy/#web.
 (function () {
   var PIXEL_ID = "1062856350106416";
   if (!/^\d{10,20}$/.test(PIXEL_ID)) return;

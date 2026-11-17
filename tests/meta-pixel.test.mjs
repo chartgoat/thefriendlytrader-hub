@@ -10,7 +10,8 @@ test("only the home page loads the Meta Pixel, and it may reach Meta and nothing
   assert.match(csp, /script-src 'self' https:\/\/connect\.facebook\.net;/);
   assert.match(csp, /connect-src https:\/\/www\.facebook\.com https:\/\/connect\.facebook\.net https:\/\/grbywbmbiewrxqbfsxpf\.supabase\.co;/, "Meta, and our own sign-up server for the early access box");
   assert.match(csp, /img-src 'self' data: blob: https:\/\/www\.facebook\.com;/);
-  assert.match(home, /<script src="assets\/meta-pixel\.js" defer><\/script>/);
+  assert.doesNotMatch(home, /<script[^>]*meta-pixel/, "the Pixel is never in the page's own markup; consent.js adds it after Accept");
+  assert.match(home, /<script src="assets\/consent\.js" defer><\/script>/);
   assert.match(home.slice(0, home.indexOf("</head>")), /<meta name="facebook-domain-verification" content="qm5mkzmefy6w80w81k5eafgqnjt7pn" \/>/);
   for (const page of ["../faq/index.html", "../privacy/index.html"]) {
     const html = read(page);
@@ -31,8 +32,25 @@ test("the Pixel stays off under Global Privacy Control and never reads what peop
 
 test("the privacy page says what the Pixel sends and how to stop it", () => {
   const html = read("../privacy/index.html");
-  assert.match(html, /uses the Meta Pixel/);
+  assert.match(html, /asks whether we may use the Meta Pixel/);
   assert.match(html, /Global Privacy Control/);
-  assert.match(html, /Updated November 16, 2026\./);
+  assert.match(html, /Updated November 17, 2026\./);
   assert.doesNotMatch(html, /The home page and FAQ on thefriendlytrader\.com set no cookies/);
+});
+
+test("nothing from Meta loads until the visitor presses Accept", () => {
+  const home = read("../index.html");
+  const js = read("../assets/consent.js");
+  assert.match(home, /<aside class="g-ask" id="ads-ask" aria-label="Ad measurement" hidden>/, "the question is hidden until the script decides to ask");
+  assert.match(home, /data-ads="no">No thanks<\/button>\s*<button[^>]*data-ads="yes">Accept<\/button>/);
+  assert.match(home, /<a href="\/privacy\/#web">What it sends<\/a>/);
+  assert.equal((js.match(/loadPixel\(\)/g) || []).length, 3, "defined once, called for a stored yes and for a press on Accept");
+  assert.match(js, /if \(answer === "yes"\) return loadPixel\(\);\s*\n\s*if \(answer === "no"\) return;/);
+  assert.match(js, /if \(yes\) loadPixel\(\);/);
+  assert.match(js, /navigator\.globalPrivacyControl === true\) return;/, "Global Privacy Control is a no, and is not asked");
+  assert.doesNotMatch(js, /facebook|fbq|document\.cookie|fetch\(|XMLHttpRequest|sendBeacon/, "the choice itself goes nowhere");
+  assert.doesNotMatch(js + home, /\u2014/);
+  const privacy = read("../privacy/index.html");
+  assert.match(privacy, /It loads only after you press Accept\./);
+  assert.match(privacy, /<a href="\/\?ads=ask">change it here<\/a>/);
 });
