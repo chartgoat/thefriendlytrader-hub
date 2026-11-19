@@ -20,6 +20,12 @@ test("the first screen has the early access line, one email box and the demo", (
   assert.match(home, /<script type="module" src="assets\/early-access\/form\.mjs"><\/script>/);
 });
 
+test("the home page's search and share words and the FAQ name no launch date", () => {
+  const head = home.slice(0, home.indexOf("</head>"));
+  assert.doesNotMatch(head, /November 22/);
+  assert.doesNotMatch(read("../faq/index.html"), /November 22/);
+});
+
 test("the words under the box say what the address is for, and the privacy page quotes them exactly", () => {
   assert.equal(note, "We'll email your links on launch day, plus news and offers now and then. Unsubscribe anytime.");
   assert.ok(note.length <= 300, "the server stores at most 300 characters of consent wording");
