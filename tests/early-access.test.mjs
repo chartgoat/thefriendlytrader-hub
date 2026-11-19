@@ -9,8 +9,9 @@ const heroAt = home.indexOf('class="g-hero"');
 const hero = home.slice(heroAt, home.indexOf("</section>", heroAt));
 const note = hero.match(/<p class="g-hero-soon" id="early-note"[^>]*>([^<]+)<\/p>/)[1];
 
-test("the first screen has the launch day, one email box and the demo", () => {
-  assert.match(hero, /On the App Store Sunday, November 22\./);
+test("the first screen has the early access line, one email box and the demo", () => {
+  assert.match(hero, /<p class="g-hero-line">Get early access and a private live stream with Josh\.<\/p>/);
+  assert.doesNotMatch(hero, /November 22/, "the first screen names no launch date");
   assert.match(hero, /<form class="g-early" id="early-access" novalidate>/);
   assert.equal((hero.match(/type="email"/g) || []).length, 1);
   assert.match(hero, /<label class="g-early-label" for="early-email">/, "the box has a name for screen readers");
