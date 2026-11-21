@@ -1,6 +1,8 @@
 // The early access box on the home page. It sends the address and the words beside the box to our own server.
 import { SIGNUP_URL, SAID, looksLikeEmail, signupBody, replyFor } from "./core.mjs";
 
+import { invitedNextSteps } from "../../app/signup-next.mjs";
+
 const form = document.querySelector("#early-access");
 const note = document.querySelector("#early-note");
 
@@ -51,6 +53,16 @@ if (form && note) {
       return;
     }
     form.hidden = true;
+    const actions = document.createElement("nav");
+    actions.setAttribute("aria-label", "Your invitation");
+    for (const {title, url} of invitedNextSteps(location.search)) {
+      const link = document.createElement("a");
+      link.className = "g-btn g-plain";
+      link.href = url;
+      link.textContent = title;
+      actions.append(link);
+    }
+    if (actions.childElementCount) note.after(actions);
     say(reply.text, "done");
     // The demo's own "Get early access" button has nothing left to do for this visitor.
     document.documentElement.classList.add("g-early-done");

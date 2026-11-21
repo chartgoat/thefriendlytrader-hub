@@ -1,0 +1,13 @@
+{
+  "applinks": {
+    "details": [
+      {
+        "appIDs": ["7BG5349U63.com.stockswithjosh.macdrecap"],
+        "components": [{ "/": "/app/", "?": { "ref": "?*" } }]
+      }
+    ]
+  },
+  "appclips": {
+    "apps": ["7BG5349U63.com.stockswithjosh.macdrecap.CrownedInvite"]
+  }
+}
