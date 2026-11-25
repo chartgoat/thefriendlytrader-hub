@@ -4,7 +4,7 @@ import fs from "node:fs";
 import os from "node:os";
 import path from "node:path";
 import {
-  APP_STORE, CLASS_ID, COACH_ID, bookingURL, cardHTML, classFrom, decideLive, listed, offers, summary,
+  APP_STORE, AT, CLASS_ID, COACH_ID, arrivalFrom, bookingURL, cardHTML, classFrom, decideLive, listed, offers, summary,
 } from "../app/coach-card.mjs";
 
 const root = new URL("../", import.meta.url);
@@ -74,6 +74,79 @@ test("the booking link is absolute and keeps only a real class id", () => {
   assert.equal(classFrom(`?ref=tom&class=${CLASS}`), CLASS);
   assert.equal(classFrom("?class=nope"), null);
   assert.equal(classFrom(""), null);
+});
+
+// Coordinator, 2026-11-25: class links carry the class's start time, ?class=<slot-id>&at=<epoch seconds>; the website
+// reads one day with it. `at` follows friendly-trader-web lib/coaching/arrival.ts AT and only rides with a real class.
+const AT_NOW = "1795578075";
+test("a class's start time rides along only with a real class", () => {
+  const base = "https://app.thefriendlytrader.com/coaching/coach/tom";
+  assert.equal(bookingURL("tom", CLASS, AT_NOW), `${base}?class=${CLASS}&at=${AT_NOW}`);
+  assert.equal(bookingURL("tom", CLASS), `${base}?class=${CLASS}`);
+  for (const at of ["100000000", "17955780750"]) assert.equal(bookingURL("tom", CLASS, at), `${base}?class=${CLASS}&at=${at}`, at);
+  for (const at of ["0123456789", "12345678", "123456789012", "17955780.5", "-1795578075", "1795578075x", " 1795578075", "", null, 1795578075, "<b>"])
+    assert.equal(bookingURL("tom", CLASS, at), `${base}?class=${CLASS}`, String(at));
+  for (const classId of [null, "", "s123", "t1795578075"]) assert.equal(bookingURL("tom", classId, AT_NOW), base, String(classId));
+  assert.ok(AT.test(AT_NOW));
+  assert.deepEqual(arrivalFrom(`?class=${CLASS}&at=${AT_NOW}`), { classId: CLASS, at: AT_NOW });
+  assert.deepEqual(arrivalFrom(`?ref=tom&class=${CLASS}&at=${AT_NOW}`), { classId: CLASS, at: AT_NOW });
+  assert.deepEqual(arrivalFrom(`?class=${CLASS}`), { classId: CLASS, at: null });
+  assert.deepEqual(arrivalFrom(`?class=${CLASS}&at=nope`), { classId: CLASS, at: null });
+  assert.deepEqual(arrivalFrom(`?at=${AT_NOW}`), { classId: null, at: null });
+  assert.deepEqual(arrivalFrom(`?class=nope&at=${AT_NOW}`), { classId: null, at: null });
+  assert.deepEqual(arrivalFrom(""), { classId: null, at: null });
+  const card = summary(coach("tom", "Tom"), "/assets/coaching/tom.jpg");
+  assert.match(cardHTML(card, { classId: CLASS, at: AT_NOW }), new RegExp(`class="cc-book" href="${base.replace(/[./]/g, "\\$&")}\\?class=${CLASS}&amp;at=${AT_NOW}"`));
+  assert.match(cardHTML(card, { classId: null, at: AT_NOW }), new RegExp(`class="cc-book" href="${base.replace(/[./]/g, "\\$&")}"`));
+});
+
+// Runs a page script against a stand-in page: a card whose book link it may change, the address it was opened at, and
+// a network that answers coaches.json from the repository and nothing else (the live catalog stays unreachable).
+let run = 0;
+async function openPage(script, search, { inviter = null } = {}) {
+  const book = { href: "https://app.thefriendlytrader.com/coaching/coach/tom" }, seen = { html: null, classes: [] };
+  const card = { dataset: { coach: "tom" }, querySelector: (sel) => (sel === ".cc-book" ? book : null) };
+  const saved = { document: globalThis.document, location: globalThis.location, fetch: globalThis.fetch };
+  globalThis.location = { href: "https://thefriendlytrader.com" + (inviter ? "/app/" : "/app/tom/") + search, search };
+  globalThis.fetch = async (url) => {
+    if (url === "/app/coaches.json") return { ok: true, json: async () => JSON.parse(read("app/coaches.json")) };
+    throw new Error("offline");
+  };
+  globalThis.document = {
+    head: { append: (el) => el.onload?.() },
+    createElement: () => ({}),
+    querySelector: (sel) => ({
+      ".cc": inviter ? (seen.html ? card : null) : card,
+      "#inviter": { textContent: "", insertAdjacentHTML: (_, html) => { seen.html = html; } },
+      "#signup": { href: "/" },
+      main: { classList: { add: (c) => seen.classes.push(c) } },
+    })[sel] ?? null,
+  };
+  try {
+    await import(`../app/${script}?run=${++run}`);
+    for (let i = 0; i < 20; i++) await new Promise((r) => setTimeout(r, 0));
+  } finally {
+    Object.assign(globalThis, saved);
+  }
+  return { book: book.href, card: seen.html };
+}
+
+test("a coach's page sends a class link, with its start time, to the website's booking", async () => {
+  const base = "https://app.thefriendlytrader.com/coaching/coach/tom";
+  assert.equal((await openPage("coach-page.mjs", `?class=${CLASS}&at=${AT_NOW}`)).book, `${base}?class=${CLASS}&at=${AT_NOW}`);
+  assert.equal((await openPage("coach-page.mjs", `?class=${CLASS}`)).book, `${base}?class=${CLASS}`);
+  assert.equal((await openPage("coach-page.mjs", `?class=${CLASS}&at=12`)).book, `${base}?class=${CLASS}`);
+  assert.equal((await openPage("coach-page.mjs", `?at=${AT_NOW}`)).book, base);
+  assert.equal((await openPage("coach-page.mjs", "")).book, base);
+});
+
+test("the invitation link's card carries the class and its start time the same way", async () => {
+  const href = (r) => r.card.match(/class="cc-book" href="([^"]+)"/)[1].replaceAll("&amp;", "&");
+  const base = "https://app.thefriendlytrader.com/coaching/coach/tom";
+  assert.equal(href(await openPage("invite.mjs", `?ref=tom&class=${CLASS}&at=${AT_NOW}`, { inviter: true })), `${base}?class=${CLASS}&at=${AT_NOW}`);
+  assert.equal(href(await openPage("invite.mjs", `?ref=tom&class=${CLASS}`, { inviter: true })), `${base}?class=${CLASS}`);
+  assert.equal(href(await openPage("invite.mjs", `?ref=tom&at=${AT_NOW}`, { inviter: true })), base);
+  assert.equal((await openPage("invite.mjs", `?ref=nobody&class=${CLASS}&at=${AT_NOW}`, { inviter: true })).card, null);
 });
 
 test("the card escapes what the catalog says and links out absolutely", () => {

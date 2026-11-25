@@ -35,8 +35,10 @@ Branch `claude/crown-links-hub-20261125`. Tests: `npm test` (`node --test`, no d
 - `offers(coach) -> {kind,name,length,price}[]`: the web's `bookable()` rule (status bookable, not gift only, a price,
   a length, a policy, Whop), kinds `one_on_one` then `masterclass`; name "1-on-1" when there is one 1-on-1 (as the
   web's `sessionName`), else the title; `money()` and `duration()` as the web formats them.
-- `bookingURL(id, classId?)`: `https://app.thefriendlytrader.com/coaching/coach/<id>` plus `?class=<id>` only when
-  `CLASS_ID` matches.
+- `bookingURL(id, classId?, at?)`: `https://app.thefriendlytrader.com/coaching/coach/<id>` plus `?class=<id>` only when
+  `CLASS_ID` matches, and then `&at=<epoch seconds>` only when `AT = /^[1-9]\d{8,10}$/` matches (follow-up from the
+  coordinator, 2026-11-25: class links carry the class's start; arrival.ts AT). `arrivalFrom(search)` reads both;
+  `at` without a valid class is dropped.
 - `cardHTML(summary, {heading, appStore, classId})`: escaped HTML for one card.
 - `decideLive(catalog, id) -> {state:"listed", offers} | {state:"gone"} | null` (null: catalog unreadable, keep the
   static card). `refreshCard(card, id, {fetch})`: fetches the live catalog without credentials, applies the decision.

@@ -11,6 +11,9 @@ export const APP_STORE = "https://apps.apple.com/us/app/friendly-trader-learn-tr
 export const COACH_ID = /^[a-z0-9-]{1,64}$/;
 // A class's time id as coaching-api writes it (the SLOT rule in friendly-trader-web lib/coaching/arrival.ts).
 export const CLASS_ID = /^s[0-9a-f]{32}$/;
+// The class's start, in epoch seconds, that a class link carries beside it (?class=<id>&at=<seconds>, the AT rule in
+// arrival.ts). The website reads one day with it. It means nothing without a class.
+export const AT = /^[1-9]\d{8,10}$/;
 
 const object = (v) => !!v && typeof v === "object" && !Array.isArray(v);
 const text = (v) => (typeof v === "string" ? v.trim() : "");
@@ -57,12 +60,21 @@ export function offers(coach) {
     .filter((o) => o.name && o.price);
 }
 
-export const bookingURL = (id, classId) =>
-  `${WEB}/coaching/coach/${id}` + (typeof classId === "string" && CLASS_ID.test(classId) ? `?class=${classId}` : "");
+const isClass = (v) => typeof v === "string" && CLASS_ID.test(v);
+const isAt = (v) => typeof v === "string" && AT.test(v);
+
+export const bookingURL = (id, classId, at) =>
+  `${WEB}/coaching/coach/${id}` + (isClass(classId) ? `?class=${classId}` + (isAt(at) ? `&at=${at}` : "") : "");
 
 export function classFrom(search) {
   const value = new URLSearchParams(search ?? "").get("class");
-  return value && CLASS_ID.test(value) ? value : null;
+  return isClass(value) ? value : null;
+}
+
+// The class a link asks for and, only with it, the class's start.
+export function arrivalFrom(search) {
+  const classId = classFrom(search), at = new URLSearchParams(search ?? "").get("at");
+  return { classId, at: classId && isAt(at) ? at : null };
 }
 
 // What a card needs, as app/coaches.json keeps it.
@@ -81,7 +93,7 @@ export const esc = (value) => String(value ?? "").replace(/[&<>"']/g, (ch) =>
 export const offersHTML = (list) => list.map((o) =>
   `<li><span class="cc-what">${esc(o.name)}<small>${esc(o.length)}</small></span><b>${esc(o.price)}</b></li>`).join("");
 
-export function cardHTML(card, { heading = "h1", appStore = true, classId = null } = {}) {
+export function cardHTML(card, { heading = "h1", appStore = true, classId = null, at = null } = {}) {
   const h = heading === "h2" ? "h2" : "h1";
   const face = card.photo
     ? `<img class="cc-face" src="${esc(card.photo)}" width="750" height="750" alt="${esc(card.name)}">`
@@ -94,7 +106,7 @@ export function cardHTML(card, { heading = "h1", appStore = true, classId = null
     ${card.headline ? `<p class="cc-line">${esc(card.headline)}</p>` : ""}
     <ul class="cc-offers"${card.offers.length ? "" : " hidden"}>${offersHTML(card.offers)}</ul>
     <p class="cc-closed" hidden>${esc(card.name)} is not taking bookings right now.</p>
-    <a class="cc-book" href="${esc(bookingURL(card.id, classId))}">See times and book</a>
+    <a class="cc-book" href="${esc(bookingURL(card.id, classId, at))}">See times and book</a>
     ${appStore ? `<a class="cc-get" href="${APP_STORE}">Get Friendly Trader</a>` : ""}
   </div>
 </article>`;

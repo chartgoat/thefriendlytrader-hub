@@ -1,5 +1,5 @@
 import { traders } from "./traders.mjs";
-import { COACH_ID, cardHTML, classFrom, refreshCard } from "./coach-card.mjs";
+import { COACH_ID, arrivalFrom, cardHTML, refreshCard } from "./coach-card.mjs";
 const coach = new URL(location.href).searchParams.get("ref");
 if (traders.has(coach)) {
   document.querySelector("#inviter").textContent = traders.get(coach) + " invited you";
@@ -19,7 +19,7 @@ async function showCard(id) {
   style.href = "/app/coach.css";
   await new Promise((done) => { style.onload = style.onerror = done; document.head.append(style); });
   const at = document.querySelector("#inviter");
-  at.insertAdjacentHTML("afterend", cardHTML(card, { heading: "h2", appStore: false, classId: classFrom(location.search) }));
+  at.insertAdjacentHTML("afterend", cardHTML(card, { heading: "h2", appStore: false, ...arrivalFrom(location.search) }));
   document.querySelector("main").classList.add("has-coach");
   refreshCard(document.querySelector(".cc"), id);
 }
