@@ -33,3 +33,16 @@ App icon and Pip assets come from the iOS project.
 
 The site is served by GitHub Pages from the `chartgoat/thefriendlytrader-hub` main branch, a minute or two after a push. The FAQ, privacy policy and unsubscribe page are their own folders. Older doorway pages (`hub/`, `options/`, `hogue/`, `daniel/`, `kenan/`) remain at their addresses and are not linked from the home page.
 
+
+## Crown Trader booking pages
+
+Each listed Crown Trader has a page at `/app/<coach-id>` (`app/<coach-id>/index.html`): their photo, name, line, 1-on-1 and masterclass prices, "See times and book" to their booking on the website (`?class=<class-id>` rides along for one class) and "Get Friendly Trader" to the App Store. A pasted link shows their photo and name. The invitation page, `/app/?ref=<coach-id>`, shows the same card for a listed coach. Prices on both refresh from the live catalog when the page opens; what the page was made with stays if that fails. A missing page under `/app/` (someone not listed) opens Coaching on the website (`404.html`).
+
+The pages, `app/coaches.json` and the photos in `assets/coaching/` are made from the live catalog. When a coach is added, paused, removed or changes a price:
+
+```sh
+node scripts/crown-links/generate.mjs
+npm test
+```
+
+then commit what changed. It removes only pages it made for coaches no longer listed. `--catalog FILE` uses a saved catalog and `--photos DIR` copies from friendly-trader-web `public/coaching/` instead of the website's copies.
