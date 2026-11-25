@@ -2,6 +2,7 @@ import test from "node:test";
 import assert from "node:assert/strict";
 import fs from "node:fs";
 import { SERVER, SIGNUP_URL, UNSUBSCRIBE_URL, CONSENT_VERSION, SAID, looksLikeEmail, refFrom, signupBody, replyFor, unsubscribeParts } from "../assets/early-access/core.mjs";
+import { APP_STORE } from "../app/coach-card.mjs";
 
 const read = (p) => fs.readFileSync(new URL(p, import.meta.url), "utf8");
 const home = read("../index.html");
@@ -15,9 +16,34 @@ test("the first screen has the early access line, one email box and the demo", (
   assert.match(hero, /<form class="g-early" id="early-access" novalidate>/);
   assert.equal((hero.match(/type="email"/g) || []).length, 1);
   assert.match(hero, /<label class="g-early-label" for="early-email">/, "the box has a name for screen readers");
-  assert.match(hero, /<button class="g-btn g-primary" type="submit">Get early access<\/button>/);
+  assert.match(hero, /<button class="g-btn g-line" type="submit">Get early access<\/button>/);
   assert.match(hero, /<button class="g-btn g-plain" type="button" data-site="explore">Try the app<\/button>/);
   assert.match(home, /<script type="module" src="assets\/early-access\/form\.mjs"><\/script>/);
+});
+
+// Owner, November 25 2026: "we are going live with the app today so now there needs to be a direct download link to
+// download the app". The email box stays: that day it still took sign-ups and its launch email had not gone out.
+test("the first screen's one dark button downloads the app, and the email box sits under it", () => {
+  assert.match(APP_STORE, /^https:\/\/apps\.apple\.com\/us\/app\/[a-z-]+\/id6802470823$/);
+  const shown = hero.replace(/<!--[\s\S]*?-->/g, "");
+  assert.ok(shown.includes(`<a class="g-btn g-primary g-store" href="${APP_STORE}">Download on the App Store</a>`), "the same address as the coach pages");
+  assert.equal((shown.match(/\bg-primary\b/g) || []).length, 1, "one dark button");
+  assert.ok(shown.indexOf('class="g-btn g-primary g-store"') < shown.indexOf('<form class="g-early"'), "the download comes first");
+  assert.ok(shown.indexOf("</h1>") < shown.indexOf('class="g-btn g-primary g-store"'), "under the headline");
+  const head = home.slice(0, home.indexOf("</head>"));
+  assert.match(head, /<meta name="description" content="Download Friendly Trader on the App Store\." \/>/);
+  assert.match(head, /<meta property="og:description" content="Download on the App Store\. /);
+  // The button's row is counted in the height kept for the words, at desktop and at phone sizes, so the picture's
+  // framing (Pip above the headline) is what it was before the button.
+  const css = read("../assets/app-preview/page.css");
+  assert.equal((css.match(/--words:calc\([^;]*\+ var\(--store\)\)/g) || []).length, 2);
+});
+
+test("the FAQ's iPhone answer and its closing button go to the App Store", () => {
+  const faq = read("../faq/index.html");
+  assert.ok(faq.includes(`<h3>Is there an iPhone app?</h3><p>Yes. <a href="${APP_STORE}">Download it on the App Store</a>.</p>`));
+  assert.ok(faq.includes(`<a class="button" href="${APP_STORE}">Download on the App Store</a>`));
+  assert.doesNotMatch(faq, /early access/i);
 });
 
 test("the home page's search and share words and the FAQ name no launch date", () => {
@@ -90,7 +116,7 @@ test("a link's tag is kept only when it is short and plain", () => {
 
 test("each answer from the server gets words a person can act on", () => {
   assert.deepEqual(replyFor(200, { ok: true }), { ok: true, text: SAID.done });
-  assert.match(SAID.done, /Sunday, November 22/);
+  assert.equal(SAID.done, "You're in. Watch your inbox.", "no day is named: November 22 passed before the app was out");
   assert.equal(replyFor(400, { ok: false, error: "invalid_email" }).text, SAID.badEmail);
   assert.equal(replyFor(429, { ok: false, error: "rate_limited" }).text, SAID.tooMany);
   for (const [status, body] of [[503, { ok: false, error: "unavailable" }], [403, { ok: false, error: "origin_not_allowed" }], [200, null], [200, { ok: false }], [400, { ok: false, error: "invalid_consent" }]]) {

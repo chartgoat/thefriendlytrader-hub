@@ -280,7 +280,10 @@ test("the home page stays plain: it says what the app is, offers two things, and
   const heroAt = home.indexOf('class="g-hero"');
   const hero = home.slice(heroAt, home.indexOf("</section>", heroAt));
   assert.match(hero, /<h1[^>]*>The friendly trading&nbsp;app\.<\/h1>/);
-  assert.equal((hero.match(/<(a|button)\b/g) || []).length, 2, "two things to press on the first screen");
+  // Only what is on the page counts. Since November 25 the two are the App Store button and the email box's button;
+  // Try the app is commented out, and bringing it back makes three, so one of them has to go first.
+  const shown = hero.replace(/<!--[\s\S]*?-->/g, "");
+  assert.equal((shown.match(/<(a|button)\b/g) || []).length, 2, "two things to press on the first screen");
   assert.doesNotMatch(css, /position:\s*(sticky|fixed)/, "nothing pinned to the screen");
   assert.doesNotMatch(js, /addEventListener\(\s*['"]scroll/, "nothing driven by scrolling");
 });

@@ -37,10 +37,26 @@ node scripts/preview-early-access.mjs
 
 It serves the site at http://127.0.0.1:5540 with a stand-in for the server (same answers, held in memory). `http://127.0.0.1:5540/__signups` shows what it received. The stand-in's unsubscribe token for row 1 is `preview-token-1-0000`.
 
+## November 25, 2026: the App Store button, with the box kept
+
+Owner that day: "we are going live with the app today so now there needs to be a direct download link to download the app". The app had been on the App Store since November 22 (id 6802470823, United States only).
+
+The first screen now has **Download on the App Store** under the headline: the one dark button, the same address as `APP_STORE` in `app/coach-card.mjs` (a test holds the two together). The FAQ's "Is there an iPhone app?" answer and its closing button go there too, and the page's search and share words say so.
+
+**The email box stayed.** That day it was still taking sign-ups (the newest an hour before the change) and no launch email had gone to the list. Taking the box away would have stopped a working sign-up and was not asked for. What changed around it:
+
+- Its button is an outline (`.g-line`), so the page has one dark button.
+- On phones the box and its button share one row. The App Store button's row is counted in the height kept for the words (`--store` in `page.css`), and on a phone every pixel the words grow makes the film three pixels taller and lifts Pip toward the top edge. With the shared row the gap between Pip and the headline is the same as before at the 17 window sizes measured (320 to 2560 wide).
+- After a sign-up the page says "You're in. Watch your inbox." It used to name Sunday, November 22, which had passed.
+
+Two things to press on the first screen are now the App Store button and the box's button. **Try the app is still commented out; bringing it back makes three, so one has to go first** (`tests/current-app.test.mjs` counts what is on the page).
+
+Still the owner's to decide: whether the box goes, stays as it is or gets new words now that the app is out (its line still says "Get early access"), and the launch email itself. The steps below are for the day the box goes.
+
 ## Launch day, once the App Store link exists
 
-1. In `index.html`, replace the `<form class="g-early">…</form>` with `<a class="g-btn g-primary" href="APP_STORE_LINK">Download on the App Store</a>`, change the line above it to say the app is on the App Store, and remove the `#early-note` paragraph and the `form.mjs` script tag. The first screen still has two things to press.
-2. In `assets/app-preview/page.css`, the `.g-early*` rules can go; the first screen's `--words` heights can return to `clamp(210px,8vw + 112px,330px)` and `clamp(198px,10vw + 134px,260px)`.
+1. In `index.html`, remove the `<form class="g-early">…</form>` (the App Store button is already above it, since November 25), change the line above it to say the app is on the App Store, and remove the `#early-note` paragraph and the `form.mjs` script tag.
+2. In `assets/app-preview/page.css`, the `.g-early*` and `.g-line` rules can go; measure the first screen again and lower the two `--words` heights by what the box took.
 3. The button beside the demo (`assets/app-preview/app.js`, "Get early access", action `early-access`) becomes the same App Store link, and its test in `tests/preview.test.mjs` changes with it.
 4. Update `tests/early-access.test.mjs` to the new first screen, and keep the unsubscribe page, its script and `core.mjs`: emails already sent link to it.
 5. Leave the privacy page's early access section in place while the list exists.

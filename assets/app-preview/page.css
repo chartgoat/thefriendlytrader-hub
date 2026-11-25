@@ -24,6 +24,8 @@ body{overflow-x:clip}
 .g-btn{display:inline-flex;align-items:center;justify-content:center;min-height:clamp(54px,3.4vw,76px);padding:0 clamp(26px,2.3vw,46px);border:0;border-radius:999px;font-family:var(--g-sans);font-size:clamp(17px,1.15vw,23px);font-weight:700;letter-spacing:-.01em;text-decoration:none;white-space:nowrap;cursor:pointer;transition:background .15s ease}
 .g-primary{background:var(--g-ink);color:#fff}.g-primary:hover{background:#0A2A1D}
 .g-plain{background:#fffffff2;color:var(--g-ink)}.g-plain:hover{background:#fff}
+/* The second button on the first screen: an outline, so the App Store button stays the one dark thing to press. */
+.g-line{background:#ffffff66;color:var(--g-ink);box-shadow:inset 0 0 0 2px var(--g-ink)}.g-line:hover{background:#ffffffcc}
 
 /* the working preview waits off stage */
 body:not(.preview-open) .g-preview{display:none}
@@ -35,7 +37,12 @@ body:not(.preview-open) .g-preview{display:none}
 .preview-next .button:hover{background:#0A2A1D}
 
 /* The first screen: the garden film, framed so Pip stands just above the words. */
-.g-hero{--h:max(100svh,500px);--h1:clamp(44px,min(5.8vw,11.2svh),170px);--words:calc(var(--h1)*1.1 + clamp(224px,8vw + 124px,344px));
+.g-hero{--h:max(100svh,500px);--h1:clamp(44px,min(5.8vw,11.2svh),170px);
+  /* The App Store button's row: the button, the gap above it and the gap under it, less the gap the line under the
+     headline had before the button came between them. The words' height below counts it, so Pip keeps his distance. */
+  --line-gap:clamp(6px,1.2svh,14px);--store-btn:clamp(54px,3.4vw,76px);--store-gap:clamp(14px,2.4svh,26px);--store-after:var(--store-gap);
+  --store:calc(var(--store-btn) + var(--store-gap) + var(--store-after) - var(--line-gap));
+  --words:calc(var(--h1)*1.1 + clamp(224px,8vw + 124px,344px) + var(--store));
   /* The film only has so much below Pip: on short screens it grows, so it still reaches the bottom with Pip above the words. */
   --film:max(100vw,calc(var(--h)*1.3),calc(var(--words)/.335));--pip-y:calc(var(--h) - var(--words) - var(--film)*.088);
   position:relative;height:var(--h);overflow:hidden;isolation:isolate;background:#CFC2AE;color:var(--g-ink);font-family:var(--g-sans)}
@@ -46,7 +53,9 @@ body:not(.preview-open) .g-preview{display:none}
 .g-hero::after{content:"";position:absolute;z-index:-1;inset:auto 0 0;height:var(--wash,16%);background:linear-gradient(#D8D4CA00,var(--g-wall))}
 .g-hero-copy{position:absolute;left:var(--g-gutter);right:var(--g-gutter);bottom:max(clamp(22px,5svh,54px),env(safe-area-inset-bottom,0px));display:flex;flex-direction:column;align-items:flex-start}
 .g-hero h1{margin:0;font-family:var(--g-serif);font-weight:400;font-size:var(--h1);line-height:1.04;letter-spacing:-.022em;color:var(--g-paint);text-wrap:balance}
-.g-hero-line{margin:clamp(6px,1.2svh,14px) 0 0;max-width:48em;text-wrap:balance;font-size:clamp(18px,1.55vw,40px);line-height:1.34;font-weight:600;letter-spacing:-.008em}
+.g-store{min-height:var(--store-btn);margin-top:var(--store-gap)}
+.g-hero-line{margin:var(--line-gap) 0 0;max-width:48em;text-wrap:balance;font-size:clamp(18px,1.55vw,40px);line-height:1.34;font-weight:600;letter-spacing:-.008em}
+.g-store + .g-hero-line{margin-top:var(--store-after)}
 .g-hero-acts{display:flex;flex-wrap:wrap;align-self:stretch;gap:12px;margin-top:clamp(14px,2.4svh,26px)}
 .g-hero-soon{margin:clamp(10px,1.4svh,16px) 0 0;font-size:clamp(14px,.95vw,18px);font-weight:600}
 /* The early access box: the email field sits in the row with the two buttons. */
@@ -81,16 +90,21 @@ body:not(.preview-open) .g-preview{display:none}
   .site-header{color:var(--g-ink)}
   .g-hero::before{display:none}
   .g-hero::after{background:linear-gradient(#D8D4CA00,#D8D4CAd9 46%,var(--g-wall))}
-  .g-hero{--wash:52%;--h1:clamp(36px,min(13vw,7.4svh),110px);--words:calc(var(--h1)*2.2 + clamp(312px,10vw + 250px,380px));--film:max(100vw,calc(var(--h)*1.2),calc(var(--words)/.335))}
+  /* The email box and its button share one row here, so the App Store button's row costs the picture almost nothing:
+     every pixel the words grow makes the film three pixels taller and lifts Pip toward the top edge. */
+  .g-hero{--wash:52%;--h1:clamp(36px,min(13vw,7.4svh),110px);--store-btn:52px;--store-gap:14px;--store-after:12px;--words:calc(var(--h1)*2.2 + clamp(252px,10vw + 190px,320px) + var(--store));--film:max(100vw,calc(var(--h)*1.2),calc(var(--words)/.335))}
   .g-hero-copy{bottom:max(16px,env(safe-area-inset-bottom,0px))}
+  .g-store{align-self:stretch;padding:0 12px;font-size:17px}
   .g-hero-line{font-size:clamp(17px,2.6vw,26px)}
-  .g-hero-acts{flex-wrap:wrap;align-self:stretch;gap:8px;margin-top:14px}
-  .g-early-email{flex:1 0 100%;max-width:none;min-height:52px;font-size:17px}
-  .g-hero-acts .g-btn{flex:1 1 auto;min-height:52px;padding:0 12px;font-size:16px}
+  .g-hero-acts{flex-wrap:nowrap;align-self:stretch;gap:8px;margin-top:14px}
+  .g-early-email{flex:1 1 0;max-width:none;min-height:52px;padding:0 18px;font-size:17px}
+  .g-hero-acts .g-btn{flex:0 0 auto;min-height:52px;padding:0 16px;font-size:15px}
   .g-hero-soon{margin-top:10px;font-size:14px}
 }
 /* Tablets held upright keep the buttons at their natural size. */
 @media (min-width:600px) and (max-width:800px),(min-width:600px) and (max-aspect-ratio:1/1){
+  .g-hero{--store-btn:58px}
+  .g-store{align-self:flex-start;padding:0 30px;font-size:18px}
   .g-hero-acts{flex-wrap:wrap;align-self:stretch;gap:12px}
   .g-early-email{flex:1 1 280px;max-width:420px;min-height:58px;font-size:18px}
   .g-hero-acts .g-btn{flex:0 0 auto;min-height:58px;padding:0 30px;font-size:18px}
@@ -118,7 +132,8 @@ body:not(.preview-open) .g-preview{display:none}
   .g-bar-open{font-size:15px}
 }
 @media (max-width:360px){
-  .g-hero-acts .g-btn{padding:0 8px;font-size:15px}
+  .g-early-email{padding:0 14px}
+  .g-hero-acts .g-btn{padding:0 10px;font-size:15px}
 }
 /* Browsers from before small viewport units. */
 @supports not (height:1svh){

@@ -9,7 +9,7 @@ export const UNSUBSCRIBE_URL = `${SERVER}/unsubscribe`;
 export const CONSENT_VERSION = "web-early-access-v1";
 
 export const SAID = {
-  done: "You're in. Watch your inbox on Sunday, November 22.",
+  done: "You're in. Watch your inbox.",
   badEmail: "That email doesn't look right. Check it and try again.",
   tooMany: "Too many tries from here today. Try again tomorrow.",
   failed: "That didn't go through. Try again in a minute.",

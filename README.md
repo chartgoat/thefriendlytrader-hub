@@ -1,6 +1,6 @@
 # Friendly Trader website
 
-The marketing site is one plain page with two parts (owner, November 13, 2026): the garden with a headline that says what the app is, the launch day, an email box for early access and Try the app; then the app's real screens. A three-link footer follows. It scrolls like any page; nothing is pinned or driven by scrolling. Try the app, or tapping a phone, opens a working iPhone preview of the app on sample data. Nothing on the site calls the options course free, and nothing is offered twice; tests hold both.
+The marketing site is one plain page with two parts (owner, November 13, 2026): the garden with a headline that says what the app is, the App Store button (since November 25, 2026), an email box for early access and Try the app; then the app's real screens. A three-link footer follows. It scrolls like any page; nothing is pinned or driven by scrolling. Try the app, or tapping a phone, opens a working iPhone preview of the app on sample data. Nothing on the site calls the options course free, and nothing is offered twice; tests hold both.
 
 ## Run locally
 
