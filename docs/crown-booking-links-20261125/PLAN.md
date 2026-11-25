@@ -24,7 +24,7 @@ Branch `claude/crown-links-hub-20261125`. Tests: `npm test` (`node --test`, no d
 | `app/coach.css` | The card and the coach page, scoped to `.cc` and `.coach-page` so the invite page's own rules are untouched |
 | `app/invite.mjs` | Today's behaviour, plus the card for a listed coach |
 | `.well-known/apple-app-site-association` | `/app/*` for the app after today's `/app/` + `ref`; files under `/app/` excluded; `appclips` unchanged |
-| `404.html`, `app/not-found.js` | A missing page under `/app/` (an unknown or removed coach) goes to Coaching's start on the website instead of GitHub's bare 404; other missing pages get a plain page with a link home |
+| `404.html`, `app/not-found.js` | A missing page under `/app/` instead of GitHub's bare 404: `/app/<coach-id>` goes to that coach's booking on the website with a valid `?class=` and `&at=` (follow-up, 2026-11-25: a coach can be listed before the generator runs; the website handles an id it does not list); anything else under `/app/` goes to Coaching's start; other missing pages get a plain page with a link home |
 | `tests/crown-links.test.mjs` | The tests below |
 
 ## Interfaces
