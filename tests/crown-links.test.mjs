@@ -168,6 +168,8 @@ test("writing the site removes only pages the generator made for coaches who lef
   assert.ok(fs.existsSync(page("hand-made")));
   assert.ok(fs.existsSync(page("tom")));
   assert.ok(fs.existsSync(path.join(dir, "assets", "coaching", "tom.jpg")));
+  if (path.basename(dir).startsWith("crown-links-") && dir.startsWith(fs.realpathSync(os.tmpdir())) || dir.startsWith(os.tmpdir()))
+    fs.rmSync(dir, { recursive: true });
 });
 
 // 3. Committed output
@@ -202,11 +204,11 @@ test("coach pages carry no tracking and keep the house style", () => {
   for (const id of pageIds) {
     const html = read(`app/${id}/index.html`);
     assert.doesNotMatch(html, /facebook|fbq|meta-pixel|gtag|googletagmanager|analytics|consent\.js/i, id);
-    assert.doesNotMatch(html, /[–—]/, id);
+    assert.doesNotMatch(html, /[\u2013\u2014]/, id);
     assert.match(html, /http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self';[^"]*connect-src https:\/\/app\.thefriendlytrader\.com;/, id);
   }
   for (const file of ["app/coach-card.mjs", "app/coach-page.mjs", "app/coach.css", "app/invite.mjs"])
-    assert.doesNotMatch(read(file), /[–—]|facebook|fbq|gtag/, file);
+    assert.doesNotMatch(read(file), /[\u2013\u2014]|facebook|fbq|gtag/, file);
 });
 
 test("unknown and unlisted coach ids get no page", async () => {
