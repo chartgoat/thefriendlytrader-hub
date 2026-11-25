@@ -261,7 +261,10 @@ test("nothing on the home page is offered twice", () => {
 test("the home page ships what it references and keeps the preview's content rules", () => {
   const home = read("../index.html");
   const js = read("../assets/app-preview/page.js");
-  const refs = [...home.matchAll(/(?:src|href|poster)="(assets\/[^"]+)"/g), ...js.matchAll(/'(assets\/home\/[^']+)'/g)].map((m) => m[1]);
+  const refs = [...home.matchAll(/(?:src|href|poster)="(assets\/[^"]+)"/g), ...js.matchAll(/'(assets\/home\/[^']+)'/g)].map((m) => m[1].split("?")[0]);
+  // November 25 2026: for ten minutes after the App Store button went live, a browser that had kept the old styles
+  // drew the new page with them. The stylesheet's address carries a number that changes with such a change.
+  assert.match(home, /<link rel="stylesheet" href="assets\/app-preview\/page\.css\?v=\d{8}" \/>/);
   assert.ok(refs.length > 8);
   for (const ref of refs) assert.ok(fs.existsSync(new URL(`../${ref}`, import.meta.url)), ref);
   for (const file of fs.readdirSync(new URL("../assets/home/", import.meta.url))) assert.ok(refs.includes(`assets/home/${file}`) || file === "wall.jpg", `assets/home/${file} is used`);
