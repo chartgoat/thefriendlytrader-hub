@@ -1,0 +1,132 @@
+{
+  "from": "https://app.thefriendlytrader.com/api/coaching/catalog",
+  "appStore": "https://apps.apple.com/us/app/friendly-trader-learn-trading/id6802470823",
+  "coaches": {
+    "money-mike": {
+      "id": "money-mike",
+      "name": "Money Mike",
+      "role": "Crown Trader",
+      "headline": "Discipline and structure",
+      "photo": "/assets/coaching/money-mike.jpg",
+      "offers": [
+        {
+          "kind": "one_on_one",
+          "name": "1-on-1",
+          "length": "1 hr",
+          "price": "$200"
+        },
+        {
+          "kind": "masterclass",
+          "name": "Masterclass",
+          "length": "1 hr",
+          "price": "$130"
+        }
+      ]
+    },
+    "ms-mary": {
+      "id": "ms-mary",
+      "name": "Ms. Mary",
+      "role": "Crown Trader",
+      "headline": "Patience and clarity",
+      "photo": "/assets/coaching/ms-mary.jpg",
+      "offers": [
+        {
+          "kind": "one_on_one",
+          "name": "1-on-1",
+          "length": "1 hr",
+          "price": "$200"
+        },
+        {
+          "kind": "masterclass",
+          "name": "Masterclass",
+          "length": "2 hr",
+          "price": "$130"
+        }
+      ]
+    },
+    "guppy": {
+      "id": "guppy",
+      "name": "Turbo Trader Guppy",
+      "role": "Crown Trader",
+      "headline": "Momentum and options",
+      "photo": "/assets/coaching/guppy.jpg",
+      "offers": [
+        {
+          "kind": "one_on_one",
+          "name": "1-on-1",
+          "length": "1 hr",
+          "price": "$200"
+        },
+        {
+          "kind": "masterclass",
+          "name": "Masterclass",
+          "length": "2 hr",
+          "price": "$130"
+        }
+      ]
+    },
+    "parker": {
+      "id": "parker",
+      "name": "Profits with Parker",
+      "role": "Crown Trader",
+      "headline": "Clean setups, live",
+      "photo": "/assets/coaching/parker.jpg",
+      "offers": [
+        {
+          "kind": "one_on_one",
+          "name": "1-on-1",
+          "length": "1 hr",
+          "price": "$200"
+        },
+        {
+          "kind": "masterclass",
+          "name": "Masterclass",
+          "length": "1 hr",
+          "price": "$130"
+        }
+      ]
+    },
+    "tom": {
+      "id": "tom",
+      "name": "Turtle Trader Tom",
+      "role": "Crown Trader",
+      "headline": "Slow and steady",
+      "photo": "/assets/coaching/tom.jpg",
+      "offers": [
+        {
+          "kind": "one_on_one",
+          "name": "1-on-1",
+          "length": "1 hr",
+          "price": "$200"
+        },
+        {
+          "kind": "masterclass",
+          "name": "Masterclass",
+          "length": "2 hr",
+          "price": "$130"
+        }
+      ]
+    },
+    "daniel": {
+      "id": "daniel",
+      "name": "Daniel",
+      "role": "Crown Trader",
+      "headline": "Structure and strategy",
+      "photo": "/assets/coaching/daniel.jpg",
+      "offers": [
+        {
+          "kind": "one_on_one",
+          "name": "1-on-1",
+          "length": "1 hr",
+          "price": "$200"
+        },
+        {
+          "kind": "masterclass",
+          "name": "Masterclass",
+          "length": "1 hr",
+          "price": "$130"
+        }
+      ]
+    }
+  }
+}

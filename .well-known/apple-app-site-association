@@ -3,7 +3,11 @@
     "details": [
       {
         "appIDs": ["7BG5349U63.com.stockswithjosh.macdrecap"],
-        "components": [{ "/": "/app/", "?": { "ref": "?*" } }]
+        "components": [
+          { "/": "/app/", "?": { "ref": "?*" } },
+          { "/": "/app/*.*", "exclude": true, "comment": "Files under /app/ (scripts, styles, coaches.json, membership.html) stay on the web." },
+          { "/": "/app/*", "comment": "A Crown Trader's booking link: /app/<coach-id>, or /app/<coach-id>?class=<class-id> for one class." }
+        ]
       }
     ]
   },
